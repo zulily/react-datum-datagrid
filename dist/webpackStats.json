@@ -1,0 +1,424 @@
+{
+  "errors": [],
+  "warnings": [],
+  "version": "3.4.1",
+  "hash": "08cc55f6f0c342768661",
+  "publicPath": "dist/",
+  "assetsByChunkName": {
+    "main": "react-datum-datagrid.min.js"
+  },
+  "assets": [
+    {
+      "name": "react-datum-datagrid.min.js",
+      "size": 2869,
+      "chunks": [
+        0
+      ],
+      "chunkNames": [
+        "main"
+      ]
+    }
+  ],
+  "entrypoints": {
+    "main": {
+      "chunks": [
+        0
+      ],
+      "assets": [
+        "react-datum-datagrid.min.js"
+      ]
+    }
+  },
+  "chunks": [
+    {
+      "id": 0,
+      "rendered": true,
+      "initial": true,
+      "entry": true,
+      "extraAsync": false,
+      "size": 1677,
+      "names": [
+        "main"
+      ],
+      "files": [
+        "react-datum-datagrid.min.js"
+      ],
+      "hash": "f14c5c70d824a9a3d6fb",
+      "parents": [],
+      "modules": [
+        {
+          "id": 0,
+          "identifier": "multi ./index.js",
+          "name": "multi ./index.js",
+          "index": 0,
+          "index2": 4,
+          "size": 28,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": null,
+          "issuerId": null,
+          "issuerName": null,
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 0
+        },
+        {
+          "id": 1,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+          "name": "./index.js",
+          "index": 1,
+          "index2": 3,
+          "size": 191,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "multi ./index.js",
+          "issuerId": 0,
+          "issuerName": "multi ./index.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 0,
+              "moduleIdentifier": "multi ./index.js",
+              "module": "multi ./index.js",
+              "moduleName": "multi ./index.js",
+              "type": "single entry",
+              "userRequest": "./index.js",
+              "loc": "main:100000"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 1,
+          "source": "'use strict';\n\nvar _ReactDatumDatagrid = require('./lib/datagrid');\n\nif (window) {\n  window.ReactDatumDatagrid = _ReactDatumDatagrid;\n}\nif (module) {\n  module.exports = _ReactDatumDatagrid;\n}"
+        },
+        {
+          "id": 2,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/webpack/buildin/module.js",
+          "name": "(webpack)/buildin/module.js",
+          "index": 2,
+          "index2": 0,
+          "size": 517,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+          "issuerId": 1,
+          "issuerName": "./index.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 1,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+              "module": "./index.js",
+              "moduleName": "./index.js",
+              "type": "cjs require",
+              "userRequest": "module",
+              "loc": "1:0-51"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 2,
+          "source": "module.exports = function(module) {\r\n\tif(!module.webpackPolyfill) {\r\n\t\tmodule.deprecate = function() {};\r\n\t\tmodule.paths = [];\r\n\t\t// module.parent = undefined by default\r\n\t\tif(!module.children) module.children = [];\r\n\t\tObject.defineProperty(module, \"loaded\", {\r\n\t\t\tenumerable: true,\r\n\t\t\tget: function() {\r\n\t\t\t\treturn module.l;\r\n\t\t\t}\r\n\t\t});\r\n\t\tObject.defineProperty(module, \"id\", {\r\n\t\t\tenumerable: true,\r\n\t\t\tget: function() {\r\n\t\t\t\treturn module.i;\r\n\t\t\t}\r\n\t\t});\r\n\t\tmodule.webpackPolyfill = 1;\r\n\t}\r\n\treturn module;\r\n};\r\n"
+        },
+        {
+          "id": 3,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+          "name": "./lib/datagrid.js",
+          "index": 3,
+          "index2": 2,
+          "size": 899,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+          "issuerId": 1,
+          "issuerName": "./index.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 1,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+              "module": "./index.js",
+              "moduleName": "./index.js",
+              "type": "cjs require",
+              "userRequest": "./lib/datagrid",
+              "loc": "3:26-51"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 2,
+          "source": "\"use strict\";\n\n(function () {\n  var Datagrid,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
+        },
+        {
+          "id": 4,
+          "identifier": "external {\"root\":\"React\",\"commonjs2\":\"react\",\"commonjs\":\"react\",\"amd\":\"react\"}",
+          "name": "external {\"root\":\"React\",\"commonjs2\":\"react\",\"commonjs\":\"react\",\"amd\":\"react\"}",
+          "index": 4,
+          "index2": 1,
+          "size": 42,
+          "cacheable": false,
+          "built": false,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+          "issuerId": 3,
+          "issuerName": "./lib/datagrid.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 3,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+              "module": "./lib/datagrid.js",
+              "moduleName": "./lib/datagrid.js",
+              "type": "cjs require",
+              "userRequest": "react",
+              "loc": "15:10-26"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 3
+        }
+      ],
+      "filteredModules": 0,
+      "origins": [
+        {
+          "moduleId": 0,
+          "module": "multi ./index.js",
+          "moduleIdentifier": "multi ./index.js",
+          "moduleName": "multi ./index.js",
+          "loc": "",
+          "name": "main",
+          "reasons": []
+        }
+      ]
+    }
+  ],
+  "modules": [
+    {
+      "id": 0,
+      "identifier": "multi ./index.js",
+      "name": "multi ./index.js",
+      "index": 0,
+      "index2": 4,
+      "size": 28,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": null,
+      "issuerId": null,
+      "issuerName": null,
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 0
+    },
+    {
+      "id": 1,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+      "name": "./index.js",
+      "index": 1,
+      "index2": 3,
+      "size": 191,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "multi ./index.js",
+      "issuerId": 0,
+      "issuerName": "multi ./index.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 0,
+          "moduleIdentifier": "multi ./index.js",
+          "module": "multi ./index.js",
+          "moduleName": "multi ./index.js",
+          "type": "single entry",
+          "userRequest": "./index.js",
+          "loc": "main:100000"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 1,
+      "source": "'use strict';\n\nvar _ReactDatumDatagrid = require('./lib/datagrid');\n\nif (window) {\n  window.ReactDatumDatagrid = _ReactDatumDatagrid;\n}\nif (module) {\n  module.exports = _ReactDatumDatagrid;\n}"
+    },
+    {
+      "id": 2,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/webpack/buildin/module.js",
+      "name": "(webpack)/buildin/module.js",
+      "index": 2,
+      "index2": 0,
+      "size": 517,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+      "issuerId": 1,
+      "issuerName": "./index.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 1,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+          "module": "./index.js",
+          "moduleName": "./index.js",
+          "type": "cjs require",
+          "userRequest": "module",
+          "loc": "1:0-51"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 2,
+      "source": "module.exports = function(module) {\r\n\tif(!module.webpackPolyfill) {\r\n\t\tmodule.deprecate = function() {};\r\n\t\tmodule.paths = [];\r\n\t\t// module.parent = undefined by default\r\n\t\tif(!module.children) module.children = [];\r\n\t\tObject.defineProperty(module, \"loaded\", {\r\n\t\t\tenumerable: true,\r\n\t\t\tget: function() {\r\n\t\t\t\treturn module.l;\r\n\t\t\t}\r\n\t\t});\r\n\t\tObject.defineProperty(module, \"id\", {\r\n\t\t\tenumerable: true,\r\n\t\t\tget: function() {\r\n\t\t\t\treturn module.i;\r\n\t\t\t}\r\n\t\t});\r\n\t\tmodule.webpackPolyfill = 1;\r\n\t}\r\n\treturn module;\r\n};\r\n"
+    },
+    {
+      "id": 3,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+      "name": "./lib/datagrid.js",
+      "index": 3,
+      "index2": 2,
+      "size": 899,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+      "issuerId": 1,
+      "issuerName": "./index.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 1,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
+          "module": "./index.js",
+          "moduleName": "./index.js",
+          "type": "cjs require",
+          "userRequest": "./lib/datagrid",
+          "loc": "3:26-51"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 2,
+      "source": "\"use strict\";\n\n(function () {\n  var Datagrid,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
+    },
+    {
+      "id": 4,
+      "identifier": "external {\"root\":\"React\",\"commonjs2\":\"react\",\"commonjs\":\"react\",\"amd\":\"react\"}",
+      "name": "external {\"root\":\"React\",\"commonjs2\":\"react\",\"commonjs\":\"react\",\"amd\":\"react\"}",
+      "index": 4,
+      "index2": 1,
+      "size": 42,
+      "cacheable": false,
+      "built": false,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+      "issuerId": 3,
+      "issuerName": "./lib/datagrid.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 3,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+          "module": "./lib/datagrid.js",
+          "moduleName": "./lib/datagrid.js",
+          "type": "cjs require",
+          "userRequest": "react",
+          "loc": "15:10-26"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 3
+    }
+  ],
+  "filteredModules": 0,
+  "children": []
+}
