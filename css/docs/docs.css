@@ -1,0 +1,10 @@
+
+.toc li {
+  list-style-type: none;
+  margin-left: 5px;
+}
+
+p {
+  max-width: 900px;
+  margin-right: 20px;
+}

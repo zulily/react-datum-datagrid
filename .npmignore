@@ -1,0 +1,15 @@
+.idea
+.iml
+.lastNpmInstall
+.zukeeperRoot
+.cache-loader
+
+watch.pid
+coffee.log
+tags
+
+coverage/
+node_modules/
+
+/src/
+/docs/
