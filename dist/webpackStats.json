@@ -2,7 +2,7 @@
   "errors": [],
   "warnings": [],
   "version": "3.4.1",
-  "hash": "08cc55f6f0c342768661",
+  "hash": "ec929ca3bf01eb8d7e32",
   "publicPath": "dist/",
   "assetsByChunkName": {
     "main": "react-datum-datagrid.min.js"
@@ -10,7 +10,7 @@
   "assets": [
     {
       "name": "react-datum-datagrid.min.js",
-      "size": 2869,
+      "size": 5177,
       "chunks": [
         0
       ],
@@ -36,14 +36,14 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 1677,
+      "size": 7321,
       "names": [
         "main"
       ],
       "files": [
         "react-datum-datagrid.min.js"
       ],
-      "hash": "f14c5c70d824a9a3d6fb",
+      "hash": "9b2ebbde0e944685f466",
       "parents": [],
       "modules": [
         {
@@ -51,7 +51,7 @@
           "identifier": "multi ./index.js",
           "name": "multi ./index.js",
           "index": 0,
-          "index2": 4,
+          "index2": 9,
           "size": 28,
           "cacheable": true,
           "built": true,
@@ -78,7 +78,7 @@
           "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
           "name": "./index.js",
           "index": 1,
-          "index2": 3,
+          "index2": 8,
           "size": 191,
           "cacheable": true,
           "built": true,
@@ -154,8 +154,8 @@
           "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
           "name": "./lib/datagrid.js",
           "index": 3,
-          "index2": 2,
-          "size": 899,
+          "index2": 7,
+          "size": 1316,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -185,7 +185,7 @@
           "providedExports": null,
           "optimizationBailout": [],
           "depth": 2,
-          "source": "\"use strict\";\n\n(function () {\n  var Datagrid,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
+          "source": "'use strict';\n\n(function () {\n  var Datagrid,\n      PropTypes,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  PropTypes = require('prop-types');\n\n  /*\n    This is react-datum-datagrid.   \n    \n    Example:\n    TODO\n   */\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.propTypes = {\n\n      /*\n        Collection is the array of data to be displayed.  It can\n        be an array or a Backbone compatible Collection object.\n       */\n      collection: Datagrid.PropTypes.oneOfType([Datagrid.PropTypes.array, Datagrid.PropTypes.object])\n    };\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
         },
         {
           "id": 4,
@@ -216,13 +216,203 @@
               "moduleName": "./lib/datagrid.js",
               "type": "cjs require",
               "userRequest": "react",
-              "loc": "15:10-26"
+              "loc": "16:10-26"
             }
           ],
           "usedExports": true,
           "providedExports": null,
           "optimizationBailout": [],
           "depth": 3
+        },
+        {
+          "id": 5,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+          "name": "./node_modules/prop-types/index.js",
+          "index": 5,
+          "index2": 6,
+          "size": 956,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+          "issuerId": 3,
+          "issuerName": "./lib/datagrid.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 3,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+              "module": "./lib/datagrid.js",
+              "moduleName": "./lib/datagrid.js",
+              "type": "cjs require",
+              "userRequest": "prop-types",
+              "loc": "18:14-35"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 3,
+          "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nif (process.env.NODE_ENV !== 'production') {\n  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&\n    Symbol.for &&\n    Symbol.for('react.element')) ||\n    0xeac7;\n\n  var isValidElement = function(object) {\n    return typeof object === 'object' &&\n      object !== null &&\n      object.$$typeof === REACT_ELEMENT_TYPE;\n  };\n\n  // By explicitly using `prop-types` you are opting into new development behavior.\n  // http://fb.me/prop-types-in-prod\n  var throwOnDirectAccess = true;\n  module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);\n} else {\n  // By explicitly using `prop-types` you are opting into new production behavior.\n  // http://fb.me/prop-types-in-prod\n  module.exports = require('./factoryWithThrowingShims')();\n}\n"
+        },
+        {
+          "id": 6,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "name": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "index": 6,
+          "index2": 5,
+          "size": 1492,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+          "issuerId": 5,
+          "issuerName": "./node_modules/prop-types/index.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 5,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+              "module": "./node_modules/prop-types/index.js",
+              "moduleName": "./node_modules/prop-types/index.js",
+              "type": "cjs require",
+              "userRequest": "./factoryWithThrowingShims",
+              "loc": "27:19-56"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 4,
+          "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n'use strict';\n\nvar emptyFunction = require('fbjs/lib/emptyFunction');\nvar invariant = require('fbjs/lib/invariant');\nvar ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');\n\nmodule.exports = function() {\n  function shim(props, propName, componentName, location, propFullName, secret) {\n    if (secret === ReactPropTypesSecret) {\n      // It is still safe when called from React.\n      return;\n    }\n    invariant(\n      false,\n      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +\n      'Use PropTypes.checkPropTypes() to call them. ' +\n      'Read more at http://fb.me/use-check-prop-types'\n    );\n  };\n  shim.isRequired = shim;\n  function getShim() {\n    return shim;\n  };\n  // Important!\n  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.\n  var ReactPropTypes = {\n    array: shim,\n    bool: shim,\n    func: shim,\n    number: shim,\n    object: shim,\n    string: shim,\n    symbol: shim,\n\n    any: shim,\n    arrayOf: getShim,\n    element: shim,\n    instanceOf: getShim,\n    node: shim,\n    objectOf: getShim,\n    oneOf: getShim,\n    oneOfType: getShim,\n    shape: getShim,\n    exact: getShim\n  };\n\n  ReactPropTypes.checkPropTypes = emptyFunction;\n  ReactPropTypes.PropTypes = ReactPropTypes;\n\n  return ReactPropTypes;\n};\n"
+        },
+        {
+          "id": 7,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/fbjs/lib/emptyFunction.js",
+          "name": "./node_modules/fbjs/lib/emptyFunction.js",
+          "index": 7,
+          "index2": 2,
+          "size": 959,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "issuerId": 6,
+          "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 6,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+              "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "type": "cjs require",
+              "userRequest": "fbjs/lib/emptyFunction",
+              "loc": "10:20-53"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 5,
+          "source": "\"use strict\";\n\n/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n * \n */\n\nfunction makeEmptyFunction(arg) {\n  return function () {\n    return arg;\n  };\n}\n\n/**\n * This function accepts and discards inputs; it has no side effects. This is\n * primarily useful idiomatically for overridable function endpoints which\n * always need to be callable, since JS lacks a null-call idiom ala Cocoa.\n */\nvar emptyFunction = function emptyFunction() {};\n\nemptyFunction.thatReturns = makeEmptyFunction;\nemptyFunction.thatReturnsFalse = makeEmptyFunction(false);\nemptyFunction.thatReturnsTrue = makeEmptyFunction(true);\nemptyFunction.thatReturnsNull = makeEmptyFunction(null);\nemptyFunction.thatReturnsThis = function () {\n  return this;\n};\nemptyFunction.thatReturnsArgument = function (arg) {\n  return arg;\n};\n\nmodule.exports = emptyFunction;"
+        },
+        {
+          "id": 8,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/fbjs/lib/invariant.js",
+          "name": "./node_modules/fbjs/lib/invariant.js",
+          "index": 8,
+          "index2": 3,
+          "size": 1506,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "issuerId": 6,
+          "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 6,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+              "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "type": "cjs require",
+              "userRequest": "fbjs/lib/invariant",
+              "loc": "11:16-45"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 5,
+          "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\n\n'use strict';\n\n/**\n * Use invariant() to assert state which your program assumes to be true.\n *\n * Provide sprintf-style format (only %s is supported) and arguments\n * to provide information about what broke and what you were\n * expecting.\n *\n * The invariant message will be stripped in production, but the invariant\n * will remain to ensure logic does not differ in production.\n */\n\nvar validateFormat = function validateFormat(format) {};\n\nif (process.env.NODE_ENV !== 'production') {\n  validateFormat = function validateFormat(format) {\n    if (format === undefined) {\n      throw new Error('invariant requires an error message argument');\n    }\n  };\n}\n\nfunction invariant(condition, format, a, b, c, d, e, f) {\n  validateFormat(format);\n\n  if (!condition) {\n    var error;\n    if (format === undefined) {\n      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');\n    } else {\n      var args = [a, b, c, d, e, f];\n      var argIndex = 0;\n      error = new Error(format.replace(/%s/g, function () {\n        return args[argIndex++];\n      }));\n      error.name = 'Invariant Violation';\n    }\n\n    error.framesToPop = 1; // we don't care about invariant's own frame\n    throw error;\n  }\n}\n\nmodule.exports = invariant;"
+        },
+        {
+          "id": 9,
+          "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/lib/ReactPropTypesSecret.js",
+          "name": "./node_modules/prop-types/lib/ReactPropTypesSecret.js",
+          "index": 9,
+          "index2": 4,
+          "size": 314,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "issuerId": 6,
+          "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 6,
+              "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+              "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+              "type": "cjs require",
+              "userRequest": "./lib/ReactPropTypesSecret",
+              "loc": "12:27-64"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 5,
+          "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n'use strict';\n\nvar ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';\n\nmodule.exports = ReactPropTypesSecret;\n"
         }
       ],
       "filteredModules": 0,
@@ -245,7 +435,7 @@
       "identifier": "multi ./index.js",
       "name": "multi ./index.js",
       "index": 0,
-      "index2": 4,
+      "index2": 9,
       "size": 28,
       "cacheable": true,
       "built": true,
@@ -272,7 +462,7 @@
       "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/index.js",
       "name": "./index.js",
       "index": 1,
-      "index2": 3,
+      "index2": 8,
       "size": 191,
       "cacheable": true,
       "built": true,
@@ -348,8 +538,8 @@
       "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
       "name": "./lib/datagrid.js",
       "index": 3,
-      "index2": 2,
-      "size": 899,
+      "index2": 7,
+      "size": 1316,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -379,7 +569,7 @@
       "providedExports": null,
       "optimizationBailout": [],
       "depth": 2,
-      "source": "\"use strict\";\n\n(function () {\n  var Datagrid,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
+      "source": "'use strict';\n\n(function () {\n  var Datagrid,\n      PropTypes,\n      React,\n      extend = function extend(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  PropTypes = require('prop-types');\n\n  /*\n    This is react-datum-datagrid.   \n    \n    Example:\n    TODO\n   */\n\n  module.exports = Datagrid = function (superClass) {\n    extend(Datagrid, superClass);\n\n    function Datagrid() {\n      return Datagrid.__super__.constructor.apply(this, arguments);\n    }\n\n    Datagrid.displayName = \"react-datum-datagrid\";\n\n    Datagrid.propTypes = {\n\n      /*\n        Collection is the array of data to be displayed.  It can\n        be an array or a Backbone compatible Collection object.\n       */\n      collection: Datagrid.PropTypes.oneOfType([Datagrid.PropTypes.array, Datagrid.PropTypes.object])\n    };\n\n    Datagrid.prototype.render = function () {\n      return React.createElement(\"h5\", null, \"I am going to grow up to be an unweildy datagrid!\");\n    };\n\n    return Datagrid;\n  }(React.Component);\n}).call(undefined);"
     },
     {
       "id": 4,
@@ -410,13 +600,203 @@
           "moduleName": "./lib/datagrid.js",
           "type": "cjs require",
           "userRequest": "react",
-          "loc": "15:10-26"
+          "loc": "16:10-26"
         }
       ],
       "usedExports": true,
       "providedExports": null,
       "optimizationBailout": [],
       "depth": 3
+    },
+    {
+      "id": 5,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+      "name": "./node_modules/prop-types/index.js",
+      "index": 5,
+      "index2": 6,
+      "size": 956,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+      "issuerId": 3,
+      "issuerName": "./lib/datagrid.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 3,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/bwilkerson/projects/zulily/react-datum-datagrid/lib/datagrid.js",
+          "module": "./lib/datagrid.js",
+          "moduleName": "./lib/datagrid.js",
+          "type": "cjs require",
+          "userRequest": "prop-types",
+          "loc": "18:14-35"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 3,
+      "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\nif (process.env.NODE_ENV !== 'production') {\n  var REACT_ELEMENT_TYPE = (typeof Symbol === 'function' &&\n    Symbol.for &&\n    Symbol.for('react.element')) ||\n    0xeac7;\n\n  var isValidElement = function(object) {\n    return typeof object === 'object' &&\n      object !== null &&\n      object.$$typeof === REACT_ELEMENT_TYPE;\n  };\n\n  // By explicitly using `prop-types` you are opting into new development behavior.\n  // http://fb.me/prop-types-in-prod\n  var throwOnDirectAccess = true;\n  module.exports = require('./factoryWithTypeCheckers')(isValidElement, throwOnDirectAccess);\n} else {\n  // By explicitly using `prop-types` you are opting into new production behavior.\n  // http://fb.me/prop-types-in-prod\n  module.exports = require('./factoryWithThrowingShims')();\n}\n"
+    },
+    {
+      "id": 6,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+      "name": "./node_modules/prop-types/factoryWithThrowingShims.js",
+      "index": 6,
+      "index2": 5,
+      "size": 1492,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+      "issuerId": 5,
+      "issuerName": "./node_modules/prop-types/index.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 5,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/index.js",
+          "module": "./node_modules/prop-types/index.js",
+          "moduleName": "./node_modules/prop-types/index.js",
+          "type": "cjs require",
+          "userRequest": "./factoryWithThrowingShims",
+          "loc": "27:19-56"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 4,
+      "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n'use strict';\n\nvar emptyFunction = require('fbjs/lib/emptyFunction');\nvar invariant = require('fbjs/lib/invariant');\nvar ReactPropTypesSecret = require('./lib/ReactPropTypesSecret');\n\nmodule.exports = function() {\n  function shim(props, propName, componentName, location, propFullName, secret) {\n    if (secret === ReactPropTypesSecret) {\n      // It is still safe when called from React.\n      return;\n    }\n    invariant(\n      false,\n      'Calling PropTypes validators directly is not supported by the `prop-types` package. ' +\n      'Use PropTypes.checkPropTypes() to call them. ' +\n      'Read more at http://fb.me/use-check-prop-types'\n    );\n  };\n  shim.isRequired = shim;\n  function getShim() {\n    return shim;\n  };\n  // Important!\n  // Keep this list in sync with production version in `./factoryWithTypeCheckers.js`.\n  var ReactPropTypes = {\n    array: shim,\n    bool: shim,\n    func: shim,\n    number: shim,\n    object: shim,\n    string: shim,\n    symbol: shim,\n\n    any: shim,\n    arrayOf: getShim,\n    element: shim,\n    instanceOf: getShim,\n    node: shim,\n    objectOf: getShim,\n    oneOf: getShim,\n    oneOfType: getShim,\n    shape: getShim,\n    exact: getShim\n  };\n\n  ReactPropTypes.checkPropTypes = emptyFunction;\n  ReactPropTypes.PropTypes = ReactPropTypes;\n\n  return ReactPropTypes;\n};\n"
+    },
+    {
+      "id": 7,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/fbjs/lib/emptyFunction.js",
+      "name": "./node_modules/fbjs/lib/emptyFunction.js",
+      "index": 7,
+      "index2": 2,
+      "size": 959,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+      "issuerId": 6,
+      "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 6,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "type": "cjs require",
+          "userRequest": "fbjs/lib/emptyFunction",
+          "loc": "10:20-53"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 5,
+      "source": "\"use strict\";\n\n/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n * \n */\n\nfunction makeEmptyFunction(arg) {\n  return function () {\n    return arg;\n  };\n}\n\n/**\n * This function accepts and discards inputs; it has no side effects. This is\n * primarily useful idiomatically for overridable function endpoints which\n * always need to be callable, since JS lacks a null-call idiom ala Cocoa.\n */\nvar emptyFunction = function emptyFunction() {};\n\nemptyFunction.thatReturns = makeEmptyFunction;\nemptyFunction.thatReturnsFalse = makeEmptyFunction(false);\nemptyFunction.thatReturnsTrue = makeEmptyFunction(true);\nemptyFunction.thatReturnsNull = makeEmptyFunction(null);\nemptyFunction.thatReturnsThis = function () {\n  return this;\n};\nemptyFunction.thatReturnsArgument = function (arg) {\n  return arg;\n};\n\nmodule.exports = emptyFunction;"
+    },
+    {
+      "id": 8,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/fbjs/lib/invariant.js",
+      "name": "./node_modules/fbjs/lib/invariant.js",
+      "index": 8,
+      "index2": 3,
+      "size": 1506,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+      "issuerId": 6,
+      "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 6,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "type": "cjs require",
+          "userRequest": "fbjs/lib/invariant",
+          "loc": "11:16-45"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 5,
+      "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n *\n */\n\n'use strict';\n\n/**\n * Use invariant() to assert state which your program assumes to be true.\n *\n * Provide sprintf-style format (only %s is supported) and arguments\n * to provide information about what broke and what you were\n * expecting.\n *\n * The invariant message will be stripped in production, but the invariant\n * will remain to ensure logic does not differ in production.\n */\n\nvar validateFormat = function validateFormat(format) {};\n\nif (process.env.NODE_ENV !== 'production') {\n  validateFormat = function validateFormat(format) {\n    if (format === undefined) {\n      throw new Error('invariant requires an error message argument');\n    }\n  };\n}\n\nfunction invariant(condition, format, a, b, c, d, e, f) {\n  validateFormat(format);\n\n  if (!condition) {\n    var error;\n    if (format === undefined) {\n      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');\n    } else {\n      var args = [a, b, c, d, e, f];\n      var argIndex = 0;\n      error = new Error(format.replace(/%s/g, function () {\n        return args[argIndex++];\n      }));\n      error.name = 'Invariant Violation';\n    }\n\n    error.framesToPop = 1; // we don't care about invariant's own frame\n    throw error;\n  }\n}\n\nmodule.exports = invariant;"
+    },
+    {
+      "id": 9,
+      "identifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/lib/ReactPropTypesSecret.js",
+      "name": "./node_modules/prop-types/lib/ReactPropTypesSecret.js",
+      "index": 9,
+      "index2": 4,
+      "size": 314,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+      "issuerId": 6,
+      "issuerName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 6,
+          "moduleIdentifier": "/Users/bwilkerson/projects/zulily/react-datum-datagrid/node_modules/prop-types/factoryWithThrowingShims.js",
+          "module": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "moduleName": "./node_modules/prop-types/factoryWithThrowingShims.js",
+          "type": "cjs require",
+          "userRequest": "./lib/ReactPropTypesSecret",
+          "loc": "12:27-64"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 5,
+      "source": "/**\n * Copyright (c) 2013-present, Facebook, Inc.\n *\n * This source code is licensed under the MIT license found in the\n * LICENSE file in the root directory of this source tree.\n */\n\n'use strict';\n\nvar ReactPropTypesSecret = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';\n\nmodule.exports = ReactPropTypesSecret;\n"
     }
   ],
   "filteredModules": 0,

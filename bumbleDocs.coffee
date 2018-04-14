@@ -1,7 +1,7 @@
 
 module.exports = 
   
-  logo: "img/docs/react-datum.logo.png",
+  logo: "img/docs/react-datum-datagrid.logo.png",
 
   # these get added to the css linked to the static examples and docs and copied to 
   # docs/css
@@ -22,7 +22,7 @@ module.exports =
   apiDocs: {
     sections: [{
       label: "Datagrid" 
-      path: "src/datagrid/?(*.coffee|*.cjsx)"
+      path: "src/?(*.coffee|*.cjsx)"
     }]
   }
 
