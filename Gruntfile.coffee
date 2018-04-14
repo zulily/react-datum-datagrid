@@ -4,7 +4,7 @@ Util = require('bumble-util')
 GitStatusUtils = require('git-status-utils')
 
 CSS_FILES_TO_DISTRIB = [
-  'css/**/*.css'
+  'css/distrib/*.css'
 ]
 
 
