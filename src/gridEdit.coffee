@@ -10,10 +10,7 @@ DeepGet = require './helpers/deepGet'
 module.exports = class GridEdit
   
   getCollection: () ->
-    if @originalMethod?
-      return @originalMethod()
-    
-    return @state?.collection ? @props.collection ? @context?.collection ? @collection
+    return @props.collection
     
     
   ###
@@ -23,7 +20,7 @@ module.exports = class GridEdit
     if @originalMethod?
       return @originalMethod(columns)
       
-    return columns ? @state?.columns ? @props.columns ? @columns
+    return @props.columns
 
 
   ###
@@ -193,7 +190,7 @@ module.exports = class GridEdit
     {  
       cellKey: "costing.wholesaleCost.amount"
       key: "Enter"
-      rowIdx: 0
+      rowIndex: 0
       updated: "24"
     }
   ###

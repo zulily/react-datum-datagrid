@@ -13,38 +13,47 @@ module.exports = class CellWrapper extends React.Component
   
   @props: 
     # This could be a Backbone Model instance or a plain js object
-    model: React.PropTypes.any
+    model: PropTypes.any
     # The column definition for this cell.  see TODO 
-    column: React.PropTypes.object
+    column: PropTypes.object
     # zero based row index being rendered
-    rowIdx: React.PropTypes.number
+    rowIndex: PropTypes.number
     # zero based column index being rendered
-    colIdx: React.PropTypes.number
+    columnIndex: PropTypes.number
     # reference to datagrid parent object
-    datagrid: React.PropTypes.any
+    datagrid: PropTypes.any
     # This is the cell component to use when the cellComponent attribute 
     # is not specified in in the column definition
-    defaultCellComponent: React.PropTypes.any 
+    defaultCellComponent: PropTypes.any 
     # This is the cell style to use when the cellComponent attribute 
     # is not specified in in the column definition
-    defaultCellStyle: React.PropTypes.object
+    defaultCellStyle: PropTypes.object
+    # This should be the style passed from RV Grid render callback
+    style: PropTypes.object
+    
     
   @defaultProps:
     defaultCellComponent: Cell
     
     
   componentWillMount: ->
-    @setState editing: false, selected: false
+    @setState editing: false, selected: false, renderError: null
     
+  componentDidCatch: (error, info)->
+    @props.onRenderError?(error, info)
+    console.error "react-datum-datagrid: Cell at #{rowIndex}, #{columnIndex} (#{column.key}) failed to render", error, info
+    @setState renderError: {error: error, info: info}
     
   render: ->
-    CellComponent = @props.column.cellComponent ? @props.defaultCellComponent
+    if @state.renderError?
+      title = "This cell failed to render. Additional Details: #{JSON.stringify(@state.renderError)}"
+      return <span title={title}>:(</span>
       
     dataProps = 
-      'data-row': @props.rowIdx
-      'data-col': @props.colIdx
+      'data-row': @props.rowIndex
+      'data-col': @props.columnIndex
       
-    classNames = Classnames 'rdd-cell-wrapper', selected: @isSelected()
+    classNames = Classnames 'rdd-cell-wrapper', selected: @isSelected(), placeholder: @props.showPlaceholder
 
     <div className={classNames}
         tabIndex={1}
@@ -52,20 +61,30 @@ module.exports = class CellWrapper extends React.Component
         onFocus={@_onCellFocus}
         onBlur={@_onCellBlur}
         onDoubleClick={@_onCellEdit}
+        style={@props.style}
         {... dataProps}
         
     >
-      <CellComponent 
-        editing={@state.editing}
-        rowData={@props.model}
-        rowIdx={@props.rowIdx}
-        column={@props.column}
-        datagrid={@props.datagrid}
-        defaultCellStyle={@props.defaultCellStyle}
-        ref={'cellComponent'}
-        onEdit={@_onCellEdit}
-      />
+      {@_renderComponentOrPlaceholder()}
     </div>
+    
+    
+  _renderComponentOrPlaceholder: () ->
+    if @props.showPlaceholder 
+        return <span>...</span> 
+
+    CellComponent = @props.column.cellComponent ? @props.defaultCellComponent
+
+    <CellComponent 
+      editing={@state.editing}
+      rowData={@props.model}
+      rowIndex={@props.rowIndex}
+      column={@props.column}
+      datagrid={@props.datagrid}
+      defaultCellStyle={@props.defaultCellStyle}
+      ref={'cellComponent'}
+      onEdit={@_onCellEdit}
+    />
     
 
   edit: ->
@@ -78,7 +97,7 @@ module.exports = class CellWrapper extends React.Component
     
   
   isSelected: ->
-    @props.datagrid?.isCellSelected?(@props.rowIdx, @props.column.key)
+    @props.datagrid?.isCellSelected?(@props.rowIndex, @props.column.key)
 
 
   _onCellFocus: (evt) =>
@@ -156,7 +175,7 @@ module.exports = class CellWrapper extends React.Component
     {  
       cellKey: "costing.wholesaleCost.amount"
       key: "Enter"
-      rowIdx: 0
+      rowIndex: 0
       updated: "24"
     }
     datagrid ignores .key
@@ -165,7 +184,7 @@ module.exports = class CellWrapper extends React.Component
     rowEvt = 
       cellKey: @props.column.key
       key: "Other"
-      rowIdx: @props.rowIdx
+      rowIndex: @props.rowIndex
       # cell component must have a getValue method. See DefaultEditor
       updated: @refs.cellComponent.getValue()
     @props.datagrid.saveModel(@props.model, rowEvt)
@@ -195,12 +214,12 @@ module.exports = class CellWrapper extends React.Component
   
   _focusOffset: (colOffset, rowOffset)->
     # TODO : flip these when datagrid is upright
-    colIdx = @props.colIdx + colOffset
-    rowIdx = @props.rowIdx + rowOffset
+    columnIndex = @props.columnIndex + colOffset
+    rowIndex = @props.rowIndex + rowOffset
     
 
     return $(React.findDOMNode(@props.datagrid))
-    .find(".rdd-cell-wrapper[data-row=#{rowIdx}][data-col=#{colIdx}]")
+    .find(".rdd-cell-wrapper[data-row=#{rowIndex}][data-col=#{columnIndex}]")
     .focus()
   
     

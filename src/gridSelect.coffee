@@ -14,7 +14,7 @@ CompareObjects = require './helpers/compareObjects'
     An array of objects with the following definition
       {
         col: string      # Defines the model attribute associated with this cell
-        rowIdx: number   # Defines the row index of the model this row represents
+        rowIndex: number   # Defines the row index of the model this row represents
         idx: number      # Defines the column index. Not probably too useful outside this mixin
       } 
       
@@ -89,13 +89,13 @@ module.exports = class GridSelect
     for rows in [0 ..  Math.abs(deltaX)]
       for cols in [0 ..  Math.abs(deltaY)]
         result.push
-          rowIdx: startRow + (rows * modifierX)
+          rowIndex: startRow + (rows * modifierX)
           col: @modelKeyIndex[startCol + (cols * modifierY)]
           idx: startCol + (cols * modifierY)
     return result
     
   
-  # should return the {rowIdx: 0, col: columnKey, idx: 0} of highlighted or focused cell
+  # should return the {rowIndex: 0, col: columnKey, idx: 0} of highlighted or focused cell
   # idx = column index
   getSelectedCell: () ->
     unless @originalMethod?
@@ -132,30 +132,30 @@ module.exports = class GridSelect
     selectedCells = @selectedCells
     @selectedCells = []
     for cell in selectedCells 
-      @getModelAt(cell.rowIdx)?.trigger?('invalidate')
+      @getModelAt(cell.rowIndex)?.trigger?('invalidate')
       
       
     # defer until datagrid handles change 
     _.defer =>
       highlightedCell = @getSelectedCell()
       if highlightedCell?
-        collection?.selectModelByIndex?(highlightedCell.rowIdx)
+        collection?.selectModelByIndex?(highlightedCell.rowIndex)
     
 
   selectCells: (cells, options={}) ->
     @resetSelectedCells()
     
     for cell in cells
-      @selectCell(cell.rowIdx, cell.col, options)
+      @selectCell(cell.rowIndex, cell.col, options)
     
     @props.onSelectedCellsChange?(@selectedCells)
     
     
-  selectCell: (rowIdx, colKey, options={}) ->
-    return if rowIdx < 0 || @modelKeyIndex.indexOf(colKey) < 0
-    rowModel = @getModelAt(rowIdx)
-    cell = {rowIdx: rowIdx, col: colKey, idx: @modelKeyIndex.indexOf(colKey)}
-    @selectedCells.push(cell) unless @isCellSelected(rowIdx, colKey)
+  selectCell: (rowIndex, colKey, options={}) ->
+    return if rowIndex < 0 || @modelKeyIndex.indexOf(colKey) < 0
+    rowModel = @getModelAt(rowIndex)
+    cell = {rowIndex: rowIndex, col: colKey, idx: @modelKeyIndex.indexOf(colKey)}
+    @selectedCells.push(cell) unless @isCellSelected(rowIndex, colKey)
     
     # this sets the model as selected in the collection, so other possessors of
     # the collection can ask the collection.getSelectedModels().  
@@ -172,16 +172,16 @@ module.exports = class GridSelect
     col = @getSelectedColumn()?.key
     return unless highlightedCell? and col?
     
-    @selectCell(highlightedCell.rowIdx, col)
+    @selectCell(highlightedCell.rowIndex, col)
     
     
   isCellSelected: (row, colKey) =>
-    return _.any(@selectedCells, (cell) -> cell.rowIdx == row && cell.col == colKey)
+    return _.any(@selectedCells, (cell) -> cell.rowIndex == row && cell.col == colKey)
         
     
-  deselectCell: (rowIdx, colKey) ->
-    rowModel = @getModelAt(rowIdx)
-    @selectedCells = _.filter @selectedCells, (cell) -> !(cell.rowIdx == rowIdx && cell.col == colKey)
+  deselectCell: (rowIndex, colKey) ->
+    rowModel = @getModelAt(rowIndex)
+    @selectedCells = _.filter @selectedCells, (cell) -> !(cell.rowIndex == rowIndex && cell.col == colKey)
     @getCollection?()?.selectModel?(rowModel, false)
     
   ###
@@ -212,11 +212,11 @@ module.exports = class GridSelect
     return null unless $cell.length > 0
     
     columnKey = $cell.attr("data-attr-col")
-    rowIdx = parseInt($cell.attr("data-attr-row"))
+    rowIndex = parseInt($cell.attr("data-attr-row"))
     idx = @modelKeyIndex.indexOf(columnKey)
     
     return {
-      rowIdx: rowIdx
+      rowIndex: rowIndex
       col: columnKey
       idx: idx
     }      
@@ -224,22 +224,22 @@ module.exports = class GridSelect
   
   _getUpperLeftBound: (cells=@selectedCells) ->
     return [] unless @selectedCells?
-    top = _.min cells, (cell) -> cell.rowIdx
-    cells = _.filter cells, (cell) -> cell.rowIdx == top.rowIdx
+    top = _.min cells, (cell) -> cell.rowIndex
+    cells = _.filter cells, (cell) -> cell.rowIndex == top.rowIndex
     left = _.min cells, (cell) -> cell.idx
     return {
-      top: top.rowIdx
+      top: top.rowIndex
       left: left.idx
     }
   
   
   _getLowerRightBound: (cells=@selectedCells) ->
     return [] unless @selectedCells?
-    bottom = _.max cells, (cell) -> cell.rowIdx
-    cells = _.filter cells, (cell) -> cell.rowIdx == bottom.rowIdx
+    bottom = _.max cells, (cell) -> cell.rowIndex
+    cells = _.filter cells, (cell) -> cell.rowIndex == bottom.rowIndex
     right = _.max cells, (cell) -> cell.idx
     return {
-      bottom: bottom.rowIdx
+      bottom: bottom.rowIndex
       right: right.idx
     }
   
@@ -277,12 +277,12 @@ module.exports = class GridSelect
     result = []
     cells = @getSelectedCells()
     
-    rows = _.uniq _.map cells, (cell) -> cell.rowIdx
+    rows = _.uniq _.map cells, (cell) -> cell.rowIndex
     for row in rows
       rowModel = @getModelAt(row)
       continue unless rowModel?
       
-      cellsInRow = _.filter cells, (cell) -> cell.rowIdx == row
+      cellsInRow = _.filter cells, (cell) -> cell.rowIndex == row
       # Sort it so the paste is in the same order as the grid.
       cellsInRow = _.sortBy cellsInRow, 'idx'
       vals = []
@@ -320,32 +320,32 @@ module.exports = class GridSelect
       # We need to paste as a shape.
       if @selectedCells.length > 0
         start = @_getUpperLeftBound()
-        for rowIdx in [start.top .. start.top + paste.length - 1]
-          cellsInRow = _.filter @selectedCells, (cell) -> cell? && cell.rowIdx == rowIdx
+        for rowIndex in [start.top .. start.top + paste.length - 1]
+          cellsInRow = _.filter @selectedCells, (cell) -> cell? && cell.rowIndex == rowIndex
           cellsInRow = _.sortBy cellsInRow, 'idx'
           continue if cellsInRow.length == 0
-          pasteRow = paste[rowIdx - start.top]
+          pasteRow = paste[rowIndex - start.top]
           pasteRow = [pasteRow] unless Array.isArray(pasteRow)
-          rowModel = @getModelAt(rowIdx)
+          rowModel = @getModelAt(rowIndex)
           for cellIdx in [0 .. pasteRow.length - 1]
             continue if cellIdx >= cellsInRow.length
-            @__updateRowModelColumn(rowIdx, rowModel, cellsInRow[cellIdx].col, pasteRow[cellIdx])
+            @__updateRowModelColumn(rowIndex, rowModel, cellsInRow[cellIdx].col, pasteRow[cellIdx])
       else
         # We can create the shape
         highlightedCell = @getSelectedCell()
         if highlightedCell?
-          start = {top: highlightedCell.rowIdx, left: highlightedCell.idx}
-          for rowIdx in [start.top .. start.top + paste.length - 1]
-            pasteRow = paste[rowIdx - start.top]
+          start = {top: highlightedCell.rowIndex, left: highlightedCell.idx}
+          for rowIndex in [start.top .. start.top + paste.length - 1]
+            pasteRow = paste[rowIndex - start.top]
             pasteRow = [pasteRow] unless _.isArray(pasteRow)
-            rowModel = @getModelAt(rowIdx)
+            rowModel = @getModelAt(rowIndex)
             for cellIdx in [0 .. pasteRow.length - 1]
-              @__updateRowModelColumn(rowIdx, rowModel, @modelKeyIndex[start.left + cellIdx], pasteRow[cellIdx])
+              @__updateRowModelColumn(rowIndex, rowModel, @modelKeyIndex[start.left + cellIdx], pasteRow[cellIdx])
     else
       # Single paste of a value. So fill it.
       for cell in @getSelectedCells()
-        rowModel = @getModelAt(cell.rowIdx)
-        @__updateRowModelColumn(cell.rowIdx, rowModel, cell.col, paste)            
+        rowModel = @getModelAt(cell.rowIndex)
+        @__updateRowModelColumn(cell.rowIndex, rowModel, cell.col, paste)            
         
     
     e.stopPropagation()
@@ -384,7 +384,7 @@ module.exports = class GridSelect
     @lastClickTick = thisClickTick
     
     if thisClickPosition?
-      @setSelectedCell(thisClickPosition.rowIdx, thisClickPosition.idx)
+      @setSelectedCell(thisClickPosition.rowIndex, thisClickPosition.idx)
     
     # Otherwise, we are not trying to edit. So prevent
     # react-data-grid from doing whatever it was going to do otherwise.
@@ -417,7 +417,7 @@ module.exports = class GridSelect
           _.defer =>                       # after the datagrid changes the currentCell
             return unless @startKeySelPosition?
             endCell = @getSelectedCell()
-            cells = @_getCellsBetween(@startKeySelPosition.rowIdx, @startKeySelPosition.idx, endCell.rowIdx, endCell.idx)
+            cells = @_getCellsBetween(@startKeySelPosition.rowIndex, @startKeySelPosition.idx, endCell.rowIndex, endCell.idx)
             @selectCells(cells)          
         else
           @startKeySelPosition = null
@@ -444,18 +444,18 @@ module.exports = class GridSelect
           @startSelPosition = null
           return
           
-        sameCellAsOrigin = @endSelPosition.rowIdx == @startSelPosition.rowIdx && @endSelPosition.col == @startSelPosition.col
+        sameCellAsOrigin = @endSelPosition.rowIndex == @startSelPosition.rowIndex && @endSelPosition.col == @startSelPosition.col
         isSelectColumn = el.closest('.datagrid-cell.selected-column').length > 0
-        rowModel = @getModelAt(@endSelPosition.rowIdx)
+        rowModel = @getModelAt(@endSelPosition.rowIndex)
         # If they pressed command or control click
         # and we are looking at the same cell we started with
         # then toggle the selected cell.
         if evt.metaKey || evt.ctrKey || isSelectColumn
           if sameCellAsOrigin
-            if @isCellSelected(@endSelPosition.rowIdx, @endSelPosition.col) || (isSelectColumn && rowModel.selected)
-              @deselectCell(@endSelPosition.rowIdx, @endSelPosition.col)
+            if @isCellSelected(@endSelPosition.rowIndex, @endSelPosition.col) || (isSelectColumn && rowModel.selected)
+              @deselectCell(@endSelPosition.rowIndex, @endSelPosition.col)
             else
-              @selectCell(@endSelPosition.rowIdx, @endSelPosition.col)
+              @selectCell(@endSelPosition.rowIndex, @endSelPosition.col)
         else if sameCellAsOrigin
           @resetSelectedCells()
           _.defer => @selectCurrentCell()
@@ -475,7 +475,7 @@ module.exports = class GridSelect
     if @startSelPosition? && el.hasClass("datagrid-cell")
       @shouldEdit = false
       @endSelPosition = @_getPositionByElement(el)
-      cells = @_getCellsBetween(@startSelPosition.rowIdx, @startSelPosition.idx, @endSelPosition.rowIdx, @endSelPosition.idx)
+      cells = @_getCellsBetween(@startSelPosition.rowIndex, @startSelPosition.idx, @endSelPosition.rowIndex, @endSelPosition.idx)
       @selectCells(cells)
               
               
@@ -501,7 +501,7 @@ module.exports = class GridSelect
       # by going through the @saveModel on widgets.react.Datagrid, we get cell spinners and flash notification
       @saveModel rowModel, 
         cellKey: columnKey   # mimicks react-datagrid row event 
-        rowIdx: rowIndex
+        rowIndex: rowIndex
         updated: parsedJsonObj ? value
         key: "Paste"
         
@@ -515,13 +515,13 @@ module.exports = class GridSelect
   __shiftKeyClickSelect: (endSelPosition) ->
     upperLeftSel = @_getUpperLeftBound()
     lowerRightSel = @_getLowerRightBound()
-    startingFrom = if endSelPosition.rowIdx <= upperLeftSel.top && endSelPosition.idx <= upperLeftSel.left
-      {rowIdx: lowerRightSel.bottom, idx: lowerRightSel.right}
+    startingFrom = if endSelPosition.rowIndex <= upperLeftSel.top && endSelPosition.idx <= upperLeftSel.left
+      {rowIndex: lowerRightSel.bottom, idx: lowerRightSel.right}
     else
-      {rowIdx: upperLeftSel.top, idx: upperLeftSel.left}
+      {rowIndex: upperLeftSel.top, idx: upperLeftSel.left}
     
-    if startingFrom.rowIdx? && startingFrom.idx? 
-      cells = @_getCellsBetween(startingFrom.rowIdx, startingFrom.idx, endSelPosition.rowIdx, endSelPosition.idx)
+    if startingFrom.rowIndex? && startingFrom.idx? 
+      cells = @_getCellsBetween(startingFrom.rowIndex, startingFrom.idx, endSelPosition.rowIndex, endSelPosition.idx)
       @selectCells(cells)
     else
       @selectCurrentCell()

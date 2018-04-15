@@ -83,7 +83,7 @@
           klass.prototype[key] = function() {
             this.__originalMethodStack.push(this.originalMethod)
             this.originalMethod = this.__originalMethods['#{oMethodKey}']
-            returnValue = this.__mixinMethods['#{oMethodKey}'].apply(this, arguments)
+            var returnValue = this.__mixinMethods['#{oMethodKey}'].apply(this, arguments)
             this.originalMethod = this.__originalMethodStack.pop()
             return returnValue
           }

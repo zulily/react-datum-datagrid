@@ -1,5 +1,11 @@
 
 
+
+.react-datum-datagrid .rdd-headers {
+  background-color: #eceff6;
+  vertical-align: top;
+}
+
 .react-datum-datagrid .rdd-icon {
   color: #1254E8;
   cursor: pointer;

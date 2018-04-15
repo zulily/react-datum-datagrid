@@ -14,6 +14,9 @@ LabelCell = require './labelCell'
 GridEdit = require './gridEdit'
 GridSelect = require './gridSelect'
 
+Grid = require('react-virtualized/dist/commonjs/Grid/Grid')["default"]
+
+
 ###
   This is react-datum-datagrid.   
   
@@ -25,6 +28,7 @@ module.exports = class Datagrid extends React.Component
   @displayName: "react-datum-datagrid"
   
   @DEFAULT_CELL_HEIGHT: 20
+  @DEFAULT_CELL_WIDTH: 120
   @DEFAULT_CELL_BORDER_WIDTH: 1
   @DEFAULT_CELL_PADDING_HEIGHT: 5
   @DEFAULT_CELL_PADDING_WIDTH: 10
@@ -42,12 +46,18 @@ module.exports = class Datagrid extends React.Component
     # see Class comment above for which column def attributes are used
     columns: PropTypes.array
     
+    # orientation of columns and rows can be flipped by setting this prop to 'portrait'
+    orientation: PropTypes.oneOf(['landscape', 'portrait'])
+    
     # set to true to not display save errors in Oh My Something is amiss. Cells will 
     # passively only show icon and popover  
     silentSaveErrors: PropTypes.bool
     
-    # width of the "headers" (labels) when in horz display 
-    labelWidth: PropTypes.number
+    # width of the "headers" (labels) when orientation == 'portrait' 
+    headerWidth: PropTypes.number
+
+    # height of the "headers" (labels) when orientation == 'portrait' 
+    headerHeight: PropTypes.number
     
     # callback to call when columns are hidden.  called with (this, columnDef, evt)
     onHideColumn: PropTypes.func
@@ -55,17 +65,20 @@ module.exports = class Datagrid extends React.Component
     # callback to call when columns are shown. (this, columnDef, evt)
     onShowColumn: PropTypes.func
     
+    # default column definition attributes
+    defaultColumnDef: PropTypes.object
+    
 
   @defaultProps: 
-    labelWidth: 300
-    
-    
-  @childContextTypes:
-    datagrid: PropTypes.instanceOf(@constructor)
-
-
-  getChildContext: ->
-    return {datagrid: @}
+    headerWidth: 150
+    headerHeight: 60
+    height: 300
+    width: 400
+    orientation: 'landscape'
+    defaultColumnDef: {
+      width: 120
+      
+    }
     
     
   # TODO : when I reengineer this to use react-virtualized, flexify this shiz
@@ -74,32 +87,61 @@ module.exports = class Datagrid extends React.Component
       includes: -> @props.style
     headers:
       includes: -> 
-        width: @props.labelWidth
-      display: 'inline-block'
-      backgroundColor: '#eceff6'
-      height: '100%'
-      verticalAlign: 'top'
+        if @props.orientation == 'landscape'
+          display: 'block'
+          width: @props.width
+          height: @props.headerHeight
+        else
+          display: 'inline-block'
+          width: @props.headerWidth
+          height: @props.height
     gridsContainer:
       includes: ->
-        width: "calc(100% - #{@props.labelWidth}px)"
+        if @props.orientation == 'landscape'
+          display: 'block'
+          width: @props.width
+          height: "calc(100% - #{@props.headerHeight}px)"
+        else
+          display: 'inline-block'
+          width: "calc(100% - #{@props.headerWidth}px)"
+          height: @props.height
+    lockedGrid:
+      includes: -> @_getLockedGridStyles()
+    freeGrid:
+      includes: -> 
+        if @props.orientation == 'landscape'
+          height: @props.height - @props.headerHeight
+          width: @props.width - @_sumLockedColumnWidths() - 10
+        else
+          height: @props.height - @_sumLockedColumnHeights() - 10
+          width: @props.width - @props.headerWidth
       display: 'inline-block'
-      height: '100%'
-    topGrid:
-      includes: ['bottomDivider', (-> {height: @_getTopGridHeight()})] 
-      width: 'calc(100% - 13px)'
-    bottomGrid:
-      includes: -> {height: @_getBottomGridHeight()}
-      width: '100%'
     fixedHeaderCells:
-      includes: ['bottomDivider', (-> {height: @_getTopGridHeight() + 1 })] 
-      width: '100%'
+      includes: -> 
+        return if @props.orientation == 'landscape'
+          display: "inline-block"
+          width: @_sumLockedColumnWidths()
+          height: @props.headerHeight
+        else
+          display: 'block'
+          width: @props.headerWidth
+          height: @_sumLockedColumnHeights()
+      verticalAlign: 'top'
     scrollingHeaderCells:
-      includes: -> {height: "calc(100% - #{@_getTopGridHeight() + 20}px)"}
-      width: '100%'
+      includes: -> 
+        if @props.orientation == 'landscape'
+          display: 'inline-block'
+          width: @props.width - @_sumLockedColumnWidths() - 10
+          height: @props.headerHeight
+          overflowY: 'scroll'
+        else
+          display: 'block'
+          width: @props.headerWidth
+          height: @props.height - @_sumLockedColumnHeights() - 10
+          overflowX: 'scroll'
       marginTop: 1
-    scrollingHeaderCellsViewport:
-      height: '100%'
-      overflowY: 'scroll'
+      verticalAlign: 'top'
+      whiteSpace: 'nowrap'
     styleImage:
       width: 50
       minHeight: 60
@@ -108,49 +150,99 @@ module.exports = class Datagrid extends React.Component
 
 
   componentDidMount: ->
-    @_initializeScrolling()
-    super
-
+    # @_initializeScrolling()
+    
+    
   style: (name) -> 
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
 
+
   render: ->
-    fixedColumns = @_getFixedColumns()
-    scrollingColumns = @_getScrollingColumns()
+    lockedColumns = @_getLockedColumns()
+    freeColumns = @_getFreeColumns()
     
     <div style={@style('container')} className='react-datum-datagrid'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
-          {@_renderHeaderCells(fixedColumns)}
+          {@_renderHeaderCells(lockedColumns)}
         </div>
         <div style={@style('scrollingHeaderCells')} className='rdd-scrolling-header-cells' >
-          <div style={@style('scrollingHeaderCellsViewport')}>
-            {@_renderHeaderCells(scrollingColumns)}
-          </div>
+          {@_renderHeaderCells(freeColumns)}
         </div>
       </div>
-      <div style={@style('gridsContainer')}>
-        <div style={@style('topGrid')} className='rdd-top-grid'>
-          <ReactGrid 
-                collection={@props.collection} ref='topGrid'} 
-                gridSelectionClass={null}
-                gridOptions={{preloadCushion: 200, pageSize: 20}}                  
-          >
-            { (model, rowIdx) => @_renderDataCells(@_getFixedColumns(), model, rowIdx, 0) }
-          </ReactGrid>
+      <div style={@style('gridsContainer')} className='rdd-grids-container'>
+        <div style={@style('lockedGrid')} className='rdd-locked-grid'>
+          <Grid
+            ref='lockedGrid'
+            cellRenderer={@lockedCellRenderer}
+            className="rv-grid"
+            columnWidth={@getLockedColumnWidth}
+            columnCount={lockedColumns.length}
+            height={@props.height}
+            rowHeight={@props.rowHeight}
+            rowCount={@getRowCount()}
+            width={@_getLockedGridStyles().width}
+          />          
+          
         </div>
-        <div style={@style('bottomGrid')} className='rdd-bottom-grid'>
-          <ReactGrid 
-                collection={@props.collection} ref='bottomGrid' 
-                gridSelectionClass={null}
-                gridOptions={{preloadCushion: 200, pageSize: 20}} 
-          >
-            { (model, rowIdx) => @_renderDataCells(@_getScrollingColumns(), model, rowIdx, @_getFixedColumns().length) }
-          </ReactGrid>
+        <div style={@style('freeGrid')} className='rdd-free-grid'>
+          <Grid
+            ref='freeGrid'
+            cellRenderer={@freeCellRenderer}
+            className="rv-grid"
+            columnWidth={@getFreeColumnWidth}
+            columnCount={freeColumns.length}
+            height={@props.height}
+            rowHeight={@props.rowHeight}
+            rowCount={@getRowCount()}
+            width={@_getFreeGridWidth()}
+          />          
+          
         </div>
       </div>
     </div>
       
+
+  # columnIndex, # Horizontal (column) index of cell
+  # isScrolling, # The Grid is currently being scrolled
+  # isVisible,   # This cell is visible within the grid (eg it is not an overscanned cell)
+  # key,         # Unique key within array of cells
+  # parent,      # Reference to the parent Grid (instance)
+  # rowIndex,    # Vertical (row) index of cell
+  # style        # Style object to be applied to cell (to position it);
+  #              # This must be passed through to the rendered cell element.
+  
+  lockedCellRenderer: ({rowIndex, columnIndex, key, isScrolling, isVisible, style}) =>
+    @cellRenderer(@_getLockedColumns(), 0, columnIndex, rowIndex, key, isVisible, isScrolling, style)
+    
+
+  freeCellRenderer: ({rowIndex, columnIndex, key, isScrolling, isVisible, style}) =>
+    baseColumnIndex = @_getLockedColumns().length
+    @cellRenderer(@_getFreeColumns(), baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style)
+
+  
+  cellRenderer: (columns, baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style) ->
+    showPlaceholder = !isVisible || isScrolling
+    columnDef = columns[columnIndex]
+    model = @getModelAt(rowIndex)
+    @_renderDataCell(columnDef, model, columnIndex + baseColumnIndex, rowIndex, key, style, showPlaceholder)
+    
+    
+  getLockedColumnWidth: ({index}) =>
+    @getColumnWidth(index, @_getLockedColumns())
+    
+  
+  getFreeColumnWidth: ({index}) =>
+    @getColumnWidth(index, @_getFreeColumns())
+    
+    
+  getColumnWidth: (index, columns=@props.columns) ->
+    return columns[index].width || @props.defaultColumnDef.width
+    
+    
+  getRowCount: () ->
+    return 0 unless @props.collection?
+    return @props.collection.getLength?() ? @props.collection.length ? 0
       
   ###
     Override me to conditionally enable editing on a per cell basis
@@ -165,11 +257,11 @@ module.exports = class Datagrid extends React.Component
   getSelectedCell: () ->
     $focusedCell = $(ReactDOM.findDOMNode(@)).find('.rdd-cell-wrapper:focus')
     return null unless $focusedCell?.length > 0
-    rowIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'))
-    colIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'))
-    columnDef = @getColumn(colIdx)
+    rowIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'))
+    columnIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'))
+    columnDef = @getColumn(columnIndex)
 
-    return {rowIdx: rowIdx, idx: colIdx, col: columnDef.key}
+    return {rowIndex: rowIndex, idx: columnIndex, col: columnDef.key}
     
     
   # required by GridSelect mixin
@@ -186,14 +278,14 @@ module.exports = class Datagrid extends React.Component
       document.activeElement.blur()
       
   # this is overridden when GridSelect is mixed in    
-  isCellSelected: (rowIdx, colKey) ->
+  isCellSelected: (rowIndex, colKey) ->
     selectedCell = @getSelectedCell()
-    return selectedCell.rowIdx == rowIdx && selectedCell.col == colKey
+    return selectedCell.rowIndex == rowIndex && selectedCell.col == colKey
       
       
   refresh: ->
-    @refs.topGrid?.grid?.refresh()
-    @refs.bottomGrid?.grid?.refresh()
+    @refs.lockedGrid?.grid?.refresh()
+    @refs.freeGrid?.grid?.refresh()
     
     # resync the bottom grid scrolltop to the labels column scrolltop, prevents
     # from scrolling back to top on refresh
@@ -213,10 +305,11 @@ module.exports = class Datagrid extends React.Component
       
   _renderLabelCell: (index, columnDef) ->
     return null unless columnDef?
-    labelStyle = $.extend true, {}, @_getDefaultCellStyle(columnDef), columnDef.flipgrid?.labelStyle
+    labelStyle = $.extend true, {}, @_getDefaultCellStyle(columnDef, true), columnDef.flipgrid?.labelStyle
     <LabelCell 
       key={index} 
       column={columnDef} 
+      orientation={@props.orientation}
       datagrid={@} 
       defaultCellStyle={labelStyle}
       onShowColumn={@props.onShowColumn}
@@ -224,55 +317,53 @@ module.exports = class Datagrid extends React.Component
     />
 
 
-  _renderDataCells: (columnDefs, model, rowIdx, baseColumnIndex) ->
-    cells = for columnDef, index in columnDefs
-      @_renderDataCell(index, columnDef, model, rowIdx, baseColumnIndex)
-
-
-  _renderDataCell: (index, columnDef, model, rowIdx, baseColumnIndex) ->
+  _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
     <CellWrapper
+      key={key}
       model={model}
       column={columnDef}
-      rowIdx={rowIdx}
-      colIdx={baseColumnIndex + index}
+      rowIndex={rowIndex}
+      columnIndex={columnIndex}
+      style={style}
+      showPlaceholder={showPlaceholder}
       datagrid={@}
       defaultCellStyle={@_getDefaultCellStyle(columnDef)}
     />
        
     
-  _getFixedColumns: ->
+  _getLockedColumns: ->
     _.filter @props.columns, (columnDef) -> columnDef.locked  
 
     
-  _getScrollingColumns: ->
+  _getFreeColumns: ->
     _.filter @props.columns, (columnDef) -> !columnDef.locked  
     
-
+  
   _initializeScrolling: ->
-    topGridEl = ReactDOM.findDOMNode(this.refs.topGrid).querySelector('.grid')
-    bottomGridEl = ReactDOM.findDOMNode(this.refs.bottomGrid).querySelector('.grid')
-    topGridEl.addEventListener('scroll', @_onTopGridScroll)
-    bottomGridEl.addEventListener('scroll', @_onBottomGridScroll)
+    topGridEl = ReactDOM.findDOMNode(this.refs.lockedGrid).querySelector('.grid')
+    bottomGridEl = ReactDOM.findDOMNode(this.refs.freeGrid).querySelector('.grid')
+    topGridEl.addEventListener('scroll', @_onLockedGridScroll)
+    bottomGridEl.addEventListener('scroll', @_onFreeGridScroll)
     
     scrollingLableCellsEl = ReactDOM.findDOMNode(this).querySelector('.scrolling-label-cells > div')
     scrollingLableCellsEl.addEventListener('scroll', @_onLabelScroll)
     
     
-  _onTopGridScroll: =>
+  _onLockedGridScroll: =>
     unless @_isBottomInitiatedScrolling
       @_isTopInitiatedScrolling = true
-      topGridEl = ReactDOM.findDOMNode(this.refs.topGrid).querySelector('.grid')
-      bottomGridEl = ReactDOM.findDOMNode(this.refs.bottomGrid).querySelector('.grid')
+      topGridEl = ReactDOM.findDOMNode(this.refs.lockedGrid).querySelector('.grid')
+      bottomGridEl = ReactDOM.findDOMNode(this.refs.freeGrid).querySelector('.grid')
       bottomGridEl.scrollLeft = topGridEl.scrollLeft
     
     @_isBottomInitiatedScrolling = false
     
 
-  _onBottomGridScroll: =>
+  _onFreeGridScroll: =>
     unless @_isTopInitiatedScrolling || @_isLabelInitiatedScrolling
       @_isBottomInitiatedScrolling = true
-      topGridEl = ReactDOM.findDOMNode(this.refs.topGrid).querySelector('.grid')
-      bottomGridEl = ReactDOM.findDOMNode(this.refs.bottomGrid).querySelector('.grid')
+      topGridEl = ReactDOM.findDOMNode(this.refs.lockedGrid).querySelector('.grid')
+      bottomGridEl = ReactDOM.findDOMNode(this.refs.freeGrid).querySelector('.grid')
       
       topGridEl.scrollLeft = bottomGridEl.scrollLeft
     
@@ -280,7 +371,7 @@ module.exports = class Datagrid extends React.Component
     
     unless @_isLabelInitiatedScrolling
       scrollingLableCellsEl = ReactDOM.findDOMNode(this).querySelector('.scrolling-label-cells > div')
-      bottomGridEl = ReactDOM.findDOMNode(this.refs.bottomGrid).querySelector('.grid')
+      bottomGridEl = ReactDOM.findDOMNode(this.refs.freeGrid).querySelector('.grid')
       scrollingLableCellsEl.scrollTop = bottomGridEl.scrollTop
       
     @_isLabelInitiatedScrolling = false
@@ -290,25 +381,50 @@ module.exports = class Datagrid extends React.Component
     unless @_isBottomInitiatedScrolling
       @_isLabelInitiatedScrolling = true
       scrollingLableCellsEl = ReactDOM.findDOMNode(this).querySelector('.scrolling-label-cells > div')
-      bottomGridEl = ReactDOM.findDOMNode(this.refs.bottomGrid).querySelector('.grid')
+      bottomGridEl = ReactDOM.findDOMNode(this.refs.freeGrid).querySelector('.grid')
       bottomGridEl.scrollTop = scrollingLableCellsEl.scrollTop
     
     @_isBottomInitiatedScrolling = false
       
   
-  _getTopGridHeight: ->
+  _getLockedGridStyles: ->
+    if @props.orientation == 'landscape'
+      display: 'inline-block'
+      height: @props.height - @props.headerHeight
+      width: @_sumLockedColumnWidths()
+    else
+      display: 'block'
+      height: @_sumLockedColumnHeights()
+      width: @props.width
+    
+      
+  _sumLockedColumnHeights: ->
     heightOut = 0
-    for col in @_getFixedColumns()
+    for col in @_getLockedColumns()
       heightOut += @_convertCssPx(col.cellStyle?.borderWidth) ? @constructor.DEFAULT_CELL_BORDER_WIDTH
       heightOut += col.height ? @constructor.DEFAULT_CELL_HEIGHT
       heightOut += @_convertCssPx(col.cellStyle?.paddingTop) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
       heightOut += @_convertCssPx(col.cellStyle?.paddingBottom) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
     
     return heightOut
+  
+  
+  _sumLockedColumnWidths: ->
+    widthOut = 0
+    for col in @_getLockedColumns()
+      widthOut += @_convertCssPx(col.cellStyle?.borderWidth) ? @constructor.DEFAULT_CELL_BORDER_WIDTH
+      widthOut += col.width ? @constructor.DEFAULT_CELL_WIDTH
+      widthOut += @_convertCssPx(col.cellStyle?.paddingTop) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
+      widthOut += @_convertCssPx(col.cellStyle?.paddingBottom) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
+    
+    return widthOut
       
     
-  _getBottomGridHeight: ->
-    return "calc(100% - #{@_getTopGridHeight() + 5}px)"
+  _getFreeGridHeight: ->
+    return 300 # "calc(100% - #{@_getLockedGridHeight() + 5}px)"
+    
+  _getFreeGridWidth: ->
+    return 300 # "calc(100% - #{@_getLockedGridWidth() + 5}px)"
     
     
   _convertCssPx: (value) ->
@@ -321,9 +437,17 @@ module.exports = class Datagrid extends React.Component
     return value
     
   
-  _getDefaultCellStyle: (columnDef) ->
+  _getDefaultCellStyle: (columnDef, isHeader=false) ->
+    if @props.orientation == 'landscape'
+      height = if isHeader then @props.headerHeight else @props.rowHeight
+      width = columnDef.width
+    else
+      height = columnDef.height
+      width = if isHeader then @props.headerWidth else @props.rowWidth
+      
     cellStyle = 
-      height: columnDef.height || @constructor.DEFAULT_CELL_HEIGHT
+      height: height || @constructor.DEFAULT_CELL_HEIGHT
+      width: width || @constructor.DEFAULT_CELL_WIDTH
       borderColor: "#EFEFEF"
       borderStyle: 'solid'
       borderWidth: 0

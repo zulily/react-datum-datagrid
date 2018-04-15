@@ -5,6 +5,7 @@ ReactDatum = require('react-datum')
 PropTypes = require('prop-types')
 Classnames = require('classnames')
 
+dasherize = require('underscore.string/dasherize')
 _ = require('underscore')
 
 module.exports = class Cell extends React.Component
@@ -22,19 +23,6 @@ module.exports = class Cell extends React.Component
     defaultCellStyle: PropTypes.object
     
 
-  @contextTypes:
-    # see notes on prop above.  prop has precedence
-    datagrid: PropTypes.any
-    
-    
-  constructor: ->
-    super
-    
-    
-  componentDidMount: ->
-    super
-    
-  
   render: -> 
     value = @props.value
     datumProps = _.extend {}, @props.column.datumProps,
@@ -52,17 +40,16 @@ module.exports = class Cell extends React.Component
         placement: 'top'          
     
     datumComponent = @props.column.datum ? ReactDatum.Text
-    value = React.createElement @props.column.datum, datumProps
-    @renderWrapped(value)
+    value = React.createElement datumComponent, datumProps
+    return @renderWrapped(value)
       
-    return renderedCell
     
   
   renderWrapped: (value, options = {}) =>
     options = _.defaults options,
       title: null
       wrapperStyle: {}
-    
+      
     @setDatumErrors()
 
     canEditCell = @getDatagrid()?.canEditCell(@props.column, @getModel())
@@ -72,7 +59,7 @@ module.exports = class Cell extends React.Component
     icon = @getPrimaryIcon(canEditCell)
 
     <div 
-      data-attr-row={@props.rowIdx} 
+      data-attr-row={@props.rowIndex} 
       data-attr-col={@props.column.key} 
       className={className} 
       title={options.title}
@@ -104,14 +91,14 @@ module.exports = class Cell extends React.Component
   
   
   getDatagrid: ->
-    return @props.datagrid ? @context.datagrid
+    return @props.datagrid
   
   
   getCellClass: (canEditCell) ->
     model = @getModel()
     return Classnames(
       'rdd-cell', 
-      "rdd-#{@props.column.key.dasherize()}-column no-help-icon",
+      "rdd-#{dasherize(@props.column.key)}-column no-help-icon",
       @getAdditionalElementClasses(),
       {'rdd-cell-error': @getDatagridSaveErrors()?.length > 0},
       {'rdd-cell-saved': @getDatagridSaveSuccess() == true},
@@ -194,7 +181,7 @@ module.exports = class Cell extends React.Component
     
       
   isSelected: ->
-    @getDatagrid()?.isCellSelected?(@props.rowIdx, @props.column.key)
+    @getDatagrid()?.isCellSelected?(@props.rowIndex, @props.column.key)
       
       
   setDatumErrors: ->

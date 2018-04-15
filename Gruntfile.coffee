@@ -39,6 +39,20 @@ module.exports = (grunt) ->
           { src: "dist/react-datum-datagrid.js",  dest: "docs/vendor/react-datum-datagrid.js"}
         ]
       
+    # .js & .jsx use babel to build 
+    babel:
+      options:
+        # Not using es2015 preset = ship es6 without transforming
+        presets: ['stage-2', 'react']
+      build: 
+        files: [{
+          expand: true
+          cwd: 'src'
+          src: ['**/*.js']
+          dest: 'lib'
+          ext: '.js'          
+        }]
+
     coffee:
       build:
         files: [
@@ -125,7 +139,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ["shell:test", "shell:coverage"]
   grunt.registerTask 'distrib', ['cssmin:distrib', 'webpack:distrib', 'webpack:optimize']
   grunt.registerTask 'docs',  ['clean:docsVendorLibs', 'copy:docVendorLibs', 'shell:buildDocIndex', 'shell:buildApiDocs', 'shell:buildExamples']
-  grunt.registerTask 'build', ['npmInstall', 'newer:cjsx:build', 'newer:coffee:build', 'distrib', 'docs']
+  grunt.registerTask 'build', ['npmInstall', 'newer:cjsx:build', 'newer:coffee:build', 'newer:babel:build', 'distrib', 'docs']
   
   grunt.registerTask 'default', ['availabletasks']
 

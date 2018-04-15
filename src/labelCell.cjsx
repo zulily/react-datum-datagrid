@@ -5,14 +5,19 @@ Rb = require('react-bootstrap')
 
 ReactStyles = require('./helpers/reactStyles')
 Cell = require('./cell')
+
+Titleize = require('underscore.string/Titleize')
+Humanize = require('underscore.string/Humanize')
   
 module.exports = class LabelCell extends Cell
     
   @propTypes: 
     rowData: PropTypes.any
     column: PropTypes.object
+    style: PropTypes.object
     onHideColumn: PropTypes.func
     onShowColumn: PropTypes.func
+    
 
   
   styles: new ReactStyles
@@ -20,6 +25,8 @@ module.exports = class LabelCell extends Cell
       float: 'right'
       color: '#4767AA'
     wrapper: 
+      includes: ->
+        @props.style
       position: 'relative'
       paddingLeft: 18
     showHideIcon: 
@@ -47,7 +54,7 @@ module.exports = class LabelCell extends Cell
       return super( 
         <div style={@style('wrapper')}>
           {@_renderShowHideControl()}
-          {@props.column?.name}
+          {@getColumnName()}
         </div>
       ) 
     
@@ -56,7 +63,7 @@ module.exports = class LabelCell extends Cell
         <Rb.OverlayTrigger overlay={@_renderTooltipPopover()}>
           <div>
             {@_renderShowHideControl()}
-            {@props.column.name}
+            {@getColumnName}
             <i style={@style('icon')} className='fa fa-question-circle'/>
           </div>
         </Rb.OverlayTrigger>
@@ -89,6 +96,10 @@ module.exports = class LabelCell extends Cell
         <i className="fa fa-ban fa-stack-2x" style={@style('banIcon')} />
       </span>
       
+      
+  getColumnName: ->
+    @props.column.name ? Titleize(Humanize(@props.column.key))
+    
 
   getCellDefaultStyle: (model) ->
     styles = _.defaults super(model), 
@@ -104,6 +115,17 @@ module.exports = class LabelCell extends Cell
       styles.color = 'rgba(0, 0, 0, 0.16)'
       
     return styles
+
+
+  getCellOverrideStyle: (model) ->
+    sval = super(model)
+    
+    _.extend sval, if @props.orientation == 'landscape' 
+      display: 'inline-block'
+    else
+      display: 'block'
+    
+    return sval
     
       
   getBackgroundColor: ->
