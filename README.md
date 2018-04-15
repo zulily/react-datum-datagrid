@@ -31,7 +31,7 @@ Copy development (.js) or optimized (.min.js) distribution file from (https://gi
 
 // Say you have this model:
 
-var kittenModel = new Backbone.Model({
+var puppyModel = new Backbone.Model({
   name: "Fluffy",
   title: "His Royal Cuteness",
   description: "He's a cuddler and a lover through and through",
@@ -45,12 +45,12 @@ var kittenModel = new Backbone.Model({
 
 // To create the card below:
 
-var kittenCard = React.createClass({
-  displayName:"KittenCard",
+var puppyCard = React.createClass({
+  displayName:"PuppyCard",
   render: function(){
     return (
-      <div className='kitten-card'>
-        <ReactDatum.Model model={kittenModel}>
+      <div className='puppy-card'>
+        <ReactDatum.Model model={puppyModel}>
           <h3>Adopt <ReactDatum.Text attr="name"/> Today!</h3>
           <div><ReactDatum.LazyPhoto attr="imgUrl"/></div>
           <div><ReactDatum.Text attr="name" label="Name"/> (<ReactDatum.Text attr="title"/>)</div>
@@ -63,7 +63,7 @@ var kittenCard = React.createClass({
     )
   }
 })
-ReactDOM.render(React.createElement(kittenCard), document.getElementById('demo'))
+ReactDOM.render(React.createElement(puppyCard), document.getElementById('demo'))
 
 ```
 

@@ -17,7 +17,7 @@ module.exports =
     # the vendor scripts are copied from our node_modules dir by Gruntfile.coffee
     { path: "docs/vendor/react-datum-datagrid.js" },  
     { path: "docs/vendor/react-bootstrap.js" },  
-    { path: "/test/lib/kittenData.js" }
+    { path: "/test/lib/puppyData.js" }
   ]
   
   apiDocs: {

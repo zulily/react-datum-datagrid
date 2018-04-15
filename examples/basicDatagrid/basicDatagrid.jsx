@@ -1,19 +1,19 @@
 
 
-var KittenModel = Backbone.Model.extend({
+var PuppyModel = Backbone.Model.extend({
   save: function(attrs, options){ 
     options.success(this)
     return true
   }
 })
 
-var KittenCollection = Backbone.Collection.extend({
-  model: KittenModel
+var PuppyCollection = Backbone.Collection.extend({
+  model: PuppyModel
 })
 
-// KITTEN_DATA is a static array of data from petfinder api
+// PUPPY_DATA is a static array of data from petfinder api
 //    that gets loaded via script tag for the examples
-var kittenCollection = new KittenCollection(KITTEN_DATA)
+var puppyCollection = new PuppyCollection(PUPPY_DATA)
 
 // The above is all backbone setup that you would probably do 
 // elsewhere or would not need to do, like stub out model save
@@ -24,7 +24,7 @@ class BasicDatagridDisplay extends React.Component {
   render(){
     return (
       <ReactDatumDatagrid 
-        collection={kittenCollection}
+        collection={puppyCollection}
         columns={this.getColumns()}
         headerHeight={60}
         rowHeight={100}

@@ -13,7 +13,7 @@ TestExamples = require('bumble-test/testExamples')
 addScripts = ['docs/vendor/tilegrid.js']
 testExamples = new TestExamples(addScripts)
 
-KITTEN_DATA = require '../lib/kittenData'
+PUPPY_DATA = require '../lib/puppyData'
 # the examples expect these to be script tagged in and be available globally
 _.extend global, 
   React: React
@@ -24,7 +24,7 @@ _.extend global,
   '_': _
   '$': $
   'jQuery': $
-  KITTEN_DATA: KITTEN_DATA
+  PUPPY_DATA: PUPPY_DATA
 
 
 describe 'All examples (requires grunt build:docs)', ->
