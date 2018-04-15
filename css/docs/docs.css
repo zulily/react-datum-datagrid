@@ -5,6 +5,10 @@
 }
 
 p {
-  max-width: 900px;
   margin-right: 20px;
+  max-width: 900px;
+}
+
+.react-datum-datagrid {
+  height: 50%;
 }

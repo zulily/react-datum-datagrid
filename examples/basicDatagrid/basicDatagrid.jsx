@@ -26,8 +26,8 @@ class BasicDatagridDisplay extends React.Component {
       <ReactDatumDatagrid 
         collection={puppyCollection}
         columns={this.getColumns()}
-        headerHeight={60}
-        rowHeight={100}
+        headerHeight={40}
+        rowHeight={110}
         defaultColumnDef={{
           width: 150
         }}/>
@@ -45,6 +45,12 @@ class BasicDatagridDisplay extends React.Component {
       key: 'name',
     },{
       key: 'breed',
+    },{
+      key: 'size',
+      width: 80,
+    },{
+      key: 'sex',
+      width: 80,
     },{
       key: 'contactEmail',
       width: '200',

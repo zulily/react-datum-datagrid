@@ -4,6 +4,7 @@ fs = require('fs')
 path = require('path')
 _ = require('lodash')
 request = require('sync-request')
+moment = require('moment')
 
 puppyData = []
 
@@ -45,12 +46,14 @@ fetchForZip = (zipCode) ->
       id: pet.id.$t
       name: pet.name.$t
       breed: pet.breeds.breed.$t
+      mix: pet.mix.$t == "yes"
       adoptable: pet.status.$t == "A"
       contactEmail: pet.contact.email.$t
       contactCity: pet.contact.city.$t
       description: getDescription(pet)
       sex: pet.sex.$t
       size: pet.size.$t
+      shelterId: pet.shelterId.$t
       imageUrl: getImageUrl(pet)
       lastUpdate: pet.lastUpdate.$t
       shelterId: pet.shelterId.$t
