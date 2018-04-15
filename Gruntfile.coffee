@@ -126,7 +126,7 @@ module.exports = (grunt) ->
 
     watch:
       build:
-        files: ["src/**/*", "css/**/*", "lib/**/*", "scripts/**/*", "webpack.config.coffee"]
+        files: ["src/**/*", "css/**/*", "lib/**/*", "scripts/**/*", "examples/**/*", "webpack.config.coffee"]
         tasks: ["build"]
 
 
