@@ -52,6 +52,18 @@ module.exports =
       commonjs: 'react-dom',
       amd: 'react-dom'
     }
+    'react-bootstrap': {
+      root: 'ReactBootstrap',
+      commonjs2: 'react-bootstrap',
+      commonjs: 'react-bootstrap',
+      amd: 'react-bootstrap'
+    }
+    'react-datum': {
+      root: 'ReactDatum',
+      commonjs2: 'react-datum',
+      commonjs: 'react-datum',
+      amd: 'react-datum'
+    }
     'backbone': {
       root: "Backbone"
       commonjs2: 'backbone'
@@ -64,6 +76,12 @@ module.exports =
       commonjs: 'underscore'
       amd: 'underscore'
     }
+    'jquery': {
+      root: 'jQuery'
+      commonjs2: 'jquery',
+      commonjs: 'jquery',
+      amd: 'jquery'
+    }    
   },
   module: {
     loaders: [{

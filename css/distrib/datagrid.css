@@ -1,0 +1,26 @@
+
+
+.react-datum-datagrid .rdd-icon {
+  color: #1254E8;
+  cursor: pointer;
+  float: right;
+  margin-left: 5px;
+  
+}
+
+.react-datum-datagrid .rdd-icon .rdd-icon-edit {
+  background-color: #E0E0E0;
+  background-color: rgba(224, 224, 224, 0.5);
+  border-radius: 10px;
+  display: inline-block;
+  padding: 2px 2px 2px 4px;  
+}
+
+.react-datum-datagrid .rdd-icon .rdd-icon-refresh {
+  color: #cccccc;
+  cursor: none;
+}
+
+.react-datum-datagrid .rdd-cell-warning {
+  
+}

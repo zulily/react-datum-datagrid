@@ -1,62 +1,32 @@
 
-React = require('react')
-PropTypes = require('prop-types')
-
-###
-  The Cell component is responsible for rendering a single cell.  
   
-  You can extend this class component to alter the behavior and pass a different
-  cellComponent prop to react-datum-datagrid
-###
+React = require('react')
+ReactDatum = require('react-datum')
+PropTypes = require('prop-types')
+Classnames = require('classnames')
+
+_ = require('underscore')
+
 module.exports = class Cell extends React.Component
   
   @propTypes: 
+    editing: PropTypes.bool
     rowData: PropTypes.object
     column: PropTypes.object
-    value: PropTypes.any
-    # has precedence over context
     datagrid: PropTypes.any    
 
     # called when user clicks edit icon
     onEdit: PropTypes.func
     
-    # set to true to make cell selected cell. also calls 
-    #    datagrid.isCellSelected?(@props.rowIdx, @props.column.key)
-    selected: PropTypes.bool
-    
     # default styles to apply to cell
     defaultCellStyle: PropTypes.object
     
+
   @contextTypes:
     # see notes on prop above.  prop has precedence
     datagrid: PropTypes.any
     
     
-  styles:
-    icon:     
-      color: App.lessVar('primary_action_color');
-      cursor: 'pointer'
-      float: 'right'
-      marginLeft: App.lessVar('tiny_margin')
-    editIcon:
-      includes: 'icon'
-      paddingTop: 2
-      paddingLeft: 4
-      paddingRight: 2
-      paddingBottom: 2
-      backgroundColor: 'rgba(224, 224, 224, 0.5)'
-      display: 'inline-block'
-      borderRadius: 10          
-    refreshIcon:  
-      includes: 'icon'
-      color: App.lessVar('gray_tone3')
-      cursor: 'none'
-    warningBackground:
-      background: '-webkit-linear-gradient(-45deg, ' + App.lessVar('warning_color') + ' 10px, rgba(0, 0, 0, 0) 10px)'
-    errorBackground:
-      background: '-webkit-linear-gradient(-45deg, ' + App.lessVar('error_color') + ' 10px, rgba(0, 0, 0, 0) 10px)'
-
-  
   constructor: ->
     super
     
@@ -67,28 +37,23 @@ module.exports = class Cell extends React.Component
   
   render: -> 
     value = @props.value
-    if @props.column.datum?
-      datumProps = _.extend {}, @props.column.datumProps,
-        model: @getModel() 
-        attr: @props.column.key
-        column: @props.column
-        ref: 'datum'
+    datumProps = _.extend {}, @props.column.datumProps,
+      model: @getModel() 
+      attr: @props.column.key
+      column: @props.column
+      ref: 'datum'
+      inputMode: if @props.editing then 'edit' else 'readonly'
         
-      datumProps = _.defaults datumProps,
-        # default placement of popover in datagrid is top because that's the safest to not be 
-        # cut off by a viewport edge
-        rbOverlayProps: 
-          trigger: ['hover','focus', 'click']
-          placement: 'top'          
-        
-      value = React.createElement @props.column.datum, datumProps
-    else if _.isArray(value)
-      value = value.join(', ')
+    datumProps = _.defaults datumProps,
+      # default placement of popover in datagrid is top because that's the safest to not be 
+      # cut off by a viewport edge
+      rbOverlayProps: 
+        trigger: ['hover','focus', 'click']
+        placement: 'top'          
     
-    renderedCell = if @props.column.ellipsizeAt? && value? && !@props.column.datum?
-      @renderWrapped(value.toString().elipsis(@props.column.ellipsizeAt), title: value)
-    else
-      @renderWrapped(value)
+    datumComponent = @props.column.datum ? ReactDatum.Text
+    value = React.createElement @props.column.datum, datumProps
+    @renderWrapped(value)
       
     return renderedCell
     
@@ -96,15 +61,12 @@ module.exports = class Cell extends React.Component
   renderWrapped: (value, options = {}) =>
     options = _.defaults options,
       title: null
-      skipEditCell: false
+      wrapperStyle: {}
     
     @setDatumErrors()
 
-    canEditCell = !options.skipEditCell && @getDatagrid()?.canEditCell(@props.column, @getModel())
-    auditErrorWarning = @getDatagrid()?.getAuditErrorWarnings(@props.column, @getModel())
-    wrapperStyle = _.extend({}, options.wrapperStyle || {}, @getCellStyle(canEditCell))
-    if auditErrorWarning
-      wrapperStyle = _.extend(wrapperStyle, if auditErrorWarning.isError then @style('errorBackground') else @style('warningBackground'))
+    canEditCell = @getDatagrid()?.canEditCell(@props.column, @getModel())
+    wrapperStyle = $.extend(true, {}, options.wrapperStyle, @getCellStyle(canEditCell))
 
     className = @getCellClass(canEditCell)
     icon = @getPrimaryIcon(canEditCell)
@@ -147,15 +109,15 @@ module.exports = class Cell extends React.Component
   
   getCellClass: (canEditCell) ->
     model = @getModel()
-    return @conditionalClassNames(
-      'datagrid-cell', 
-      "#{@props.column.key.dasherize()}-column no-help-icon",
+    return Classnames(
+      'rdd-cell', 
+      "rdd-#{@props.column.key.dasherize()}-column no-help-icon",
       @getAdditionalElementClasses(),
-      {'cell-error': @getDatagridSaveErrors()?.length > 0},
-      {'cell-saved': @getDatagridSaveSuccess() == true},
-      {'editable': canEditCell},
+      {'rdd-cell-error': @getDatagridSaveErrors()?.length > 0},
+      {'rdd-cell-saved': @getDatagridSaveSuccess() == true},
+      {'rdd-editable': canEditCell},
       # method provided by gridSelectMixin
-      {'selected': @isSelected()}
+      {'rdd-selected': @isSelected()}
     )
   
   
@@ -191,12 +153,11 @@ module.exports = class Cell extends React.Component
     return null unless model?
     
     if @getDatagridSaving()
-      icon = <i className="fa fa-spin fa-refresh" title="Saving update..." style={@style('refreshIcon')}/>
+      icon = <i className="fa fa-spin fa-refresh rdd-icon rdd-icon-refresh" title="Saving update..."/>
     
     else if canEditCell && !@props.column.hideEditableIcon
-      icon = <i className="fa fa-pencil" onClick={this.onEditClick} 
+      icon = <i className="fa fa-pencil rdd-icon rdd-icon-edit" onClick={this.onEditClick} 
         title="Click to edit this cell (or dbclick or enter)"
-        style={@style('editIcon')}
       />
 
     return icon
@@ -233,7 +194,7 @@ module.exports = class Cell extends React.Component
     
       
   isSelected: ->
-    @props.selected || @getDatagrid()?.isCellSelected?(@props.rowIdx, @props.column.key)
+    @getDatagrid()?.isCellSelected?(@props.rowIdx, @props.column.key)
       
       
   setDatumErrors: ->

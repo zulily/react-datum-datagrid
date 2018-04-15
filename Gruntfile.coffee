@@ -38,7 +38,16 @@ module.exports = (grunt) ->
           { src: "dist/react-datum-datagrid.js",  dest: "docs/vendor/react-datum-datagrid.js"}
         ]
       
-      
+    coffee:
+      build:
+        files: [
+          expand: true
+          cwd: 'src'
+          src: ['**/*.coffee']
+          dest: 'lib'
+          ext: '.js'
+        ]
+              
     cjsx:
       build:
         files: [
@@ -115,7 +124,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ["shell:test", "shell:coverage"]
   grunt.registerTask 'distrib', ['cssmin:distrib', 'webpack:distrib', 'webpack:optimize']
   grunt.registerTask 'docs',  ['clean:docsVendorLibs', 'copy:docVendorLibs', 'shell:buildDocIndex', 'shell:buildApiDocs', 'shell:buildExamples']
-  grunt.registerTask 'build', ['npmInstall', 'newer:cjsx:build', 'distrib', 'docs']
+  grunt.registerTask 'build', ['npmInstall', 'newer:cjsx:build', 'newer:coffee:build', 'distrib', 'docs']
   
   grunt.registerTask 'default', ['availabletasks']
 
