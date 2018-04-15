@@ -2,7 +2,7 @@ This is the base class for inline styles in code.
 
 You construct it like this:
 ```javascript  
-  styles = new App.view.ReactStyles 
+  styles = new ReactStyles 
     messageBox: 
       minHeight: 200
       maxHeight: 300
@@ -23,17 +23,17 @@ includes are fetched from the passed in styles.
 So, if for example, you had a global rule for error message box text properties, 
 some dynamically generated rules, you could do
 ```
-  styles: new App.views.ReactStyles
+  styles: new ReactStyles
     errorMessageBox:
       includes: [
         "messageBox",                            # our internal/local "messageBox" rules
-        App.styles.get('errorMessageBoxText'),   # also include the global rule
+        styles.get('errorMessageBoxText'),   # also include the global rule
         (=> @getMyDynamicStyles())               # plus some class instance method
       ]
   
   ...
   
-  # don't forget the @ context varible so our @getMyDynamicStyles above
+  # don't forget the @ context variable so our @getMyDynamicStyles above
   # has this class instance as `this`
   @styles.get(@, 'errorMessageBox')
     
@@ -47,13 +47,13 @@ For example, the `include` used below is used by roundedSliderButton, to
 let you easily just specify a single style which it applies to only it's
 outermost element:
 ```javascript
-  styles: new App.views.ReactStyles
+  styles: new ReactStyles
     roundedSliderButton:
       includes: -> @props.style 
       display: 'inline-block'
     outerLabel: 
       display: 'inline-block'
-      color: App.lessVar('placeholder_text_color')
+      color: '#090909'
     slideRail:
       display: 'inline-block'
       width: 20
@@ -63,7 +63,7 @@ outermost element:
 Be sure to use -> and not => for the includes that are functions
 
 
-Note that if you extend App.views.ReactView you will also get a handy 
+Note that if you extend ReactView you will also get a handy 
 member function `@style(styleNames...)` added to your class that properly 
 passes the context and allows for a user specified @props.styles (note plural) 
 that can be used to override any internal rule and also allows you to 
@@ -74,7 +74,7 @@ accept a style property to apply to any one element style.
 
 So, for example, you can have a component like,
 ```javascript
-  class myAwesomeComponent extends App.views.ReactView
+  class myAwesomeComponent extends ReactView
     
     @propTypes:
       # this component accepts a style prop that we will apply to our 
@@ -96,11 +96,11 @@ So, for example, you can have a component like,
       style: {display: "inline-block"}
       
       
-    styles: new App.views.ReactStyles
+    styles: new ReactStyles
       outerDiv:
         # This is how you allow the user of your component to style its 
         # outer element for positioning or such.  Note this only works 
-        # because App.views.ReactView#style() passes the view object
+        # because ReactView#style() passes the view object
         # as context to the method assigned to `includes` 
         includes: -> @props.style
       

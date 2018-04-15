@@ -1,7 +1,7 @@
 # deep compare two objects.  ex:
-#    App.utils.compareObjects({a: 1, b: {foo: "bar"}, c: 2}, {c: 2, b: {foo: "bar"}, a: 1})
+#    compareObjects({a: 1, b: {foo: "bar"}, c: 2}, {c: 2, b: {foo: "bar"}, a: 1})
 #      => true
-#    App.utils.compareObjects({a: 1, b: {foo: "bar"}, c: 2}, {a: 1, b: {foo: "whatever, I got paid"}, c: 2})
+#    compareObjects({a: 1, b: {foo: "bar"}, c: 2}, {a: 1, b: {foo: "whatever, I got paid"}, c: 2})
 #      => false
 # see, http://stackoverflow.com/questions/1068834/object-comparison-in-javascript
 module.exports = compareObjects = (a, b) ->

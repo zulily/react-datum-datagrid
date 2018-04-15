@@ -1,3 +1,6 @@
+  
+  _ = require 'underscore'
+  
   ###
     Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
     be added to klass and function as full members of that class.
@@ -22,7 +25,7 @@
       other classes get a hidden constructor.  Make sure @originalMethod? is called with the original constructor
       args.   See models/mixins/stylesMetadata.coffee
 
-      App.mixin <b>must be called last</b> in the class definition or after class is defined such that any overridden
+      mixin() <b>must be called last</b> in the class definition or after class is defined such that any overridden
         methods have already been defined.
 
       Parameter passing.  For flexibility, plugins will often pass along arguments to @originalMethod.  If your
@@ -45,19 +48,18 @@
           someMethod: () =>
             # do something useful
 
-          App.mixin @, MyMixin     #  this needs to be last
+          mixin @, MyMixin     #  this needs to be last
 
 
   ###
   module.exports = mixin = (klass, mixinKlass) ->
     unless mixinKlass
       console.trace()
-      throw "Dev: Mixin class undefined. Make sure you are correctly requiring file. Ex:
-        App.namespace require: 'models/mixins/myMixin', ... "
+      throw "Dev: Mixin class undefined. Make sure you are correctly requiring file."
 
     if klass == window || klass == document
       throw "Dev: The class being mixed into should not be window or document.
-        <p>Look closely at the indentation of 'App.mixin(@, ... '.  If using '@' for first parameter it must be
+        <p>Look closely at the indentation of 'mixin(@, ... )' callsite.  If using '@' for first parameter it must be
         at the same indentation as the instance method definitions in the class at the very end of the
         class definition.</p>"
 
@@ -67,7 +69,7 @@
       continue if key == 'constructor'   #
 
       # _.isFunction() will also return true for Class type things we only want to wrap real functions
-      if _.isFunction(val) && (_.keys(val).isEmpty() || key == 'constructor')
+      if _.isFunction(val) && (_.isEmpty(_.keys(val)) || key == 'constructor')
         oMethod = klass.prototype[key]
         oMethodKey = "#{mixinKlassName}_#{key}"
         klass.prototype.__originalMethods ||= {}

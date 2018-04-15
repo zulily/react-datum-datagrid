@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("underscore"), require("jquery"), require("react"), require("react-dom"), require("react-datum"));
+		module.exports = factory(require("underscore"), require("jquery"), require("react"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
 	else if(typeof define === 'function' && define.amd)
-		define(["underscore", "jquery", "react", "react-dom", "react-datum"], factory);
+		define(["underscore", "jquery", "react", "react-dom", "react-datum", "react-bootstrap"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactDatumDatagrid"] = factory(require("underscore"), require("jquery"), require("react"), require("react-dom"), require("react-datum"));
+		exports["ReactDatumDatagrid"] = factory(require("underscore"), require("jquery"), require("react"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
 	else
-		root["ReactDatumDatagrid"] = factory(root["_"], root["jQuery"], root["React"], root["ReactDOM"], root["ReactDatum"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_24__) {
+		root["ReactDatumDatagrid"] = factory(root["_"], root["jQuery"], root["React"], root["ReactDOM"], root["ReactDatum"], root["ReactBootstrap"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_0__, __WEBPACK_EXTERNAL_MODULE_2__, __WEBPACK_EXTERNAL_MODULE_3__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_9__, __WEBPACK_EXTERNAL_MODULE_26__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 11);
+/******/ 	return __webpack_require__(__webpack_require__.s = 14);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -283,12 +283,6 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
-
-/***/ }),
-/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/**
@@ -313,14 +307,20 @@ if (process.env.NODE_ENV !== 'production') {
   // By explicitly using `prop-types` you are opting into new development behavior.
   // http://fb.me/prop-types-in-prod
   var throwOnDirectAccess = true;
-  module.exports = __webpack_require__(15)(isValidElement, throwOnDirectAccess);
+  module.exports = __webpack_require__(18)(isValidElement, throwOnDirectAccess);
 } else {
   // By explicitly using `prop-types` you are opting into new production behavior.
   // http://fb.me/prop-types-in-prod
-  module.exports = __webpack_require__(18)();
+  module.exports = __webpack_require__(21)();
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
 
 /***/ }),
 /* 6 */
@@ -445,6 +445,12 @@ module.exports = ReactPropTypesSecret;
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
+
+/***/ }),
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -513,7 +519,84 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 10 */
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+  var DeepSet,
+      ReactStyles,
+      _,
+      slice = [].slice;
+
+  _ = __webpack_require__(0);
+
+  DeepSet = __webpack_require__(23);
+
+  module.exports = ReactStyles = function () {
+    function ReactStyles(styles) {
+      this.styles = styles;
+    }
+
+    /*
+      Get's an object of React inline styles resolving any includes.  
+      
+      Context is optional and defaults to window.  
+      (see, ./reactStyles.md for more)
+     */
+
+    ReactStyles.prototype.get = function () {
+      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;
+      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];
+      if (_.isString(context)) {
+        styleNames.splice(0, 0, context);
+        context = window;
+      }
+      outStyles = [{}];
+      for (i = 0, len = styleNames.length; i < len; i++) {
+        styleName = styleNames[i];
+        style = _.extend({}, this.styles[styleName]);
+        if (style == null) {
+          console.error("ReactStyles: invalid styleName specified: '" + styleName + "'");
+          continue;
+        }
+        if (style.includes != null) {
+          includes = _.isArray(style.includes) ? style.includes : [style.includes];
+          for (j = 0, len1 = includes.length; j < len1; j++) {
+            include = includes[j];
+            switch (false) {
+              case !_.isString(include):
+                outStyles.push(this.get(context, include));
+                break;
+              case !_.isFunction(include):
+                outStyles.push(include.call(context));
+                break;
+              case !_.isObject(include):
+                outStyles.push(include);
+                break;
+              default:
+                throw "Unrecognized include type (should be string, object or function): " + JSON.stringify(include) + " for styles: " + JSON.stringify(this.styles);
+            }
+          }
+          delete style.includes;
+        }
+        outStyles.push(style);
+      }
+      return _.extend.apply(this, outStyles);
+    };
+
+    ReactStyles.prototype.set = function (deepAttr, value) {
+      return DeepSet(this.styles, deepAttr, value);
+    };
+
+    return ReactStyles;
+  }();
+}).call(undefined);
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -568,20 +651,304 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(12);
+"use strict";
+
+
+(function () {
+  var Cell,
+      Classnames,
+      PropTypes,
+      React,
+      ReactDatum,
+      _,
+      bind = function bind(fn, me) {
+    return function () {
+      return fn.apply(me, arguments);
+    };
+  },
+      extend = function extend(child, parent) {
+    for (var key in parent) {
+      if (hasProp.call(parent, key)) child[key] = parent[key];
+    }function ctor() {
+      this.constructor = child;
+    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
+  },
+      hasProp = {}.hasOwnProperty;
+
+  React = __webpack_require__(3);
+
+  ReactDatum = __webpack_require__(9);
+
+  PropTypes = __webpack_require__(4);
+
+  Classnames = __webpack_require__(12);
+
+  _ = __webpack_require__(0);
+
+  module.exports = Cell = function (superClass) {
+    extend(Cell, superClass);
+
+    Cell.propTypes = {
+      editing: PropTypes.bool,
+      rowData: PropTypes.object,
+      column: PropTypes.object,
+      datagrid: PropTypes.any,
+      onEdit: PropTypes.func,
+      defaultCellStyle: PropTypes.object
+    };
+
+    Cell.contextTypes = {
+      datagrid: PropTypes.any
+    };
+
+    function Cell() {
+      this.onEditClick = bind(this.onEditClick, this);
+      this._delayedForceUpdate = bind(this._delayedForceUpdate, this);
+      this._debouncedForceUpdate = bind(this._debouncedForceUpdate, this);
+      this.renderWrapped = bind(this.renderWrapped, this);
+      Cell.__super__.constructor.apply(this, arguments);
+    }
+
+    Cell.prototype.componentDidMount = function () {
+      return Cell.__super__.componentDidMount.apply(this, arguments);
+    };
+
+    Cell.prototype.render = function () {
+      var datumComponent, datumProps, ref, value;
+      value = this.props.value;
+      datumProps = _.extend({}, this.props.column.datumProps, {
+        model: this.getModel(),
+        attr: this.props.column.key,
+        column: this.props.column,
+        ref: 'datum',
+        inputMode: this.props.editing ? 'edit' : 'readonly'
+      });
+      datumProps = _.defaults(datumProps, {
+        rbOverlayProps: {
+          trigger: ['hover', 'focus', 'click'],
+          placement: 'top'
+        }
+      });
+      datumComponent = (ref = this.props.column.datum) != null ? ref : ReactDatum.Text;
+      value = React.createElement(this.props.column.datum, datumProps);
+      this.renderWrapped(value);
+      return renderedCell;
+    };
+
+    Cell.prototype.renderWrapped = function (value, options) {
+      var canEditCell, className, icon, ref, wrapperStyle;
+      if (options == null) {
+        options = {};
+      }
+      options = _.defaults(options, {
+        title: null,
+        wrapperStyle: {}
+      });
+      this.setDatumErrors();
+      canEditCell = (ref = this.getDatagrid()) != null ? ref.canEditCell(this.props.column, this.getModel()) : void 0;
+      wrapperStyle = $.extend(true, {}, options.wrapperStyle, this.getCellStyle(canEditCell));
+      className = this.getCellClass(canEditCell);
+      icon = this.getPrimaryIcon(canEditCell);
+      return React.createElement("div", {
+        "data-attr-row": this.props.rowIdx,
+        "data-attr-col": this.props.column.key,
+        "className": className,
+        "title": options.title,
+        "style": wrapperStyle
+      }, icon, React.createElement("span", null, value));
+    };
+
+    Cell.prototype._debouncedForceUpdate = function () {
+      return _.debounce(function (_this) {
+        return function () {
+          return _this.forceUpdate();
+        };
+      }(this), 50);
+    };
+
+    Cell.prototype._delayedForceUpdate = function (delay) {
+      if (delay == null) {
+        delay = 5000;
+      }
+      return _.delay(this._debouncedForceUpdate, 5000);
+    };
+
+    Cell.prototype.onEditClick = function (evt) {
+      return _.defer(function (_this) {
+        return function () {
+          var ref;
+          if (_this.props.onEdit != null) {
+            return _this.props.onEdit(_this, evt);
+          } else {
+            return (ref = _this.getDatagrid()) != null ? typeof ref.editCurrentCell === "function" ? ref.editCurrentCell() : void 0 : void 0;
+          }
+        };
+      }(this));
+    };
+
+    Cell.prototype.getModel = function () {
+      return this.props.rowData;
+    };
+
+    Cell.prototype.getDatagrid = function () {
+      var ref;
+      return (ref = this.props.datagrid) != null ? ref : this.context.datagrid;
+    };
+
+    Cell.prototype.getCellClass = function (canEditCell) {
+      var model, ref;
+      model = this.getModel();
+      return Classnames('rdd-cell', "rdd-" + this.props.column.key.dasherize() + "-column no-help-icon", this.getAdditionalElementClasses(), {
+        'rdd-cell-error': ((ref = this.getDatagridSaveErrors()) != null ? ref.length : void 0) > 0
+      }, {
+        'rdd-cell-saved': this.getDatagridSaveSuccess() === true
+      }, {
+        'rdd-editable': canEditCell
+      }, {
+        'rdd-selected': this.isSelected()
+      });
+    };
+
+    Cell.prototype.getCellStyle = function (canEditCell) {
+      var model;
+      model = this.getModel();
+      return $.extend(true, {}, this.getCellDefaultStyle(model), this.props.column.cellStyle, this.getCellOverrideStyle(model));
+    };
+
+    Cell.prototype.getCellDefaultStyle = function (model) {
+      var cellStyle, ref;
+      cellStyle = _.extend({}, (ref = this.props.defaultCellStyle) != null ? ref : {});
+      if (this.props.column.rightAlign) {
+        cellStyle.textAlign = 'right';
+        cellStyle.paddingRight = 10;
+      }
+      return cellStyle;
+    };
+
+    Cell.prototype.getCellOverrideStyle = function (model) {
+      return {};
+    };
+
+    Cell.prototype.getPrimaryIcon = function (canEditCell) {
+      var icon, model;
+      icon = null;
+      model = this.getModel();
+      if (model == null) {
+        return null;
+      }
+      if (this.getDatagridSaving()) {
+        icon = React.createElement("i", {
+          "className": "fa fa-spin fa-refresh rdd-icon rdd-icon-refresh",
+          "title": "Saving update..."
+        });
+      } else if (canEditCell && !this.props.column.hideEditableIcon) {
+        icon = React.createElement("i", {
+          "className": "fa fa-pencil rdd-icon rdd-icon-edit",
+          "onClick": this.onEditClick,
+          "title": "Click to edit this cell (or dbclick or enter)"
+        });
+      }
+      return icon;
+    };
+
+    Cell.prototype.getAdditionalElementClasses = function () {
+      return null;
+    };
+
+    Cell.prototype.getDatagridSaveErrors = function () {
+      var model, ref, ref1, ref2;
+      model = this.getModel();
+      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveErrors === "function" ? model.getDatagridSaveErrors(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveErrors) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : [];
+    };
+
+    Cell.prototype.getDatagridSaveSuccess = function () {
+      var model, ref, ref1, ref2;
+      model = this.getModel();
+      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveSuccess === "function" ? model.getDatagridSaveSuccess(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveSuccess) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
+    };
+
+    Cell.prototype.setDatagridSaveSuccess = function (trueOrFalse) {
+      var model, ref;
+      model = this.getModel();
+      if (model == null) {
+        return;
+      }
+      if (_.isFunction(model.setDatagridSaveSuccess)) {
+        return model.setDatagridSaveSuccess(this.props.column.key, trueOrFalse);
+      } else {
+        return (ref = model.__datagridSaveSuccess) != null ? ref[this.props.column.key] = trueOrFalse : void 0;
+      }
+    };
+
+    Cell.prototype.getDatagridSaving = function () {
+      var model, ref, ref1, ref2;
+      model = this.getModel();
+      return (ref = (ref1 = model != null ? typeof model.getDatagridSaving === "function" ? model.getDatagridSaving(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaving) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
+    };
+
+    Cell.prototype.isSelected = function () {
+      var ref;
+      return (ref = this.getDatagrid()) != null ? typeof ref.isCellSelected === "function" ? ref.isCellSelected(this.props.rowIdx, this.props.column.key) : void 0 : void 0;
+    };
+
+    Cell.prototype.setDatumErrors = function () {
+      var model, saveErrorResp;
+      model = this.getModel();
+      if (model == null) {
+        return;
+      }
+      saveErrorResp = this.getDatagridSaveErrors();
+      if ((saveErrorResp != null ? saveErrorResp.length : void 0) > 0) {
+        _.defer(function (_this) {
+          return function () {
+            var base;
+            if (_this.refs.datum != null) {
+              if (typeof (base = _this.refs.datum).clearErrors === "function") {
+                base.clearErrors();
+              }
+              return _this.refs.datum.onModelSaveError(_this.getModel(), saveErrorResp);
+            }
+          };
+        }(this));
+      }
+      if (this.getDatagridSaveSuccess()) {
+        _.defer(function (_this) {
+          return function () {
+            var base;
+            if (_this.refs.datum != null) {
+              if (typeof (base = _this.refs.datum).clearErrors === "function") {
+                base.clearErrors();
+              }
+            }
+            return _this.setDatagridSaveSuccess(false);
+          };
+        }(this));
+        return this._delayedForceUpdate();
+      }
+    };
+
+    return Cell;
+  }(React.Component);
+}).call(undefined);
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(15);
 
 
 /***/ }),
-/* 12 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(module) {
 
-var _ReactDatumDatagrid = __webpack_require__(14);
+var _ReactDatumDatagrid = __webpack_require__(17);
 
 if (window) {
   window.ReactDatumDatagrid = _ReactDatumDatagrid;
@@ -589,10 +956,10 @@ if (window) {
 if (module) {
   module.exports = _ReactDatumDatagrid;
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(16)(module)))
 
 /***/ }),
-/* 13 */
+/* 16 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -620,7 +987,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 14 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -632,10 +999,12 @@ module.exports = function(module) {
       Datagrid,
       GridEdit,
       GridSelect,
+      LabelCell,
       Mixin,
       PropTypes,
       React,
       ReactDOM,
+      ReactDatum,
       ReactStyles,
       _,
       bind = function bind(fn, me) {
@@ -654,23 +1023,27 @@ module.exports = function(module) {
 
   React = __webpack_require__(3);
 
-  ReactDOM = __webpack_require__(4);
+  ReactDOM = __webpack_require__(5);
 
-  PropTypes = __webpack_require__(5);
+  ReactDatum = __webpack_require__(9);
+
+  PropTypes = __webpack_require__(4);
 
   _ = __webpack_require__(0);
 
   $ = __webpack_require__(2);
 
-  Mixin = __webpack_require__(19);
+  Mixin = __webpack_require__(22);
 
-  ReactStyles = __webpack_require__(20);
+  ReactStyles = __webpack_require__(11);
 
-  CellWrapper = __webpack_require__(22);
+  CellWrapper = __webpack_require__(24);
 
-  GridEdit = __webpack_require__(25);
+  LabelCell = __webpack_require__(25);
 
-  GridSelect = __webpack_require__(27);
+  GridEdit = __webpack_require__(27);
+
+  GridSelect = __webpack_require__(29);
 
   /*
     This is react-datum-datagrid.   
@@ -735,7 +1108,7 @@ module.exports = function(module) {
           };
         },
         display: 'inline-block',
-        backgroundColor: App.lessVar('grid_header_background_color'),
+        backgroundColor: '#eceff6',
         height: '100%',
         verticalAlign: 'top'
       },
@@ -790,7 +1163,7 @@ module.exports = function(module) {
         minHeight: 60
       },
       bottomDivider: {
-        borderBottom: "3px solid " + App.lessVar('gray_tone3')
+        borderBottom: "3px solid #cccccc"
       }
     });
 
@@ -878,8 +1251,8 @@ module.exports = function(module) {
       if (!(($focusedCell != null ? $focusedCell.length : void 0) > 0)) {
         return null;
       }
-      rowIdx = App.util.safelyFloat($focusedCell.attr('data-row'));
-      colIdx = App.util.safelyFloat($focusedCell.attr('data-col'));
+      rowIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'));
+      colIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'));
       columnDef = this.getColumn(colIdx);
       return {
         rowIdx: rowIdx,
@@ -949,7 +1322,7 @@ module.exports = function(module) {
         return null;
       }
       labelStyle = $.extend(true, {}, this._getDefaultCellStyle(columnDef), (ref = columnDef.flipgrid) != null ? ref.labelStyle : void 0);
-      return React.createElement(x.LabelCell, {
+      return React.createElement(LabelCell, {
         "key": index,
         "column": columnDef,
         "datagrid": this,
@@ -973,7 +1346,7 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._renderDataCell = function (index, columnDef, model, rowIdx, baseColumnIndex) {
-      return React.createElement(x.CellWrapper, {
+      return React.createElement(CellWrapper, {
         "model": model,
         "column": columnDef,
         "rowIdx": rowIdx,
@@ -1102,7 +1475,7 @@ module.exports = function(module) {
 }).call(undefined);
 
 /***/ }),
-/* 15 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1117,11 +1490,11 @@ module.exports = function(module) {
 
 var emptyFunction = __webpack_require__(6);
 var invariant = __webpack_require__(7);
-var warning = __webpack_require__(9);
-var assign = __webpack_require__(16);
+var warning = __webpack_require__(10);
+var assign = __webpack_require__(19);
 
 var ReactPropTypesSecret = __webpack_require__(8);
-var checkPropTypes = __webpack_require__(17);
+var checkPropTypes = __webpack_require__(20);
 
 module.exports = function(isValidElement, throwOnDirectAccess) {
   /* global Symbol */
@@ -1652,7 +2025,7 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 16 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1749,7 +2122,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 
 /***/ }),
-/* 17 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1764,7 +2137,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 if (process.env.NODE_ENV !== 'production') {
   var invariant = __webpack_require__(7);
-  var warning = __webpack_require__(9);
+  var warning = __webpack_require__(10);
   var ReactPropTypesSecret = __webpack_require__(8);
   var loggedTypeFailures = {};
 }
@@ -1816,7 +2189,7 @@ module.exports = checkPropTypes;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 18 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1881,73 +2254,75 @@ module.exports = function() {
 
 
 /***/ }),
-/* 19 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-/*
-  Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
-  be added to klass and function as full members of that class.
-
-  In the context of a mixinKlass method,
-    - @ will reference the instance of klass
-    - @originalMethod() will always call method replaced by the mixinKlass method
-    - mixinKlass attributes will replace attributes in klass
-
-  @originalMethod()
-    - is a special method that only exists in the context of a mixinKlass method call
-    - should reference either the previous mixin that replaced this method or the klass method replaced
-    - may be undefined.  if no previous mixin or the klass did not define the mixinKlass method,
-      then @originalMethod should be null or undefined.  If you are unsure if the class being mixed into
-      will define the mixin method, use the   @originalMethod?(arguments)   pattern (note existensial op)
-
-  see,  app/coffeescripts/tests/application/mixin.coffee for examples and expected behaviors.
-
-  IMPORTANT NOTES:
-
-    Mixin constructor methods override contructor methods in class being mixed into.  Mixins that extend
-    other classes get a hidden constructor.  Make sure @originalMethod? is called with the original constructor
-    args.   See models/mixins/stylesMetadata.coffee
-
-    App.mixin <b>must be called last</b> in the class definition or after class is defined such that any overridden
-      methods have already been defined.
-
-    Parameter passing.  For flexibility, plugins will often pass along arguments to @originalMethod.  If your
-      mixin method doesn't specifically require a fixed set of parameters or doesn't care about parameters,
-      you should call original method like so:
-      <pre>
-                  @originalMethod?.apply(@, arguments)
-      </pre>
-      This will make your mixin more flexible and able to survive changes to the underlying instance method
-      argument specification.
-
-  example:
-
-      class MyMixin
-        someMethod: () =>
-          @originalMethod()
-           * ... do something more useful
-
-      class MyClass
-        someMethod: () =>
-           * do something useful
-
-        App.mixin @, MyMixin     #  this needs to be last
- */
-
 (function () {
-  var mixin;
+  var _, mixin;
+
+  _ = __webpack_require__(0);
+
+  /*
+    Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
+    be added to klass and function as full members of that class.
+  
+    In the context of a mixinKlass method,
+      - @ will reference the instance of klass
+      - @originalMethod() will always call method replaced by the mixinKlass method
+      - mixinKlass attributes will replace attributes in klass
+  
+    @originalMethod()
+      - is a special method that only exists in the context of a mixinKlass method call
+      - should reference either the previous mixin that replaced this method or the klass method replaced
+      - may be undefined.  if no previous mixin or the klass did not define the mixinKlass method,
+        then @originalMethod should be null or undefined.  If you are unsure if the class being mixed into
+        will define the mixin method, use the   @originalMethod?(arguments)   pattern (note existensial op)
+  
+    see,  app/coffeescripts/tests/application/mixin.coffee for examples and expected behaviors.
+  
+    IMPORTANT NOTES:
+  
+      Mixin constructor methods override contructor methods in class being mixed into.  Mixins that extend
+      other classes get a hidden constructor.  Make sure @originalMethod? is called with the original constructor
+      args.   See models/mixins/stylesMetadata.coffee
+  
+      mixin() <b>must be called last</b> in the class definition or after class is defined such that any overridden
+        methods have already been defined.
+  
+      Parameter passing.  For flexibility, plugins will often pass along arguments to @originalMethod.  If your
+        mixin method doesn't specifically require a fixed set of parameters or doesn't care about parameters,
+        you should call original method like so:
+        <pre>
+                    @originalMethod?.apply(@, arguments)
+        </pre>
+        This will make your mixin more flexible and able to survive changes to the underlying instance method
+        argument specification.
+  
+    example:
+  
+        class MyMixin
+          someMethod: () =>
+            @originalMethod()
+             * ... do something more useful
+  
+        class MyClass
+          someMethod: () =>
+             * do something useful
+  
+          mixin @, MyMixin     #  this needs to be last
+   */
 
   module.exports = mixin = function mixin(klass, mixinKlass) {
     var base, base1, base2, key, mixinKlassName, oMethod, oMethodKey, ref, results, val, wrapperDef, wrapperName;
     if (!mixinKlass) {
       console.trace();
-      throw "Dev: Mixin class undefined. Make sure you are correctly requiring file. Ex: App.namespace require: 'models/mixins/myMixin', ... ";
+      throw "Dev: Mixin class undefined. Make sure you are correctly requiring file.";
     }
     if (klass === window || klass === document) {
-      throw "Dev: The class being mixed into should not be window or document. <p>Look closely at the indentation of 'App.mixin(@, ... '.  If using '@' for first parameter it must be at the same indentation as the instance method definitions in the class at the very end of the class definition.</p>";
+      throw "Dev: The class being mixed into should not be window or document. <p>Look closely at the indentation of 'mixin(@, ... )' callsite.  If using '@' for first parameter it must be at the same indentation as the instance method definitions in the class at the very end of the class definition.</p>";
     }
     mixinKlassName = mixinKlass.toString().match(/^\s*function\s*([^\(]*)/)[1] || "unknown";
     ref = mixinKlass.prototype;
@@ -1957,7 +2332,7 @@ module.exports = function() {
       if (key === 'constructor') {
         continue;
       }
-      if (_.isFunction(val) && (_.keys(val).isEmpty() || key === 'constructor')) {
+      if (_.isFunction(val) && (_.isEmpty(_.keys(val)) || key === 'constructor')) {
         oMethod = klass.prototype[key];
         oMethodKey = mixinKlassName + "_" + key;
         (base = klass.prototype).__originalMethods || (base.__originalMethods = {});
@@ -1977,84 +2352,7 @@ module.exports = function() {
 }).call(undefined);
 
 /***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-(function () {
-  var DeepSet,
-      ReactStyles,
-      _,
-      slice = [].slice;
-
-  _ = __webpack_require__(0);
-
-  DeepSet = __webpack_require__(21);
-
-  module.exports = ReactStyles = function () {
-    function ReactStyles(styles) {
-      this.styles = styles;
-    }
-
-    /*
-      Get's an object of React inline styles resolving any includes.  
-      
-      Context is optional and defaults to window.  
-      (see, ./reactStyles.md for more)
-     */
-
-    ReactStyles.prototype.get = function () {
-      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;
-      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];
-      if (_.isString(context)) {
-        styleNames.splice(0, 0, context);
-        context = window;
-      }
-      outStyles = [{}];
-      for (i = 0, len = styleNames.length; i < len; i++) {
-        styleName = styleNames[i];
-        style = _.extend({}, this.styles[styleName]);
-        if (style == null) {
-          console.error("ReactStyles: invalid styleName specified: '" + styleName + "'");
-          continue;
-        }
-        if (style.includes != null) {
-          includes = _.isArray(style.includes) ? style.includes : [style.includes];
-          for (j = 0, len1 = includes.length; j < len1; j++) {
-            include = includes[j];
-            switch (false) {
-              case !_.isString(include):
-                outStyles.push(this.get(context, include));
-                break;
-              case !_.isFunction(include):
-                outStyles.push(include.call(context));
-                break;
-              case !_.isObject(include):
-                outStyles.push(include);
-                break;
-              default:
-                throw "Unrecognized include type (should be string, object or function): " + JSON.stringify(include) + " for styles: " + JSON.stringify(this.styles);
-            }
-          }
-          delete style.includes;
-        }
-        outStyles.push(style);
-      }
-      return _.extend.apply(this, outStyles);
-    };
-
-    ReactStyles.prototype.set = function (deepAttr, value) {
-      return DeepSet(this.styles, deepAttr, value);
-    };
-
-    return ReactStyles;
-  }();
-}).call(undefined);
-
-/***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2068,7 +2366,7 @@ module.exports = function() {
   /*
   Performs a deep set on the the value of a attribute deeply nested within this object
   
-  See App.utils.deepGet comments above for example use.  anything that can get fetched
+  See deepGet comments above for example use.  anything that can get fetched
   with deepGet should be able to be set by deepSet
   
   see also /app/coffeescripts/tests/application/utils/deepGetAndSet.coffee for more examples and tests
@@ -2101,7 +2399,7 @@ module.exports = function() {
 }).call(undefined);
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2132,17 +2430,17 @@ module.exports = function() {
 
   React = __webpack_require__(3);
 
-  ReactDOM = __webpack_require__(4);
+  ReactDOM = __webpack_require__(5);
 
-  PropTypes = __webpack_require__(5);
+  PropTypes = __webpack_require__(4);
 
-  Classnames = __webpack_require__(10);
+  Classnames = __webpack_require__(12);
 
   $ = __webpack_require__(2);
 
   _ = __webpack_require__(0);
 
-  Cell = __webpack_require__(23);
+  Cell = __webpack_require__(13);
 
   module.exports = CellWrapper = function (superClass) {
     extend(CellWrapper, superClass);
@@ -2372,7 +2670,7 @@ module.exports = function() {
 }).call(undefined);
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2380,11 +2678,11 @@ module.exports = function() {
 
 (function () {
   var Cell,
-      Classnames,
+      LabelCell,
       PropTypes,
+      Rb,
       React,
-      ReactDatum,
-      _,
+      ReactStyles,
       bind = function bind(fn, me) {
     return function () {
       return fn.apply(me, arguments);
@@ -2401,268 +2699,168 @@ module.exports = function() {
 
   React = __webpack_require__(3);
 
-  ReactDatum = __webpack_require__(24);
+  PropTypes = __webpack_require__(4);
 
-  PropTypes = __webpack_require__(5);
+  Rb = __webpack_require__(26);
 
-  Classnames = __webpack_require__(10);
+  ReactStyles = __webpack_require__(11);
 
-  _ = __webpack_require__(0);
+  Cell = __webpack_require__(13);
 
-  module.exports = Cell = function (superClass) {
-    extend(Cell, superClass);
+  module.exports = LabelCell = function (superClass) {
+    extend(LabelCell, superClass);
 
-    Cell.propTypes = {
-      editing: PropTypes.bool,
-      rowData: PropTypes.object,
-      column: PropTypes.object,
-      datagrid: PropTypes.any,
-      onEdit: PropTypes.func,
-      defaultCellStyle: PropTypes.object
-    };
-
-    Cell.contextTypes = {
-      datagrid: PropTypes.any
-    };
-
-    function Cell() {
-      this.onEditClick = bind(this.onEditClick, this);
-      this._delayedForceUpdate = bind(this._delayedForceUpdate, this);
-      this._debouncedForceUpdate = bind(this._debouncedForceUpdate, this);
-      this.renderWrapped = bind(this.renderWrapped, this);
-      Cell.__super__.constructor.apply(this, arguments);
+    function LabelCell() {
+      this._onHideIconClick = bind(this._onHideIconClick, this);
+      this._onShowIconClick = bind(this._onShowIconClick, this);
+      return LabelCell.__super__.constructor.apply(this, arguments);
     }
 
-    Cell.prototype.componentDidMount = function () {
-      return Cell.__super__.componentDidMount.apply(this, arguments);
+    LabelCell.propTypes = {
+      rowData: PropTypes.any,
+      column: PropTypes.object,
+      onHideColumn: PropTypes.func,
+      onShowColumn: PropTypes.func
     };
 
-    Cell.prototype.render = function () {
-      var datumComponent, datumProps, ref, value;
-      value = this.props.value;
-      datumProps = _.extend({}, this.props.column.datumProps, {
-        model: this.getModel(),
-        attr: this.props.column.key,
-        column: this.props.column,
-        ref: 'datum',
-        inputMode: this.props.editing ? 'edit' : 'readonly'
-      });
-      datumProps = _.defaults(datumProps, {
-        rbOverlayProps: {
-          trigger: ['hover', 'focus', 'click'],
-          placement: 'top'
-        }
-      });
-      datumComponent = (ref = this.props.column.datum) != null ? ref : ReactDatum.Text;
-      value = React.createElement(this.props.column.datum, datumProps);
-      this.renderWrapped(value);
-      return renderedCell;
-    };
-
-    Cell.prototype.renderWrapped = function (value, options) {
-      var canEditCell, className, icon, ref, wrapperStyle;
-      if (options == null) {
-        options = {};
+    LabelCell.prototype.styles = new ReactStyles({
+      icon: {
+        float: 'right',
+        color: '#4767AA'
+      },
+      wrapper: {
+        position: 'relative',
+        paddingLeft: 18
+      },
+      showHideIcon: {
+        position: 'absolute',
+        left: -5,
+        top: 0,
+        fontSize: 17,
+        color: '#4767AA'
+      },
+      showIcon: {
+        includes: 'showHideIcon',
+        left: 2,
+        top: 1
+      },
+      banIcon: {
+        includes: 'showHideIcon',
+        color: '#DE8387',
+        top: 1,
+        left: 1,
+        fontSize: 21
       }
-      options = _.defaults(options, {
-        title: null,
-        wrapperStyle: {}
-      });
-      this.setDatumErrors();
-      canEditCell = (ref = this.getDatagrid()) != null ? ref.canEditCell(this.props.column, this.getModel()) : void 0;
-      wrapperStyle = $.extend(true, {}, options.wrapperStyle, this.getCellStyle(canEditCell));
-      className = this.getCellClass(canEditCell);
-      icon = this.getPrimaryIcon(canEditCell);
-      return React.createElement("div", {
-        "data-attr-row": this.props.rowIdx,
-        "data-attr-col": this.props.column.key,
-        "className": className,
-        "title": options.title,
-        "style": wrapperStyle
-      }, icon, React.createElement("span", null, value));
+    });
+
+    LabelCell.prototype.style = function (name) {
+      var ref;
+      return _.extend({}, this.styles.get(this, name), ((ref = this.props.styles) != null ? ref[name] : void 0) || {});
     };
 
-    Cell.prototype._debouncedForceUpdate = function () {
-      return _.debounce(function (_this) {
-        return function () {
-          return _this.forceUpdate();
-        };
-      }(this), 50);
-    };
-
-    Cell.prototype._delayedForceUpdate = function (delay) {
-      if (delay == null) {
-        delay = 5000;
+    LabelCell.prototype.renderWrapped = function () {
+      var ref, ref1;
+      if (!((ref = this.props.column) != null ? ref.tooltip : void 0)) {
+        return LabelCell.__super__.renderWrapped.call(this, React.createElement("div", {
+          "style": this.style('wrapper')
+        }, this._renderShowHideControl(), (ref1 = this.props.column) != null ? ref1.name : void 0));
       }
-      return _.delay(this._debouncedForceUpdate, 5000);
+      return LabelCell.__super__.renderWrapped.call(this, React.createElement("div", {
+        "style": this.style('wrapper')
+      }, React.createElement(Rb.OverlayTrigger, {
+        "overlay": this._renderTooltipPopover()
+      }, React.createElement("div", null, this._renderShowHideControl(), this.props.column.name, React.createElement("i", {
+        "style": this.style('icon'),
+        "className": 'fa fa-question-circle'
+      })))));
     };
 
-    Cell.prototype.onEditClick = function (evt) {
-      return _.defer(function (_this) {
+    LabelCell.prototype._renderTooltipPopover = function () {
+      return React.createElement(Rb.Popover, {
+        "id": "flipgridTooltipPopover"
+      }, this.props.column.tooltip);
+    };
+
+    LabelCell.prototype._renderShowHideControl = function () {
+      if (!this.props.column.canHide) {
+        return null;
+      }
+      if (this.props.column.isHidden) {
+        return React.createElement("i", {
+          "className": 'fa fa-eye',
+          "style": this.style('showHideIcon'),
+          "title": 'Click to show this attribute when "Mine" attributes selected',
+          "onClick": this._onShowIconClick
+        });
+      } else {
+        return React.createElement("span", {
+          "class": "fa-stack",
+          "title": 'Click to hide this attribute when "Mine" attributes selected',
+          "onClick": this._onHideIconClick,
+          "style": this.style('showHideIcon')
+        }, React.createElement("i", {
+          "className": "fa fa-eye fa-stack-1x",
+          "style": this.style('showIcon')
+        }), React.createElement("i", {
+          "className": "fa fa-ban fa-stack-2x",
+          "style": this.style('banIcon')
+        }));
+      }
+    };
+
+    LabelCell.prototype.getCellDefaultStyle = function (model) {
+      var styles;
+      styles = _.defaults(LabelCell.__super__.getCellDefaultStyle.call(this, model), {
+        verticalAlign: 'middle',
+        textAlign: 'left',
+        paddingLeft: 10
+      });
+      _.extend(styles, {
+        borderRight: "solid 1px #FFFFFF",
+        borderBottom: "solid 1px #FFFFFF"
+      });
+      if (this.props.column.isHidden) {
+        styles.color = 'rgba(0, 0, 0, 0.16)';
+      }
+      return styles;
+    };
+
+    LabelCell.prototype.getBackgroundColor = function () {
+      return '#eceff6';
+    };
+
+    LabelCell.prototype._onShowIconClick = function (evt) {
+      this.props.column.isHidden = false;
+      return this.forceUpdate(function (_this) {
         return function () {
-          var ref;
-          if (_this.props.onEdit != null) {
-            return _this.props.onEdit(_this, evt);
-          } else {
-            return (ref = _this.getDatagrid()) != null ? typeof ref.editCurrentCell === "function" ? ref.editCurrentCell() : void 0 : void 0;
-          }
+          var base;
+          return typeof (base = _this.props).onShowColumn === "function" ? base.onShowColumn(_this, _this.props.column, evt) : void 0;
         };
       }(this));
     };
 
-    Cell.prototype.getModel = function () {
-      return this.props.rowData;
+    LabelCell.prototype._onHideIconClick = function (evt) {
+      this.props.column.isHidden = true;
+      return this.forceUpdate(function (_this) {
+        return function () {
+          var base;
+          return typeof (base = _this.props).onHideColumn === "function" ? base.onHideColumn(_this, _this.props.column, evt) : void 0;
+        };
+      }(this));
     };
 
-    Cell.prototype.getDatagrid = function () {
-      var ref;
-      return (ref = this.props.datagrid) != null ? ref : this.context.datagrid;
-    };
-
-    Cell.prototype.getCellClass = function (canEditCell) {
-      var model, ref;
-      model = this.getModel();
-      return Classnames('rdd-cell', "rdd-" + this.props.column.key.dasherize() + "-column no-help-icon", this.getAdditionalElementClasses(), {
-        'rdd-cell-error': ((ref = this.getDatagridSaveErrors()) != null ? ref.length : void 0) > 0
-      }, {
-        'rdd-cell-saved': this.getDatagridSaveSuccess() === true
-      }, {
-        'rdd-editable': canEditCell
-      }, {
-        'rdd-selected': this.isSelected()
-      });
-    };
-
-    Cell.prototype.getCellStyle = function (canEditCell) {
-      var model;
-      model = this.getModel();
-      return $.extend(true, {}, this.getCellDefaultStyle(model), this.props.column.cellStyle, this.getCellOverrideStyle(model));
-    };
-
-    Cell.prototype.getCellDefaultStyle = function (model) {
-      var cellStyle, ref;
-      cellStyle = _.extend({}, (ref = this.props.defaultCellStyle) != null ? ref : {});
-      if (this.props.column.rightAlign) {
-        cellStyle.textAlign = 'right';
-        cellStyle.paddingRight = 10;
-      }
-      return cellStyle;
-    };
-
-    Cell.prototype.getCellOverrideStyle = function (model) {
-      return {};
-    };
-
-    Cell.prototype.getPrimaryIcon = function (canEditCell) {
-      var icon, model;
-      icon = null;
-      model = this.getModel();
-      if (model == null) {
-        return null;
-      }
-      if (this.getDatagridSaving()) {
-        icon = React.createElement("i", {
-          "className": "fa fa-spin fa-refresh rdd-icon rdd-icon-refresh",
-          "title": "Saving update..."
-        });
-      } else if (canEditCell && !this.props.column.hideEditableIcon) {
-        icon = React.createElement("i", {
-          "className": "fa fa-pencil rdd-icon rdd-icon-edit",
-          "onClick": this.onEditClick,
-          "title": "Click to edit this cell (or dbclick or enter)"
-        });
-      }
-      return icon;
-    };
-
-    Cell.prototype.getAdditionalElementClasses = function () {
-      return null;
-    };
-
-    Cell.prototype.getDatagridSaveErrors = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveErrors === "function" ? model.getDatagridSaveErrors(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveErrors) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : [];
-    };
-
-    Cell.prototype.getDatagridSaveSuccess = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveSuccess === "function" ? model.getDatagridSaveSuccess(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveSuccess) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
-    };
-
-    Cell.prototype.setDatagridSaveSuccess = function (trueOrFalse) {
-      var model, ref;
-      model = this.getModel();
-      if (model == null) {
-        return;
-      }
-      if (_.isFunction(model.setDatagridSaveSuccess)) {
-        return model.setDatagridSaveSuccess(this.props.column.key, trueOrFalse);
-      } else {
-        return (ref = model.__datagridSaveSuccess) != null ? ref[this.props.column.key] = trueOrFalse : void 0;
-      }
-    };
-
-    Cell.prototype.getDatagridSaving = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaving === "function" ? model.getDatagridSaving(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaving) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
-    };
-
-    Cell.prototype.isSelected = function () {
-      var ref;
-      return (ref = this.getDatagrid()) != null ? typeof ref.isCellSelected === "function" ? ref.isCellSelected(this.props.rowIdx, this.props.column.key) : void 0 : void 0;
-    };
-
-    Cell.prototype.setDatumErrors = function () {
-      var model, saveErrorResp;
-      model = this.getModel();
-      if (model == null) {
-        return;
-      }
-      saveErrorResp = this.getDatagridSaveErrors();
-      if ((saveErrorResp != null ? saveErrorResp.length : void 0) > 0) {
-        _.defer(function (_this) {
-          return function () {
-            var base;
-            if (_this.refs.datum != null) {
-              if (typeof (base = _this.refs.datum).clearErrors === "function") {
-                base.clearErrors();
-              }
-              return _this.refs.datum.onModelSaveError(_this.getModel(), saveErrorResp);
-            }
-          };
-        }(this));
-      }
-      if (this.getDatagridSaveSuccess()) {
-        _.defer(function (_this) {
-          return function () {
-            var base;
-            if (_this.refs.datum != null) {
-              if (typeof (base = _this.refs.datum).clearErrors === "function") {
-                base.clearErrors();
-              }
-            }
-            return _this.setDatagridSaveSuccess(false);
-          };
-        }(this));
-        return this._delayedForceUpdate();
-      }
-    };
-
-    return Cell;
-  }(React.Component);
+    return LabelCell;
+  }(Cell);
 }).call(undefined);
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_26__;
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2683,7 +2881,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 
   $ = __webpack_require__(2);
 
-  DeepGet = __webpack_require__(26);
+  DeepGet = __webpack_require__(28);
 
   /*
    */
@@ -3057,7 +3255,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 }).call(undefined);
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3078,22 +3276,22 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
     |       }
     |     }
     |   }
-    |  App.utils.deepGet(data, 'weather.high')   # will return 90
+    |  deepGet(data, 'weather.high')   # will return 90
   </code>
 
   There is no limit to the depth, also functions may be employed anywhere along the path if isFunctional is not set to disabled
   From the former example:
   <code>
-    |  App.util.deepGet(data, 'weather.low')   # will call the function associated with 'low' which returns 70
+    |  deepGet(data, 'weather.low')   # will call the function associated with 'low' which returns 70
   </code>
 
   see /app/coffeescripts/tests/application/utils/deepGetAndSet.coffee for more examples and tests
  */
 
 (function () {
-  var deepGet;
+  var _deepGet;
 
-  module.exports = deepGet = function deepGet(object, pathToAttribute, isFunctional) {
+  module.exports = _deepGet = function deepGet(object, pathToAttribute, isFunctional) {
     var current, i, len, part, ref, ref1;
     if (isFunctional == null) {
       isFunctional = true;
@@ -3111,7 +3309,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
       } else if (_.isArray(current)) {
         current = _.map(current, function (currentEntity) {
           if (currentEntity != null) {
-            return App.util.deepGet(currentEntity, part, isFunctional);
+            return _deepGet(currentEntity, part, isFunctional);
           } else {
             return currentEntity;
           }
@@ -3128,7 +3326,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 }).call(undefined);
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3152,15 +3350,15 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
     }return -1;
   };
 
-  ReactDOM = __webpack_require__(4);
+  ReactDOM = __webpack_require__(5);
 
   $ = __webpack_require__(2);
 
   _ = __webpack_require__(0);
 
-  CopyPasteFromExcel = __webpack_require__(28);
+  CopyPasteFromExcel = __webpack_require__(30);
 
-  CompareObjects = __webpack_require__(29);
+  CompareObjects = __webpack_require__(31);
 
   /*
     These are the selection methods available on react-datum-datagrid
@@ -3827,7 +4025,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 }).call(undefined);
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4022,7 +4220,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_24__;
 }).call(undefined);
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

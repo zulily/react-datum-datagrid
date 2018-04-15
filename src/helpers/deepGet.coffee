@@ -13,13 +13,13 @@
     |       }
     |     }
     |   }
-    |  App.utils.deepGet(data, 'weather.high')   # will return 90
+    |  deepGet(data, 'weather.high')   # will return 90
   </code>
 
   There is no limit to the depth, also functions may be employed anywhere along the path if isFunctional is not set to disabled
   From the former example:
   <code>
-    |  App.util.deepGet(data, 'weather.low')   # will call the function associated with 'low' which returns 70
+    |  deepGet(data, 'weather.low')   # will call the function associated with 'low' which returns 70
   </code>
 
   see /app/coffeescripts/tests/application/utils/deepGetAndSet.coffee for more examples and tests
@@ -35,7 +35,7 @@ module.exports = deepGet = (object, pathToAttribute, isFunctional=true) ->
       current = current['attributes'][part]
     else if _.isArray(current)
       current = _.map current, (currentEntity) -> 
-        if currentEntity? then App.util.deepGet(currentEntity, part, isFunctional) else currentEntity
+        if currentEntity? then deepGet(currentEntity, part, isFunctional) else currentEntity
     else
       current = current[part]
     break if !current?

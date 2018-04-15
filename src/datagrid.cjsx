@@ -1,6 +1,7 @@
 
 React = require 'react'
 ReactDOM = require 'react-dom'
+ReactDatum = require 'react-datum'
 PropTypes = require 'prop-types'
 _ = require 'underscore'
 $ = require 'jquery'
@@ -8,6 +9,7 @@ $ = require 'jquery'
 Mixin = require './helpers/mixin'
 ReactStyles = require './helpers/reactStyles'
 CellWrapper = require './cellWrapper'
+LabelCell = require './labelCell'
 
 GridEdit = require './gridEdit'
 GridSelect = require './gridSelect'
@@ -74,7 +76,7 @@ module.exports = class Datagrid extends React.Component
       includes: -> 
         width: @props.labelWidth
       display: 'inline-block'
-      backgroundColor: App.lessVar('grid_header_background_color')
+      backgroundColor: '#eceff6'
       height: '100%'
       verticalAlign: 'top'
     gridsContainer:
@@ -102,7 +104,7 @@ module.exports = class Datagrid extends React.Component
       width: 50
       minHeight: 60
     bottomDivider: 
-      borderBottom: "3px solid #{App.lessVar('gray_tone3')}"
+      borderBottom: "3px solid #cccccc"
 
 
   componentDidMount: ->
@@ -163,8 +165,8 @@ module.exports = class Datagrid extends React.Component
   getSelectedCell: () ->
     $focusedCell = $(ReactDOM.findDOMNode(@)).find('.rdd-cell-wrapper:focus')
     return null unless $focusedCell?.length > 0
-    rowIdx = App.util.safelyFloat($focusedCell.attr('data-row'))
-    colIdx = App.util.safelyFloat($focusedCell.attr('data-col'))
+    rowIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'))
+    colIdx = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'))
     columnDef = @getColumn(colIdx)
 
     return {rowIdx: rowIdx, idx: colIdx, col: columnDef.key}
@@ -212,7 +214,7 @@ module.exports = class Datagrid extends React.Component
   _renderLabelCell: (index, columnDef) ->
     return null unless columnDef?
     labelStyle = $.extend true, {}, @_getDefaultCellStyle(columnDef), columnDef.flipgrid?.labelStyle
-    <x.LabelCell 
+    <LabelCell 
       key={index} 
       column={columnDef} 
       datagrid={@} 
@@ -228,7 +230,7 @@ module.exports = class Datagrid extends React.Component
 
 
   _renderDataCell: (index, columnDef, model, rowIdx, baseColumnIndex) ->
-    <x.CellWrapper
+    <CellWrapper
       model={model}
       column={columnDef}
       rowIdx={rowIdx}

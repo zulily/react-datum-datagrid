@@ -94,11 +94,11 @@ module.exports = class LabelCell extends Cell
     styles = _.defaults super(model), 
       verticalAlign: 'middle'
       textAlign: 'left'
-      paddingLeft: App.lessVar('standard_padding');        
+      paddingLeft: 10        
       
     _.extend styles,
-      borderRight: "solid 1px #{App.lessVar('base_white')}"
-      borderBottom: "solid 1px #{App.lessVar('base_white')}"
+      borderRight: "solid 1px #FFFFFF"
+      borderBottom: "solid 1px #FFFFFF"
       
     if @props.column.isHidden
       styles.color = 'rgba(0, 0, 0, 0.16)'
@@ -107,7 +107,7 @@ module.exports = class LabelCell extends Cell
     
       
   getBackgroundColor: ->
-    return App.lessVar('grid_header_background_color')
+    return '#eceff6'
       
   
   _onShowIconClick: (evt)  =>      
