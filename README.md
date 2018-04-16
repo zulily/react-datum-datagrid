@@ -9,7 +9,7 @@ A datagrid built on [react-virtualized](https://github.com/bvaughn/react-virtual
 
 
 ## Live Demo & Examples
-(http://zulily.github.io/react-datum-datagrid/docs/examples/)
+http://zulily.github.io/react-datum-datagrid/docs/examples/#basic
 
 ## Installation
 
@@ -20,10 +20,10 @@ npm install react-datum-datagrid --save
 
 ** Install from the web: **
 
-Copy development (.js) or optimized (.min.js) distribution file from (https://github.com/zulily/react-datum-datagrid/tree/master/dist) in with your other vendor js and use a script tag or AMD to load it.  
+Copy development (.js) or optimized (.min.js) distribution file from https://github.com/zulily/react-datum-datagrid/tree/master/dist in with your other vendor js and use a script tag or AMD to load it.  
 
 ## Usage
-Suppose you have a Backbone Collection of puppy records such as (http://zulily.github.io/react-datum-datagrid/test/lib/puppyData.js)...
+Suppose you have a Backbone Collection of puppy records such as http://zulily.github.io/react-datum-datagrid/test/lib/puppyData.js ...
 
 ```javascript
 
