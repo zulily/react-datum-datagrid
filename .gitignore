@@ -12,3 +12,4 @@ coverage/
 node_modules/
 
 /docs/
+/dist/webpackStats.json
