@@ -50,7 +50,7 @@ class BasicDatagridDisplay extends React.Component {
       datumProps: {
         ellipsizeAt: false,
         reverseEllipsis: true,
-      },
+      }
     }]
   }
 }
