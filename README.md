@@ -23,49 +23,79 @@ npm install react-datum-datagrid --save
 Copy development (.js) or optimized (.min.js) distribution file from (https://github.com/zulily/react-datum-datagrid/tree/master/dist) in with your other vendor js and use a script tag or AMD to load it.  
 
 ## Usage
-
-### TO BE DONE
-
+Suppose you have a Backbone Collection of Puppy Data such as (http://zulily.github.io/react-datum-datagrid/test/lib/puppyData.js)...
 
 ```javascript
 
-// Say you have this model:
+let puppyCollection = new Backbone.Collection(PUPPY_DATA)
+```
 
-var puppyModel = new Backbone.Model({
-  name: "Fluffy",
-  title: "His Royal Cuteness",
-  description: "He's a cuddler and a lover through and through",
-  forAdoption: true,
-  ageInMonths: 10,
-  createdAt: 1446520828,
-  imgUrl: "https://drpem3xzef3kf.cloudfront.net/photos/pets/32707403/1/?bust=1436666804&width=200&no_scale_up=1",
-  sponsorEmail: "kindoldcatlady@lotsofcats.com",
-  comment: ""
-});
+To build an infinitely scrolling datagrid with locked left columns...
 
-// To create the card below:
+```javacript 
 
-var puppyCard = React.createClass({
-  displayName:"PuppyCard",
-  render: function(){
+class BasicDatagridDisplay extends React.Component {
+  static displayName = "BasicDatagridDisplay"
+  
+  render(){
+    // ReactDatumDatagrid will fill what ever element it is placed in
+    // Below we constrain it to 100% of the demo pane and a fixed width of 600px
+    // You can also use Flex!  See TODO Flexy Demo
     return (
-      <div className='puppy-card'>
-        <ReactDatum.Model model={puppyModel}>
-          <h3>Adopt <ReactDatum.Text attr="name"/> Today!</h3>
-          <div><ReactDatum.LazyPhoto attr="imgUrl"/></div>
-          <div><ReactDatum.Text attr="name" label="Name"/> (<ReactDatum.Text attr="title"/>)</div>
-          <div><ReactDatum.Email attr="sponsorEmail" label="Adoption Sponsor" displayLink/></div>
-          <ReactDatum.Text attr="description"/>
-          <h5>Leave a comment</h5>
-          <ReactDatum.Text attr="comment" inputMode="edit"/>
-        </ReactDatum.Model>
+      <div style={{height: "100%", width: 600}}>
+        <ReactDatumDatagrid 
+          collection={puppyCollection}
+          columns={this.getColumns()}
+          headerHeight={40}
+          rowHeight={110}
+          defaultColumnDef={{
+            width: 150
+          }}/>
       </div>
     )
   }
-})
-ReactDOM.render(React.createElement(puppyCard), document.getElementById('demo'))
+  
+  getColumns(){
+    return [{
+      key: 'imageUrl',
+      name: 'Image',
+      width: 120,
+      datum: ReactDatum.LazyPhoto,
+      locked: true
+    },{
+      key: 'name',
+    },{
+      key: 'breed',
+    },{
+      key: 'size',
+      width: 80,
+    },{
+      key: 'sex',
+      width: 80,
+    },{
+      key: 'contactEmail',
+      width: '200',
+      datum: ReactDatum.Email,
+      datumProps: {
+        ellipsizeAt: false,
+        reverseEllipsis: true,
+      },
+    }]
+  }
+}
+
+window.Demo = BasicDatagridDisplay
 
 ```
+And violà...
+
+
+*screenshot - click to view demo:*
+
+[<img alt="Screenshot from doc/examples/basicDatagrid/basicDatagrid.html" src="http://zulily.github.io/react-datum-datagrid/img/docs/basicDatagridDemo.png"
+/>](http://zulily.github.io/react-datum-datagrid/docs/examples/#basic)
+
+
 
 
 ## API Docs
