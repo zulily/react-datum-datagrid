@@ -27,11 +27,6 @@ AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['defa
 module.exports = class Datagrid extends React.Component
   @displayName: "react-datum-datagrid"
   
-  @DEFAULT_CELL_BORDER_WIDTH: 1
-  @DEFAULT_CELL_PADDING_HEIGHT: 5
-  @DEFAULT_CELL_PADDING_WIDTH: 10
-
-
   @propTypes: 
     # This should be an instance of a backbone collection or an array of javascript objects.  
     # It can also be set through @context.collection or via Datagrid.setCollection() below.
@@ -76,8 +71,11 @@ module.exports = class Datagrid extends React.Component
       
     }
     
-    
-  # TODO : when I reengineer this to use react-virtualized, flexify this shiz
+  # a minimal margin is neccessary on the CellWrapper in order to see the 
+  # focus rectangle 
+  WRAPPER_CELL_VERT_MARGIN: 3
+  WRAPPER_CELL_HORZ_MARGIN: 4
+  
   styles: new ReactStyles
     container: 
       includes: -> @props.style
@@ -93,17 +91,19 @@ module.exports = class Datagrid extends React.Component
           height: '100%'
       overflow: 'hidden'
       margin: 0
+    
     gridsContainer:
       includes: ->
         if @props.orientation == 'landscape'
           display: 'block'
           width: '100%'
-          height: "calc(100% - #{@props.headerHeight}px)"
+          height: "calc(100% - #{@props.headerHeight}px) "
         else
           display: 'inline-block'
           width: "calc(100% - #{@props.headerWidth}px)"
           height: '100%'
       position: 'relative';
+    
     lockedGrid:
       includes: -> 
         if @props.orientation == 'landscape'
@@ -115,6 +115,7 @@ module.exports = class Datagrid extends React.Component
           height: @_sumLockedColumnHeights()
           width: '100%'
       overflow: 'hidden'
+    
     freeGrid:
       includes: -> 
         if @props.orientation == 'landscape'
@@ -126,6 +127,7 @@ module.exports = class Datagrid extends React.Component
           height: "calc(100% - #{@_sumLockedColumnHeights()}px"
           width: '100%'
       overflow: 'hidden'
+    
     fixedHeaderCells:
       includes: -> 
         return if @props.orientation == 'landscape'
@@ -137,6 +139,7 @@ module.exports = class Datagrid extends React.Component
           width: @props.headerWidth
           height: @_sumLockedColumnHeights()
       verticalAlign: 'top'
+    
     scrollingHeaderCells:
       includes: -> 
         if @props.orientation == 'landscape'
@@ -152,12 +155,7 @@ module.exports = class Datagrid extends React.Component
       marginTop: 1
       verticalAlign: 'top'
       whiteSpace: 'nowrap'
-    styleImage:
-      width: 50
-      minHeight: 60
-    bottomDivider: 
-      borderBottom: '3px solid #cccccc'
-
+    
 
   componentDidMount: ->
     @_initializeScrolling()
@@ -332,14 +330,7 @@ module.exports = class Datagrid extends React.Component
 
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
-    style = _.extend style,
-      # a small margin is necessary to see focus rect on cells
-      margin: "3px 4px"
-      width: style.width - 8
-      height: style.height - 6
-      padding: 0
-      display: 'flex'
-      flexDirection: 'column'
+    style = @_getCellWrapperStyle(style)
       
     <CellWrapper
       key={key}
@@ -473,6 +464,17 @@ module.exports = class Datagrid extends React.Component
       return parseInt(numerals)
     
     return value
+    
+    
+  _getCellWrapperStyle: (style) ->
+    _.extend style,
+      margin: "#{@WRAPPER_CELL_VERT_MARGIN}px #{@WRAPPER_CELL_HORZ_MARGIN}px"
+      height: style.height - @WRAPPER_CELL_VERT_MARGIN * 2
+      width: style.width - @WRAPPER_CELL_HORZ_MARGIN * 2
+      padding: 0
+      display: 'flex'
+      flexDirection: 'column'
+      
     
   
   _getDefaultCellStyle: (columnDef, isHeader=false) ->

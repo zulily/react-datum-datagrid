@@ -2424,12 +2424,6 @@ module.exports = function(module) {
 
     Datagrid.displayName = "react-datum-datagrid";
 
-    Datagrid.DEFAULT_CELL_BORDER_WIDTH = 1;
-
-    Datagrid.DEFAULT_CELL_PADDING_HEIGHT = 5;
-
-    Datagrid.DEFAULT_CELL_PADDING_WIDTH = 10;
-
     Datagrid.propTypes = {
       collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
       columns: PropTypes.array,
@@ -2450,6 +2444,10 @@ module.exports = function(module) {
         width: 120
       }
     };
+
+    Datagrid.prototype.WRAPPER_CELL_VERT_MARGIN = 3;
+
+    Datagrid.prototype.WRAPPER_CELL_HORZ_MARGIN = 4;
 
     Datagrid.prototype.styles = new ReactStyles({
       container: {
@@ -2482,7 +2480,7 @@ module.exports = function(module) {
             return {
               display: 'block',
               width: '100%',
-              height: "calc(100% - " + this.props.headerHeight + "px)"
+              height: "calc(100% - " + this.props.headerHeight + "px) "
             };
           } else {
             return {
@@ -2569,13 +2567,6 @@ module.exports = function(module) {
         marginTop: 1,
         verticalAlign: 'top',
         whiteSpace: 'nowrap'
-      },
-      styleImage: {
-        width: 50,
-        minHeight: 60
-      },
-      bottomDivider: {
-        borderBottom: '3px solid #cccccc'
       }
     });
 
@@ -2799,14 +2790,7 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._renderDataCell = function (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) {
-      style = _.extend(style, {
-        margin: "3px 4px",
-        width: style.width - 8,
-        height: style.height - 6,
-        padding: 0,
-        display: 'flex',
-        flexDirection: 'column'
-      });
+      style = this._getCellWrapperStyle(style);
       return React.createElement(CellWrapper, {
         "key": key,
         "model": model,
@@ -2959,6 +2943,17 @@ module.exports = function(module) {
         return parseInt(numerals);
       }
       return value;
+    };
+
+    Datagrid.prototype._getCellWrapperStyle = function (style) {
+      return _.extend(style, {
+        margin: this.WRAPPER_CELL_VERT_MARGIN + "px " + this.WRAPPER_CELL_HORZ_MARGIN + "px",
+        height: style.height - this.WRAPPER_CELL_VERT_MARGIN * 2,
+        width: style.width - this.WRAPPER_CELL_HORZ_MARGIN * 2,
+        padding: 0,
+        display: 'flex',
+        flexDirection: 'column'
+      });
     };
 
     Datagrid.prototype._getDefaultCellStyle = function (columnDef, isHeader) {
