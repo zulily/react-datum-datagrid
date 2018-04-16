@@ -9,7 +9,7 @@ $ = require 'jquery'
 Mixin = require './helpers/mixin'
 ReactStyles = require './helpers/reactStyles'
 CellWrapper = require './cellWrapper'
-LabelCell = require './labelCell'
+HeaderCell = require './headerCell'
 
 GridEdit = require './gridEdit'
 GridSelect = require './gridSelect'
@@ -314,14 +314,14 @@ module.exports = class Datagrid extends React.Component
   
   _renderHeaderCells: (columnDefs) ->
     cells = for columnDef, index in columnDefs
-      @_renderLabelCell(index, columnDef)
+      @_renderHeaderCell(index, columnDef)
     return cells
 
       
-  _renderLabelCell: (index, columnDef) ->
+  _renderHeaderCell: (index, columnDef) ->
     return null unless columnDef?
     labelStyle = $.extend true, {}, @_getDefaultCellStyle(columnDef, true), columnDef.flipgrid?.labelStyle
-    <LabelCell 
+    <HeaderCell 
       key={index} 
       column={columnDef} 
       orientation={@props.orientation}

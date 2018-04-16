@@ -2351,7 +2351,7 @@ module.exports = function(module) {
       Grid,
       GridEdit,
       GridSelect,
-      LabelCell,
+      HeaderCell,
       Mixin,
       PropTypes,
       React,
@@ -2391,7 +2391,7 @@ module.exports = function(module) {
 
   CellWrapper = __webpack_require__(78);
 
-  LabelCell = __webpack_require__(82);
+  HeaderCell = __webpack_require__(82);
 
   GridEdit = __webpack_require__(88);
 
@@ -2773,20 +2773,20 @@ module.exports = function(module) {
         results = [];
         for (index = i = 0, len = columnDefs.length; i < len; index = ++i) {
           columnDef = columnDefs[index];
-          results.push(this._renderLabelCell(index, columnDef));
+          results.push(this._renderHeaderCell(index, columnDef));
         }
         return results;
       }.call(this);
       return cells;
     };
 
-    Datagrid.prototype._renderLabelCell = function (index, columnDef) {
+    Datagrid.prototype._renderHeaderCell = function (index, columnDef) {
       var labelStyle, ref;
       if (columnDef == null) {
         return null;
       }
       labelStyle = $.extend(true, {}, this._getDefaultCellStyle(columnDef, true), (ref = columnDef.flipgrid) != null ? ref.labelStyle : void 0);
-      return React.createElement(LabelCell, {
+      return React.createElement(HeaderCell, {
         "key": index,
         "column": columnDef,
         "orientation": this.props.orientation,
@@ -4231,8 +4231,8 @@ module.exports = function escapeRegExp(str) {
 
 (function () {
   var Cell,
+      HeaderCell,
       Humanize,
-      LabelCell,
       PropTypes,
       Rb,
       React,
@@ -4266,16 +4266,16 @@ module.exports = function escapeRegExp(str) {
 
   Humanize = __webpack_require__(85);
 
-  module.exports = LabelCell = function (superClass) {
-    extend(LabelCell, superClass);
+  module.exports = HeaderCell = function (superClass) {
+    extend(HeaderCell, superClass);
 
-    function LabelCell() {
+    function HeaderCell() {
       this._onHideIconClick = bind(this._onHideIconClick, this);
       this._onShowIconClick = bind(this._onShowIconClick, this);
-      return LabelCell.__super__.constructor.apply(this, arguments);
+      return HeaderCell.__super__.constructor.apply(this, arguments);
     }
 
-    LabelCell.propTypes = {
+    HeaderCell.propTypes = {
       rowData: PropTypes.any,
       column: PropTypes.object,
       style: PropTypes.object,
@@ -4283,7 +4283,7 @@ module.exports = function escapeRegExp(str) {
       onShowColumn: PropTypes.func
     };
 
-    LabelCell.prototype.styles = new ReactStyles({
+    HeaderCell.prototype.styles = new ReactStyles({
       icon: {
         float: 'right',
         color: '#4767AA'
@@ -4316,19 +4316,19 @@ module.exports = function escapeRegExp(str) {
       }
     });
 
-    LabelCell.prototype.style = function (name) {
+    HeaderCell.prototype.style = function (name) {
       var ref;
       return _.extend({}, this.styles.get(this, name), ((ref = this.props.styles) != null ? ref[name] : void 0) || {});
     };
 
-    LabelCell.prototype.renderWrapped = function () {
+    HeaderCell.prototype.renderWrapped = function () {
       var ref;
       if (!((ref = this.props.column) != null ? ref.tooltip : void 0)) {
-        return LabelCell.__super__.renderWrapped.call(this, React.createElement("div", {
+        return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
           "style": this.style('wrapper')
         }, this._renderShowHideControl(), this.getColumnName()));
       }
-      return LabelCell.__super__.renderWrapped.call(this, React.createElement("div", {
+      return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
         "style": this.style('wrapper')
       }, React.createElement(Rb.OverlayTrigger, {
         "overlay": this._renderTooltipPopover()
@@ -4338,13 +4338,13 @@ module.exports = function escapeRegExp(str) {
       })))));
     };
 
-    LabelCell.prototype._renderTooltipPopover = function () {
+    HeaderCell.prototype._renderTooltipPopover = function () {
       return React.createElement(Rb.Popover, {
         "id": "flipgridTooltipPopover"
       }, this.props.column.tooltip);
     };
 
-    LabelCell.prototype._renderShowHideControl = function () {
+    HeaderCell.prototype._renderShowHideControl = function () {
       if (!this.props.column.canHide) {
         return null;
       }
@@ -4371,14 +4371,14 @@ module.exports = function escapeRegExp(str) {
       }
     };
 
-    LabelCell.prototype.getColumnName = function () {
+    HeaderCell.prototype.getColumnName = function () {
       var ref;
       return (ref = this.props.column.name) != null ? ref : Titleize(Humanize(this.props.column.key));
     };
 
-    LabelCell.prototype.getCellDefaultStyle = function (model) {
+    HeaderCell.prototype.getCellDefaultStyle = function (model) {
       var styles;
-      styles = _.defaults(LabelCell.__super__.getCellDefaultStyle.call(this, model), {
+      styles = _.defaults(HeaderCell.__super__.getCellDefaultStyle.call(this, model), {
         verticalAlign: 'middle',
         textAlign: 'left',
         paddingLeft: 10
@@ -4393,9 +4393,9 @@ module.exports = function escapeRegExp(str) {
       return styles;
     };
 
-    LabelCell.prototype.getCellOverrideStyle = function (model) {
+    HeaderCell.prototype.getCellOverrideStyle = function (model) {
       var sval;
-      sval = LabelCell.__super__.getCellOverrideStyle.call(this, model);
+      sval = HeaderCell.__super__.getCellOverrideStyle.call(this, model);
       _.extend(sval, this.props.orientation === 'landscape' ? {
         display: 'inline-block'
       } : {
@@ -4404,11 +4404,11 @@ module.exports = function escapeRegExp(str) {
       return sval;
     };
 
-    LabelCell.prototype.getBackgroundColor = function () {
+    HeaderCell.prototype.getBackgroundColor = function () {
       return '#eceff6';
     };
 
-    LabelCell.prototype._onShowIconClick = function (evt) {
+    HeaderCell.prototype._onShowIconClick = function (evt) {
       this.props.column.isHidden = false;
       return this.forceUpdate(function (_this) {
         return function () {
@@ -4418,7 +4418,7 @@ module.exports = function escapeRegExp(str) {
       }(this));
     };
 
-    LabelCell.prototype._onHideIconClick = function (evt) {
+    HeaderCell.prototype._onHideIconClick = function (evt) {
       this.props.column.isHidden = true;
       return this.forceUpdate(function (_this) {
         return function () {
@@ -4428,7 +4428,7 @@ module.exports = function escapeRegExp(str) {
       }(this));
     };
 
-    return LabelCell;
+    return HeaderCell;
   }(Cell);
 }).call(undefined);
 

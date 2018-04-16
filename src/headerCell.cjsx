@@ -9,7 +9,7 @@ Cell = require('./cell')
 Titleize = require('underscore.string/Titleize')
 Humanize = require('underscore.string/Humanize')
   
-module.exports = class LabelCell extends Cell
+module.exports = class HeaderCell extends Cell
     
   @propTypes: 
     rowData: PropTypes.any
