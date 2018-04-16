@@ -2451,11 +2451,26 @@ module.exports = function(module) {
 
     Datagrid.prototype.styles = new ReactStyles({
       container: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
         includes: function includes() {
-          return this.props.style;
+          if (this.props.orientation === 'landscape') {
+            return {
+              flexDirection: 'column'
+            };
+          } else {
+            return {
+              flexDirection: 'row'
+            };
+          }
         }
       },
       headers: {
+        display: 'flex',
+        flexGrow: 0,
+        margin: 0,
+        overflow: 'hidden',
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
@@ -2470,59 +2485,53 @@ module.exports = function(module) {
               height: '100%'
             };
           }
-        },
-        overflow: 'hidden',
-        margin: 0
+        }
       },
       gridsContainer: {
+        position: "relative",
+        display: "flex",
+        flexGrow: 1,
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
-              display: 'block',
-              width: '100%',
-              height: "calc(100% - " + this.props.headerHeight + "px) "
+              flexDirection: 'row'
             };
           } else {
             return {
-              display: 'inline-block',
-              width: "calc(100% - " + this.props.headerWidth + "px)",
-              height: '100%'
+              flexDirection: 'column'
             };
           }
-        },
-        position: 'relative'
+        }
       },
       lockedGrid: {
+        flexGrow: 0,
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
               display: 'inline-block',
-              height: '100%',
               width: this._sumLockedColumnWidths()
             };
           } else {
             return {
               display: 'block',
-              height: this._sumLockedColumnHeights(),
-              width: '100%'
+              height: this._sumLockedColumnHeights()
             };
           }
         },
         overflow: 'hidden'
       },
       freeGrid: {
+        flexGrow: 1,
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
               display: 'inline-block',
-              height: '100%',
               width: "calc(100% - " + this._sumLockedColumnWidths() + "px"
             };
           } else {
             return {
               display: 'block',
-              height: "calc(100% - " + this._sumLockedColumnHeights() + "px",
-              width: '100%'
+              height: "calc(100% - " + this._sumLockedColumnHeights() + "px"
             };
           }
         },
@@ -2580,9 +2589,16 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype.render = function () {
-      var freeColumns, lockedColumns;
+      var freeColumns, gridProps, lockedColumns;
       lockedColumns = this._getLockedColumns();
       freeColumns = this._getFreeColumns();
+      gridProps = {
+        className: "rdd-rv-grid",
+        overscanRowCount: 20,
+        overscanColCount: 5,
+        rowHeight: this.props.rowHeight,
+        rowCount: this.getRowCount()
+      };
       return React.createElement("div", {
         "style": this.style('container'),
         "className": 'react-datum-datagrid'
@@ -2605,16 +2621,13 @@ module.exports = function(module) {
         return function (arg) {
           var height, width;
           height = arg.height, width = arg.width;
-          return React.createElement(Grid, {
+          return React.createElement(Grid, Object.assign({
             "cellRenderer": _this.lockedCellRenderer,
-            "className": "rdd-rv-grid",
             "columnWidth": _this.getLockedColumnWidth,
             "columnCount": lockedColumns.length,
             "height": height,
-            "rowHeight": _this.props.rowHeight,
-            "rowCount": _this.getRowCount(),
             "width": width
-          });
+          }, gridProps));
         };
       }(this))), React.createElement("div", {
         "style": this.style('freeGrid'),
@@ -2623,16 +2636,13 @@ module.exports = function(module) {
         return function (arg) {
           var height, width;
           height = arg.height, width = arg.width;
-          return React.createElement(Grid, {
+          return React.createElement(Grid, Object.assign({
             "cellRenderer": _this.freeCellRenderer,
-            "className": "rdd-rv-grid",
             "columnWidth": _this.getFreeColumnWidth,
             "columnCount": freeColumns.length,
             "height": height,
-            "rowHeight": _this.props.rowHeight,
-            "rowCount": _this.getRowCount(),
             "width": width
-          });
+          }, gridProps));
         };
       }(this)))));
     };
@@ -2652,7 +2662,7 @@ module.exports = function(module) {
 
     Datagrid.prototype.cellRenderer = function (columns, baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style) {
       var columnDef, model, showPlaceholder;
-      showPlaceholder = !isVisible || isScrolling;
+      showPlaceholder = false;
       columnDef = columns[columnIndex];
       model = this.getModelAt(rowIndex);
       return this._renderDataCell(columnDef, model, columnIndex + baseColumnIndex, rowIndex, key, style, showPlaceholder);

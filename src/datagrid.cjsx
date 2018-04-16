@@ -78,8 +78,19 @@ module.exports = class Datagrid extends React.Component
   
   styles: new ReactStyles
     container: 
-      includes: -> @props.style
+      height: '100%'
+      width: '100%'
+      display: 'flex'
+      includes: -> 
+        if @props.orientation == 'landscape'
+          flexDirection: 'column'
+        else 
+          flexDirection: 'row'
     headers:
+      display: 'flex'
+      flexGrow: 0
+      margin: 0
+      overflow: 'hidden'
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'block'
@@ -89,43 +100,37 @@ module.exports = class Datagrid extends React.Component
           display: 'inline-block'
           width: @props.headerWidth
           height: '100%'
-      overflow: 'hidden'
-      margin: 0
     
     gridsContainer:
+      position: "relative"
+      display: "flex"
+      flexGrow: 1
       includes: ->
         if @props.orientation == 'landscape'
-          display: 'block'
-          width: '100%'
-          height: "calc(100% - #{@props.headerHeight}px) "
+          flexDirection: 'row'
         else
-          display: 'inline-block'
-          width: "calc(100% - #{@props.headerWidth}px)"
-          height: '100%'
-      position: 'relative';
+          flexDirection: 'column'
     
     lockedGrid:
+      flexGrow: 0
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'inline-block'
-          height: '100%'
           width: @_sumLockedColumnWidths()
         else
           display: 'block'
           height: @_sumLockedColumnHeights()
-          width: '100%'
       overflow: 'hidden'
     
     freeGrid:
+      flexGrow: 1
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'inline-block'
-          height: '100%'
           width: "calc(100% - #{@_sumLockedColumnWidths()}px"
         else
           display: 'block'
           height: "calc(100% - #{@_sumLockedColumnHeights()}px"
-          width: '100%'
       overflow: 'hidden'
     
     fixedHeaderCells:
@@ -169,6 +174,14 @@ module.exports = class Datagrid extends React.Component
     lockedColumns = @_getLockedColumns()
     freeColumns = @_getFreeColumns()
     
+    gridProps = 
+      className: "rdd-rv-grid"
+      overscanRowCount: 20
+      overscanColCount: 5
+      rowHeight: @props.rowHeight
+      rowCount: @getRowCount()
+
+    
     <div style={@style('container')} className='react-datum-datagrid'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
@@ -184,13 +197,11 @@ module.exports = class Datagrid extends React.Component
             { ({height, width}) => 
               <Grid
                 cellRenderer={@lockedCellRenderer}
-                className="rdd-rv-grid"
                 columnWidth={@getLockedColumnWidth}
                 columnCount={lockedColumns.length}
                 height={height}
-                rowHeight={@props.rowHeight}
-                rowCount={@getRowCount()}
                 width={width}
+                {... gridProps}
               />
             }          
           </AutoSizer>
@@ -200,13 +211,11 @@ module.exports = class Datagrid extends React.Component
             { ({height, width}) => 
               <Grid
                 cellRenderer={@freeCellRenderer}
-                className="rdd-rv-grid"
                 columnWidth={@getFreeColumnWidth}
                 columnCount={freeColumns.length}
                 height={height}
-                rowHeight={@props.rowHeight}
-                rowCount={@getRowCount()}
                 width={width}
+                {... gridProps}
               />          
             }          
           </AutoSizer>
@@ -234,7 +243,7 @@ module.exports = class Datagrid extends React.Component
 
   
   cellRenderer: (columns, baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style) ->
-    showPlaceholder = !isVisible || isScrolling
+    showPlaceholder = false 
     columnDef = columns[columnIndex]
     model = @getModelAt(rowIndex)
     @_renderDataCell(columnDef, model, columnIndex + baseColumnIndex, rowIndex, key, style, showPlaceholder)

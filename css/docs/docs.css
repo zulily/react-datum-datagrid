@@ -10,6 +10,7 @@ p {
 }
 
 #demo {
+  display: inline-block;
   height: 50%;
   position: relative;
 }
