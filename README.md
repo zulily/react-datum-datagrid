@@ -32,7 +32,7 @@ let puppyCollection = new Backbone.Collection(PUPPY_DATA)
 
 To build an infinitely scrolling datagrid with locked left columns...
 
-```javacript 
+```javascript 
 
 class BasicDatagridDisplay extends React.Component {
   static displayName = "BasicDatagridDisplay"
