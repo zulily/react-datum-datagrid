@@ -1750,7 +1750,7 @@ module.exports = warning;
         cellStyle.paddingRight = 10;
       } else {
         cellStyle.padding = 0;
-        cellStyle.margin = "5px 10px";
+        cellStyle.margin = 0;
       }
       cellStyle.display = 'flex';
       cellStyle.flexGrow = 1;
@@ -4292,8 +4292,7 @@ module.exports = function escapeRegExp(str) {
         includes: function includes() {
           return this.props.style;
         },
-        position: 'relative',
-        paddingLeft: 18
+        position: 'relative'
       },
       showHideIcon: {
         position: 'absolute',
@@ -4376,23 +4375,6 @@ module.exports = function escapeRegExp(str) {
       return (ref = this.props.column.name) != null ? ref : Titleize(Humanize(this.props.column.key));
     };
 
-    HeaderCell.prototype.getCellDefaultStyle = function (model) {
-      var styles;
-      styles = _.defaults(HeaderCell.__super__.getCellDefaultStyle.call(this, model), {
-        verticalAlign: 'middle',
-        textAlign: 'left',
-        paddingLeft: 10
-      });
-      _.extend(styles, {
-        borderRight: "solid 1px #FFFFFF",
-        borderBottom: "solid 1px #FFFFFF"
-      });
-      if (this.props.column.isHidden) {
-        styles.color = 'rgba(0, 0, 0, 0.16)';
-      }
-      return styles;
-    };
-
     HeaderCell.prototype.getCellOverrideStyle = function (model) {
       var sval;
       sval = HeaderCell.__super__.getCellOverrideStyle.call(this, model);
@@ -4402,10 +4384,6 @@ module.exports = function escapeRegExp(str) {
         display: 'block'
       });
       return sval;
-    };
-
-    HeaderCell.prototype.getBackgroundColor = function () {
-      return '#eceff6';
     };
 
     HeaderCell.prototype._onShowIconClick = function (evt) {

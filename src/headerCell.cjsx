@@ -28,7 +28,6 @@ module.exports = class HeaderCell extends Cell
       includes: ->
         @props.style
       position: 'relative'
-      paddingLeft: 18
     showHideIcon: 
       position: 'absolute'
       left: -5
@@ -101,22 +100,6 @@ module.exports = class HeaderCell extends Cell
     @props.column.name ? Titleize(Humanize(@props.column.key))
     
 
-  getCellDefaultStyle: (model) ->
-    styles = _.defaults super(model), 
-      verticalAlign: 'middle'
-      textAlign: 'left'
-      paddingLeft: 10        
-      
-    _.extend styles,
-      borderRight: "solid 1px #FFFFFF"
-      borderBottom: "solid 1px #FFFFFF"
-      
-    if @props.column.isHidden
-      styles.color = 'rgba(0, 0, 0, 0.16)'
-      
-    return styles
-
-
   getCellOverrideStyle: (model) ->
     sval = super(model)
     
@@ -127,10 +110,6 @@ module.exports = class HeaderCell extends Cell
     
     return sval
     
-      
-  getBackgroundColor: ->
-    return '#eceff6'
-      
   
   _onShowIconClick: (evt)  =>      
     @props.column.isHidden = false
