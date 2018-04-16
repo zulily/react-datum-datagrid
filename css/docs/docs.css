@@ -9,6 +9,7 @@ p {
   max-width: 900px;
 }
 
-.react-datum-datagrid {
+#demo {
   height: 50%;
+  position: relative;
 }

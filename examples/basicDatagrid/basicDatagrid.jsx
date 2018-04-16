@@ -22,15 +22,20 @@ class BasicDatagridDisplay extends React.Component {
   static displayName = "BasicDatagridDisplay"
   
   render(){
+    // ReactDatumDatagrid will fill what ever element it is placed in
+    // Below we constrain it to 100% of the demo pane and a fixed width of 600px
+    // You can also use Flex!  See TODO Flexy Demo
     return (
-      <ReactDatumDatagrid 
-        collection={puppyCollection}
-        columns={this.getColumns()}
-        headerHeight={40}
-        rowHeight={110}
-        defaultColumnDef={{
-          width: 150
-        }}/>
+      <div style={{height: "100%", width: 600}}>
+        <ReactDatumDatagrid 
+          collection={puppyCollection}
+          columns={this.getColumns()}
+          headerHeight={40}
+          rowHeight={110}
+          defaultColumnDef={{
+            width: 150
+          }}/>
+      </div>
     )
   }
   

@@ -14,8 +14,8 @@ LabelCell = require './labelCell'
 GridEdit = require './gridEdit'
 GridSelect = require './gridSelect'
 
-Grid = require('react-virtualized/dist/commonjs/Grid/Grid')["default"]
-
+Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
+AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['default']
 
 ###
   This is react-datum-datagrid.   
@@ -27,8 +27,6 @@ Grid = require('react-virtualized/dist/commonjs/Grid/Grid')["default"]
 module.exports = class Datagrid extends React.Component
   @displayName: "react-datum-datagrid"
   
-  @DEFAULT_CELL_HEIGHT: 20
-  @DEFAULT_CELL_WIDTH: 120
   @DEFAULT_CELL_BORDER_WIDTH: 1
   @DEFAULT_CELL_PADDING_HEIGHT: 5
   @DEFAULT_CELL_PADDING_WIDTH: 10
@@ -72,8 +70,6 @@ module.exports = class Datagrid extends React.Component
   @defaultProps: 
     headerWidth: 150
     headerHeight: 60
-    height: 300
-    width: 400
     orientation: 'landscape'
     defaultColumnDef: {
       width: 120
@@ -89,37 +85,50 @@ module.exports = class Datagrid extends React.Component
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'block'
-          width: @props.width
+          width: '100%'
           height: @props.headerHeight
         else
           display: 'inline-block'
           width: @props.headerWidth
-          height: @props.height
+          height: '100%'
+      overflow: 'hidden'
     gridsContainer:
       includes: ->
         if @props.orientation == 'landscape'
           display: 'block'
-          width: @props.width
+          width: '100%'
           height: "calc(100% - #{@props.headerHeight}px)"
         else
           display: 'inline-block'
           width: "calc(100% - #{@props.headerWidth}px)"
-          height: @props.height
+          height: '100%'
+      position: 'relative';
     lockedGrid:
-      includes: -> @_getLockedGridStyles()
+      includes: -> 
+        if @props.orientation == 'landscape'
+          display: 'inline-block'
+          height: '100%'
+          width: @_sumLockedColumnWidths()
+        else
+          display: 'block'
+          height: @_sumLockedColumnHeights()
+          width: '100%'
+      overflow: 'hidden'
     freeGrid:
       includes: -> 
         if @props.orientation == 'landscape'
-          height: @props.height - @props.headerHeight
-          width: @props.width - @_sumLockedColumnWidths() - 10
+          display: 'inline-block'
+          height: '100%'
+          width: "calc(100% - #{@_sumLockedColumnWidths()}px"
         else
-          height: @props.height - @_sumLockedColumnHeights() - 10
-          width: @props.width - @props.headerWidth
-      display: 'inline-block'
+          display: 'block'
+          height: "calc(100% - #{@_sumLockedColumnHeights()}px"
+          width: '100%'
+      overflow: 'hidden'
     fixedHeaderCells:
       includes: -> 
         return if @props.orientation == 'landscape'
-          display: "inline-block"
+          display: 'inline-block'
           width: @_sumLockedColumnWidths()
           height: @props.headerHeight
         else
@@ -131,13 +140,13 @@ module.exports = class Datagrid extends React.Component
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'inline-block'
-          width: @props.width - @_sumLockedColumnWidths() - 10
+          width: "calc(100% - #{@_sumLockedColumnWidths()}px)"
           height: @props.headerHeight
           overflowY: 'scroll'
         else
           display: 'block'
           width: @props.headerWidth
-          height: @props.height - @_sumLockedColumnHeights() - 10
+          height: "calc(100% - #{@_sumLockedColumnHeights()}px)" 
           overflowX: 'scroll'
       marginTop: 1
       verticalAlign: 'top'
@@ -146,7 +155,7 @@ module.exports = class Datagrid extends React.Component
       width: 50
       minHeight: 60
     bottomDivider: 
-      borderBottom: "3px solid #cccccc"
+      borderBottom: '3px solid #cccccc'
 
 
   componentDidMount: ->
@@ -172,32 +181,38 @@ module.exports = class Datagrid extends React.Component
       </div>
       <div style={@style('gridsContainer')} className='rdd-grids-container'>
         <div style={@style('lockedGrid')} className='rdd-locked-grid'>
-          <Grid
-            ref='lockedGrid'
-            cellRenderer={@lockedCellRenderer}
-            className="rv-grid"
-            columnWidth={@getLockedColumnWidth}
-            columnCount={lockedColumns.length}
-            height={@props.height}
-            rowHeight={@props.rowHeight}
-            rowCount={@getRowCount()}
-            width={@_getLockedGridStyles().width}
-          />          
-          
+          <AutoSizer>
+            { ({height, width}) => 
+              <Grid
+                ref='lockedGrid'
+                cellRenderer={@lockedCellRenderer}
+                className="rdd-rv-grid"
+                columnWidth={@getLockedColumnWidth}
+                columnCount={lockedColumns.length}
+                height={height}
+                rowHeight={@props.rowHeight}
+                rowCount={@getRowCount()}
+                width={width}
+              />
+            }          
+          </AutoSizer>
         </div>
         <div style={@style('freeGrid')} className='rdd-free-grid'>
-          <Grid
-            ref='freeGrid'
-            cellRenderer={@freeCellRenderer}
-            className="rv-grid"
-            columnWidth={@getFreeColumnWidth}
-            columnCount={freeColumns.length}
-            height={@props.height}
-            rowHeight={@props.rowHeight}
-            rowCount={@getRowCount()}
-            width={@_getFreeGridWidth()}
-          />          
-          
+          <AutoSizer>
+            { ({height, width}) => 
+              <Grid
+                ref='freeGrid'
+                cellRenderer={@freeCellRenderer}
+                className="rdd-rv-grid"
+                columnWidth={@getFreeColumnWidth}
+                columnCount={freeColumns.length}
+                height={height}
+                rowHeight={@props.rowHeight}
+                rowCount={@getRowCount()}
+                width={width}
+              />          
+            }          
+          </AutoSizer>
         </div>
       </div>
     </div>
@@ -237,7 +252,7 @@ module.exports = class Datagrid extends React.Component
     
     
   getColumnWidth: (index, columns=@props.columns) ->
-    return columns[index].width || @props.defaultColumnDef.width
+    return columns[index].width ? @props.defaultColumnDef.width 
     
     
   getRowCount: () ->
@@ -318,6 +333,14 @@ module.exports = class Datagrid extends React.Component
 
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
+    style = _.extend style,
+      # otherwise the cell component we wrap will get nudged out of place by 
+      # bootstrap and the like
+      margin: 0
+      padding: 0
+      display: 'flex'
+      flexDirection: 'column'
+      
     <CellWrapper
       key={key}
       model={model}
@@ -387,24 +410,13 @@ module.exports = class Datagrid extends React.Component
     @_isBottomInitiatedScrolling = false
       
   
-  _getLockedGridStyles: ->
-    if @props.orientation == 'landscape'
-      display: 'inline-block'
-      height: @props.height - @props.headerHeight
-      width: @_sumLockedColumnWidths()
-    else
-      display: 'block'
-      height: @_sumLockedColumnHeights()
-      width: @props.width
-    
-      
   _sumLockedColumnHeights: ->
     heightOut = 0
     for col in @_getLockedColumns()
-      heightOut += @_convertCssPx(col.cellStyle?.borderWidth) ? @constructor.DEFAULT_CELL_BORDER_WIDTH
-      heightOut += col.height ? @constructor.DEFAULT_CELL_HEIGHT
-      heightOut += @_convertCssPx(col.cellStyle?.paddingTop) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
-      heightOut += @_convertCssPx(col.cellStyle?.paddingBottom) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
+      heightOut += @_convertCssPx(col.cellStyle?.borderWidth) 
+      heightOut += col.height ? @props.defaultColumnDef.width 
+      heightOut += @_convertCssPx(col.cellStyle?.paddingTop) 
+      heightOut += @_convertCssPx(col.cellStyle?.paddingBottom)
     
     return heightOut
   
@@ -412,10 +424,11 @@ module.exports = class Datagrid extends React.Component
   _sumLockedColumnWidths: ->
     widthOut = 0
     for col in @_getLockedColumns()
-      widthOut += @_convertCssPx(col.cellStyle?.borderWidth) ? @constructor.DEFAULT_CELL_BORDER_WIDTH
-      widthOut += col.width ? @constructor.DEFAULT_CELL_WIDTH
-      widthOut += @_convertCssPx(col.cellStyle?.paddingTop) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
-      widthOut += @_convertCssPx(col.cellStyle?.paddingBottom) ? @constructor.DEFAULT_CELL_PADDING_HEIGHT
+      widthOut += @_convertCssPx(col.cellStyle?.borderWidth) 
+      widthOut += col.width ? @props.defaultColumnDef.width 
+      widthOut += @_convertCssPx(col.cellStyle?.paddingTop) 
+      widthOut += @_convertCssPx(col.cellStyle?.paddingBottom)
+      widthOut 
     
     return widthOut
       
@@ -440,22 +453,14 @@ module.exports = class Datagrid extends React.Component
   _getDefaultCellStyle: (columnDef, isHeader=false) ->
     if @props.orientation == 'landscape'
       height = if isHeader then @props.headerHeight else @props.rowHeight
-      width = columnDef.width
+      width = columnDef.width ? @props.defaultColumnDef.width 
     else
-      height = columnDef.height
+      height = columnDef.height ? @props.defaultColumnDef.height 
       width = if isHeader then @props.headerWidth else @props.rowWidth
       
     cellStyle = 
-      height: height || @constructor.DEFAULT_CELL_HEIGHT
-      width: width || @constructor.DEFAULT_CELL_WIDTH
-      borderColor: "#EFEFEF"
-      borderStyle: 'solid'
-      borderWidth: 0
-      borderBottomWidth: @constructor.DEFAULT_CELL_BORDER_WIDTH
-      paddingTop: @constructor.DEFAULT_CELL_PADDING_HEIGHT
-      paddingBottom: @constructor.DEFAULT_CELL_PADDING_HEIGHT
-      paddingLeft: @constructor.DEFAULT_CELL_PADDING_WIDTH
-      paddingRight: @constructor.DEFAULT_CELL_PADDING_WIDTH
+      height: height 
+      width: width 
       
     return cellStyle
     
