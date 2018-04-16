@@ -92,6 +92,7 @@ module.exports = class Datagrid extends React.Component
           width: @props.headerWidth
           height: '100%'
       overflow: 'hidden'
+      margin: 0
     gridsContainer:
       includes: ->
         if @props.orientation == 'landscape'
@@ -332,9 +333,10 @@ module.exports = class Datagrid extends React.Component
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
     style = _.extend style,
-      # otherwise the cell component we wrap will get nudged out of place by 
-      # bootstrap and the like
-      margin: 0
+      # a small margin is necessary to see focus rect on cells
+      margin: "3px 4px"
+      width: style.width - 8
+      height: style.height - 6
       padding: 0
       display: 'flex'
       flexDirection: 'column'
@@ -474,12 +476,13 @@ module.exports = class Datagrid extends React.Component
     
   
   _getDefaultCellStyle: (columnDef, isHeader=false) ->
-    if @props.orientation == 'landscape'
-      height = if isHeader then @props.headerHeight else @props.rowHeight
-      width = columnDef.width ? @props.defaultColumnDef.width 
-    else
-      height = columnDef.height ? @props.defaultColumnDef.height 
-      width = if isHeader then @props.headerWidth else @props.rowWidth
+    if isHeader 
+      if @props.orientation == 'landscape'
+        height = @props.headerHeight
+        width = columnDef.width ? @props.defaultColumnDef.width 
+      else
+        height = columnDef.height ? @props.defaultColumnDef.height 
+        width = @props.headerWidth 
       
     cellStyle = 
       height: height 

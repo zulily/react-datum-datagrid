@@ -2473,7 +2473,8 @@ module.exports = function(module) {
             };
           }
         },
-        overflow: 'hidden'
+        overflow: 'hidden',
+        margin: 0
       },
       gridsContainer: {
         includes: function includes() {
@@ -2799,7 +2800,9 @@ module.exports = function(module) {
 
     Datagrid.prototype._renderDataCell = function (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) {
       style = _.extend(style, {
-        margin: 0,
+        margin: "3px 4px",
+        width: style.width - 8,
+        height: style.height - 6,
         padding: 0,
         display: 'flex',
         flexDirection: 'column'
@@ -2963,12 +2966,14 @@ module.exports = function(module) {
       if (isHeader == null) {
         isHeader = false;
       }
-      if (this.props.orientation === 'landscape') {
-        height = isHeader ? this.props.headerHeight : this.props.rowHeight;
-        width = (ref = columnDef.width) != null ? ref : this.props.defaultColumnDef.width;
-      } else {
-        height = (ref1 = columnDef.height) != null ? ref1 : this.props.defaultColumnDef.height;
-        width = isHeader ? this.props.headerWidth : this.props.rowWidth;
+      if (isHeader) {
+        if (this.props.orientation === 'landscape') {
+          height = this.props.headerHeight;
+          width = (ref = columnDef.width) != null ? ref : this.props.defaultColumnDef.width;
+        } else {
+          height = (ref1 = columnDef.height) != null ? ref1 : this.props.defaultColumnDef.height;
+          width = this.props.headerWidth;
+        }
       }
       cellStyle = {
         height: height,
