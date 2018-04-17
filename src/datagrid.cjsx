@@ -427,6 +427,6 @@ module.exports = class Datagrid extends React.Component
     
     
     
+  Mixin @, GridScroll
   Mixin @, GridEdit
   Mixin @, GridSelect
-  Mixin @, GridScroll

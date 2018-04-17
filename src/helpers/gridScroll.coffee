@@ -16,11 +16,11 @@ module.exports = class GridScroll
   _initializeScrolling: ->
     lockedGridEl = @_getLockedGridEl()
     freeGridEl = @_getFreeGridEl()
-    lockedGridEl.addEventListener('scroll', @_onLockedGridScroll)
-    freeGridEl.addEventListener('scroll', @_onFreeGridScroll)
+    lockedGridEl.addEventListener('scroll', => @_onLockedGridScroll())
+    freeGridEl.addEventListener('scroll', => @_onFreeGridScroll())
     
     scrollingHeaderCellsEl = @_getScrollingHeadersEl()
-    scrollingHeaderCellsEl.addEventListener('scroll', @_onHeaderScroll)
+    scrollingHeaderCellsEl.addEventListener('scroll', => @_onHeaderScroll())
     
     
   _getLockedGridEl: ->

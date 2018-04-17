@@ -2906,11 +2906,11 @@ module.exports = function(module) {
       return cellStyle;
     };
 
+    Mixin(Datagrid, GridScroll);
+
     Mixin(Datagrid, GridEdit);
 
     Mixin(Datagrid, GridSelect);
-
-    Mixin(Datagrid, GridScroll);
 
     return Datagrid;
   }(React.Component);
@@ -5631,10 +5631,22 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       var freeGridEl, lockedGridEl, scrollingHeaderCellsEl;
       lockedGridEl = this._getLockedGridEl();
       freeGridEl = this._getFreeGridEl();
-      lockedGridEl.addEventListener('scroll', this._onLockedGridScroll);
-      freeGridEl.addEventListener('scroll', this._onFreeGridScroll);
+      lockedGridEl.addEventListener('scroll', function (_this) {
+        return function () {
+          return _this._onLockedGridScroll();
+        };
+      }(this));
+      freeGridEl.addEventListener('scroll', function (_this) {
+        return function () {
+          return _this._onFreeGridScroll();
+        };
+      }(this));
       scrollingHeaderCellsEl = this._getScrollingHeadersEl();
-      return scrollingHeaderCellsEl.addEventListener('scroll', this._onHeaderScroll);
+      return scrollingHeaderCellsEl.addEventListener('scroll', function (_this) {
+        return function () {
+          return _this._onHeaderScroll();
+        };
+      }(this));
     };
 
     GridScroll.prototype._getLockedGridEl = function () {
