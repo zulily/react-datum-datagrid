@@ -4,8 +4,8 @@ $ = require 'jquery'
 _ = require 'underscore'
 
 
-CopyPasteFromExcel = require './helpers/copyPasteFromExcel'
-CompareObjects = require './helpers/compareObjects'
+CopyPasteFromExcel = require './copyPasteFromExcel'
+CompareObjects = require './compareObjects'
 
 ###
   These are the selection methods available on react-datum-datagrid

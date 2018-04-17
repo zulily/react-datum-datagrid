@@ -2,7 +2,7 @@
 _ = require 'underscore'
 $ = require 'jquery'
 
-DeepGet = require './helpers/deepGet'
+DeepGet = require './deepGet'
 
 ###
 

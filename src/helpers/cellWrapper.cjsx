@@ -6,7 +6,7 @@ Classnames = require 'classnames'
 $ = require 'jquery'
 _ = require 'underscore'
 
-Cell = require './cell'
+Cell = require '../cell'
   
 # CellWrapper owns the editing state and handles arrow key selection 
 module.exports = class CellWrapper extends React.Component

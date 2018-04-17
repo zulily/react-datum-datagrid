@@ -7,7 +7,7 @@
 		exports["ReactDatumDatagrid"] = factory(require("underscore"), require("react"), require("jquery"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
 	else
 		root["ReactDatumDatagrid"] = factory(root["_"], root["React"], root["jQuery"], root["ReactDOM"], root["ReactDatum"], root["ReactBootstrap"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_26__, __WEBPACK_EXTERNAL_MODULE_46__, __WEBPACK_EXTERNAL_MODULE_83__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_16__, __WEBPACK_EXTERNAL_MODULE_26__, __WEBPACK_EXTERNAL_MODULE_46__, __WEBPACK_EXTERNAL_MODULE_88__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -2391,11 +2391,11 @@ module.exports = function(module) {
 
   CellWrapper = __webpack_require__(78);
 
-  HeaderCell = __webpack_require__(82);
+  GridEdit = __webpack_require__(82);
 
-  GridEdit = __webpack_require__(88);
+  GridSelect = __webpack_require__(84);
 
-  GridSelect = __webpack_require__(90);
+  HeaderCell = __webpack_require__(87);
 
   Grid = __webpack_require__(93)['default'];
 
@@ -4268,251 +4268,6 @@ module.exports = function escapeRegExp(str) {
 
 
 (function () {
-  var Cell,
-      HeaderCell,
-      Humanize,
-      PropTypes,
-      Rb,
-      React,
-      ReactStyles,
-      Titleize,
-      bind = function bind(fn, me) {
-    return function () {
-      return fn.apply(me, arguments);
-    };
-  },
-      extend = function extend(child, parent) {
-    for (var key in parent) {
-      if (hasProp.call(parent, key)) child[key] = parent[key];
-    }function ctor() {
-      this.constructor = child;
-    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
-  },
-      hasProp = {}.hasOwnProperty;
-
-  React = __webpack_require__(6);
-
-  PropTypes = __webpack_require__(0);
-
-  Rb = __webpack_require__(83);
-
-  ReactStyles = __webpack_require__(48);
-
-  Cell = __webpack_require__(49);
-
-  Titleize = __webpack_require__(84);
-
-  Humanize = __webpack_require__(85);
-
-  module.exports = HeaderCell = function (superClass) {
-    extend(HeaderCell, superClass);
-
-    function HeaderCell() {
-      this._onHideIconClick = bind(this._onHideIconClick, this);
-      this._onShowIconClick = bind(this._onShowIconClick, this);
-      return HeaderCell.__super__.constructor.apply(this, arguments);
-    }
-
-    HeaderCell.propTypes = {
-      rowData: PropTypes.any,
-      column: PropTypes.object,
-      style: PropTypes.object,
-      onHideColumn: PropTypes.func,
-      onShowColumn: PropTypes.func
-    };
-
-    HeaderCell.prototype.styles = new ReactStyles({
-      icon: {
-        float: 'right',
-        color: '#4767AA'
-      },
-      wrapper: {
-        includes: function includes() {
-          return this.props.style;
-        },
-        position: 'relative'
-      },
-      showHideIcon: {
-        position: 'absolute',
-        left: -5,
-        top: 0,
-        fontSize: 17,
-        color: '#4767AA'
-      },
-      showIcon: {
-        includes: 'showHideIcon',
-        left: 2,
-        top: 1
-      },
-      banIcon: {
-        includes: 'showHideIcon',
-        color: '#DE8387',
-        top: 1,
-        left: 1,
-        fontSize: 21
-      }
-    });
-
-    HeaderCell.prototype.style = function (name) {
-      var ref;
-      return _.extend({}, this.styles.get(this, name), ((ref = this.props.styles) != null ? ref[name] : void 0) || {});
-    };
-
-    HeaderCell.prototype.renderWrapped = function () {
-      var ref;
-      if (!((ref = this.props.column) != null ? ref.tooltip : void 0)) {
-        return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
-          "style": this.style('wrapper')
-        }, this._renderShowHideControl(), this.getColumnName()));
-      }
-      return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
-        "style": this.style('wrapper')
-      }, React.createElement(Rb.OverlayTrigger, {
-        "overlay": this._renderTooltipPopover()
-      }, React.createElement("div", null, this._renderShowHideControl(), this.getColumnName, React.createElement("i", {
-        "style": this.style('icon'),
-        "className": 'fa fa-question-circle'
-      })))));
-    };
-
-    HeaderCell.prototype._renderTooltipPopover = function () {
-      return React.createElement(Rb.Popover, {
-        "id": "flipgridTooltipPopover"
-      }, this.props.column.tooltip);
-    };
-
-    HeaderCell.prototype._renderShowHideControl = function () {
-      if (!this.props.column.canHide) {
-        return null;
-      }
-      if (this.props.column.isHidden) {
-        return React.createElement("i", {
-          "className": 'fa fa-eye',
-          "style": this.style('showHideIcon'),
-          "title": 'Click to show this attribute when "Mine" attributes selected',
-          "onClick": this._onShowIconClick
-        });
-      } else {
-        return React.createElement("span", {
-          "class": "fa-stack",
-          "title": 'Click to hide this attribute when "Mine" attributes selected',
-          "onClick": this._onHideIconClick,
-          "style": this.style('showHideIcon')
-        }, React.createElement("i", {
-          "className": "fa fa-eye fa-stack-1x",
-          "style": this.style('showIcon')
-        }), React.createElement("i", {
-          "className": "fa fa-ban fa-stack-2x",
-          "style": this.style('banIcon')
-        }));
-      }
-    };
-
-    HeaderCell.prototype.getColumnName = function () {
-      var ref;
-      return (ref = this.props.column.name) != null ? ref : Titleize(Humanize(this.props.column.key));
-    };
-
-    HeaderCell.prototype.getCellOverrideStyle = function (model) {
-      var sval;
-      sval = HeaderCell.__super__.getCellOverrideStyle.call(this, model);
-      _.extend(sval, this.props.orientation === 'landscape' ? {
-        display: 'inline-block'
-      } : {
-        display: 'block'
-      });
-      return sval;
-    };
-
-    HeaderCell.prototype._onShowIconClick = function (evt) {
-      this.props.column.isHidden = false;
-      return this.forceUpdate(function (_this) {
-        return function () {
-          var base;
-          return typeof (base = _this.props).onShowColumn === "function" ? base.onShowColumn(_this, _this.props.column, evt) : void 0;
-        };
-      }(this));
-    };
-
-    HeaderCell.prototype._onHideIconClick = function (evt) {
-      this.props.column.isHidden = true;
-      return this.forceUpdate(function (_this) {
-        return function () {
-          var base;
-          return typeof (base = _this.props).onHideColumn === "function" ? base.onHideColumn(_this, _this.props.column, evt) : void 0;
-        };
-      }(this));
-    };
-
-    return HeaderCell;
-  }(Cell);
-}).call(undefined);
-
-/***/ }),
-/* 83 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_83__;
-
-/***/ }),
-/* 84 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var makeString = __webpack_require__(19);
-
-module.exports = function titleize(str) {
-  return makeString(str).toLowerCase().replace(/(?:^|\s|-)\S/g, function(c) {
-    return c.toUpperCase();
-  });
-};
-
-
-/***/ }),
-/* 85 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var capitalize = __webpack_require__(86);
-var underscored = __webpack_require__(87);
-var trim = __webpack_require__(31);
-
-module.exports = function humanize(str) {
-  return capitalize(trim(underscored(str).replace(/_id$/, '').replace(/_/g, ' ')));
-};
-
-
-/***/ }),
-/* 86 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var makeString = __webpack_require__(19);
-
-module.exports = function capitalize(str, lowercaseRest) {
-  str = makeString(str);
-  var remainingChars = !lowercaseRest ? str.slice(1) : str.slice(1).toLowerCase();
-
-  return str.charAt(0).toUpperCase() + remainingChars;
-};
-
-
-/***/ }),
-/* 87 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var trim = __webpack_require__(31);
-
-module.exports = function underscored(str) {
-  return trim(str).replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
-};
-
-
-/***/ }),
-/* 88 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-(function () {
   var $,
       DeepGet,
       GridEdit,
@@ -4527,7 +4282,7 @@ module.exports = function underscored(str) {
 
   $ = __webpack_require__(16);
 
-  DeepGet = __webpack_require__(89);
+  DeepGet = __webpack_require__(83);
 
   /*
    */
@@ -4896,7 +4651,7 @@ module.exports = function underscored(str) {
 }).call(undefined);
 
 /***/ }),
-/* 89 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4967,7 +4722,7 @@ module.exports = function underscored(str) {
 }).call(undefined);
 
 /***/ }),
-/* 90 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4997,9 +4752,9 @@ module.exports = function underscored(str) {
 
   _ = __webpack_require__(4);
 
-  CopyPasteFromExcel = __webpack_require__(91);
+  CopyPasteFromExcel = __webpack_require__(85);
 
-  CompareObjects = __webpack_require__(92);
+  CompareObjects = __webpack_require__(86);
 
   /*
     These are the selection methods available on react-datum-datagrid
@@ -5666,7 +5421,7 @@ module.exports = function underscored(str) {
 }).call(undefined);
 
 /***/ }),
-/* 91 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5861,7 +5616,7 @@ module.exports = function underscored(str) {
 }).call(undefined);
 
 /***/ }),
-/* 92 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5918,6 +5673,251 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     return true;
   };
 }).call(undefined);
+
+/***/ }),
+/* 87 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+  var Cell,
+      HeaderCell,
+      Humanize,
+      PropTypes,
+      Rb,
+      React,
+      ReactStyles,
+      Titleize,
+      bind = function bind(fn, me) {
+    return function () {
+      return fn.apply(me, arguments);
+    };
+  },
+      extend = function extend(child, parent) {
+    for (var key in parent) {
+      if (hasProp.call(parent, key)) child[key] = parent[key];
+    }function ctor() {
+      this.constructor = child;
+    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
+  },
+      hasProp = {}.hasOwnProperty;
+
+  React = __webpack_require__(6);
+
+  PropTypes = __webpack_require__(0);
+
+  Rb = __webpack_require__(88);
+
+  ReactStyles = __webpack_require__(48);
+
+  Cell = __webpack_require__(49);
+
+  Titleize = __webpack_require__(89);
+
+  Humanize = __webpack_require__(90);
+
+  module.exports = HeaderCell = function (superClass) {
+    extend(HeaderCell, superClass);
+
+    function HeaderCell() {
+      this._onHideIconClick = bind(this._onHideIconClick, this);
+      this._onShowIconClick = bind(this._onShowIconClick, this);
+      return HeaderCell.__super__.constructor.apply(this, arguments);
+    }
+
+    HeaderCell.propTypes = {
+      rowData: PropTypes.any,
+      column: PropTypes.object,
+      style: PropTypes.object,
+      onHideColumn: PropTypes.func,
+      onShowColumn: PropTypes.func
+    };
+
+    HeaderCell.prototype.styles = new ReactStyles({
+      icon: {
+        float: 'right',
+        color: '#4767AA'
+      },
+      wrapper: {
+        includes: function includes() {
+          return this.props.style;
+        },
+        position: 'relative'
+      },
+      showHideIcon: {
+        position: 'absolute',
+        left: -5,
+        top: 0,
+        fontSize: 17,
+        color: '#4767AA'
+      },
+      showIcon: {
+        includes: 'showHideIcon',
+        left: 2,
+        top: 1
+      },
+      banIcon: {
+        includes: 'showHideIcon',
+        color: '#DE8387',
+        top: 1,
+        left: 1,
+        fontSize: 21
+      }
+    });
+
+    HeaderCell.prototype.style = function (name) {
+      var ref;
+      return _.extend({}, this.styles.get(this, name), ((ref = this.props.styles) != null ? ref[name] : void 0) || {});
+    };
+
+    HeaderCell.prototype.renderWrapped = function () {
+      var ref;
+      if (!((ref = this.props.column) != null ? ref.tooltip : void 0)) {
+        return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
+          "style": this.style('wrapper')
+        }, this._renderShowHideControl(), this.getColumnName()));
+      }
+      return HeaderCell.__super__.renderWrapped.call(this, React.createElement("div", {
+        "style": this.style('wrapper')
+      }, React.createElement(Rb.OverlayTrigger, {
+        "overlay": this._renderTooltipPopover()
+      }, React.createElement("div", null, this._renderShowHideControl(), this.getColumnName, React.createElement("i", {
+        "style": this.style('icon'),
+        "className": 'fa fa-question-circle'
+      })))));
+    };
+
+    HeaderCell.prototype._renderTooltipPopover = function () {
+      return React.createElement(Rb.Popover, {
+        "id": "flipgridTooltipPopover"
+      }, this.props.column.tooltip);
+    };
+
+    HeaderCell.prototype._renderShowHideControl = function () {
+      if (!this.props.column.canHide) {
+        return null;
+      }
+      if (this.props.column.isHidden) {
+        return React.createElement("i", {
+          "className": 'fa fa-eye',
+          "style": this.style('showHideIcon'),
+          "title": 'Click to show this attribute when "Mine" attributes selected',
+          "onClick": this._onShowIconClick
+        });
+      } else {
+        return React.createElement("span", {
+          "class": "fa-stack",
+          "title": 'Click to hide this attribute when "Mine" attributes selected',
+          "onClick": this._onHideIconClick,
+          "style": this.style('showHideIcon')
+        }, React.createElement("i", {
+          "className": "fa fa-eye fa-stack-1x",
+          "style": this.style('showIcon')
+        }), React.createElement("i", {
+          "className": "fa fa-ban fa-stack-2x",
+          "style": this.style('banIcon')
+        }));
+      }
+    };
+
+    HeaderCell.prototype.getColumnName = function () {
+      var ref;
+      return (ref = this.props.column.name) != null ? ref : Titleize(Humanize(this.props.column.key));
+    };
+
+    HeaderCell.prototype.getCellOverrideStyle = function (model) {
+      var sval;
+      sval = HeaderCell.__super__.getCellOverrideStyle.call(this, model);
+      _.extend(sval, this.props.orientation === 'landscape' ? {
+        display: 'inline-block'
+      } : {
+        display: 'block'
+      });
+      return sval;
+    };
+
+    HeaderCell.prototype._onShowIconClick = function (evt) {
+      this.props.column.isHidden = false;
+      return this.forceUpdate(function (_this) {
+        return function () {
+          var base;
+          return typeof (base = _this.props).onShowColumn === "function" ? base.onShowColumn(_this, _this.props.column, evt) : void 0;
+        };
+      }(this));
+    };
+
+    HeaderCell.prototype._onHideIconClick = function (evt) {
+      this.props.column.isHidden = true;
+      return this.forceUpdate(function (_this) {
+        return function () {
+          var base;
+          return typeof (base = _this.props).onHideColumn === "function" ? base.onHideColumn(_this, _this.props.column, evt) : void 0;
+        };
+      }(this));
+    };
+
+    return HeaderCell;
+  }(Cell);
+}).call(undefined);
+
+/***/ }),
+/* 88 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_88__;
+
+/***/ }),
+/* 89 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var makeString = __webpack_require__(19);
+
+module.exports = function titleize(str) {
+  return makeString(str).toLowerCase().replace(/(?:^|\s|-)\S/g, function(c) {
+    return c.toUpperCase();
+  });
+};
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var capitalize = __webpack_require__(91);
+var underscored = __webpack_require__(92);
+var trim = __webpack_require__(31);
+
+module.exports = function humanize(str) {
+  return capitalize(trim(underscored(str).replace(/_id$/, '').replace(/_/g, ' ')));
+};
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var makeString = __webpack_require__(19);
+
+module.exports = function capitalize(str, lowercaseRest) {
+  str = makeString(str);
+  var remainingChars = !lowercaseRest ? str.slice(1) : str.slice(1).toLowerCase();
+
+  return str.charAt(0).toUpperCase() + remainingChars;
+};
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var trim = __webpack_require__(31);
+
+module.exports = function underscored(str) {
+  return trim(str).replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
+};
+
 
 /***/ }),
 /* 93 */

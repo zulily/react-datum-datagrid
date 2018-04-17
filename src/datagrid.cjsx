@@ -8,11 +8,11 @@ $ = require 'jquery'
 
 Mixin = require './helpers/mixin'
 ReactStyles = require './helpers/reactStyles'
-CellWrapper = require './cellWrapper'
-HeaderCell = require './headerCell'
+CellWrapper = require './helpers/cellWrapper'
+GridEdit = require './helpers/gridEdit'
+GridSelect = require './helpers/gridSelect'
 
-GridEdit = require './gridEdit'
-GridSelect = require './gridSelect'
+HeaderCell = require './headerCell'
 
 Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
 AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['default']
