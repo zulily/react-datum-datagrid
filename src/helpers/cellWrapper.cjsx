@@ -68,8 +68,8 @@ module.exports = class CellWrapper extends React.Component
       'data-col': @props.columnIndex
       
     classNames = Classnames 'rdd-cell-wrapper',
-      selected: @isSelected(), 
-      placeholder: @props.showPlaceholder
+      'rdd-cell-selected': @isSelected(), 
+      'rdd-cell-placeholder': @props.showPlaceholder
 
     <div className={classNames}
         tabIndex={1}

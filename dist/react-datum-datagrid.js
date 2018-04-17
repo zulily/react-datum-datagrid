@@ -3941,8 +3941,8 @@ module.exports = function() {
         'data-col': this.props.columnIndex
       };
       classNames = Classnames('rdd-cell-wrapper', {
-        selected: this.isSelected(),
-        placeholder: this.props.showPlaceholder
+        'rdd-cell-selected': this.isSelected(),
+        'rdd-cell-placeholder': this.props.showPlaceholder
       });
       return React.createElement("div", Object.assign({
         "className": classNames,
