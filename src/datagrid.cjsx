@@ -59,6 +59,9 @@ module.exports = class Datagrid extends React.Component
     # callback to call when columns are shown. (this, columnDef, evt)
     onShowColumn: PropTypes.func
     
+    # callback to call when cell selections change
+    onSelectedCellsChange: PropTypes.func
+    
     # default column definition attributes
     defaultColumnDef: PropTypes.object
     
@@ -177,6 +180,8 @@ module.exports = class Datagrid extends React.Component
       overscanColCount: 5
       rowHeight: @props.rowHeight
       rowCount: @getRowCount()
+      # this will force the Grid to update when our state changes
+      datagridState: JSON.stringify @state 
 
     
     <div style={@style('container')} className='react-datum-datagrid'>
@@ -271,36 +276,6 @@ module.exports = class Datagrid extends React.Component
     return true;        
 
 
-  # required by GridSelect mixin
-  getSelectedCell: () ->
-    $focusedCell = $(ReactDOM.findDOMNode(@)).find('.rdd-cell-wrapper:focus')
-    return null unless $focusedCell?.length > 0
-    rowIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'))
-    columnIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'))
-    columnDef = @getColumn(columnIndex)
-
-    return {rowIndex: rowIndex, idx: columnIndex, col: columnDef.key}
-    
-    
-  # required by GridSelect mixin
-  setSelectedCell: (rowIndex, colIndex) ->
-    $requestedCell = $(ReactDOM.findDOMNode(@)).find(".rdd-cell-wrapper[data-row=#{rowIndex}][data-col=#{colIndex}]")
-    return unless $requestedCell?.length > 0
-    
-    $requestedCell.focus()
-    
-  
-  # required by GridSelect mixin
-  unsetSelectedCell: () ->
-    if @getSelectedCell()?
-      document.activeElement.blur()
-      
-  # this is overridden when GridSelect is mixed in    
-  isCellSelected: (rowIndex, colKey) ->
-    selectedCell = @getSelectedCell()
-    return selectedCell.rowIndex == rowIndex && selectedCell.col == colKey
-      
-      
   refresh: ->
     @refs.lockedGrid?.grid?.refresh()
     @refs.freeGrid?.grid?.refresh()
@@ -348,8 +323,15 @@ module.exports = class Datagrid extends React.Component
       showPlaceholder={showPlaceholder}
       datagrid={@}
       defaultCellStyle={@_getDefaultCellStyle(columnDef)}
+      selected={@isCellSelected(rowIndex, columnDef.key)}
+      
+      onMouseDown={(evt,cell) => @onCellMouseDown(evt,cell)}
+      onMouseUp={(evt,cell) => @onCellMouseUp(evt,cell)}
+      onMouseMove={(evt,cell) => @onCellMouseMove(evt,cell)}
+      onKeyDown={(evt,cell) => @onCellKeyDown(evt,cell)}
+      
     />
-       
+    # the onOnCellMouse... and key event handlers above are provided by the GridSelect mixin 
     
   _getLockedColumns: ->
     _.filter @props.columns, (columnDef) -> columnDef.locked  

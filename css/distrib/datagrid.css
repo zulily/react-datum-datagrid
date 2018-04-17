@@ -6,6 +6,10 @@
   vertical-align: top;
 }
 
+.react-datum-datagrid .rdd-cell-wrapper.selected {
+  background-color: #91A4CC;
+}
+
 .react-datum-datagrid .rdd-cell img {
   max-height: 100px;
   max-width: 100px;

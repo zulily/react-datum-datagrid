@@ -2433,6 +2433,7 @@ module.exports = function(module) {
       headerHeight: PropTypes.number,
       onHideColumn: PropTypes.func,
       onShowColumn: PropTypes.func,
+      onSelectedCellsChange: PropTypes.func,
       defaultColumnDef: PropTypes.object
     };
 
@@ -2593,7 +2594,8 @@ module.exports = function(module) {
         overscanRowCount: 20,
         overscanColCount: 5,
         rowHeight: this.props.rowHeight,
-        rowCount: this.getRowCount()
+        rowCount: this.getRowCount(),
+        datagridState: JSON.stringify(this.state)
       };
       return React.createElement("div", {
         "style": this.style('container'),
@@ -2707,43 +2709,6 @@ module.exports = function(module) {
       return true;
     };
 
-    Datagrid.prototype.getSelectedCell = function () {
-      var $focusedCell, columnDef, columnIndex, rowIndex;
-      $focusedCell = $(ReactDOM.findDOMNode(this)).find('.rdd-cell-wrapper:focus');
-      if (!(($focusedCell != null ? $focusedCell.length : void 0) > 0)) {
-        return null;
-      }
-      rowIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-row'));
-      columnIndex = ReactDatum.Number.safelyFloat($focusedCell.attr('data-col'));
-      columnDef = this.getColumn(columnIndex);
-      return {
-        rowIndex: rowIndex,
-        idx: columnIndex,
-        col: columnDef.key
-      };
-    };
-
-    Datagrid.prototype.setSelectedCell = function (rowIndex, colIndex) {
-      var $requestedCell;
-      $requestedCell = $(ReactDOM.findDOMNode(this)).find(".rdd-cell-wrapper[data-row=" + rowIndex + "][data-col=" + colIndex + "]");
-      if (!(($requestedCell != null ? $requestedCell.length : void 0) > 0)) {
-        return;
-      }
-      return $requestedCell.focus();
-    };
-
-    Datagrid.prototype.unsetSelectedCell = function () {
-      if (this.getSelectedCell() != null) {
-        return document.activeElement.blur();
-      }
-    };
-
-    Datagrid.prototype.isCellSelected = function (rowIndex, colKey) {
-      var selectedCell;
-      selectedCell = this.getSelectedCell();
-      return selectedCell.rowIndex === rowIndex && selectedCell.col === colKey;
-    };
-
     Datagrid.prototype.refresh = function () {
       var ref, ref1, ref2, ref3;
       if ((ref = this.refs.lockedGrid) != null) {
@@ -2806,7 +2771,28 @@ module.exports = function(module) {
         "style": style,
         "showPlaceholder": showPlaceholder,
         "datagrid": this,
-        "defaultCellStyle": this._getDefaultCellStyle(columnDef)
+        "defaultCellStyle": this._getDefaultCellStyle(columnDef),
+        "selected": this.isCellSelected(rowIndex, columnDef.key),
+        "onMouseDown": function (_this) {
+          return function (evt, cell) {
+            return _this.onCellMouseDown(evt, cell);
+          };
+        }(this),
+        "onMouseUp": function (_this) {
+          return function (evt, cell) {
+            return _this.onCellMouseUp(evt, cell);
+          };
+        }(this),
+        "onMouseMove": function (_this) {
+          return function (evt, cell) {
+            return _this.onCellMouseMove(evt, cell);
+          };
+        }(this),
+        "onKeyDown": function (_this) {
+          return function (evt, cell) {
+            return _this.onCellKeyDown(evt, cell);
+          };
+        }(this)
       });
     };
 
@@ -3888,14 +3874,15 @@ module.exports = function() {
     extend(CellWrapper, superClass);
 
     function CellWrapper() {
-      this._onArrowDown = bind(this._onArrowDown, this);
-      this._onArrowUp = bind(this._onArrowUp, this);
-      this._onArrowLeft = bind(this._onArrowLeft, this);
-      this._onArrowRight = bind(this._onArrowRight, this);
-      this._onCellEdit = bind(this._onCellEdit, this);
-      this._onCellKeydown = bind(this._onCellKeydown, this);
-      this._onCellBlur = bind(this._onCellBlur, this);
-      this._onCellFocus = bind(this._onCellFocus, this);
+      this._onDoubleClick = bind(this._onDoubleClick, this);
+      this._onKeydown = bind(this._onKeydown, this);
+      this._onBlur = bind(this._onBlur, this);
+      this._onFocus = bind(this._onFocus, this);
+      this._onMouseLeave = bind(this._onMouseLeave, this);
+      this._onMouseEnter = bind(this._onMouseEnter, this);
+      this._onMouseMove = bind(this._onMouseMove, this);
+      this._onMouseUp = bind(this._onMouseUp, this);
+      this._onMouseDown = bind(this._onMouseDown, this);
       return CellWrapper.__super__.constructor.apply(this, arguments);
     }
 
@@ -3907,7 +3894,14 @@ module.exports = function() {
       datagrid: PropTypes.any,
       defaultCellComponent: PropTypes.any,
       defaultCellStyle: PropTypes.object,
-      style: PropTypes.object
+      style: PropTypes.object,
+      selected: PropTypes.bool,
+      editing: PropTypes.bool,
+      onMouseDown: PropTypes["function"],
+      onMouseUp: PropTypes["function"],
+      onMouseEnter: PropTypes["function"],
+      onMouseLeave: PropTypes["function"],
+      onKeyDown: PropTypes["function"]
     };
 
     CellWrapper.defaultProps = {
@@ -3916,8 +3910,6 @@ module.exports = function() {
 
     CellWrapper.prototype.componentWillMount = function () {
       return this.setState({
-        editing: false,
-        selected: false,
         renderError: null
       });
     };
@@ -3955,10 +3947,15 @@ module.exports = function() {
       return React.createElement("div", Object.assign({
         "className": classNames,
         "tabIndex": 1.,
-        "onKeyDown": this._onCellKeydown,
-        "onFocus": this._onCellFocus,
-        "onBlur": this._onCellBlur,
-        "onDoubleClick": this._onCellEdit,
+        "onMouseDown": this._onMouseDown,
+        "onMouseUp": this._onMouseUp,
+        "onMouseMove": this._onMouseMove,
+        "onMouseEnter": this._onMouseEnter,
+        "onMouseLeave": this._onMouseLeave,
+        "onKeyDown": this._onKeydown,
+        "onFocus": this._onFocus,
+        "onBlur": this._onBlur,
+        "onDoubleClick": this._onDoubleClick,
         "style": this.props.style
       }, dataProps), this._renderComponentOrPlaceholder());
     };
@@ -3976,8 +3973,7 @@ module.exports = function() {
         "column": this.props.column,
         "datagrid": this.props.datagrid,
         "defaultCellStyle": this.props.defaultCellStyle,
-        "ref": 'cellComponent',
-        "onEdit": this._onCellEdit
+        "ref": 'cellComponent'
       });
     };
 
@@ -3996,88 +3992,53 @@ module.exports = function() {
     };
 
     CellWrapper.prototype.isSelected = function () {
-      var ref;
-      return (ref = this.props.datagrid) != null ? typeof ref.isCellSelected === "function" ? ref.isCellSelected(this.props.rowIndex, this.props.column.key) : void 0 : void 0;
+      return this.props.selected;
     };
 
-    CellWrapper.prototype._onCellFocus = function (evt) {
+    CellWrapper.prototype._onMouseDown = function (evt) {
+      var base;
+      return typeof (base = this.props).onMouseDown === "function" ? base.onMouseDown(evt, this) : void 0;
+    };
+
+    CellWrapper.prototype._onMouseUp = function (evt) {
+      var base;
+      return typeof (base = this.props).onMouseUp === "function" ? base.onMouseUp(evt, this) : void 0;
+    };
+
+    CellWrapper.prototype._onMouseMove = function (evt) {
+      var base;
+      return typeof (base = this.props).onMouseMove === "function" ? base.onMouseMove(evt, this) : void 0;
+    };
+
+    CellWrapper.prototype._onMouseEnter = function (evt) {
+      var base;
+      return typeof (base = this.props).onMouseEnter === "function" ? base.onMouseEnter(evt, this) : void 0;
+    };
+
+    CellWrapper.prototype._onMouseLeave = function (evt) {
+      var base;
+      return typeof (base = this.props).onMouseLeave === "function" ? base.onMouseLeave(evt, this) : void 0;
+    };
+
+    CellWrapper.prototype._onFocus = function (evt) {
       return this.setState({
         selected: true
       });
     };
 
-    CellWrapper.prototype._onCellBlur = function (evt) {
-      return _.defer(function (_this) {
-        return function () {
-          if (!$.contains(ReactDOM.findDOMNode(_this), document.activeElement)) {
-            return _this.setState({
-              selected: false,
-              editing: false
-            });
-          }
-        };
-      }(this));
+    CellWrapper.prototype._onBlur = function (evt) {
+      var base;
+      return typeof (base = this.props)._onBlur === "function" ? base._onBlur(evt, this) : void 0;
     };
 
-    CellWrapper.prototype._onCellKeydown = function (evt) {
-      var newCell;
-      switch (evt.key) {
-        case 'Enter':
-          if (this.state.editing) {
-            this._save();
-            newCell = evt.shiftKey ? this._focusUp() : this._focusDown();
-            return newCell.find('i.fa-pencil').trigger('click');
-          } else {
-            return this.edit();
-          }
-          break;
-        case 'Tab':
-          evt.preventDefault();
-          newCell = evt.shiftKey ? this._focusLeft() : this._focusRight();
-          if (this.state.editing) {
-            this._save();
-            return _.defer(function (_this) {
-              return function () {
-                return newCell.find('.rdd-icon-edit').trigger('click');
-              };
-            }(this));
-          }
-          break;
-        case 'Escape':
-          return this._cancel();
-        case 'ArrowRight':
-          return this._onArrowRight(evt);
-        case 'ArrowLeft':
-          return this._onArrowLeft(evt);
-        case 'ArrowUp':
-          return this._onArrowUp(evt);
-        case 'ArrowDown':
-          return this._onArrowDown(evt);
-      }
+    CellWrapper.prototype._onKeydown = function (evt) {
+      var base;
+      return typeof (base = this.props).onKeyDown === "function" ? base.onKeyDown(evt, this) : void 0;
     };
 
-    CellWrapper.prototype._onCellEdit = function () {
-      return this.edit();
-    };
-
-    CellWrapper.prototype._onArrowRight = function (evt) {
-      evt.preventDefault();
-      return this._focusRight();
-    };
-
-    CellWrapper.prototype._onArrowLeft = function (evt) {
-      evt.preventDefault();
-      return this._focusLeft();
-    };
-
-    CellWrapper.prototype._onArrowUp = function (evt) {
-      evt.preventDefault();
-      return this._focusUp();
-    };
-
-    CellWrapper.prototype._onArrowDown = function (evt) {
-      evt.preventDefault();
-      return this._focusDown();
+    CellWrapper.prototype._onDoubleClick = function () {
+      var base;
+      return typeof (base = this.props).onDoubleClick === "function" ? base.onDoubleClick(evt, this) : void 0;
     };
 
     /*
@@ -4103,40 +4064,6 @@ module.exports = function() {
       return this.setState({
         editing: false
       });
-    };
-
-    CellWrapper.prototype._cancel = function () {
-      this.setState({
-        editing: false
-      });
-      return _.defer(function (_this) {
-        return function () {
-          return _this.focus();
-        };
-      }(this));
-    };
-
-    CellWrapper.prototype._focusRight = function () {
-      return this._focusOffset(0, 1);
-    };
-
-    CellWrapper.prototype._focusLeft = function () {
-      return this._focusOffset(0, -1);
-    };
-
-    CellWrapper.prototype._focusUp = function () {
-      return this._focusOffset(-1, 0);
-    };
-
-    CellWrapper.prototype._focusDown = function () {
-      return this._focusOffset(1, 0);
-    };
-
-    CellWrapper.prototype._focusOffset = function (colOffset, rowOffset) {
-      var columnIndex, rowIndex;
-      columnIndex = this.props.columnIndex + colOffset;
-      rowIndex = this.props.rowIndex + rowOffset;
-      return $(React.findDOMNode(this.props.datagrid)).find(".rdd-cell-wrapper[data-row=" + rowIndex + "][data-col=" + columnIndex + "]").focus();
     };
 
     return CellWrapper;
@@ -4680,10 +4607,10 @@ module.exports = function escapeRegExp(str) {
   /*
     These are the selection methods available on react-datum-datagrid
     
-    @selectedCells
+    @state.selectedCells
       An array of objects with the following definition
         {
-          col: string      # Defines the model attribute associated with this cell
+          colKey: string      # Defines the model attribute associated with this cell
           rowIndex: number   # Defines the row index of the model this row represents
           idx: number      # Defines the column index. Not probably too useful outside this mixin
         } 
@@ -4691,25 +4618,25 @@ module.exports = function escapeRegExp(str) {
     getSelectedCells() method is added to datagrid class being mixed into.  It returns an array 
       of the selected cells.  Array may be just one member -> the currently highlighted cell 
         
-    A typical use case would be to check if @selectedCells.length > 0, if so, use that.
+    A typical use case would be to check if @state.selectedCells.length > 0, if so, use that.
     Otherwise, you can use getSelectedCell() to see if the user has just focused on a specific
     cell instead of selecting a range.  
     
     Addtional Props:
-      onSelectedCellsChange - called with (@selectedCells)
+      onSelectedCellsChange - called with (@state.selectedCells)
    */
 
   module.exports = GridSelect = function () {
     function GridSelect() {
-      this.__onDocumentMouseMove = bind(this.__onDocumentMouseMove, this);
-      this.__onDocumentMouseUp = bind(this.__onDocumentMouseUp, this);
-      this.__onDocumentKeyDown = bind(this.__onDocumentKeyDown, this);
-      this.__onDocumentMouseDown = bind(this.__onDocumentMouseDown, this);
       this.__onDocumentPaste = bind(this.__onDocumentPaste, this);
       this.__onDocumentCopy = bind(this.__onDocumentCopy, this);
       this.__unbindEvents = bind(this.__unbindEvents, this);
       this.__bindEvents = bind(this.__bindEvents, this);
       this.isCellSelected = bind(this.isCellSelected, this);
+      this.onCellKeyDown = bind(this.onCellKeyDown, this);
+      this.onCellMouseMove = bind(this.onCellMouseMove, this);
+      this.onCellMouseUp = bind(this.onCellMouseUp, this);
+      this.onCellMouseDown = bind(this.onCellMouseDown, this);
       this.onCollectionReset = bind(this.onCollectionReset, this);
     }
 
@@ -4719,31 +4646,24 @@ module.exports = function escapeRegExp(str) {
 
     GridSelect.prototype.shouldEdit = false;
 
-    GridSelect.prototype.selectedCells = [];
-
     GridSelect.prototype.modelKeyIndex = [];
 
     GridSelect.prototype.startSelPosition = null;
 
-    GridSelect.prototype.endSelPosition = null;
-
-    GridSelect.prototype.componentDidMount = function () {
-      var ref, ref1, wrap;
+    GridSelect.prototype.componentWillMount = function () {
       if (typeof this.originalMethod === "function") {
         this.originalMethod();
       }
-      this.__bindEvents();
-      wrap = function (_this) {
-        return function (fn) {
-          return function () {
-            if (!_this.shouldEdit) {
-              return false;
-            }
-            return fn.apply(_this.refs.reactDataGrid, arguments);
-          };
-        };
-      }(this);
-      return (ref = this.refs.reactDataGrid) != null ? ref.canEdit = wrap((ref1 = this.refs.reactDataGrid) != null ? ref1.canEdit : void 0) : void 0;
+      return this.setState({
+        selectedCells: []
+      });
+    };
+
+    GridSelect.prototype.componentDidMount = function () {
+      if (typeof this.originalMethod === "function") {
+        this.originalMethod();
+      }
+      return this.__bindEvents();
     };
 
     GridSelect.prototype.componentWillUnmount = function () {
@@ -4758,11 +4678,98 @@ module.exports = function escapeRegExp(str) {
       return typeof this.originalMethod === "function" ? this.originalMethod() : void 0;
     };
 
-    GridSelect.prototype.getContainerStyle = function () {
-      var ref, style;
-      style = (ref = typeof this.originalMethod === "function" ? this.originalMethod() : void 0) != null ? ref : this.props.style;
-      style.userSelect = 'none';
-      return style;
+    GridSelect.prototype.onCellMouseDown = function (evt, cell) {
+      var thisClickPosition, thisClickTick;
+      this._updateModelKeyIndex();
+      thisClickPosition = this._getCellPosition(cell);
+      if (thisClickPosition == null) {
+        return;
+      }
+      thisClickTick = Date.now();
+      if (thisClickTick - this.lastClickTick < this.DOUBLE_CLICK_INTERVAL && CompareObjects(thisClickPosition, this.lastClickedPosition)) {
+        this.__startEdit();
+        return;
+      }
+      this.lastClickedPosition = thisClickPosition;
+      this.lastClickTick = thisClickTick;
+      if (evt.shiftKey) {
+        if (this.startSelPosition != null) {
+          return this.selectCellsBetween(this.startSelPosition, thisClickPosition);
+        } else {
+          this.selectCell(cell);
+          return this.startSelPosition;
+        }
+      } else {
+        return this.startSelPosition = thisClickPosition;
+      }
+    };
+
+    GridSelect.prototype.onCellMouseUp = function (evt, cell) {
+      var endSelPosition, rowModel, sameCellAsOrigin;
+      if (this.startSelPosition != null) {
+        endSelPosition = this._getCellPosition(cell);
+        if (endSelPosition == null) {
+          this.startSelPosition = null;
+          return;
+        }
+        sameCellAsOrigin = endSelPosition.rowIndex === this.startSelPosition.rowIndex && endSelPosition.colKey === this.startSelPosition.colKey;
+        rowModel = cell.props.model;
+        if (evt.metaKey || evt.ctrKey) {
+          if (sameCellAsOrigin) {
+            if (this.isCellSelected(endSelPosition.rowIndex, endSelPosition.colKey)) {
+              this.deselectCell(endSelPosition.rowIndex, endSelPosition.colKey);
+            } else {
+              this.selectCellPosition(endSelPosition);
+            }
+          }
+        } else if (sameCellAsOrigin) {
+          this.setSelectedCell(cell);
+        }
+      } else {
+        this.setSelectedCell(cell);
+      }
+      return this.startSelPosition = null;
+    };
+
+    GridSelect.prototype.onCellMouseMove = function (evt, cell) {
+      var thisCellPosition;
+      evt.preventDefault();
+      evt.stopPropagation();
+      if (evt.metaKey || evt.ctrKey || evt.shiftKey) {
+        return;
+      }
+      thisCellPosition = this._getCellPosition(cell);
+      if (this.startSelPosition != null && !CompareObjects(this.startSelPosition, thisCellPosition)) {
+        return this.selectCellsBetween(this.startSelPosition, thisCellPosition);
+      }
+    };
+
+    GridSelect.prototype.onCellKeyDown = function (evt, cell) {
+      var i, keyCode, results;
+      keyCode = evt.keyCode;
+      switch (false) {
+        case !((keyCode === 13 || keyCode === 32 || keyCode === 110 || indexOf.call(function () {
+          results = [];
+          for (i = 48; i <= 90; i++) {
+            results.push(i);
+          }
+          return results;
+        }.apply(this), keyCode) >= 0) && !(evt.ctrlKey || evt.metaKey)):
+          return this.__startEdit();
+        case keyCode !== 27:
+          return this.resetSelectedCells();
+        case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
+          if (evt.shiftKey) {
+            if (this.startSelPosition) {
+              return this.selectCellsBetween(this.startSelPosition, this._getCellPosition(cell));
+            } else {
+              return this.selectCell(cell);
+            }
+          } else {
+            this.startSelPosition = null;
+            return this.selectCell(cell);
+          }
+      }
     };
 
     GridSelect.prototype._getCellsBetween = function (startRow, startCol, endRow, endCol) {
@@ -4776,7 +4783,7 @@ module.exports = function escapeRegExp(str) {
         for (cols = j = 0, ref1 = Math.abs(deltaY); 0 <= ref1 ? j <= ref1 : j >= ref1; cols = 0 <= ref1 ? ++j : --j) {
           result.push({
             rowIndex: startRow + rows * modifierX,
-            col: this.modelKeyIndex[startCol + cols * modifierY],
+            colKey: this.modelKeyIndex[startCol + cols * modifierY],
             idx: startCol + cols * modifierY
           });
         }
@@ -4785,24 +4792,21 @@ module.exports = function escapeRegExp(str) {
     };
 
     GridSelect.prototype.getSelectedCell = function () {
-      if (this.originalMethod == null) {
-        throw "The grid component that has GridSelect mixin must implement getSelectedCell()";
-      }
-      return this.originalMethod.apply(this, arguments);
+      return this.state.selectedCells[0];
     };
 
-    GridSelect.prototype.setSelectedCell = function (rowIndex, colIndex) {
-      if (this.originalMethod == null) {
-        throw "The grid component that has GridSelect mixin must implement setSelectedCell()";
-      }
-      return this.originalMethod.apply(this, arguments);
+    GridSelect.prototype.setSelectedCell = function (cell) {
+      this.setState({
+        selectedCells: [this._getCellPosition(cell)]
+      });
+      cell.focus();
+      return this.onSelectedCellsChange();
     };
 
-    GridSelect.prototype.unsetSelectedCell = function () {
-      if (this.originalMethod == null) {
-        throw "The grid component that has GridSelect mixin must implement unsetSelectedCell()";
-      }
-      return this.originalMethod.apply(this, arguments);
+    GridSelect.prototype.isCellSelected = function (rowIndex, colKey) {
+      var selectedCell;
+      selectedCell = this.getSelectedCell();
+      return selectedCell.rowIndex === rowIndex && selectedCell.colKey === colKey;
     };
 
     GridSelect.prototype.getSelectedColumn = function () {
@@ -4815,103 +4819,79 @@ module.exports = function escapeRegExp(str) {
     };
 
     GridSelect.prototype.resetSelectedCells = function () {
-      var cell, collection, i, len, ref, selectedCells;
-      collection = this.getCollection();
-      if (collection != null) {
-        if (typeof collection.selectNone === "function") {
-          collection.selectNone();
-        }
-      }
-      selectedCells = this.selectedCells;
-      this.selectedCells = [];
-      for (i = 0, len = selectedCells.length; i < len; i++) {
-        cell = selectedCells[i];
-        if ((ref = this.getModelAt(cell.rowIndex)) != null) {
-          if (typeof ref.trigger === "function") {
-            ref.trigger('invalidate');
-          }
-        }
-      }
-      return _.defer(function (_this) {
-        return function () {
-          var highlightedCell;
-          highlightedCell = _this.getSelectedCell();
-          if (highlightedCell != null) {
-            return collection != null ? typeof collection.selectModelByIndex === "function" ? collection.selectModelByIndex(highlightedCell.rowIndex) : void 0 : void 0;
-          }
-        };
-      }(this));
+      return this.setState({
+        selectedCells: []
+      }, function () {
+        return this.onSelectedCellsChange();
+      });
     };
 
-    GridSelect.prototype.selectCells = function (cells, options) {
-      var base, cell, i, len;
-      if (options == null) {
-        options = {};
-      }
+    GridSelect.prototype.selectCells = function (cellPositions) {
+      var cellPosition, i, len;
       this.resetSelectedCells();
-      for (i = 0, len = cells.length; i < len; i++) {
-        cell = cells[i];
-        this.selectCell(cell.rowIndex, cell.col, options);
+      for (i = 0, len = cellPositions.length; i < len; i++) {
+        cellPosition = cellPositions[i];
+        this.selectCellPosition(cellPosition);
       }
-      return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(this.selectedCells) : void 0;
+      return this.onSelectedCellsChange();
     };
 
-    GridSelect.prototype.selectCell = function (rowIndex, colKey, options) {
-      var cell, ref, rowModel;
+    GridSelect.prototype.selectCellsBetween = function (startSelPosition, endSelPosition) {
+      var cells;
+      this.startSelPosition = startSelPosition;
+      cells = this._getCellsBetween(this.startSelPosition.rowIndex, this.startSelPosition.idx, endSelPosition.rowIndex, endSelPosition.idx);
+      return this.selectCells(cells);
+    };
+
+    GridSelect.prototype.selectCell = function (cell) {
+      return this.selectCellPosition(this._getCellPosition(cell));
+    };
+
+    GridSelect.prototype.selectCellPosition = function (cellPosition, options) {
+      var cell, selectedCells;
       if (options == null) {
         options = {};
       }
-      if (rowIndex < 0 || this.modelKeyIndex.indexOf(colKey) < 0) {
+      options = _.defaults(options, {
+        silent: false
+      });
+      if (cellPosition.rowIndex < 0 || this.modelKeyIndex.indexOf(cellPosition.colKey) < 0) {
         return;
       }
-      rowModel = this.getModelAt(rowIndex);
       cell = {
-        rowIndex: rowIndex,
-        col: colKey,
-        idx: this.modelKeyIndex.indexOf(colKey)
+        rowIndex: cellPosition.rowIndex,
+        colKey: cellPosition.colKey,
+        idx: this.modelKeyIndex.indexOf(cellPosition.colKey)
       };
-      if (!this.isCellSelected(rowIndex, colKey)) {
-        this.selectedCells.push(cell);
-      }
-      if (typeof this.getCollection === "function") {
-        if ((ref = this.getCollection()) != null) {
-          if (typeof ref.selectModel === "function") {
-            ref.selectModel(rowModel, true, options);
+      if (!this.isCellSelected(cellPosition.rowIndex, cellPosition.colKey)) {
+        selectedCells = this.state.selectedCells.slice(0);
+        selectedCells.push(cellPosition);
+        return this.setState({
+          selectedCells: selectedCells
+        }, function () {
+          if (!options.silent) {
+            return this.onSelectedCellsChange();
           }
-        }
+        });
       }
-      if (!options.silent) {
-        return _.defer(function (_this) {
-          return function () {
-            return rowModel.trigger('invalidate');
-          };
-        }(this));
-      }
-    };
-
-    GridSelect.prototype.selectCurrentCell = function () {
-      var col, highlightedCell, ref;
-      highlightedCell = this.getSelectedCell();
-      col = (ref = this.getSelectedColumn()) != null ? ref.key : void 0;
-      if (!(highlightedCell != null && col != null)) {
-        return;
-      }
-      return this.selectCell(highlightedCell.rowIndex, col);
     };
 
     GridSelect.prototype.isCellSelected = function (row, colKey) {
-      return _.any(this.selectedCells, function (cell) {
-        return cell.rowIndex === row && cell.col === colKey;
+      return _.any(this.state.selectedCells, function (cell) {
+        return cell.rowIndex === row && cell.colKey === colKey;
       });
     };
 
     GridSelect.prototype.deselectCell = function (rowIndex, colKey) {
-      var ref, rowModel;
-      rowModel = this.getModelAt(rowIndex);
-      this.selectedCells = _.filter(this.selectedCells, function (cell) {
-        return !(cell.rowIndex === rowIndex && cell.col === colKey);
+      var newSelectedCells;
+      newSelectedCells = _.filter(this.state.selectedCells, function (cell) {
+        return !(cell.rowIndex === rowIndex && cell.colKey === colKey);
       });
-      return typeof this.getCollection === "function" ? (ref = this.getCollection()) != null ? typeof ref.selectModel === "function" ? ref.selectModel(rowModel, false) : void 0 : void 0 : void 0;
+      return this.setState({
+        selectedCells: newSelectedCells
+      }, function () {
+        return this.onSelectedCellsChange();
+      });
     };
 
     /*
@@ -4919,46 +4899,36 @@ module.exports = function escapeRegExp(str) {
      */
 
     GridSelect.prototype.getSelectedCells = function () {
-      var highlightedCell, ref, ref1;
-      if (!(((ref = this.selectedCells) != null ? ref.length : void 0) > 0)) {
-        highlightedCell = this.getSelectedCell();
-        if (highlightedCell == null) {
-          return [];
-        }
-        highlightedCell.col = (ref1 = this.getSelectedColumn()) != null ? ref1.key : void 0;
-        return [highlightedCell];
-      }
-      return this.selectedCells;
+      var ref;
+      return (ref = this.state.selectedCells) != null ? ref : [];
+    };
+
+    GridSelect.prototype.onSelectedCellsChange = function () {
+      var base, ref;
+      console.log("onSelectedCellsChange: selectedCells=", JSON.stringify(this.state.selectedCells));
+      return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(((ref = this.state.selectedCells) != null ? ref : []).slice(0)) : void 0;
     };
 
     GridSelect.prototype._updateModelKeyIndex = function () {
-      return this.modelKeyIndex = _.map(this.getColumns(), function (col) {
-        return col.key;
+      return this.modelKeyIndex = _.map(this.getColumns(), function (columnDef) {
+        return columnDef.key;
       });
     };
 
-    GridSelect.prototype._getPositionByElement = function (el) {
-      var $cell, columnKey, idx, rowIndex;
-      $cell = $(el).closest('.datagrid-cell');
-      if (!($cell.length > 0)) {
-        return null;
-      }
-      columnKey = $cell.attr("data-attr-col");
-      rowIndex = parseInt($cell.attr("data-attr-row"));
-      idx = this.modelKeyIndex.indexOf(columnKey);
+    GridSelect.prototype._getCellPosition = function (cell) {
       return {
-        rowIndex: rowIndex,
-        col: columnKey,
-        idx: idx
+        rowIndex: cell.props.rowIndex,
+        colKey: cell.props.column.key,
+        idx: cell.props.columnIndex
       };
     };
 
     GridSelect.prototype._getUpperLeftBound = function (cells) {
       var left, top;
       if (cells == null) {
-        cells = this.selectedCells;
+        cells = this.state.selectedCells;
       }
-      if (this.selectedCells == null) {
+      if (cells == null) {
         return [];
       }
       top = _.min(cells, function (cell) {
@@ -4979,9 +4949,9 @@ module.exports = function escapeRegExp(str) {
     GridSelect.prototype._getLowerRightBound = function (cells) {
       var bottom, right;
       if (cells == null) {
-        cells = this.selectedCells;
+        cells = this.state.selectedCells;
       }
-      if (this.selectedCells == null) {
+      if (cells == null) {
         return [];
       }
       bottom = _.max(cells, function (cell) {
@@ -5005,40 +4975,16 @@ module.exports = function escapeRegExp(str) {
           return _this.__onDocumentCopy(evt);
         };
       }(this));
-      $(document).on('paste.GridSelect', function (_this) {
+      return $(document).on('paste.GridSelect', function (_this) {
         return function (evt) {
           return _this.__onDocumentPaste(evt);
-        };
-      }(this));
-      $(document).on('keydown.GridSelect', function (_this) {
-        return function (evt) {
-          return _this.__onDocumentKeyDown(evt);
-        };
-      }(this));
-      $(document).on('mouseup.GridSelect', function (_this) {
-        return function (evt) {
-          return _this.__onDocumentMouseUp(evt);
-        };
-      }(this));
-      $(document).on('mousedown.GridSelect', '.datagrid-cell', function (_this) {
-        return function (evt) {
-          return _this.__onDocumentMouseDown(evt);
-        };
-      }(this));
-      return $(document).on('mousemove.GridSelect', '.datagrid-cell', function (_this) {
-        return function (evt) {
-          return _this.__onDocumentMouseMove(evt);
         };
       }(this));
     };
 
     GridSelect.prototype.__unbindEvents = function () {
       $(document).off('copy.GridSelect');
-      $(document).off('paste.GridSelect');
-      $(document).off('keydown.GridSelect');
-      $(document).off('mouseup.GridSelect');
-      $(document).off('mousedown.GridSelect');
-      return $(document).off('mousemove.GridSelect');
+      return $(document).off('paste.GridSelect');
     };
 
     GridSelect.prototype.__onDocumentCopy = function (e) {
@@ -5067,7 +5013,7 @@ module.exports = function escapeRegExp(str) {
         });
         for (j = 0, len1 = ref.length; j < len1; j++) {
           cell = ref[j];
-          vals.push(this.getExportValue(rowModel, this.getColumn(cell.col)));
+          vals.push(this.getExportValue(rowModel, this.getColumn(cell.colKey)));
         }
         result.push(vals.join("\t"));
       }
@@ -5087,10 +5033,10 @@ module.exports = function escapeRegExp(str) {
         paste = [paste.split('\t')];
       }
       if (Array.isArray(paste)) {
-        if (this.selectedCells.length > 0) {
+        if (this.state.selectedCells.length > 0) {
           start = this._getUpperLeftBound();
           for (rowIndex = i = ref = start.top, ref1 = start.top + paste.length - 1; ref <= ref1 ? i <= ref1 : i >= ref1; rowIndex = ref <= ref1 ? ++i : --i) {
-            cellsInRow = _.filter(this.selectedCells, function (cell) {
+            cellsInRow = _.filter(this.state.selectedCells, function (cell) {
               return cell != null && cell.rowIndex === rowIndex;
             });
             cellsInRow = _.sortBy(cellsInRow, 'idx');
@@ -5106,7 +5052,7 @@ module.exports = function escapeRegExp(str) {
               if (cellIdx >= cellsInRow.length) {
                 continue;
               }
-              this.__updateRowModelColumn(rowIndex, rowModel, cellsInRow[cellIdx].col, pasteRow[cellIdx]);
+              this.__updateRowModelColumn(rowIndex, rowModel, cellsInRow[cellIdx].colKey, pasteRow[cellIdx]);
             }
           }
         } else {
@@ -5133,155 +5079,11 @@ module.exports = function escapeRegExp(str) {
         for (m = 0, len = ref6.length; m < len; m++) {
           cell = ref6[m];
           rowModel = this.getModelAt(cell.rowIndex);
-          this.__updateRowModelColumn(cell.rowIndex, rowModel, cell.col, paste);
+          this.__updateRowModelColumn(cell.rowIndex, rowModel, cell.colKey, paste);
         }
       }
       e.stopPropagation();
       return e.preventDefault();
-    };
-
-    GridSelect.prototype.__onDocumentMouseDown = function (evt) {
-      var el, thisClickPosition, thisClickTick;
-      el = $(evt.target);
-      if (el.closest('.datagrid-cell.editing').length > 0 || !this.__isInOurDatagrid(el)) {
-        return;
-      }
-      if (el.hasClass("fa-pencil")) {
-        this.__startEdit();
-        return;
-      }
-      this._updateModelKeyIndex();
-      thisClickPosition = this._getPositionByElement(el);
-      if (thisClickPosition == null) {
-        return;
-      }
-      thisClickTick = Date.now();
-      if (thisClickTick - this.lastClickTick < this.DOUBLE_CLICK_INTERVAL && CompareObjects(thisClickPosition, this.lastClickedPosition)) {
-        this.__startEdit();
-        return;
-      }
-      this.lastClickedPosition = thisClickPosition;
-      this.lastClickTick = thisClickTick;
-      if (thisClickPosition != null) {
-        this.setSelectedCell(thisClickPosition.rowIndex, thisClickPosition.idx);
-      }
-      this.shouldEdit = false;
-      this.startKeySelPosition = null;
-      if (evt.shiftKey) {
-        return _.defer(function (_this) {
-          return function () {
-            return _this.__shiftKeyClickSelect(thisClickPosition);
-          };
-        }(this));
-      } else {
-        return this.startSelPosition = thisClickPosition;
-      }
-    };
-
-    GridSelect.prototype.__onDocumentKeyDown = function (evt) {
-      var i, keyCode, results;
-      if (!this.__isInOurDatagrid(evt.target)) {
-        return;
-      }
-      keyCode = evt.keyCode;
-      switch (false) {
-        case !((keyCode === 13 || keyCode === 32 || keyCode === 110 || indexOf.call(function () {
-          results = [];
-          for (i = 48; i <= 90; i++) {
-            results.push(i);
-          }
-          return results;
-        }.apply(this), keyCode) >= 0) && !(evt.ctrlKey || evt.metaKey)):
-          return this.__startEdit();
-        case keyCode !== 27:
-          return this.resetSelectedCells();
-        case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
-          if (evt.shiftKey) {
-            this.selectCurrentCell();
-            if (this.startKeySelPosition == null) {
-              this.startKeySelPosition = this.getSelectedCell();
-            }
-            return _.defer(function (_this) {
-              return function () {
-                var cells, endCell;
-                if (_this.startKeySelPosition == null) {
-                  return;
-                }
-                endCell = _this.getSelectedCell();
-                cells = _this._getCellsBetween(_this.startKeySelPosition.rowIndex, _this.startKeySelPosition.idx, endCell.rowIndex, endCell.idx);
-                return _this.selectCells(cells);
-              };
-            }(this));
-          } else {
-            this.startKeySelPosition = null;
-            this.resetSelectedCells();
-            return _.defer(function (_this) {
-              return function () {
-                return _this.selectCurrentCell();
-              };
-            }(this));
-          }
-      }
-    };
-
-    GridSelect.prototype.__onDocumentMouseUp = function (evt) {
-      var el, isSelectColumn, rowModel, sameCellAsOrigin;
-      el = $(evt.target);
-      if (el.closest('.datagrid-cell.editing').length > 0) {
-        return;
-      }
-      if (el.closest('.widgets-react-datagrid').length > 0 && !evt.shiftKey) {
-        if (this.startSelPosition != null) {
-          this.endSelPosition = this._getPositionByElement(el);
-          if (this.endSelPosition == null) {
-            this.startSelPosition = null;
-            return;
-          }
-          sameCellAsOrigin = this.endSelPosition.rowIndex === this.startSelPosition.rowIndex && this.endSelPosition.col === this.startSelPosition.col;
-          isSelectColumn = el.closest('.datagrid-cell.selected-column').length > 0;
-          rowModel = this.getModelAt(this.endSelPosition.rowIndex);
-          if (evt.metaKey || evt.ctrKey || isSelectColumn) {
-            if (sameCellAsOrigin) {
-              if (this.isCellSelected(this.endSelPosition.rowIndex, this.endSelPosition.col) || isSelectColumn && rowModel.selected) {
-                this.deselectCell(this.endSelPosition.rowIndex, this.endSelPosition.col);
-              } else {
-                this.selectCell(this.endSelPosition.rowIndex, this.endSelPosition.col);
-              }
-            }
-          } else if (sameCellAsOrigin) {
-            this.resetSelectedCells();
-            _.defer(function (_this) {
-              return function () {
-                return _this.selectCurrentCell();
-              };
-            }(this));
-          }
-        } else {
-          this.resetSelectedCells();
-          _.defer(function (_this) {
-            return function () {
-              return _this.selectCurrentCell();
-            };
-          }(this));
-        }
-      }
-      return this.startSelPosition = null;
-    };
-
-    GridSelect.prototype.__onDocumentMouseMove = function (evt) {
-      var cells, el;
-      evt.preventDefault();
-      evt.stopPropagation();
-      if (evt.metaKey || evt.ctrKey || evt.shiftKey) {
-        return;
-      }
-      el = $(evt.target);
-      if (this.startSelPosition != null && el.hasClass("datagrid-cell")) {
-        this.shouldEdit = false;
-        this.endSelPosition = this._getPositionByElement(el);
-        cells = this._getCellsBetween(this.startSelPosition.rowIndex, this.startSelPosition.idx, this.endSelPosition.rowIndex, this.endSelPosition.idx);
-        return this.selectCells(cells);
-      }
     };
 
     GridSelect.prototype.__startEdit = function () {
@@ -5316,25 +5118,6 @@ module.exports = function escapeRegExp(str) {
 
     GridSelect.prototype.__isInOurDatagrid = function (element) {
       return $.contains(ReactDOM.findDOMNode(this), $(element)[0]);
-    };
-
-    GridSelect.prototype.__shiftKeyClickSelect = function (endSelPosition) {
-      var cells, lowerRightSel, startingFrom, upperLeftSel;
-      upperLeftSel = this._getUpperLeftBound();
-      lowerRightSel = this._getLowerRightBound();
-      startingFrom = endSelPosition.rowIndex <= upperLeftSel.top && endSelPosition.idx <= upperLeftSel.left ? {
-        rowIndex: lowerRightSel.bottom,
-        idx: lowerRightSel.right
-      } : {
-        rowIndex: upperLeftSel.top,
-        idx: upperLeftSel.left
-      };
-      if (startingFrom.rowIndex != null && startingFrom.idx != null) {
-        cells = this._getCellsBetween(startingFrom.rowIndex, startingFrom.idx, endSelPosition.rowIndex, endSelPosition.idx);
-        return this.selectCells(cells);
-      } else {
-        return this.selectCurrentCell();
-      }
     };
 
     return GridSelect;

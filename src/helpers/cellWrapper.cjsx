@@ -30,6 +30,20 @@ module.exports = class CellWrapper extends React.Component
     defaultCellStyle: PropTypes.object
     # This should be the style passed from RV Grid render callback
     style: PropTypes.object
+    # true if cell is selected
+    selected: PropTypes.bool
+    # true if cell is in edit mode
+    editing: PropTypes.bool
+    # This is called with (event, cell) 
+    onMouseDown: PropTypes.function
+    # This is called with (event, cell) 
+    onMouseUp: PropTypes.function
+    # This is called with (event, cell) 
+    onMouseEnter: PropTypes.function
+    # This is called with (event, cell) 
+    onMouseLeave: PropTypes.function
+    # This is called with (event, cell) 
+    onKeyDown: PropTypes.function
     
     
   @defaultProps:
@@ -37,7 +51,7 @@ module.exports = class CellWrapper extends React.Component
     
     
   componentWillMount: ->
-    @setState editing: false, selected: false, renderError: null
+    @setState renderError: null
     
   componentDidCatch: (error, info)->
     @props.onRenderError?(error, info)
@@ -53,14 +67,21 @@ module.exports = class CellWrapper extends React.Component
       'data-row': @props.rowIndex
       'data-col': @props.columnIndex
       
-    classNames = Classnames 'rdd-cell-wrapper', selected: @isSelected(), placeholder: @props.showPlaceholder
+    classNames = Classnames 'rdd-cell-wrapper',
+      selected: @isSelected(), 
+      placeholder: @props.showPlaceholder
 
     <div className={classNames}
         tabIndex={1}
-        onKeyDown={@_onCellKeydown}
-        onFocus={@_onCellFocus}
-        onBlur={@_onCellBlur}
-        onDoubleClick={@_onCellEdit}
+        onMouseDown={@_onMouseDown}
+        onMouseUp={@_onMouseUp}
+        onMouseMove={@_onMouseMove}
+        onMouseEnter={@_onMouseEnter}
+        onMouseLeave={@_onMouseLeave}
+        onKeyDown={@_onKeydown}
+        onFocus={@_onFocus}
+        onBlur={@_onBlur}
+        onDoubleClick={@_onDoubleClick}
         style={@props.style}
         {... dataProps}
         
@@ -83,7 +104,6 @@ module.exports = class CellWrapper extends React.Component
       datagrid={@props.datagrid}
       defaultCellStyle={@props.defaultCellStyle}
       ref={'cellComponent'}
-      onEdit={@_onCellEdit}
     />
     
 
@@ -97,78 +117,44 @@ module.exports = class CellWrapper extends React.Component
     
   
   isSelected: ->
-    @props.datagrid?.isCellSelected?(@props.rowIndex, @props.column.key)
+    @props.selected
 
 
-  _onCellFocus: (evt) =>
+  _onMouseDown: (evt)=>
+    @props.onMouseDown?(evt, @)
+    
+  
+  _onMouseUp: (evt)=>
+    @props.onMouseUp?(evt, @)
+    
+  
+  _onMouseMove: (evt) =>
+    @props.onMouseMove?(evt, @)
+  
+  
+  _onMouseEnter: (evt)=>
+    @props.onMouseEnter?(evt, @)
+    
+  
+  _onMouseLeave: (evt)=>
+    @props.onMouseLeave?(evt, @)
+    
+  
+  _onFocus: (evt) =>
     @setState selected: true
     
     
-  _onCellBlur: (evt) =>
-    # defer to give editing a chance to happen, and focus gets put on edit input
-    _.defer =>
-      unless $.contains(ReactDOM.findDOMNode(this), document.activeElement) 
-        @setState selected: false, editing: false
-    
-  
-  _onCellKeydown: (evt) =>
-    #console.log 'rdd CellWrapper _onCellKeydown', evt.key
-    switch evt.key
-      when 'Enter'
-        if @state.editing
-          @_save()
-          newCell = if evt.shiftKey
-            @_focusUp()
-          else
-            @_focusDown()
-          newCell.find('i.fa-pencil').trigger('click')
-        else
-          @edit()
-      when 'Tab'
-        evt.preventDefault()
-        newCell = if evt.shiftKey
-          @_focusLeft()
-        else
-          @_focusRight()
-
-        if @state.editing
-          @_save()
-          # TODO : this is a hack we should probably comunicate this back up to
-          #  datagrid and have it tell the adjacent cell to go into edit
-          # I tried triggering dblclick on the newCell but that didn't do the thing
-          _.defer => newCell.find('.rdd-icon-edit').trigger('click')
-        
-      when 'Escape' then @_cancel()
-      when 'ArrowRight' then @_onArrowRight(evt)
-      when 'ArrowLeft' then @_onArrowLeft(evt)
-      when 'ArrowUp' then @_onArrowUp(evt)
-      when 'ArrowDown' then @_onArrowDown(evt)
-      
-    
-  _onCellEdit: =>
-    @edit()
+  _onBlur: (evt) =>
+    @props._onBlur?(evt, @)
   
   
-  _onArrowRight: (evt) =>
-    evt.preventDefault()
-    @_focusRight()  
+  _onKeydown: (evt) =>
+    @props.onKeyDown?(evt, @)      
     
     
-  _onArrowLeft: (evt) =>
-    evt.preventDefault()
-    @_focusLeft()
-    
-      
-  _onArrowUp: (evt) =>
-    evt.preventDefault()
-    @_focusUp()
-    
-      
-  _onArrowDown: (evt) =>
-    evt.preventDefault()
-    @_focusDown()
-    
-      
+  _onDoubleClick: =>
+    @props.onDoubleClick?(evt, @)
+  
     
   ###
     rowEvt from react-data-grid looks like this:
@@ -191,37 +177,6 @@ module.exports = class CellWrapper extends React.Component
     @setState editing: false
     
     
-  _cancel: ->
-    @setState editing: false
-    _.defer => @focus()
-    
-    
-  _focusRight: ->
-    @_focusOffset(0, 1)
-
-  
-  _focusLeft: ->
-    @_focusOffset(0, -1)
-
-
-  _focusUp: ->
-    @_focusOffset(-1, 0)
-
-  
-  _focusDown: ->
-    @_focusOffset(1, 0)
-
-  
-  _focusOffset: (colOffset, rowOffset)->
-    # TODO : flip these when datagrid is upright
-    columnIndex = @props.columnIndex + colOffset
-    rowIndex = @props.rowIndex + rowOffset
-    
-
-    return $(React.findDOMNode(@props.datagrid))
-    .find(".rdd-cell-wrapper[data-row=#{rowIndex}][data-col=#{columnIndex}]")
-    .focus()
-  
     
   
   
