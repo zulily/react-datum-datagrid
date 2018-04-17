@@ -86,19 +86,15 @@ module.exports = class GridSelect
     @lastClickedPosition = thisClickPosition
     @lastClickTick = thisClickTick
     
-    if evt.shiftKey 
-      if @startSelPosition?
-        @selectCellsBetween(@startSelPosition, thisClickPosition)
-      else
-        @selectCell(cell)
-        @startSelPosition
-    else        
+    unless evt.shiftKey 
       @startSelPosition = thisClickPosition
 
 
   onCellMouseUp: (evt, cell) =>
-    if @startSelPosition?
-      endSelPosition =  @_getCellPosition(cell)
+    endSelPosition =  @_getCellPosition(cell)
+    if evt.shiftKey && @state.selectedCells?.length > 0
+      @selectCellsBetween(@state.selectedCells[0], endSelPosition)
+    else if @startSelPosition?
       unless endSelPosition?
         @startSelPosition = null
         return
@@ -195,23 +191,30 @@ module.exports = class GridSelect
     
     
   # Reset everything
-  resetSelectedCells: ->
-    @setState {selectedCells: []}, ->
-      @onSelectedCellsChange()
+  resetSelectedCells: (options={}) ->
+    options = _.defaults options,
+      silent: false
+      
+    if options.silent 
+      @state.selectedCells = []
+    else
+      @setState {selectedCells: []}, ->
+        @onSelectedCellsChange() unless options.silent
 
 
-  selectCells: (cellPositions) ->
-    @resetSelectedCells()
+  selectCellPositions: (cellPositions) ->
+    @resetSelectedCells(silent: true)
     
     for cellPosition in cellPositions
-      @selectCellPosition(cellPosition)
+      @selectCellPosition(cellPosition, silent: true)
     
-    @onSelectedCellsChange()
+    @setState {selectedCells: @state.selectedCells}, ->
+      @onSelectedCellsChange()
     
     
   selectCellsBetween: (@startSelPosition, endSelPosition) ->
     cells = @_getCellsBetween(@startSelPosition.rowIndex, @startSelPosition.idx, endSelPosition.rowIndex, endSelPosition.idx)
-    @selectCells(cells)    
+    @selectCellPositions(cells)    
     
     
   selectCell: (cell) ->
@@ -229,10 +232,12 @@ module.exports = class GridSelect
     unless @isCellSelected(cellPosition.rowIndex, cellPosition.colKey)
       selectedCells = @state.selectedCells.slice(0)
       selectedCells.push(cellPosition)
-      @setState {selectedCells: selectedCells}, ->
-        unless options.silent
-          @onSelectedCellsChange()    
-
+      if options.silent
+        @state.selectedCells = selectedCells
+      else
+        @setState {selectedCells: selectedCells}, ->
+          @onSelectedCellsChange() 
+  
   
   isCellSelected: (row, colKey) =>
     return _.any(@state.selectedCells, (cell) -> cell.rowIndex == row && cell.colKey == colKey)
@@ -424,8 +429,5 @@ module.exports = class GridSelect
       rowModel.trigger 'invalidate'
 
 
-  __isInOurDatagrid: (element) ->
-    return $.contains(ReactDOM.findDOMNode(this), $(element)[0])
-  
 
     

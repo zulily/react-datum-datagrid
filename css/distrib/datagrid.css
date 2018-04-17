@@ -8,6 +8,18 @@
 
 .react-datum-datagrid .rdd-cell-selected {
   background-color: #91A4CC;
+  color: whitesmoke;
+}
+
+.react-datum-datagrid .rdd-cell .datum-display-value {
+  /* when using a rdd in multi cell selection mode, user-select should probably be disabled */
+  -webkit-touch-callout:  none; /* iOS Safari */
+  -webkit-user-select:    none; /* Safari */
+  -khtml-user-select:     none; /* Konqueror HTML */
+  -moz-user-select:       none; /* Firefox */
+  -ms-user-select:        none; /* Internet Explorer/Edge */
+  user-select:            none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */  
 }
 
 .react-datum-datagrid .rdd-cell img {
