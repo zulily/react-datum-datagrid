@@ -128,7 +128,8 @@ module.exports = class GridSelect
       @selectCellsBetween(@startSelPosition, thisCellPosition)
 
 
-  onCellKeyDown: (evt, cell) =>
+  __onDocumentKeyDown: (evt) =>
+    return unless @__isInOurDatagrid(evt.target)
     keyCode = evt.keyCode
     
     # TODO : we should think about adding this: https://github.com/kabirbaidhya/keycode-js#usage 
@@ -140,15 +141,42 @@ module.exports = class GridSelect
       when keyCode == 27   # escape clears selections
         @resetSelectedCells()
       when keyCode in [37, 38, 39, 40] # left, up, right, down
-        if evt.shiftKey  
-          if @startSelPosition
-            @selectCellsBetween(@startSelPosition, @_getCellPosition(cell))
-          else
-            @selectCell(cell)
-        else
+        evt.preventDefault()
+        if evt.shiftKey 
+          if @state.selectedCells.length > 0
+            @selectCellsBetween(@state.selectedCells[0], @_getRelativeCellPosition(keyCode))
+        else if @state.selectedCells.length > 0
           @startSelPosition = null
-          @selectCell(cell)
-          
+          cellPosition = @_getRelativeCellPosition(keyCode)
+          @setSelectedCellAt(cellPosition) if cellPosition?
+        
+  
+  # returns the cell adjacent to the last selected cell by keycode
+  _getRelativeCellPosition: (keyCode) ->
+    return null unless @state.selectedCells.length > 0
+    lastSelectedCellPosition = @state.selectedCells[-1..][0]
+    adjacentCell = switch keyCode
+      when 37    # left 
+        if lastSelectedCellPosition.idx > 0  
+          _.extend {}, lastSelectedCellPosition, 
+            idx: lastSelectedCellPosition.idx - 1
+            colKey: @getColumns()[lastSelectedCellPosition.idx - 1].key
+      when 38    # up 
+        if lastSelectedCellPosition.rowIndex > 0 
+          _.extend {}, lastSelectedCellPosition, 
+            rowIndex: lastSelectedCellPosition.rowIndex - 1
+      when 39    # right 
+        if lastSelectedCellPosition.idx < @getColumns().length - 1 
+          _.extend {}, lastSelectedCellPosition, 
+            idx: lastSelectedCellPosition.idx + 1
+            colKey: @getColumns()[lastSelectedCellPosition.idx + 1].key
+      when 40    # down 
+        if lastSelectedCellPosition.rowIndex < @getRowCount() - 1
+          _.extend {}, lastSelectedCellPosition, 
+            rowIndex: lastSelectedCellPosition.rowIndex + 1
+    
+    return adjacentCell
+    
           
   _getCellsBetween: (startRow, startCol, endRow, endCol) ->
     result = []
@@ -172,11 +200,15 @@ module.exports = class GridSelect
     
   # this sets the cell at cellPosition as the only selected cell  
   setSelectedCell: (cell) ->
-    @setState 
-      selectedCells: [@_getCellPosition(cell)]
-    cell.focus()
-    @onSelectedCellsChange()
+    @setSelectedCellAt @_getCellPosition(cell)
     
+  
+  setSelectedCellAt: (cellPosition) ->
+    @setState 
+      selectedCells: [cellPosition]
+    @onSelectedCellsChange()
+
+  
   
   # is this rowIndex, columnDef.key in the selected cells?
   isCellSelected: (rowIndex, colKey) ->
@@ -257,7 +289,7 @@ module.exports = class GridSelect
   
   
   onSelectedCellsChange: () ->
-    console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
+    # console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
     @props.onSelectedCellsChange?((@state.selectedCells ? []).slice(0))
     
     
@@ -304,11 +336,17 @@ module.exports = class GridSelect
     $(document).on 'copy.GridSelect', (evt) => @__onDocumentCopy(evt)
     $(document).on 'paste.GridSelect', (evt) => @__onDocumentPaste(evt)
     
+    $(document).on 'keydown.GridSelect', (evt) => @__onDocumentKeyDown(evt)
+      
+    
   
   __unbindEvents: =>
     $(document).off 'copy.GridSelect'
     $(document).off 'paste.GridSelect'
-
+    $(document).off 'keydown.GridSelect'
+    
+    $(document).off 'keydown.GridSelect'
+    
   
   __onDocumentCopy: (e) =>
     # ************
@@ -429,5 +467,7 @@ module.exports = class GridSelect
       rowModel.trigger 'invalidate'
 
 
+  __isInOurDatagrid: (element) ->
+    return ReactDOM.findDOMNode(@).contains(element)
 
     

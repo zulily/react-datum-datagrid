@@ -147,14 +147,6 @@ module.exports = class CellWrapper extends React.Component
     @props._onBlur?(evt, @)
   
   
-  _onKeydown: (evt) =>
-    @props.onKeyDown?(evt, @)      
-    
-    
-  _onDoubleClick: =>
-    @props.onDoubleClick?(evt, @)
-  
-    
   ###
     rowEvt from react-data-grid looks like this:
     {  

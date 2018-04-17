@@ -328,10 +328,9 @@ module.exports = class Datagrid extends React.Component
       onMouseDown={(evt,cell) => @onCellMouseDown(evt,cell)}
       onMouseUp={(evt,cell) => @onCellMouseUp(evt,cell)}
       onMouseMove={(evt,cell) => @onCellMouseMove(evt,cell)}
-      onKeyDown={(evt,cell) => @onCellKeyDown(evt,cell)}
       
     />
-    # the onOnCellMouse... and key event handlers above are provided by the GridSelect mixin 
+    # the onOnCellMouse... event handlers above are provided by the GridSelect mixin 
     
   _getLockedColumns: ->
     _.filter @props.columns, (columnDef) -> columnDef.locked  

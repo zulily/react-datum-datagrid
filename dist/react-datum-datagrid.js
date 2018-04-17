@@ -2787,11 +2787,6 @@ module.exports = function(module) {
           return function (evt, cell) {
             return _this.onCellMouseMove(evt, cell);
           };
-        }(this),
-        "onKeyDown": function (_this) {
-          return function (evt, cell) {
-            return _this.onCellKeyDown(evt, cell);
-          };
         }(this)
       });
     };
@@ -3872,8 +3867,6 @@ module.exports = function() {
     extend(CellWrapper, superClass);
 
     function CellWrapper() {
-      this._onDoubleClick = bind(this._onDoubleClick, this);
-      this._onKeydown = bind(this._onKeydown, this);
       this._onBlur = bind(this._onBlur, this);
       this._onFocus = bind(this._onFocus, this);
       this._onMouseLeave = bind(this._onMouseLeave, this);
@@ -4026,16 +4019,6 @@ module.exports = function() {
     CellWrapper.prototype._onBlur = function (evt) {
       var base;
       return typeof (base = this.props)._onBlur === "function" ? base._onBlur(evt, this) : void 0;
-    };
-
-    CellWrapper.prototype._onKeydown = function (evt) {
-      var base;
-      return typeof (base = this.props).onKeyDown === "function" ? base.onKeyDown(evt, this) : void 0;
-    };
-
-    CellWrapper.prototype._onDoubleClick = function () {
-      var base;
-      return typeof (base = this.props).onDoubleClick === "function" ? base.onDoubleClick(evt, this) : void 0;
     };
 
     /*
@@ -4630,7 +4613,7 @@ module.exports = function escapeRegExp(str) {
       this.__unbindEvents = bind(this.__unbindEvents, this);
       this.__bindEvents = bind(this.__bindEvents, this);
       this.isCellSelected = bind(this.isCellSelected, this);
-      this.onCellKeyDown = bind(this.onCellKeyDown, this);
+      this.__onDocumentKeyDown = bind(this.__onDocumentKeyDown, this);
       this.onCellMouseMove = bind(this.onCellMouseMove, this);
       this.onCellMouseUp = bind(this.onCellMouseUp, this);
       this.onCellMouseDown = bind(this.onCellMouseDown, this);
@@ -4736,8 +4719,11 @@ module.exports = function escapeRegExp(str) {
       }
     };
 
-    GridSelect.prototype.onCellKeyDown = function (evt, cell) {
-      var i, keyCode, results;
+    GridSelect.prototype.__onDocumentKeyDown = function (evt) {
+      var cellPosition, i, keyCode, results;
+      if (!this.__isInOurDatagrid(evt.target)) {
+        return;
+      }
       keyCode = evt.keyCode;
       switch (false) {
         case !((keyCode === 13 || keyCode === 32 || keyCode === 110 || indexOf.call(function () {
@@ -4751,17 +4737,61 @@ module.exports = function escapeRegExp(str) {
         case keyCode !== 27:
           return this.resetSelectedCells();
         case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
+          evt.preventDefault();
           if (evt.shiftKey) {
-            if (this.startSelPosition) {
-              return this.selectCellsBetween(this.startSelPosition, this._getCellPosition(cell));
-            } else {
-              return this.selectCell(cell);
+            if (this.state.selectedCells.length > 0) {
+              return this.selectCellsBetween(this.state.selectedCells[0], this._getRelativeCellPosition(keyCode));
             }
-          } else {
+          } else if (this.state.selectedCells.length > 0) {
             this.startSelPosition = null;
-            return this.selectCell(cell);
+            cellPosition = this._getRelativeCellPosition(keyCode);
+            if (cellPosition != null) {
+              return this.setSelectedCellAt(cellPosition);
+            }
           }
       }
+    };
+
+    GridSelect.prototype._getRelativeCellPosition = function (keyCode) {
+      var adjacentCell, lastSelectedCellPosition;
+      if (!(this.state.selectedCells.length > 0)) {
+        return null;
+      }
+      lastSelectedCellPosition = this.state.selectedCells.slice(-1)[0];
+      adjacentCell = function () {
+        switch (keyCode) {
+          case 37:
+            if (lastSelectedCellPosition.idx > 0) {
+              return _.extend({}, lastSelectedCellPosition, {
+                idx: lastSelectedCellPosition.idx - 1,
+                colKey: this.getColumns()[lastSelectedCellPosition.idx - 1].key
+              });
+            }
+            break;
+          case 38:
+            if (lastSelectedCellPosition.rowIndex > 0) {
+              return _.extend({}, lastSelectedCellPosition, {
+                rowIndex: lastSelectedCellPosition.rowIndex - 1
+              });
+            }
+            break;
+          case 39:
+            if (lastSelectedCellPosition.idx < this.getColumns().length - 1) {
+              return _.extend({}, lastSelectedCellPosition, {
+                idx: lastSelectedCellPosition.idx + 1,
+                colKey: this.getColumns()[lastSelectedCellPosition.idx + 1].key
+              });
+            }
+            break;
+          case 40:
+            if (lastSelectedCellPosition.rowIndex < this.getRowCount() - 1) {
+              return _.extend({}, lastSelectedCellPosition, {
+                rowIndex: lastSelectedCellPosition.rowIndex + 1
+              });
+            }
+        }
+      }.call(this);
+      return adjacentCell;
     };
 
     GridSelect.prototype._getCellsBetween = function (startRow, startCol, endRow, endCol) {
@@ -4788,10 +4818,13 @@ module.exports = function escapeRegExp(str) {
     };
 
     GridSelect.prototype.setSelectedCell = function (cell) {
+      return this.setSelectedCellAt(this._getCellPosition(cell));
+    };
+
+    GridSelect.prototype.setSelectedCellAt = function (cellPosition) {
       this.setState({
-        selectedCells: [this._getCellPosition(cell)]
+        selectedCells: [cellPosition]
       });
-      cell.focus();
       return this.onSelectedCellsChange();
     };
 
@@ -4919,7 +4952,6 @@ module.exports = function escapeRegExp(str) {
 
     GridSelect.prototype.onSelectedCellsChange = function () {
       var base, ref;
-      console.log("onSelectedCellsChange: selectedCells=", JSON.stringify(this.state.selectedCells));
       return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(((ref = this.state.selectedCells) != null ? ref : []).slice(0)) : void 0;
     };
 
@@ -4989,16 +5021,23 @@ module.exports = function escapeRegExp(str) {
           return _this.__onDocumentCopy(evt);
         };
       }(this));
-      return $(document).on('paste.GridSelect', function (_this) {
+      $(document).on('paste.GridSelect', function (_this) {
         return function (evt) {
           return _this.__onDocumentPaste(evt);
+        };
+      }(this));
+      return $(document).on('keydown.GridSelect', function (_this) {
+        return function (evt) {
+          return _this.__onDocumentKeyDown(evt);
         };
       }(this));
     };
 
     GridSelect.prototype.__unbindEvents = function () {
       $(document).off('copy.GridSelect');
-      return $(document).off('paste.GridSelect');
+      $(document).off('paste.GridSelect');
+      $(document).off('keydown.GridSelect');
+      return $(document).off('keydown.GridSelect');
     };
 
     GridSelect.prototype.__onDocumentCopy = function (e) {
@@ -5128,6 +5167,10 @@ module.exports = function escapeRegExp(str) {
         });
         return rowModel.trigger('invalidate');
       }
+    };
+
+    GridSelect.prototype.__isInOurDatagrid = function (element) {
+      return ReactDOM.findDOMNode(this).contains(element);
     };
 
     return GridSelect;
