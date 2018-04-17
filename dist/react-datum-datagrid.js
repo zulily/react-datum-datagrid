@@ -2508,12 +2508,10 @@ module.exports = function(module) {
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
-              display: 'inline-block',
               width: this._sumLockedColumnWidths()
             };
           } else {
             return {
-              display: 'block',
               height: this._sumLockedColumnHeights()
             };
           }
@@ -2526,12 +2524,10 @@ module.exports = function(module) {
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
-              display: 'inline-block',
               width: "calc(100% - " + this._sumLockedColumnWidths() + "px"
             };
           } else {
             return {
-              display: 'block',
               height: "calc(100% - " + this._sumLockedColumnHeights() + "px"
             };
           }
@@ -2673,15 +2669,19 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype.getLockedColumnWidth = function (arg) {
-      var index;
+      var index, width;
       index = arg.index;
-      return this.getColumnWidth(index, this._getLockedColumns());
+      width = this.getColumnWidth(index, this._getLockedColumns());
+      console.log('getLockedColumnWidth', index, width);
+      return width;
     };
 
     Datagrid.prototype.getFreeColumnWidth = function (arg) {
-      var index;
+      var index, width;
       index = arg.index;
-      return this.getColumnWidth(index, this._getFreeColumns());
+      width = this.getColumnWidth(index, this._getFreeColumns());
+      console.log('getFreeColumnWidth', index, width);
+      return width;
     };
 
     Datagrid.prototype.getColumnWidth = function (index, columns) {

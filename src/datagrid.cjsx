@@ -118,10 +118,8 @@ module.exports = class Datagrid extends React.Component
       padding: 0
       includes: -> 
         if @props.orientation == 'landscape'
-          display: 'inline-block'
           width: @_sumLockedColumnWidths()
         else
-          display: 'block'
           height: @_sumLockedColumnHeights()
     
     freeGrid:
@@ -130,10 +128,8 @@ module.exports = class Datagrid extends React.Component
       padding: 0
       includes: -> 
         if @props.orientation == 'landscape'
-          display: 'inline-block'
           width: "calc(100% - #{@_sumLockedColumnWidths()}px"
         else
-          display: 'block'
           height: "calc(100% - #{@_sumLockedColumnHeights()}px"
       overflow: 'hidden'
     
@@ -258,11 +254,15 @@ module.exports = class Datagrid extends React.Component
     
     
   getLockedColumnWidth: ({index}) =>
-    @getColumnWidth(index, @_getLockedColumns())
+    width = @getColumnWidth(index, @_getLockedColumns())
+    console.log('getLockedColumnWidth', index, width)
+    return width
     
   
   getFreeColumnWidth: ({index}) =>
-    @getColumnWidth(index, @_getFreeColumns())
+    width = @getColumnWidth(index, @_getFreeColumns())
+    console.log('getFreeColumnWidth', index, width)
+    return width
     
     
   getColumnWidth: (index, columns=@props.columns) ->
