@@ -34,5 +34,5 @@ module.exports =
       name: "Basic Datagrid Demo",
       path: "basicDatagrid/basicDatagrid.jsx",
       description: "This demo shows how simple it is to create a basic react-datum-datagrid.", 
-      thumbnailUrl: "http://zulily.github.io/react-datum-datagrid/img/docs/react-datum_model-example.png"  
+      thumbnailUrl: "http://zulily.github.io/react-datum-datagrid/img/docs/basicDatagridDemo.png"  
     }]    
