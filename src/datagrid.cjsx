@@ -12,6 +12,7 @@ CellWrapper = require './helpers/cellWrapper'
 GridEdit = require './helpers/gridEdit'
 GridSelect = require './helpers/gridSelect'
 GridScroll = require './helpers/gridScroll'
+GridCopyPaste = require './helpers/gridCopyPaste'
 
 HeaderCell = require './headerCell'
 
@@ -166,6 +167,14 @@ module.exports = class Datagrid extends React.Component
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
 
 
+  componentWillMount: ->
+    @_bindDocumentEvents()
+    
+    
+  componentWillUnmount: ->
+    @_unbindDocumentEvents()
+    
+    
   render: ->
     lockedColumns = @_getLockedColumns()
     freeColumns = @_getFreeColumns()
@@ -411,7 +420,25 @@ module.exports = class Datagrid extends React.Component
     return cellStyle
     
     
+  _bindDocumentEvents: =>
+    document.addEventListener 'copy', @_onDocumentCopy
+    document.addEventListener 'paste', @_onDocumentPaste
+    document.addEventListener 'keydown', @_onDocumentKeyDown
+    
+    
+  _unbindDocumentEvents: =>
+    document.removeEventListener 'copy', @_onDocumentCopy 
+    document.removeEventListener 'paste', @_onDocumentPaste
+    document.removeEventListener 'keydown', @_onDocumentKeyDown
+    
+  
+  # mixin methods are late bound and can't be directly used as event handlers
+  _onDocumentCopy: (evt) => @GridCopyPaste_onDocumentCopy(evt)
+  _onDocumentPaste: (evt) => @GridCopyPaste_onDocumentPaste(evt)
+  _onDocumentKeyDown: (evt) => @GridSelect_onDocumentKeyDown(evt)
+    
     
   Mixin @, GridScroll
   Mixin @, GridEdit
   Mixin @, GridSelect
+  Mixin @, GridCopyPaste
