@@ -154,7 +154,7 @@ module.exports = class GridSelect
   # returns the cell adjacent to the last selected cell by keycode
   _getRelativeCellPosition: (keyCode) ->
     return null unless @state.selectedCells.length > 0
-    lastSelectedCellPosition = @state.selectedCells[-1..][0]
+    lastSelectedCellPosition = @getLastSelectedCellPosition()
     adjacentCell = switch keyCode
       when 37    # left 
         if lastSelectedCellPosition.idx > 0  
@@ -287,6 +287,15 @@ module.exports = class GridSelect
   getSelectedCells: ->
     return @state.selectedCells ? []
   
+  
+  ###
+    returns the cell position of the last cell selected by user
+  ###
+  getLastSelectedCellPosition: ->
+    return null unless @state.selectedCells?.length > 0
+    
+    return @state.selectedCells[-1..][0]
+    
   
   onSelectedCellsChange: () ->
     # console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)

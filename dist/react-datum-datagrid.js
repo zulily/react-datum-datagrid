@@ -2586,10 +2586,10 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype.render = function () {
-      var freeColumns, gridProps, lockedColumns;
+      var freeColumns, freeGridProps, lastSelectedCellPosition, lockedColumns, lockedGridProps;
       lockedColumns = this._getLockedColumns();
       freeColumns = this._getFreeColumns();
-      gridProps = {
+      lockedGridProps = {
         className: "rdd-rv-grid",
         overscanRowCount: 20,
         overscanColCount: 5,
@@ -2597,6 +2597,12 @@ module.exports = function(module) {
         rowCount: this.getRowCount(),
         datagridState: JSON.stringify(this.state)
       };
+      freeGridProps = _.extend({}, lockedGridProps);
+      lastSelectedCellPosition = this.getLastSelectedCellPosition();
+      if (lastSelectedCellPosition != null) {
+        freeGridProps.scrollToColumn = lastSelectedCellPosition.idx - lockedColumns.length;
+        lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex;
+      }
       return React.createElement("div", {
         "style": this.style('container'),
         "className": 'react-datum-datagrid'
@@ -2625,7 +2631,7 @@ module.exports = function(module) {
             "columnCount": lockedColumns.length,
             "height": height,
             "width": width
-          }, gridProps));
+          }, lockedGridProps));
         };
       }(this))), React.createElement("div", {
         "style": this.style('freeGrid'),
@@ -2640,7 +2646,7 @@ module.exports = function(module) {
             "columnCount": freeColumns.length,
             "height": height,
             "width": width
-          }, gridProps));
+          }, freeGridProps));
         };
       }(this)))));
     };
@@ -4757,7 +4763,7 @@ module.exports = function escapeRegExp(str) {
       if (!(this.state.selectedCells.length > 0)) {
         return null;
       }
-      lastSelectedCellPosition = this.state.selectedCells.slice(-1)[0];
+      lastSelectedCellPosition = this.getLastSelectedCellPosition();
       adjacentCell = function () {
         switch (keyCode) {
           case 37:
@@ -4948,6 +4954,18 @@ module.exports = function escapeRegExp(str) {
     GridSelect.prototype.getSelectedCells = function () {
       var ref;
       return (ref = this.state.selectedCells) != null ? ref : [];
+    };
+
+    /*
+      returns the cell position of the last cell selected by user
+     */
+
+    GridSelect.prototype.getLastSelectedCellPosition = function () {
+      var ref;
+      if (!(((ref = this.state.selectedCells) != null ? ref.length : void 0) > 0)) {
+        return null;
+      }
+      return this.state.selectedCells.slice(-1)[0];
     };
 
     GridSelect.prototype.onSelectedCellsChange = function () {

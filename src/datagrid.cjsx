@@ -174,7 +174,7 @@ module.exports = class Datagrid extends React.Component
     lockedColumns = @_getLockedColumns()
     freeColumns = @_getFreeColumns()
     
-    gridProps = 
+    lockedGridProps =
       className: "rdd-rv-grid"
       overscanRowCount: 20
       overscanColCount: 5
@@ -182,8 +182,14 @@ module.exports = class Datagrid extends React.Component
       rowCount: @getRowCount()
       # this will force the Grid to update when our state changes
       datagridState: JSON.stringify @state 
+      
+    freeGridProps = _.extend {}, lockedGridProps
+      
+    lastSelectedCellPosition = @getLastSelectedCellPosition()
+    if lastSelectedCellPosition?
+      freeGridProps.scrollToColumn = lastSelectedCellPosition.idx - lockedColumns.length
+      lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex
 
-    
     <div style={@style('container')} className='react-datum-datagrid'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
@@ -203,7 +209,7 @@ module.exports = class Datagrid extends React.Component
                 columnCount={lockedColumns.length}
                 height={height}
                 width={width}
-                {... gridProps}
+                {... lockedGridProps}
               />
             }          
           </AutoSizer>
@@ -217,7 +223,7 @@ module.exports = class Datagrid extends React.Component
                 columnCount={freeColumns.length}
                 height={height}
                 width={width}
-                {... gridProps}
+                {... freeGridProps}
               />          
             }          
           </AutoSizer>
