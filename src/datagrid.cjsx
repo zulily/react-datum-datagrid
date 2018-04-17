@@ -75,10 +75,6 @@ module.exports = class Datagrid extends React.Component
       
     }
     
-  # a minimal margin is neccessary on the CellWrapper in order to see the 
-  # focus rectangle 
-  WRAPPER_CELL_VERT_MARGIN: 3
-  WRAPPER_CELL_HORZ_MARGIN: 4
   
   styles: new ReactStyles
     container: 
@@ -117,6 +113,9 @@ module.exports = class Datagrid extends React.Component
     
     lockedGrid:
       flexGrow: 0
+      overflow: 'hidden'
+      margin: 0
+      padding: 0
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'inline-block'
@@ -124,10 +123,11 @@ module.exports = class Datagrid extends React.Component
         else
           display: 'block'
           height: @_sumLockedColumnHeights()
-      overflow: 'hidden'
     
     freeGrid:
       flexGrow: 1
+      margin: 0
+      padding: 0
       includes: -> 
         if @props.orientation == 'landscape'
           display: 'inline-block'
@@ -383,9 +383,7 @@ module.exports = class Datagrid extends React.Component
     
   _getCellWrapperStyle: (style) ->
     _.extend style,
-      margin: "#{@WRAPPER_CELL_VERT_MARGIN}px #{@WRAPPER_CELL_HORZ_MARGIN}px"
-      height: style.height - @WRAPPER_CELL_VERT_MARGIN * 2
-      width: style.width - @WRAPPER_CELL_HORZ_MARGIN * 2
+      margin: 0
       padding: 0
       display: 'flex'
       flexDirection: 'column'

@@ -72,7 +72,6 @@ module.exports = class CellWrapper extends React.Component
       'rdd-cell-placeholder': @props.showPlaceholder
 
     <div className={classNames}
-        tabIndex={1}
         onMouseDown={@_onMouseDown}
         onMouseUp={@_onMouseUp}
         onMouseMove={@_onMouseMove}

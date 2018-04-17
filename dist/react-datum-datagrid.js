@@ -2446,10 +2446,6 @@ module.exports = function(module) {
       }
     };
 
-    Datagrid.prototype.WRAPPER_CELL_VERT_MARGIN = 3;
-
-    Datagrid.prototype.WRAPPER_CELL_HORZ_MARGIN = 4;
-
     Datagrid.prototype.styles = new ReactStyles({
       container: {
         height: '100%',
@@ -2506,6 +2502,9 @@ module.exports = function(module) {
       },
       lockedGrid: {
         flexGrow: 0,
+        overflow: 'hidden',
+        margin: 0,
+        padding: 0,
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
@@ -2518,11 +2517,12 @@ module.exports = function(module) {
               height: this._sumLockedColumnHeights()
             };
           }
-        },
-        overflow: 'hidden'
+        }
       },
       freeGrid: {
         flexGrow: 1,
+        margin: 0,
+        padding: 0,
         includes: function includes() {
           if (this.props.orientation === 'landscape') {
             return {
@@ -2862,9 +2862,7 @@ module.exports = function(module) {
 
     Datagrid.prototype._getCellWrapperStyle = function (style) {
       return _.extend(style, {
-        margin: this.WRAPPER_CELL_VERT_MARGIN + "px " + this.WRAPPER_CELL_HORZ_MARGIN + "px",
-        height: style.height - this.WRAPPER_CELL_VERT_MARGIN * 2,
-        width: style.width - this.WRAPPER_CELL_HORZ_MARGIN * 2,
+        margin: 0,
         padding: 0,
         display: 'flex',
         flexDirection: 'column'
@@ -3946,7 +3944,6 @@ module.exports = function() {
       });
       return React.createElement("div", Object.assign({
         "className": classNames,
-        "tabIndex": 1.,
         "onMouseDown": this._onMouseDown,
         "onMouseUp": this._onMouseUp,
         "onMouseMove": this._onMouseMove,
