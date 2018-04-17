@@ -35,4 +35,10 @@ module.exports =
       path: "basicDatagrid/basicDatagrid.jsx",
       description: "This demo shows how simple it is to create a basic react-datum-datagrid.", 
       thumbnailUrl: "http://zulily.github.io/react-datum-datagrid/img/docs/basicDatagridDemo.png"  
+    },{
+      id: "editable",
+      name: "Editable Datagrid Demo",
+      path: "editing/editing.jsx",
+      description: "This demo shows how to create an editable react-datum-datagrid.", 
+      thumbnailUrl: null  
     }]    
