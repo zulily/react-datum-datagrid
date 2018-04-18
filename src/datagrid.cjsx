@@ -441,7 +441,7 @@ module.exports = class Datagrid extends React.Component
   _onDocumentKeyDown: (evt) => @GridSelect_onDocumentKeyDown(evt)
     
     
-  Mixin @, GridScroll
+  # Mixin @, GridScroll
   Mixin @, GridEdit
   Mixin @, GridSelect
   Mixin @, GridCopyPaste

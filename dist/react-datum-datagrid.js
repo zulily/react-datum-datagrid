@@ -2942,8 +2942,6 @@ module.exports = function(module) {
       return this.GridSelect_onDocumentKeyDown(evt);
     };
 
-    Mixin(Datagrid, GridScroll);
-
     Mixin(Datagrid, GridEdit);
 
     Mixin(Datagrid, GridSelect);

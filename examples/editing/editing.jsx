@@ -18,21 +18,23 @@ let puppyCollection = new PuppyCollection(PUPPY_DATA)
 
 
 class EditableDatagridDisplay extends React.Component {
-  static displayName = "BasicDatagridDisplay"
+  static displayName = "EditableDatagridDisplay"
   
   render(){
     return (
-      <ReactDatumDatagrid 
-        collection={puppyCollection}
-        columns={this.getColumns()}
-        headerHeight={40}
-        rowHeight={110}
-        defaultColumnDef={{
-          width: 150,
-          // The default is normally not editable.
-          // Since we want all columns except one to be editable...
-          editable: true
-        }}/>
+      <div style={{height: "100%", width: 600}}>
+        <ReactDatumDatagrid 
+          collection={puppyCollection}
+          columns={this.getColumns()}
+          headerHeight={40}
+          rowHeight={110}
+          defaultColumnDef={{
+            width: 150,
+            // The default is normally not editable.
+            // Since we want all columns except one to be editable...
+            editable: true
+          }}/>
+      </div>
     )
   }
   
@@ -46,15 +48,15 @@ class EditableDatagridDisplay extends React.Component {
       // explicit column definition takes precedence over defaultColumnDef prop
       editable: false
     },{
-      key: 'name',
+      key: 'name'
     },{
-      key: 'breed',
+      key: 'breed'
     },{
       key: 'size',
-      width: 80,
+      width: 80
     },{
       key: 'sex',
-      width: 80,
+      width: 80
     },{
       key: 'contactEmail',
       width: '200',
@@ -62,6 +64,18 @@ class EditableDatagridDisplay extends React.Component {
       datumProps: {
         ellipsizeAt: false,
         reverseEllipsis: true,
+      }
+    },{
+      key: 'contactCity',
+    },{
+      key: 'petfinderUrl',
+      name: 'Petfinder Link',
+      datum: ReactDatum.Link,
+      editable: false
+    },{
+      key: 'description',
+      datumProps: { 
+        ellipsizeAt: 80
       }
     }]
   }

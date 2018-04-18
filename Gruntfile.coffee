@@ -36,6 +36,7 @@ module.exports = (grunt) ->
       docVendorLibs: 
         files: [
           { src: "node_modules/react-bootstrap/dist/react-bootstrap.min.js",  dest: "docs/vendor/react-bootstrap.js"}
+          { src: "node_modules/react-virtualized/dist/umd/react-virtualized.js",  dest: "docs/vendor/react-virtualized-9.18.5.js"}
           { src: "dist/react-datum-datagrid.js",  dest: "docs/vendor/react-datum-datagrid.js"}
         ]
       
