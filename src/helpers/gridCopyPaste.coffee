@@ -9,7 +9,7 @@ module.exports = class GridCopyPaste
     
   GridCopyPaste_onDocumentCopy: (e) =>
     # don't handle copy paste events inside of editing grid cells let the input handle it
-    return if $(e.target).closest('.datagrid-cell.editing').length > 0 
+    return if e.target.closest('.rdd-cell-editing')?
     
     result = []
     cells = @getSelectedCells()
@@ -36,9 +36,9 @@ module.exports = class GridCopyPaste
 
   GridCopyPaste_onDocumentPaste: (e) =>
     paste = @copyPasteHelper.processPaste(e)
-    $activeEl = $(document.activeElement)
+    activeEl = document.activeElement
     # don't handle copy paste events inside of editing grid cells let the input handle it
-    return if $($activeEl).closest('.datagrid-cell.editing').length > 0 || $($activeEl).is('input,textarea')     
+    return if activeEl.closest('.rdd-cell-editing').length > 0 || activeEl.matches('input,textarea')     
     
     # Small fix that doesn't catch rows that are only across.
     if !Array.isArray(paste) && paste.indexOf('\t') >= 0

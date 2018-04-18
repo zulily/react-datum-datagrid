@@ -76,12 +76,6 @@ module.exports =
       commonjs: 'underscore'
       amd: 'underscore'
     }
-    'jquery': {
-      root: 'jQuery'
-      commonjs2: 'jquery',
-      commonjs: 'jquery',
-      amd: 'jquery'
-    }    
   },
   module: {
     loaders: [{

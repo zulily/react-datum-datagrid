@@ -4,7 +4,7 @@ ReactDOM = require 'react-dom'
 ReactDatum = require 'react-datum'
 PropTypes = require 'prop-types'
 _ = require 'underscore'
-$ = require 'jquery'
+extend = require 'node.extend'
 
 Mixin = require './helpers/mixin'
 ReactStyles = require './helpers/reactStyles'
@@ -18,6 +18,9 @@ HeaderCell = require './headerCell'
 
 Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
 AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['default']
+
+require('./helpers/closestPolyfill')
+require('./helpers/matchesPolyfill')
 
 ###
   This is react-datum-datagrid.   
@@ -313,7 +316,7 @@ module.exports = class Datagrid extends React.Component
       
   _renderHeaderCell: (index, columnDef) ->
     return null unless columnDef?
-    labelStyle = $.extend true, {}, @_getDefaultCellStyle(columnDef, true), columnDef.flipgrid?.labelStyle
+    labelStyle = extend true, {}, @_getDefaultCellStyle(columnDef, true), columnDef.flipgrid?.labelStyle
     <HeaderCell 
       key={index} 
       column={columnDef} 

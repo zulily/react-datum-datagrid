@@ -7,6 +7,7 @@ Classnames = require('classnames')
 
 dasherize = require('underscore.string/dasherize')
 _ = require('underscore')
+extend = require('node.extend')
 
 module.exports = class Cell extends React.Component
   
@@ -53,7 +54,7 @@ module.exports = class Cell extends React.Component
     @setDatumErrors()
 
     canEditCell = @getDatagrid()?.canEditCell(@props.column, @getModel())
-    wrapperStyle = $.extend(true, {}, options.wrapperStyle, @getCellStyle(canEditCell))
+    wrapperStyle = extend(true, {}, options.wrapperStyle, @getCellStyle(canEditCell))
 
     className = @getCellClass(canEditCell)
     icon = @getPrimaryIcon(canEditCell)
@@ -112,7 +113,7 @@ module.exports = class Cell extends React.Component
   getCellStyle: (canEditCell)->
     model = @getModel()
     
-    $.extend true, {}, 
+    extend true, {}, 
       @getCellDefaultStyle(model),
       @props.column.cellStyle
       @getCellOverrideStyle(model)

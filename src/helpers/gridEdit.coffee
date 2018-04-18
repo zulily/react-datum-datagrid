@@ -1,7 +1,7 @@
 
 _ = require 'underscore'
-$ = require 'jquery'
 
+Extend = require 'node.extend'
 DeepGet = require './deepGet'
 
 ###
@@ -177,7 +177,7 @@ module.exports = class GridEdit
       # We set the model here because @props.setOnUpdate may be false
       # but we definitely want the model to be set.  And it needs to 
       # be set such that it picks up all of things changed in the revPatch
-      $.extend true, operation.model.attributes, operation.revPatch
+      Extend true, operation.model.attributes, operation.revPatch
       @saveModel(operation.model, operation.rowEvt, {logUndo: false, setOnUpdate: false})
     delete @undo[bucketKey]
     

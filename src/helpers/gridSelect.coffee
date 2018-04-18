@@ -1,6 +1,5 @@
 
 ReactDOM = require 'react-dom'
-$ = require 'jquery'
 _ = require 'underscore'
 
 

@@ -3,7 +3,6 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 PropTypes = require 'prop-types'
 Classnames = require 'classnames'
-$ = require 'jquery'
 _ = require 'underscore'
 
 Cell = require '../cell'
