@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("underscore"), require("react"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
+		module.exports = factory(require("react"), require("underscore"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
 	else if(typeof define === 'function' && define.amd)
-		define(["underscore", "react", "react-dom", "react-datum", "react-bootstrap"], factory);
+		define(["react", "underscore", "react-dom", "react-datum", "react-bootstrap"], factory);
 	else if(typeof exports === 'object')
-		exports["ReactDatumDatagrid"] = factory(require("underscore"), require("react"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
+		exports["ReactDatumDatagrid"] = factory(require("react"), require("underscore"), require("react-dom"), require("react-datum"), require("react-bootstrap"));
 	else
-		root["ReactDatumDatagrid"] = factory(root["_"], root["React"], root["ReactDOM"], root["ReactDatum"], root["ReactBootstrap"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_6__, __WEBPACK_EXTERNAL_MODULE_26__, __WEBPACK_EXTERNAL_MODULE_46__, __WEBPACK_EXTERNAL_MODULE_92__) {
+		root["ReactDatumDatagrid"] = factory(root["React"], root["_"], root["ReactDOM"], root["ReactDatum"], root["ReactBootstrap"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_4__, __WEBPACK_EXTERNAL_MODULE_5__, __WEBPACK_EXTERNAL_MODULE_26__, __WEBPACK_EXTERNAL_MODULE_46__, __WEBPACK_EXTERNAL_MODULE_94__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -115,7 +115,7 @@ if (process.env.NODE_ENV !== 'production') {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {
 
-var _react = __webpack_require__(6);
+var _react = __webpack_require__(4);
 
 var React = _interopRequireWildcard(_react);
 
@@ -496,6 +496,12 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_4__;
 /* 5 */
 /***/ (function(module, exports) {
 
+module.exports = __WEBPACK_EXTERNAL_MODULE_5__;
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
 var global = module.exports = typeof window != 'undefined' && window.Math == Math
   ? window : typeof self != 'undefined' && self.Math == Math ? self
@@ -505,16 +511,10 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(5);
+var global = __webpack_require__(6);
 var core = __webpack_require__(3);
 var ctx = __webpack_require__(51);
 var hide = __webpack_require__(11);
@@ -674,7 +674,7 @@ module.exports = function (it) {
 
 var store = __webpack_require__(36)('wks');
 var uid = __webpack_require__(21);
-var Symbol = __webpack_require__(5).Symbol;
+var Symbol = __webpack_require__(6).Symbol;
 var USE_SYMBOL = typeof Symbol == 'function';
 
 var $exports = module.exports = function (name) {
@@ -714,7 +714,7 @@ module.exports = Object.keys || function keys(O) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var makeString = __webpack_require__(19);
-var defaultToWhiteSpace = __webpack_require__(82);
+var defaultToWhiteSpace = __webpack_require__(84);
 var nativeTrim = String.prototype.trim;
 
 module.exports = function trim(str, characters) {
@@ -805,7 +805,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(108);
+var _defineProperty = __webpack_require__(110);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -1077,7 +1077,7 @@ module.exports = function (key) {
 /* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(5);
+var global = __webpack_require__(6);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
 module.exports = function (key) {
@@ -1122,7 +1122,7 @@ module.exports = {};
 
 // 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
 var anObject = __webpack_require__(16);
-var dPs = __webpack_require__(116);
+var dPs = __webpack_require__(118);
 var enumBugKeys = __webpack_require__(37);
 var IE_PROTO = __webpack_require__(35)('IE_PROTO');
 var Empty = function () { /* empty */ };
@@ -1137,7 +1137,7 @@ var createDict = function () {
   var gt = '>';
   var iframeDocument;
   iframe.style.display = 'none';
-  __webpack_require__(117).appendChild(iframe);
+  __webpack_require__(119).appendChild(iframe);
   iframe.src = 'javascript:'; // eslint-disable-line no-script-url
   // createDict = iframe.contentWindow.Object;
   // html.removeChild(iframe);
@@ -1187,7 +1187,7 @@ exports.f = __webpack_require__(15);
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var global = __webpack_require__(5);
+var global = __webpack_require__(6);
 var core = __webpack_require__(3);
 var LIBRARY = __webpack_require__(39);
 var wksExt = __webpack_require__(43);
@@ -1209,7 +1209,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _objectWithoutProperties2 = __webpack_require__(140);
+var _objectWithoutProperties2 = __webpack_require__(142);
 
 var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
 
@@ -1221,11 +1221,11 @@ var _createClass2 = __webpack_require__(25);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
-var _CellSizeAndPositionManager = __webpack_require__(141);
+var _CellSizeAndPositionManager = __webpack_require__(143);
 
 var _CellSizeAndPositionManager2 = _interopRequireDefault(_CellSizeAndPositionManager);
 
-var _maxElementSize = __webpack_require__(142);
+var _maxElementSize = __webpack_require__(144);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1521,7 +1521,7 @@ module.exports = warning;
       _,
       slice = [].slice;
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   DeepSet = __webpack_require__(79);
 
@@ -1615,7 +1615,7 @@ module.exports = warning;
   },
       hasProp = {}.hasOwnProperty;
 
-  React = __webpack_require__(6);
+  React = __webpack_require__(4);
 
   ReactDatum = __webpack_require__(46);
 
@@ -1623,9 +1623,9 @@ module.exports = warning;
 
   Classnames = __webpack_require__(31);
 
-  dasherize = __webpack_require__(81);
+  dasherize = __webpack_require__(83);
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   extend = __webpack_require__(30);
 
@@ -1633,7 +1633,6 @@ module.exports = warning;
     extend1(Cell, superClass);
 
     function Cell() {
-      this.onEditClick = bind(this.onEditClick, this);
       this._delayedForceUpdate = bind(this._delayedForceUpdate, this);
       this._debouncedForceUpdate = bind(this._debouncedForceUpdate, this);
       this.renderWrapped = bind(this.renderWrapped, this);
@@ -1641,12 +1640,24 @@ module.exports = warning;
     }
 
     Cell.propTypes = {
+      selected: PropTypes.bool,
       editing: PropTypes.bool,
+      editable: PropTypes.bool,
       rowData: PropTypes.object,
       column: PropTypes.object,
       datagrid: PropTypes.any,
+      value: PropTypes.any,
+      onChange: PropTypes.func,
       onEdit: PropTypes.func,
       defaultCellStyle: PropTypes.object
+    };
+
+    Cell.prototype.componentDidUpdate = function (prevProps, prevState) {
+      var ref, ref1;
+      this.setDatumErrors();
+      if (this.props.editing && !prevProps.editing) {
+        return (ref = this.refs) != null ? (ref1 = ref.datum) != null ? ref1.focus() : void 0 : void 0;
+      }
     };
 
     Cell.prototype.render = function () {
@@ -1657,7 +1668,10 @@ module.exports = warning;
         attr: this.props.column.key,
         column: this.props.column,
         ref: 'datum',
-        inputMode: this.props.editing ? 'edit' : 'readonly'
+        inputMode: this.props.editing ? 'edit' : 'readonly',
+        stateless: true,
+        value: value,
+        onChange: this.props.onChange
       });
       datumProps = _.defaults(datumProps, {
         rbOverlayProps: {
@@ -1671,7 +1685,7 @@ module.exports = warning;
     };
 
     Cell.prototype.renderWrapped = function (value, options) {
-      var canEditCell, className, icon, ref, wrapperStyle;
+      var wrapperStyle;
       if (options == null) {
         options = {};
       }
@@ -1679,18 +1693,14 @@ module.exports = warning;
         title: null,
         wrapperStyle: {}
       });
-      this.setDatumErrors();
-      canEditCell = (ref = this.getDatagrid()) != null ? ref.canEditCell(this.props.column, this.getModel()) : void 0;
-      wrapperStyle = extend(true, {}, options.wrapperStyle, this.getCellStyle(canEditCell));
-      className = this.getCellClass(canEditCell);
-      icon = this.getPrimaryIcon(canEditCell);
+      wrapperStyle = extend(true, {}, options.wrapperStyle, this.getCellStyle());
       return React.createElement("div", {
         "data-attr-row": this.props.rowIndex,
         "data-attr-col": this.props.column.key,
-        "className": className,
+        "className": this.getCellClass(),
         "title": options.title,
         "style": wrapperStyle
-      }, icon, React.createElement("span", null, value));
+      }, value);
     };
 
     Cell.prototype._debouncedForceUpdate = function () {
@@ -1708,28 +1718,11 @@ module.exports = warning;
       return _.delay(this._debouncedForceUpdate, 5000);
     };
 
-    Cell.prototype.onEditClick = function (evt) {
-      return _.defer(function (_this) {
-        return function () {
-          var ref;
-          if (_this.props.onEdit != null) {
-            return _this.props.onEdit(_this, evt);
-          } else {
-            return (ref = _this.getDatagrid()) != null ? typeof ref.editCurrentCell === "function" ? ref.editCurrentCell() : void 0 : void 0;
-          }
-        };
-      }(this));
-    };
-
     Cell.prototype.getModel = function () {
       return this.props.rowData;
     };
 
-    Cell.prototype.getDatagrid = function () {
-      return this.props.datagrid;
-    };
-
-    Cell.prototype.getCellClass = function (canEditCell) {
+    Cell.prototype.getCellClass = function () {
       var model, ref;
       model = this.getModel();
       return Classnames('rdd-cell', "rdd-" + dasherize(this.props.column.key) + "-column no-help-icon", this.getAdditionalElementClasses(), {
@@ -1737,13 +1730,13 @@ module.exports = warning;
       }, {
         'rdd-cell-saved': this.getDatagridSaveSuccess() === true
       }, {
-        'rdd-editable': canEditCell
+        'rdd-editable': this.props.editable
       }, {
-        'rdd-selected': this.isSelected()
+        'rdd-selected': this.props.selected
       });
     };
 
-    Cell.prototype.getCellStyle = function (canEditCell) {
+    Cell.prototype.getCellStyle = function () {
       var model;
       model = this.getModel();
       return extend(true, {}, this.getCellDefaultStyle(model), this.props.column.cellStyle, this.getCellOverrideStyle(model));
@@ -1759,35 +1752,11 @@ module.exports = warning;
         cellStyle.padding = 0;
         cellStyle.margin = 0;
       }
-      cellStyle.display = 'flex';
-      cellStyle.flexGrow = 1;
       return cellStyle;
     };
 
     Cell.prototype.getCellOverrideStyle = function (model) {
       return {};
-    };
-
-    Cell.prototype.getPrimaryIcon = function (canEditCell) {
-      var icon, model;
-      icon = null;
-      model = this.getModel();
-      if (model == null) {
-        return null;
-      }
-      if (this.getDatagridSaving()) {
-        icon = React.createElement("i", {
-          "className": "fa fa-spin fa-refresh rdd-icon rdd-icon-refresh",
-          "title": "Saving update..."
-        });
-      } else if (canEditCell && !this.props.column.hideEditableIcon) {
-        icon = React.createElement("i", {
-          "className": "fa fa-pencil rdd-icon rdd-icon-edit",
-          "onClick": this.onEditClick,
-          "title": "Click to edit this cell (or dbclick or enter)"
-        });
-      }
-      return icon;
     };
 
     Cell.prototype.getAdditionalElementClasses = function () {
@@ -1825,44 +1794,35 @@ module.exports = warning;
       return (ref = (ref1 = model != null ? typeof model.getDatagridSaving === "function" ? model.getDatagridSaving(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaving) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
     };
 
-    Cell.prototype.isSelected = function () {
-      var ref;
-      return (ref = this.getDatagrid()) != null ? typeof ref.isCellSelected === "function" ? ref.isCellSelected(this.props.rowIndex, this.props.column.key) : void 0 : void 0;
-    };
-
     Cell.prototype.setDatumErrors = function () {
-      var model, saveErrorResp;
+      var base, model, ref, saveErrorResp;
       model = this.getModel();
       if (model == null) {
         return;
       }
       saveErrorResp = this.getDatagridSaveErrors();
       if ((saveErrorResp != null ? saveErrorResp.length : void 0) > 0) {
-        _.defer(function (_this) {
-          return function () {
-            var base;
-            if (_this.refs.datum != null) {
-              if (typeof (base = _this.refs.datum).clearErrors === "function") {
-                base.clearErrors();
-              }
-              return _this.refs.datum.onModelSaveError(_this.getModel(), saveErrorResp);
-            }
-          };
-        }(this));
+        if (this.refs.datum != null) {
+          if (typeof (base = this.refs.datum).clearErrors === "function") {
+            base.clearErrors();
+          }
+          this.refs.datum.onModelSaveError(this.getModel(), saveErrorResp);
+        }
       }
       if (this.getDatagridSaveSuccess()) {
-        _.defer(function (_this) {
-          return function () {
-            var base;
-            if (_this.refs.datum != null) {
-              if (typeof (base = _this.refs.datum).clearErrors === "function") {
-                base.clearErrors();
-              }
-            }
-            return _this.setDatagridSaveSuccess(false);
-          };
-        }(this));
-        return this._delayedForceUpdate();
+        if ((ref = this.refs.datum) != null) {
+          if (typeof ref.clearErrors === "function") {
+            ref.clearErrors();
+          }
+        }
+        return this.setDatagridSaveSuccess(false);
+      }
+    };
+
+    Cell.prototype.focusInput = function () {
+      var ref;
+      if (this.props.editing) {
+        return (ref = this.refs.datum) != null ? ref.focus() : void 0;
       }
     };
 
@@ -1879,7 +1839,7 @@ module.exports = warning;
 
 exports.__esModule = true;
 
-var _assign = __webpack_require__(98);
+var _assign = __webpack_require__(100);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -1904,7 +1864,7 @@ exports.default = _assign2.default || function (target) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // optional / simple context binding
-var aFunction = __webpack_require__(101);
+var aFunction = __webpack_require__(103);
 module.exports = function (fn, that, length) {
   aFunction(fn);
   if (that === undefined) return fn;
@@ -1939,7 +1899,7 @@ module.exports = !__webpack_require__(9) && !__webpack_require__(13)(function ()
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(12);
-var document = __webpack_require__(5).document;
+var document = __webpack_require__(6).document;
 // typeof document.createElement is 'object' in old IE
 var is = isObject(document) && isObject(document.createElement);
 module.exports = function (it) {
@@ -1953,7 +1913,7 @@ module.exports = function (it) {
 
 var has = __webpack_require__(10);
 var toIObject = __webpack_require__(14);
-var arrayIndexOf = __webpack_require__(103)(false);
+var arrayIndexOf = __webpack_require__(105)(false);
 var IE_PROTO = __webpack_require__(35)('IE_PROTO');
 
 module.exports = function (object, names) {
@@ -1997,7 +1957,7 @@ module.exports = function (it) {
 /* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(106), __esModule: true };
+module.exports = { "default": __webpack_require__(108), __esModule: true };
 
 /***/ }),
 /* 58 */
@@ -2066,11 +2026,11 @@ exports.default = function (self, call) {
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(111);
+var _iterator = __webpack_require__(113);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(122);
+var _symbol = __webpack_require__(124);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -2095,7 +2055,7 @@ var $export = __webpack_require__(7);
 var redefine = __webpack_require__(63);
 var hide = __webpack_require__(11);
 var Iterators = __webpack_require__(40);
-var $iterCreate = __webpack_require__(115);
+var $iterCreate = __webpack_require__(117);
 var setToStringTag = __webpack_require__(42);
 var getPrototypeOf = __webpack_require__(58);
 var ITERATOR = __webpack_require__(15)('iterator');
@@ -2211,11 +2171,11 @@ exports.f = __webpack_require__(9) ? gOPD : function getOwnPropertyDescriptor(O,
 
 exports.__esModule = true;
 
-var _setPrototypeOf = __webpack_require__(132);
+var _setPrototypeOf = __webpack_require__(134);
 
 var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
 
-var _create = __webpack_require__(136);
+var _create = __webpack_require__(138);
 
 var _create2 = _interopRequireDefault(_create);
 
@@ -2253,7 +2213,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.requestAnimationTimeout = exports.cancelAnimationTimeout = undefined;
 
-var _animationFrame = __webpack_require__(152);
+var _animationFrame = __webpack_require__(154);
 
 var babelPluginFlowReactPropTypes_proptype_AnimationTimeoutId = process.env.NODE_ENV === 'production' ? null : {
   id: __webpack_require__(0).number.isRequired
@@ -2382,7 +2342,7 @@ module.exports = function(module) {
   },
       hasProp = {}.hasOwnProperty;
 
-  React = __webpack_require__(6);
+  React = __webpack_require__(4);
 
   ReactDOM = __webpack_require__(26);
 
@@ -2390,7 +2350,7 @@ module.exports = function(module) {
 
   PropTypes = __webpack_require__(0);
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   extend = __webpack_require__(30);
 
@@ -2400,23 +2360,23 @@ module.exports = function(module) {
 
   CellWrapper = __webpack_require__(80);
 
-  GridEdit = __webpack_require__(84);
+  GridEdit = __webpack_require__(86);
 
-  GridSelect = __webpack_require__(86);
+  GridSelect = __webpack_require__(88);
 
-  GridScroll = __webpack_require__(88);
+  GridScroll = __webpack_require__(90);
 
-  GridCopyPaste = __webpack_require__(89);
+  GridCopyPaste = __webpack_require__(91);
 
-  HeaderCell = __webpack_require__(91);
+  HeaderCell = __webpack_require__(93);
 
-  Grid = __webpack_require__(97)['default'];
+  Grid = __webpack_require__(99)['default'];
 
-  AutoSizer = __webpack_require__(153)['default'];
+  AutoSizer = __webpack_require__(155)['default'];
 
-  __webpack_require__(156);
+  __webpack_require__(158);
 
-  __webpack_require__(157);
+  __webpack_require__(159);
 
   /*
     This is react-datum-datagrid.   
@@ -2450,10 +2410,11 @@ module.exports = function(module) {
       silentSaveErrors: PropTypes.bool,
       headerWidth: PropTypes.number,
       headerHeight: PropTypes.number,
+      defaultColumnDef: PropTypes.object,
+      disableUndo: PropTypes.bool,
       onHideColumn: PropTypes.func,
       onShowColumn: PropTypes.func,
-      onSelectedCellsChange: PropTypes.func,
-      defaultColumnDef: PropTypes.object
+      onSelectedCellsChange: PropTypes.func
     };
 
     Datagrid.defaultProps = {
@@ -2464,6 +2425,12 @@ module.exports = function(module) {
         width: 120
       }
     };
+
+    Datagrid.LOG_UNDO_DEBOUNCE = 1;
+
+    Datagrid.prototype.undo = {};
+
+    Datagrid.prototype.undoIndex = 0;
 
     Datagrid.prototype.styles = new ReactStyles({
       container: {
@@ -2623,7 +2590,7 @@ module.exports = function(module) {
       freeGridProps = _.extend({}, lockedGridProps);
       lastSelectedCellPosition = this.getLastSelectedCellPosition();
       if (lastSelectedCellPosition != null) {
-        freeGridProps.scrollToColumn = lastSelectedCellPosition.idx - lockedColumns.length;
+        freeGridProps.scrollToColumn = lastSelectedCellPosition.columnIndex - lockedColumns.length;
         lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex;
       }
       return React.createElement("div", {
@@ -2727,41 +2694,6 @@ module.exports = function(module) {
       return (ref = (ref1 = typeof (base = this.props.collection).getLength === "function" ? base.getLength() : void 0) != null ? ref1 : this.props.collection.length) != null ? ref : 0;
     };
 
-    /*
-      Override me to conditionally enable editing on a per cell basis
-     */
-
-    Datagrid.prototype.canEditCell = function (col, rowModel) {
-      var ref, ref1;
-      if (!(col != null ? col.editable : void 0)) {
-        return false;
-      }
-      if (col != null ? (ref = col.datum) != null ? (ref1 = ref.prototype) != null ? typeof ref1.isLocked === "function" ? ref1.isLocked(col, rowModel) : void 0 : void 0 : void 0 : void 0) {
-        return false;
-      }
-      return true;
-    };
-
-    Datagrid.prototype.refresh = function () {
-      var ref, ref1, ref2, ref3;
-      if ((ref = this.refs.lockedGrid) != null) {
-        if ((ref1 = ref.grid) != null) {
-          ref1.refresh();
-        }
-      }
-      if ((ref2 = this.refs.freeGrid) != null) {
-        if ((ref3 = ref2.grid) != null) {
-          ref3.refresh();
-        }
-      }
-      this._onHeaderScroll();
-      return _.defer(function (_this) {
-        return function () {
-          return _this._onHeaderScroll();
-        };
-      }(this));
-    };
-
     Datagrid.prototype._renderHeaderCells = function (columnDefs) {
       var cells, columnDef, index;
       cells = function () {
@@ -2794,34 +2726,60 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._renderDataCell = function (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) {
+      var editingOurselves, props, savingOurselves, value;
       style = this._getCellWrapperStyle(style);
-      return React.createElement(CellWrapper, {
-        "key": key,
-        "model": model,
-        "column": columnDef,
-        "rowIndex": rowIndex,
-        "columnIndex": columnIndex,
-        "style": style,
-        "showPlaceholder": showPlaceholder,
-        "datagrid": this,
-        "defaultCellStyle": this._getDefaultCellStyle(columnDef),
-        "selected": this.isCellSelected(rowIndex, columnDef.key),
-        "onMouseDown": function (_this) {
+      editingOurselves = this.isCellEditing(columnIndex, rowIndex);
+      savingOurselves = this.isCellSaving(columnIndex, rowIndex);
+      value = editingOurselves ? this.state.editingCell.value : this.getValueAt(columnIndex, rowIndex);
+      props = {
+        value: value,
+        key: key,
+        model: model,
+        column: columnDef,
+        rowIndex: rowIndex,
+        columnIndex: columnIndex,
+        style: style,
+        showPlaceholder: showPlaceholder,
+        datagrid: this,
+        defaultCellStyle: this._getDefaultCellStyle(columnDef),
+        editable: this.canEditCell(columnDef, model),
+        selected: this.isCellSelected(rowIndex, columnDef.key),
+        editing: editingOurselves,
+        saving: savingOurselves,
+        wasSaved: this.wasCellSaved(columnIndex, rowIndex),
+        saveErrors: this.getSaveErrors(columnIndex, rowIndex),
+        onMouseDown: function (_this) {
           return function (evt, cell) {
             return _this.onCellMouseDown(evt, cell);
           };
         }(this),
-        "onMouseUp": function (_this) {
+        onMouseUp: function (_this) {
           return function (evt, cell) {
             return _this.onCellMouseUp(evt, cell);
           };
         }(this),
-        "onMouseMove": function (_this) {
+        onMouseMove: function (_this) {
           return function (evt, cell) {
             return _this.onCellMouseMove(evt, cell);
           };
+        }(this),
+        onDoubleClick: function (_this) {
+          return function (evt, cell) {
+            return _this.onCellEdit(evt, columnDef, model, columnIndex, rowIndex);
+          };
+        }(this),
+        onEditIndicatorClick: function (_this) {
+          return function (evt, cell) {
+            return _this.onCellEdit(evt, columnDef, model, columnIndex, rowIndex);
+          };
+        }(this),
+        onChange: function (_this) {
+          return function (value, cell) {
+            return _this.onCellChange(value, columnDef, model, columnIndex, rowIndex);
+          };
         }(this)
-      });
+      };
+      return React.createElement(CellWrapper, Object.assign({}, props));
     };
 
     Datagrid.prototype._getLockedColumns = function () {
@@ -2891,9 +2849,7 @@ module.exports = function(module) {
     Datagrid.prototype._getCellWrapperStyle = function (style) {
       return _.extend(style, {
         margin: 0,
-        padding: 0,
-        display: 'flex',
-        flexDirection: 'column'
+        padding: 0
       });
     };
 
@@ -2941,6 +2897,8 @@ module.exports = function(module) {
     Datagrid.prototype._onDocumentKeyDown = function (evt) {
       return this.GridSelect_onDocumentKeyDown(evt);
     };
+
+    Mixin(Datagrid, GridScroll);
 
     Mixin(Datagrid, GridEdit);
 
@@ -4628,7 +4586,7 @@ module.exports = is;
 (function () {
   var _, mixin;
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   /*
     Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
@@ -4726,7 +4684,7 @@ module.exports = is;
 (function () {
   var _, deepSet;
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   /*
   Performs a deep set on the the value of a attribute deeply nested within this object
@@ -4774,9 +4732,11 @@ module.exports = is;
   var Cell,
       CellWrapper,
       Classnames,
+      EditableIndicator,
       PropTypes,
       React,
       ReactDOM,
+      SavingIndicator,
       _,
       bind = function bind(fn, me) {
     return function () {
@@ -4792,7 +4752,7 @@ module.exports = is;
   },
       hasProp = {}.hasOwnProperty;
 
-  React = __webpack_require__(6);
+  React = __webpack_require__(4);
 
   ReactDOM = __webpack_require__(26);
 
@@ -4800,7 +4760,11 @@ module.exports = is;
 
   Classnames = __webpack_require__(31);
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
+
+  EditableIndicator = __webpack_require__(81);
+
+  SavingIndicator = __webpack_require__(82);
 
   Cell = __webpack_require__(49);
 
@@ -4808,6 +4772,9 @@ module.exports = is;
     extend(CellWrapper, superClass);
 
     function CellWrapper() {
+      this._onChange = bind(this._onChange, this);
+      this._onEditIndicatorClick = bind(this._onEditIndicatorClick, this);
+      this._onDoubleClick = bind(this._onDoubleClick, this);
       this._onBlur = bind(this._onBlur, this);
       this._onFocus = bind(this._onFocus, this);
       this._onMouseLeave = bind(this._onMouseLeave, this);
@@ -4823,17 +4790,20 @@ module.exports = is;
       column: PropTypes.object,
       rowIndex: PropTypes.number,
       columnIndex: PropTypes.number,
+      value: PropTypes.any,
       datagrid: PropTypes.any,
       defaultCellComponent: PropTypes.any,
       defaultCellStyle: PropTypes.object,
       style: PropTypes.object,
       selected: PropTypes.bool,
       editing: PropTypes.bool,
+      editable: PropTypes.bool,
       onMouseDown: PropTypes["function"],
       onMouseUp: PropTypes["function"],
       onMouseEnter: PropTypes["function"],
       onMouseLeave: PropTypes["function"],
-      onKeyDown: PropTypes["function"]
+      onKeyDown: PropTypes["function"],
+      onChange: PropTypes["function"]
     };
 
     CellWrapper.defaultProps = {
@@ -4861,7 +4831,7 @@ module.exports = is;
     };
 
     CellWrapper.prototype.render = function () {
-      var classNames, dataProps, title;
+      var classNames, dataProps, ref, title;
       if (this.state.renderError != null) {
         title = "This cell failed to render. Additional Details: " + JSON.stringify(this.state.renderError);
         return React.createElement("span", {
@@ -4874,7 +4844,9 @@ module.exports = is;
       };
       classNames = Classnames('rdd-cell-wrapper', {
         'rdd-cell-selected': this.isSelected(),
-        'rdd-cell-placeholder': this.props.showPlaceholder
+        'rdd-cell-placeholder': this.props.showPlaceholder,
+        'rdd-was-saved': this.props.wasSaved,
+        'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0
       });
       return React.createElement("div", Object.assign({
         "className": classNames,
@@ -4888,7 +4860,7 @@ module.exports = is;
         "onBlur": this._onBlur,
         "onDoubleClick": this._onDoubleClick,
         "style": this.props.style
-      }, dataProps), this._renderComponentOrPlaceholder());
+      }, dataProps), this._renderIndicators(), this._renderComponentOrPlaceholder());
     };
 
     CellWrapper.prototype._renderComponentOrPlaceholder = function () {
@@ -4898,24 +4870,40 @@ module.exports = is;
       }
       CellComponent = (ref = this.props.column.cellComponent) != null ? ref : this.props.defaultCellComponent;
       return React.createElement(CellComponent, {
-        "editing": this.state.editing,
+        "value": this.props.value,
+        "selected": this.props.selected,
+        "editable": this.props.editable,
+        "editing": this.props.editing,
         "rowData": this.props.model,
         "rowIndex": this.props.rowIndex,
         "column": this.props.column,
         "datagrid": this.props.datagrid,
         "defaultCellStyle": this.props.defaultCellStyle,
-        "ref": 'cellComponent'
+        "ref": 'cellComponent',
+        "onChange": this._onChange
       });
     };
 
-    CellWrapper.prototype.edit = function () {
-      var ref;
-      if (!((ref = this.props.datagrid) != null ? typeof ref.canEditCell === "function" ? ref.canEditCell(this.props.column, this.props.model) : void 0 : void 0)) {
-        return;
+    CellWrapper.prototype._renderIndicators = function () {
+      return React.createElement("div", {
+        "className": "rdd-cell-indicators"
+      }, this._renderEditableIndicator(), this._renderSavingIndicator());
+    };
+
+    CellWrapper.prototype._renderEditableIndicator = function () {
+      if (!(this.props.editable && !this.props.saving && !this.props.editing)) {
+        return null;
       }
-      return this.setState({
-        editing: true
+      return React.createElement(EditableIndicator, {
+        "onClick": this._onEditIndicatorClick
       });
+    };
+
+    CellWrapper.prototype._renderSavingIndicator = function () {
+      if (!this.props.saving) {
+        return null;
+      }
+      return React.createElement(SavingIndicator, null);
     };
 
     CellWrapper.prototype.focus = function () {
@@ -4962,29 +4950,16 @@ module.exports = is;
       return typeof (base = this.props)._onBlur === "function" ? base._onBlur(evt, this) : void 0;
     };
 
-    /*
-      rowEvt from react-data-grid looks like this:
-      {  
-        cellKey: "costing.wholesaleCost.amount"
-        key: "Enter"
-        rowIndex: 0
-        updated: "24"
-      }
-      datagrid ignores .key
-     */
+    CellWrapper.prototype._onDoubleClick = function (evt) {
+      return this.props.onDoubleClick(evt, this);
+    };
 
-    CellWrapper.prototype._save = function () {
-      var rowEvt;
-      rowEvt = {
-        cellKey: this.props.column.key,
-        key: "Other",
-        rowIndex: this.props.rowIndex,
-        updated: this.refs.cellComponent.getValue()
-      };
-      this.props.datagrid.saveModel(this.props.model, rowEvt);
-      return this.setState({
-        editing: false
-      });
+    CellWrapper.prototype._onEditIndicatorClick = function (evt) {
+      return this.props.onEditIndicatorClick(evt, this);
+    };
+
+    CellWrapper.prototype._onChange = function (value) {
+      return this.props.onChange(value, this);
     };
 
     return CellWrapper;
@@ -4995,6 +4970,93 @@ module.exports = is;
 /* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+(function () {
+  var EditableIndicator,
+      React,
+      extend = function extend(child, parent) {
+    for (var key in parent) {
+      if (hasProp.call(parent, key)) child[key] = parent[key];
+    }function ctor() {
+      this.constructor = child;
+    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
+  },
+      hasProp = {}.hasOwnProperty;
+
+  React = __webpack_require__(4);
+
+  module.exports = EditableIndicator = function (superClass) {
+    extend(EditableIndicator, superClass);
+
+    function EditableIndicator() {
+      return EditableIndicator.__super__.constructor.apply(this, arguments);
+    }
+
+    EditableIndicator.prototype.render = function () {
+      return React.createElement("div", {
+        "className": 'rdd-editable-indicator',
+        "onClick": this.props.onClick
+      }, React.createElement("svg", {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 512 512"
+      }, React.createElement("path", {
+        "d": "M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3 0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9 0l60.1 60.1c18.8 18.7 18.8 49.1 0 67.9zM284.2 99.8L21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3 0-17l-111-111c-4.8-4.7-12.4-4.7-17.1 0zM124.1 339.9c-5.5-5.5-5.5-14.3 0-19.8l154-154c5.5-5.5 14.3-5.5 19.8 0s5.5 14.3 0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8 0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"
+      })));
+    };
+
+    return EditableIndicator;
+  }(React.Component);
+}).call(undefined);
+
+/***/ }),
+/* 82 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+  var React,
+      SavingIndicator,
+      extend = function extend(child, parent) {
+    for (var key in parent) {
+      if (hasProp.call(parent, key)) child[key] = parent[key];
+    }function ctor() {
+      this.constructor = child;
+    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;
+  },
+      hasProp = {}.hasOwnProperty;
+
+  React = __webpack_require__(4);
+
+  module.exports = SavingIndicator = function (superClass) {
+    extend(SavingIndicator, superClass);
+
+    function SavingIndicator() {
+      return SavingIndicator.__super__.constructor.apply(this, arguments);
+    }
+
+    SavingIndicator.prototype.render = function () {
+      return React.createElement("div", {
+        "className": 'rdd-saving-indicator'
+      }, React.createElement("svg", {
+        "xmlns": "http://www.w3.org/2000/svg",
+        "viewBox": "0 0 512.333 512"
+      }, React.createElement("path", {
+        "d": "M440.935 12.574l3.966 82.766C399.416 41.904 331.674 8 256 8 134.813 8 33.933 94.924 12.296 209.824 10.908 217.193 16.604 224 24.103 224h49.084c5.57 0 10.377-3.842 11.676-9.259C103.407 137.408 172.931 80 256 80c60.893 0 114.512 30.856 146.104 77.801l-101.53-4.865c-6.845-.328-12.574 5.133-12.574 11.986v47.411c0 6.627 5.373 12 12 12h200.333c6.627 0 12-5.373 12-12V12c0-6.627-5.373-12-12-12h-47.411c-6.853 0-12.315 5.729-11.987 12.574zM256 432c-60.895 0-114.517-30.858-146.109-77.805l101.868 4.871c6.845.327 12.573-5.134 12.573-11.986v-47.412c0-6.627-5.373-12-12-12H12c-6.627 0-12 5.373-12 12V500c0 6.627 5.373 12 12 12h47.385c6.863 0 12.328-5.745 11.985-12.599l-4.129-82.575C112.725 470.166 180.405 504 256 504c121.187 0 222.067-86.924 243.704-201.824 1.388-7.369-4.308-14.176-11.807-14.176h-49.084c-5.57 0-10.377 3.842-11.676 9.259C408.593 374.592 339.069 432 256 432z"
+      })));
+    };
+
+    return SavingIndicator;
+  }(React.Component);
+}).call(undefined);
+
+/***/ }),
+/* 83 */
+/***/ (function(module, exports, __webpack_require__) {
+
 var trim = __webpack_require__(18);
 
 module.exports = function dasherize(str) {
@@ -5003,10 +5065,10 @@ module.exports = function dasherize(str) {
 
 
 /***/ }),
-/* 82 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var escapeRegExp = __webpack_require__(83);
+var escapeRegExp = __webpack_require__(85);
 
 module.exports = function defaultToWhiteSpace(characters) {
   if (characters == null)
@@ -5019,7 +5081,7 @@ module.exports = function defaultToWhiteSpace(characters) {
 
 
 /***/ }),
-/* 83 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var makeString = __webpack_require__(19);
@@ -5030,7 +5092,7 @@ module.exports = function escapeRegExp(str) {
 
 
 /***/ }),
-/* 84 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5047,11 +5109,11 @@ module.exports = function escapeRegExp(str) {
     };
   };
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
   Extend = __webpack_require__(30);
 
-  DeepGet = __webpack_require__(85);
+  DeepGet = __webpack_require__(87);
 
   /*
    */
@@ -5063,22 +5125,109 @@ module.exports = function escapeRegExp(str) {
       this.onModelSaveSuccess = bind(this.onModelSaveSuccess, this);
     }
 
-    GridEdit.prototype.getCollection = function () {
-      return this.props.collection;
-    };
-
     /*
-      returns columns with a defaulted name, formatter, header component
+      Override me to conditionally enable editing on a per cell basis
      */
 
-    GridEdit.prototype.getColumns = function (columns) {
-      if (columns == null) {
-        columns = null;
+    GridEdit.prototype.canEditCell = function (column, model) {
+      var ref, ref1, ref2;
+      if (column != null ? (ref = column.datum) != null ? (ref1 = ref.prototype) != null ? typeof ref1.isLocked === "function" ? ref1.isLocked(column, model) : void 0 : void 0 : void 0 : void 0) {
+        return false;
       }
-      if (this.originalMethod != null) {
-        return this.originalMethod(columns);
+      return (ref2 = column.editable) != null ? ref2 : this.props.defaultColumnDef.editable;
+    };
+
+    GridEdit.prototype.isCellEditing = function (columnIndex, rowIndex) {
+      var editCell;
+      editCell = this.state.editingCell;
+      if (editCell == null) {
+        return false;
       }
-      return this.props.columns;
+      return editCell.rowIndex === rowIndex && editCell.columnIndex === columnIndex;
+    };
+
+    GridEdit.prototype.isCellSaving = function (columnIndex, rowIndex) {
+      var savingCells;
+      savingCells = this.state.savingCells || {};
+      if (!(_.keys(savingCells).length > 0)) {
+        return false;
+      }
+      return savingCells[columnIndex + "_" + rowIndex] === true;
+    };
+
+    GridEdit.prototype.wasCellSaved = function (columnIndex, rowIndex) {
+      var savedCells;
+      savedCells = this.state.savedCells || {};
+      if (!(_.keys(savedCells).length > 0)) {
+        return false;
+      }
+      return savedCells[columnIndex + "_" + rowIndex];
+    };
+
+    GridEdit.prototype.getSaveErrors = function (columnIndex, rowIndex) {
+      var saveErrors;
+      saveErrors = this.state.saveErrors || {};
+      if (!(_.keys(saveErrors).length > 0)) {
+        return false;
+      }
+      return saveErrors[columnIndex + "_" + rowIndex];
+    };
+
+    GridEdit.prototype.isDatagridEditing = function () {
+      return this.state.editingCell != null && true || false;
+    };
+
+    GridEdit.prototype.onCellEdit = function (evt, columnDef, model, columnIndex, rowIndex) {
+      if (!this.canEditCell(columnDef, model)) {
+        return false;
+      }
+      this.setState({
+        editingCell: {
+          columnIndex: columnIndex,
+          rowIndex: rowIndex,
+          value: this.getValueAt(columnIndex, rowIndex)
+        }
+      });
+      return typeof this.originalMethod === "function" ? this.originalMethod(evt, columnDef, model, columnIndex, rowIndex) : void 0;
+    };
+
+    GridEdit.prototype.onCellChange = function (value, columnDef, model, columnIndex, rowIndex) {
+      var newState;
+      if (!(this.canEditCell(columnDef, model) && this.isCellEditing(columnIndex, rowIndex))) {
+        return false;
+      }
+      newState = _.extend({}, this.state.editingCell, {
+        value: value
+      });
+      return this.setState({
+        editingCell: newState
+      });
+    };
+
+    GridEdit.prototype.saveEditingCell = function () {
+      var columnDef, columnIndex, model, rowEvt, rowIndex, value;
+      if (this.state.editingCell == null) {
+        return false;
+      }
+      columnDef = this.getColumn(this.state.editingCell.columnIndex);
+      model = this.getModelAt(this.state.editingCell.rowIndex);
+      if (!this.canEditCell(columnDef, model)) {
+        return false;
+      }
+      columnIndex = this.state.editingCell.columnIndex;
+      rowIndex = this.state.editingCell.rowIndex;
+      value = this.state.editingCell.value;
+      rowEvt = {
+        cellKey: columnDef.key,
+        key: "Enter",
+        columnIndex: columnIndex,
+        rowIndex: rowIndex,
+        updated: value
+      };
+      this.saveModel(model, rowEvt);
+      return this.setState({
+        editingCell: null
+      });
     };
 
     /*
@@ -5086,23 +5235,21 @@ module.exports = function escapeRegExp(str) {
      */
 
     GridEdit.prototype.getColumn = function (keyOrIndex) {
-      var columns;
       if (this.originalMethod != null) {
         return this.originalMethod();
       }
-      columns = this.getColumns();
       if (_.isString(keyOrIndex)) {
-        return _.find(this.getColumns(), function (c) {
+        return _.find(this.props.columns, function (c) {
           return c.key === keyOrIndex;
         });
       } else {
-        return columns[keyOrIndex];
+        return this.props.columns[keyOrIndex];
       }
     };
 
     GridEdit.prototype.getModelAt = function (index) {
       var collection;
-      collection = this.getCollection();
+      collection = this.props.collection;
       switch (false) {
         case !(collection == null):
           return null;
@@ -5120,7 +5267,7 @@ module.exports = function escapeRegExp(str) {
       return (ref = typeof model.get === "function" ? model.get(attr) : void 0) != null ? ref : model[attr];
     };
 
-    GridEdit.prototype.getValueAt = function (rowIndex, colIndexOrKey) {
+    GridEdit.prototype.getValueAt = function (colIndexOrKey, rowIndex) {
       var columnKey, datum, model, ref;
       ref = this.getModelColumnKeyAt(rowIndex, colIndexOrKey), model = ref[0], columnKey = ref[1], datum = ref[2];
       if (!(model != null && columnKey != null)) {
@@ -5169,7 +5316,7 @@ module.exports = function escapeRegExp(str) {
     GridEdit.prototype.getModelColumnKeyAt = function (rowIndex, colIndexOrKey) {
       var columnKey, model, ref, ref1;
       model = this.getModelAt(rowIndex);
-      columnKey = _.isNumber(colIndexOrKey) ? (ref = this.getColumns()) != null ? (ref1 = ref[colIndexOrKey]) != null ? ref1.key : void 0 : void 0 : colIndexOrKey;
+      columnKey = _.isNumber(colIndexOrKey) ? (ref = this.props.columns) != null ? (ref1 = ref[colIndexOrKey]) != null ? ref1.key : void 0 : void 0 : colIndexOrKey;
       return [model, columnKey];
     };
 
@@ -5239,7 +5386,7 @@ module.exports = function escapeRegExp(str) {
       if (options == null) {
         options = {};
       }
-      if (!this.props.enableUndo) {
+      if (this.props.disableUndo) {
         return;
       }
       this.undo[this.undoIndex++] = this.constructor._batchUndoRequests;
@@ -5269,7 +5416,7 @@ module.exports = function escapeRegExp(str) {
       operations = this.undo[bucketKey];
       for (i = 0, len = operations.length; i < len; i++) {
         operation = operations[i];
-        this.clearCellErrors(operation.model, operation.attr);
+        this.clearCellErrors(operation.model, operation.rowEvt);
         Extend(true, operation.model.attributes, operation.revPatch);
         this.saveModel(operation.model, operation.rowEvt, {
           logUndo: false,
@@ -5282,11 +5429,14 @@ module.exports = function escapeRegExp(str) {
     GridEdit.prototype.logUndoDebounced = _.debounce(GridEdit.prototype._logUndo, GridEdit.LOG_UNDO_DEBOUNCE);
 
     /*
-      rowEvt from react-data-grid looks like this:
+      TODO : rengineer this, everything else is more simply {columnIndex, rowIndex}
+      
+      we mimick rowEvt from react-data-grid which looked like this:
       {  
         cellKey: "costing.wholesaleCost.amount"
         key: "Enter"
         rowIndex: 0
+        columnIndex: 0
         updated: "24"
       }
      */
@@ -5297,19 +5447,19 @@ module.exports = function escapeRegExp(str) {
         options = {};
       }
       options = _.defaults(options, {
-        logUndo: this.props.enableUndo,
+        logUndo: !this.props.disableUndo,
         setOnUpdate: true
       });
       attr = (ref = rowEvt.attribute) != null ? ref : rowEvt.cellKey;
-      oldValue = DeepGet(model._lastSyncAttributes, attr);
+      oldValue = this.getValueAt(rowEvt.cellKey, rowEvt.rowIndex);
       newValue = ((ref1 = rowEvt.updated) != null ? ref1.toString().trim() : void 0) !== '' ? rowEvt.updated : null;
       if (!(oldValue || newValue)) {
         return;
       }
-      if (oldValue === newValue) {
+      if (JSON.stringify(oldValue) === JSON.stringify(newValue)) {
         return;
       }
-      this.clearCellErrors(model, attr);
+      this.clearCellErrors(model, rowEvt);
       saveOptions = this.getModelSaveOptions();
       saveOptions.__datagrid_rowEvt = rowEvt;
       if (!(this.props.setOnUpdate === false || options.setOnUpdate === false)) {
@@ -5317,80 +5467,97 @@ module.exports = function escapeRegExp(str) {
           return;
         }
       }
-      revPatch = model.getReversePatchObject();
-      if (options.logUndo !== false && oldValue !== newValue) {
+      revPatch = typeof model.getReversePatchObject === "function" ? model.getReversePatchObject() : void 0;
+      if (options.logUndo) {
         if ((base = this.constructor)._batchUndoRequests == null) {
           base._batchUndoRequests = [];
         }
         this.constructor._batchUndoRequests.push({
           model: model,
           attr: attr,
-          revPatch: revPatch,
+          prevValue: revPatch != null ? revPatch : oldValue,
           rowEvt: rowEvt
         });
         this.logUndoDebounced.apply(this, arguments);
       }
       isDirty = _.isFunction(model.isDirty) ? model.isDirty() : true;
       if (this.props.saveOnUpdate !== false && isDirty) {
-        this.setSaving(model, rowEvt.cellKey, true);
+        this.setSaving(model, rowEvt, true);
         return (model.patch || model.save)({}, saveOptions);
       }
     };
 
-    GridEdit.prototype.clearCellErrors = function (model, columnKey) {
-      if (_.isFunction(model.setDatagridSaveErrors)) {
-        return model.setDatagridSaveErrors(columnKey, null);
-      } else {
-        if (model.__datagridSaveErrors == null) {
-          model.__datagridSaveErrors = {};
+    GridEdit.prototype.clearCellErrors = function (model, rowEvt) {
+      var saveErrors;
+      saveErrors = this.state.saveErrors != null ? _.extend({}, this.state.saveErrors) : {};
+      delete saveErrors[rowEvt.columnIndex + "_" + rowEvt.rowIndex];
+      return this.setState({
+        saveErrors: saveErrors
+      });
+    };
+
+    GridEdit.prototype.setSaveSuccess = function (model, rowEvt, trueOrFalse) {
+      var lookupKey, savedCells;
+      if (model != null) {
+        if (typeof model.setDatagridSaveSuccess === "function") {
+          model.setDatagridSaveSuccess(rowEvt.cellKey, trueOrFalse);
         }
-        if (columnKey != null) {
-          return delete model.__datagridSaveErrors[columnKey];
-        } else {
-          return model.__datagridSaveErrors = {};
-        }
+      }
+      lookupKey = rowEvt.columnIndex + "_" + rowEvt.rowIndex;
+      savedCells = this.state.savedCells != null ? _.extend({}, this.state.savedCells) : {};
+      savedCells[lookupKey] = trueOrFalse;
+      this.setState({
+        savedCells: savedCells
+      });
+      if (trueOrFalse) {
+        return _.delay(function (_this) {
+          return function () {
+            delete savedCells[lookupKey];
+            return _this.setState({
+              savedCells: savedCells
+            });
+          };
+        }(this), 7000);
       }
     };
 
-    GridEdit.prototype.setSaveSuccess = function (model, attr, trueOrFalse) {
-      if (_.isFunction(model.setDatagridSaveSuccess)) {
-        return model.setDatagridSaveSuccess(attr, trueOrFalse);
-      } else {
-        if (model.__datagridSaveSuccess == null) {
-          model.__datagridSaveSuccess = {};
+    GridEdit.prototype.setSaveErrors = function (model, rowEvt, resp) {
+      var lookupKey, ref, saveErrors;
+      if (model != null) {
+        if (typeof model.setDatagridSaveErrors === "function") {
+          model.setDatagridSaveErrors(rowEvt.cellKey, resp);
         }
-        return model.__datagridSaveSuccess[attr] = trueOrFalse;
       }
+      lookupKey = rowEvt.columnIndex + "_" + rowEvt.rowIndex;
+      saveErrors = (ref = this.state.saveErrors) != null ? ref : {};
+      if (saveErrors[lookupKey] == null) {
+        saveErrors[lookupKey] = [];
+      }
+      saveErrors[lookupKey].push(resp);
+      return this.setState({
+        saveErrors: saveErrors
+      });
     };
 
-    GridEdit.prototype.setSaveErrors = function (model, attr, resp) {
-      if (_.isFunction(model.setDatagridSaveErrors)) {
-        return model.setDatagridSaveErrors(attr, resp);
+    GridEdit.prototype.setSaving = function (model, rowEvt, trueOrFalse) {
+      var savingCells;
+      savingCells = this.state.savingCells || {};
+      if (trueOrFalse) {
+        savingCells[rowEvt.columnIndex + "_" + rowEvt.rowIndex] = true;
       } else {
-        if (model.__datagridSaveErrors == null) {
-          model.__datagridSaveErrors = {};
-        }
-        return model.__datagridSaveErrors[attr] = resp;
+        delete savingCells[rowEvt.columnIndex + "_" + rowEvt.rowIndex];
       }
-    };
-
-    GridEdit.prototype.setSaving = function (model, attr, trueOrFalse) {
-      if (_.isFunction(model.setDatagridSaving)) {
-        return model.setDatagridSaving(attr, trueOrFalse);
-      } else {
-        if (model.__datagridSaving == null) {
-          model.__datagridSaving = {};
-        }
-        return model.__datagridSaving[attr] = trueOrFalse;
-      }
+      return this.setState({
+        savingCells: savingCells
+      });
     };
 
     GridEdit.prototype.onModelSaveSuccess = function (model, resp, options) {
       var rowEvt;
       rowEvt = options != null ? options.__datagrid_rowEvt : void 0;
       if (rowEvt) {
-        this.setSaveSuccess(model, rowEvt.cellKey, true);
-        this.clearCellErrors(model);
+        this.setSaveSuccess(model, rowEvt, true);
+        this.clearCellErrors(model, rowEvt);
       }
       return this.onModelSaveComplete(model, resp, options);
     };
@@ -5402,7 +5569,7 @@ module.exports = function escapeRegExp(str) {
       }
       rowEvt = options != null ? options.__datagrid_rowEvt : void 0;
       if (rowEvt != null) {
-        this.setSaveErrors(model, rowEvt.cellKey, resp);
+        this.setSaveErrors(model, rowEvt, resp);
       }
       return this.onModelSaveComplete(model, resp, options);
     };
@@ -5411,7 +5578,7 @@ module.exports = function escapeRegExp(str) {
       var rowEvt;
       rowEvt = options != null ? options.__datagrid_rowEvt : void 0;
       if (rowEvt) {
-        return this.setSaving(model, rowEvt.cellKey, false);
+        return this.setSaving(model, rowEvt, false);
       }
     };
 
@@ -5420,7 +5587,7 @@ module.exports = function escapeRegExp(str) {
 }).call(undefined);
 
 /***/ }),
-/* 85 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5491,7 +5658,7 @@ module.exports = function escapeRegExp(str) {
 }).call(undefined);
 
 /***/ }),
-/* 86 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5515,9 +5682,9 @@ module.exports = function escapeRegExp(str) {
 
   ReactDOM = __webpack_require__(26);
 
-  _ = __webpack_require__(4);
+  _ = __webpack_require__(5);
 
-  CompareObjects = __webpack_require__(87);
+  CompareObjects = __webpack_require__(89);
 
   /*
     These are the selection methods available on react-datum-datagrid
@@ -5527,7 +5694,7 @@ module.exports = function escapeRegExp(str) {
         {
           colKey: string      # Defines the model attribute associated with this cell
           rowIndex: number   # Defines the row index of the model this row represents
-          idx: number      # Defines the column index. Not probably too useful outside this mixin
+          columnIndex: number      # Defines the column index. Not probably too useful outside this mixin
         } 
         
     getSelectedCells() method is added to datagrid class being mixed into.  It returns an array 
@@ -5552,8 +5719,6 @@ module.exports = function escapeRegExp(str) {
     }
 
     GridSelect.prototype.DOUBLE_CLICK_INTERVAL = 600;
-
-    GridSelect.prototype.shouldEdit = false;
 
     GridSelect.prototype.modelKeyIndex = [];
 
@@ -5580,9 +5745,15 @@ module.exports = function escapeRegExp(str) {
       if (thisClickPosition == null) {
         return;
       }
+      if (this.isCellEditing(thisClickPosition.columnIndex, thisClickPosition.rowIndex)) {
+        return;
+      }
+      if (this.isDatagridEditing()) {
+        this.saveEditingCell();
+      }
       thisClickTick = Date.now();
       if (thisClickTick - this.lastClickTick < this.DOUBLE_CLICK_INTERVAL && CompareObjects(thisClickPosition, this.lastClickedPosition)) {
-        this.__startEdit();
+        this.onCellEdit(evt, cell.props.column, cell.props.model, cell.props.columnIndex, cell.props.rowIndex);
         return;
       }
       this.lastClickedPosition = thisClickPosition;
@@ -5595,8 +5766,11 @@ module.exports = function escapeRegExp(str) {
     GridSelect.prototype.onCellMouseUp = function (evt, cell) {
       var endSelPosition, ref, rowModel, sameCellAsOrigin;
       endSelPosition = this._getCellPosition(cell);
+      if (this.isCellEditing(endSelPosition.columnIndex, endSelPosition.rowIndex)) {
+        return;
+      }
       if (evt.shiftKey && ((ref = this.state.selectedCells) != null ? ref.length : void 0) > 0) {
-        this.selectCellsBetween(this.state.selectedCells[0], endSelPosition);
+        this.selectCellsBetween(this.getSelectedCell(), endSelPosition);
       } else if (this.startSelPosition != null) {
         if (endSelPosition == null) {
           this.startSelPosition = null;
@@ -5635,7 +5809,7 @@ module.exports = function escapeRegExp(str) {
     };
 
     GridSelect.prototype.GridSelect_onDocumentKeyDown = function (evt) {
-      var cellPosition, i, keyCode, results;
+      var cellPosition, columnIndex, i, keyCode, ref, ref1, results, rowIndex;
       if (!this.__isInOurDatagrid(evt.target)) {
         return;
       }
@@ -5648,14 +5822,18 @@ module.exports = function escapeRegExp(str) {
           }
           return results;
         }.apply(this), keyCode) >= 0) && !(evt.ctrlKey || evt.metaKey)):
-          return this.__startEdit();
+          if (((ref = this.state.selectedCells) != null ? ref.length : void 0) > 0) {
+            ref1 = this.getSelectedCell(), columnIndex = ref1.columnIndex, rowIndex = ref1.rowIndex;
+            return this.onCellEdit(evt, this.getColumn(columnIndex), this.getModelAt(rowIndex), columnIndex, rowIndex);
+          }
+          break;
         case keyCode !== 27:
           return this.resetSelectedCells();
         case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
           evt.preventDefault();
           if (evt.shiftKey) {
             if (this.state.selectedCells.length > 0) {
-              return this.selectCellsBetween(this.state.selectedCells[0], this._getRelativeCellPosition(keyCode));
+              return this.selectCellsBetween(this.getSelectedCell(), this._getRelativeCellPosition(keyCode));
             }
           } else if (this.state.selectedCells.length > 0) {
             this.startSelPosition = null;
@@ -5676,10 +5854,10 @@ module.exports = function escapeRegExp(str) {
       adjacentCell = function () {
         switch (keyCode) {
           case 37:
-            if (lastSelectedCellPosition.idx > 0) {
+            if (lastSelectedCellPosition.columnIndex > 0) {
               return _.extend({}, lastSelectedCellPosition, {
-                idx: lastSelectedCellPosition.idx - 1,
-                colKey: this.getColumns()[lastSelectedCellPosition.idx - 1].key
+                columnIndex: lastSelectedCellPosition.columnIndex - 1,
+                colKey: this.props.columns[lastSelectedCellPosition.columnIndex - 1].key
               });
             }
             break;
@@ -5691,10 +5869,10 @@ module.exports = function escapeRegExp(str) {
             }
             break;
           case 39:
-            if (lastSelectedCellPosition.idx < this.getColumns().length - 1) {
+            if (lastSelectedCellPosition.columnIndex < this.props.columns.length - 1) {
               return _.extend({}, lastSelectedCellPosition, {
-                idx: lastSelectedCellPosition.idx + 1,
-                colKey: this.getColumns()[lastSelectedCellPosition.idx + 1].key
+                columnIndex: lastSelectedCellPosition.columnIndex + 1,
+                colKey: this.props.columns[lastSelectedCellPosition.columnIndex + 1].key
               });
             }
             break;
@@ -5721,7 +5899,7 @@ module.exports = function escapeRegExp(str) {
           result.push({
             rowIndex: startRow + rows * modifierX,
             colKey: this.modelKeyIndex[startCol + cols * modifierY],
-            idx: startCol + cols * modifierY
+            columnIndex: startCol + cols * modifierY
           });
         }
       }
@@ -5751,7 +5929,7 @@ module.exports = function escapeRegExp(str) {
 
     GridSelect.prototype.getSelectedColumn = function () {
       var colIndex, ref;
-      colIndex = (ref = this.getSelectedCell()) != null ? ref.idx : void 0;
+      colIndex = (ref = this.getSelectedCell()) != null ? ref.columnIndex : void 0;
       if (colIndex == null) {
         return null;
       }
@@ -5799,7 +5977,7 @@ module.exports = function escapeRegExp(str) {
     GridSelect.prototype.selectCellsBetween = function (startSelPosition, endSelPosition) {
       var cells;
       this.startSelPosition = startSelPosition;
-      cells = this._getCellsBetween(this.startSelPosition.rowIndex, this.startSelPosition.idx, endSelPosition.rowIndex, endSelPosition.idx);
+      cells = this._getCellsBetween(this.startSelPosition.rowIndex, this.startSelPosition.columnIndex, endSelPosition.rowIndex, endSelPosition.columnIndex);
       return this.selectCellPositions(cells);
     };
 
@@ -5821,7 +5999,7 @@ module.exports = function escapeRegExp(str) {
       cell = {
         rowIndex: cellPosition.rowIndex,
         colKey: cellPosition.colKey,
-        idx: this.modelKeyIndex.indexOf(cellPosition.colKey)
+        columnIndex: this.modelKeyIndex.indexOf(cellPosition.colKey)
       };
       if (!this.isCellSelected(cellPosition.rowIndex, cellPosition.colKey)) {
         selectedCells = this.state.selectedCells.slice(0);
@@ -5882,8 +6060,14 @@ module.exports = function escapeRegExp(str) {
       return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(((ref = this.state.selectedCells) != null ? ref : []).slice(0)) : void 0;
     };
 
+    GridSelect.prototype.onCellEdit = function (evt, columnDef, model, columnIndex, rowIndex) {
+      this.startSelPosition = null;
+      this.resetSelectedCells();
+      return typeof this.originalMethod === "function" ? this.originalMethod(evt, columnDef, model, columnIndex, rowIndex) : void 0;
+    };
+
     GridSelect.prototype._updateModelKeyIndex = function () {
-      return this.modelKeyIndex = _.map(this.getColumns(), function (columnDef) {
+      return this.modelKeyIndex = _.map(this.props.columns, function (columnDef) {
         return columnDef.key;
       });
     };
@@ -5892,15 +6076,8 @@ module.exports = function escapeRegExp(str) {
       return {
         rowIndex: cell.props.rowIndex,
         colKey: cell.props.column.key,
-        idx: cell.props.columnIndex
+        columnIndex: cell.props.columnIndex
       };
-    };
-
-    GridSelect.prototype.__startEdit = function () {
-      this.startSelPosition = null;
-      this.startKeySelPosition = null;
-      this.resetSelectedCells();
-      return this.shouldEdit = true;
     };
 
     GridSelect.prototype.__updateRowModelColumn = function (rowIndex, rowModel, columnKey, value) {
@@ -5935,7 +6112,7 @@ module.exports = function escapeRegExp(str) {
 }).call(undefined);
 
 /***/ }),
-/* 87 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5994,7 +6171,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(undefined);
 
 /***/ }),
-/* 88 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6119,7 +6296,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(undefined);
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6134,7 +6311,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     };
   };
 
-  CopyPasteFromExcel = __webpack_require__(90);
+  CopyPasteFromExcel = __webpack_require__(92);
 
   module.exports = GridCopyPaste = function () {
     function GridCopyPaste() {
@@ -6163,7 +6340,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         cellsInRow = _.filter(cells, function (cell) {
           return cell.rowIndex === row;
         });
-        cellsInRow = _.sortBy(cellsInRow, 'idx');
+        cellsInRow = _.sortBy(cellsInRow, 'columnIndex');
         vals = [];
         ref = _.filter(cellsInRow, function (cell) {
           return cell != null;
@@ -6196,7 +6373,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             cellsInRow = _.filter(this.state.selectedCells, function (cell) {
               return cell != null && cell.rowIndex === rowIndex;
             });
-            cellsInRow = _.sortBy(cellsInRow, 'idx');
+            cellsInRow = _.sortBy(cellsInRow, 'columnIndex');
             if (cellsInRow.length === 0) {
               continue;
             }
@@ -6217,7 +6394,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
           if (highlightedCell != null) {
             start = {
               top: highlightedCell.rowIndex,
-              left: highlightedCell.idx
+              left: highlightedCell.columnIndex
             };
             for (rowIndex = k = ref3 = start.top, ref4 = start.top + paste.length - 1; ref3 <= ref4 ? k <= ref4 : k >= ref4; rowIndex = ref3 <= ref4 ? ++k : --k) {
               pasteRow = paste[rowIndex - start.top];
@@ -6258,11 +6435,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return cell.rowIndex === top.rowIndex;
       });
       left = _.min(cells, function (cell) {
-        return cell.idx;
+        return cell.columnIndex;
       });
       return {
         top: top.rowIndex,
-        left: left.idx
+        left: left.columnIndex
       };
     };
 
@@ -6281,11 +6458,11 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         return cell.rowIndex === bottom.rowIndex;
       });
       right = _.max(cells, function (cell) {
-        return cell.idx;
+        return cell.columnIndex;
       });
       return {
         bottom: bottom.rowIndex,
-        right: right.idx
+        right: right.columnIndex
       };
     };
 
@@ -6294,7 +6471,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(undefined);
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6489,7 +6666,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(undefined);
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6518,19 +6695,19 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   },
       hasProp = {}.hasOwnProperty;
 
-  React = __webpack_require__(6);
+  React = __webpack_require__(4);
 
   PropTypes = __webpack_require__(0);
 
-  Rb = __webpack_require__(92);
+  Rb = __webpack_require__(94);
 
   ReactStyles = __webpack_require__(48);
 
   Cell = __webpack_require__(49);
 
-  Titleize = __webpack_require__(93);
+  Titleize = __webpack_require__(95);
 
-  Humanize = __webpack_require__(94);
+  Humanize = __webpack_require__(96);
 
   module.exports = HeaderCell = function (superClass) {
     extend(HeaderCell, superClass);
@@ -6677,13 +6854,13 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 }).call(undefined);
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_92__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_94__;
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var makeString = __webpack_require__(19);
@@ -6696,11 +6873,11 @@ module.exports = function titleize(str) {
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var capitalize = __webpack_require__(95);
-var underscored = __webpack_require__(96);
+var capitalize = __webpack_require__(97);
+var underscored = __webpack_require__(98);
 var trim = __webpack_require__(18);
 
 module.exports = function humanize(str) {
@@ -6709,7 +6886,7 @@ module.exports = function humanize(str) {
 
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var makeString = __webpack_require__(19);
@@ -6723,7 +6900,7 @@ module.exports = function capitalize(str, lowercaseRest) {
 
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var trim = __webpack_require__(18);
@@ -6734,7 +6911,7 @@ module.exports = function underscored(str) {
 
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6769,7 +6946,7 @@ var _inherits2 = __webpack_require__(66);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = __webpack_require__(6);
+var _react = __webpack_require__(4);
 
 var React = _interopRequireWildcard(_react);
 
@@ -6777,7 +6954,7 @@ var _classnames = __webpack_require__(31);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _calculateSizeAndPositionDataAndUpdateScrollOffset = __webpack_require__(139);
+var _calculateSizeAndPositionDataAndUpdateScrollOffset = __webpack_require__(141);
 
 var _calculateSizeAndPositionDataAndUpdateScrollOffset2 = _interopRequireDefault(_calculateSizeAndPositionDataAndUpdateScrollOffset);
 
@@ -6785,23 +6962,23 @@ var _ScalingCellSizeAndPositionManager = __webpack_require__(45);
 
 var _ScalingCellSizeAndPositionManager2 = _interopRequireDefault(_ScalingCellSizeAndPositionManager);
 
-var _createCallbackMemoizer = __webpack_require__(143);
+var _createCallbackMemoizer = __webpack_require__(145);
 
 var _createCallbackMemoizer2 = _interopRequireDefault(_createCallbackMemoizer);
 
-var _defaultOverscanIndicesGetter = __webpack_require__(147);
+var _defaultOverscanIndicesGetter = __webpack_require__(149);
 
 var _defaultOverscanIndicesGetter2 = _interopRequireDefault(_defaultOverscanIndicesGetter);
 
-var _updateScrollIndexHelper = __webpack_require__(148);
+var _updateScrollIndexHelper = __webpack_require__(150);
 
 var _updateScrollIndexHelper2 = _interopRequireDefault(_updateScrollIndexHelper);
 
-var _defaultCellRangeRenderer = __webpack_require__(149);
+var _defaultCellRangeRenderer = __webpack_require__(151);
 
 var _defaultCellRangeRenderer2 = _interopRequireDefault(_defaultCellRangeRenderer);
 
-var _scrollbarSize = __webpack_require__(150);
+var _scrollbarSize = __webpack_require__(152);
 
 var _scrollbarSize2 = _interopRequireDefault(_scrollbarSize);
 
@@ -8172,31 +8349,31 @@ exports.default = Grid;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(99), __esModule: true };
+module.exports = { "default": __webpack_require__(101), __esModule: true };
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(100);
+__webpack_require__(102);
 module.exports = __webpack_require__(3).Object.assign;
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.3.1 Object.assign(target, source)
 var $export = __webpack_require__(7);
 
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__(102) });
+$export($export.S + $export.F, 'Object', { assign: __webpack_require__(104) });
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports) {
 
 module.exports = function (it) {
@@ -8206,7 +8383,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8247,14 +8424,14 @@ module.exports = !$assign || __webpack_require__(13)(function () {
 
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // false -> Array#indexOf
 // true  -> Array#includes
 var toIObject = __webpack_require__(14);
-var toLength = __webpack_require__(104);
-var toAbsoluteIndex = __webpack_require__(105);
+var toLength = __webpack_require__(106);
+var toAbsoluteIndex = __webpack_require__(107);
 module.exports = function (IS_INCLUDES) {
   return function ($this, el, fromIndex) {
     var O = toIObject($this);
@@ -8276,7 +8453,7 @@ module.exports = function (IS_INCLUDES) {
 
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.1.15 ToLength
@@ -8288,7 +8465,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(34);
@@ -8301,15 +8478,15 @@ module.exports = function (index, length) {
 
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(107);
+__webpack_require__(109);
 module.exports = __webpack_require__(3).Object.getPrototypeOf;
 
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.9 Object.getPrototypeOf(O)
@@ -8324,16 +8501,16 @@ __webpack_require__(59)('getPrototypeOf', function () {
 
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(109), __esModule: true };
+module.exports = { "default": __webpack_require__(111), __esModule: true };
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(110);
+__webpack_require__(112);
 var $Object = __webpack_require__(3).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -8341,7 +8518,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(7);
@@ -8350,27 +8527,27 @@ $export($export.S + $export.F * !__webpack_require__(9), 'Object', { definePrope
 
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(112), __esModule: true };
+module.exports = { "default": __webpack_require__(114), __esModule: true };
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(113);
-__webpack_require__(118);
+__webpack_require__(115);
+__webpack_require__(120);
 module.exports = __webpack_require__(43).f('iterator');
 
 
 /***/ }),
-/* 113 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var $at = __webpack_require__(114)(true);
+var $at = __webpack_require__(116)(true);
 
 // 21.1.3.27 String.prototype[@@iterator]()
 __webpack_require__(62)(String, 'String', function (iterated) {
@@ -8389,7 +8566,7 @@ __webpack_require__(62)(String, 'String', function (iterated) {
 
 
 /***/ }),
-/* 114 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var toInteger = __webpack_require__(34);
@@ -8412,7 +8589,7 @@ module.exports = function (TO_STRING) {
 
 
 /***/ }),
-/* 115 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8432,7 +8609,7 @@ module.exports = function (Constructor, NAME, next) {
 
 
 /***/ }),
-/* 116 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var dP = __webpack_require__(8);
@@ -8451,19 +8628,19 @@ module.exports = __webpack_require__(9) ? Object.defineProperties : function def
 
 
 /***/ }),
-/* 117 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var document = __webpack_require__(5).document;
+var document = __webpack_require__(6).document;
 module.exports = document && document.documentElement;
 
 
 /***/ }),
-/* 118 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(119);
-var global = __webpack_require__(5);
+__webpack_require__(121);
+var global = __webpack_require__(6);
 var hide = __webpack_require__(11);
 var Iterators = __webpack_require__(40);
 var TO_STRING_TAG = __webpack_require__(15)('toStringTag');
@@ -8484,13 +8661,13 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 
 /***/ }),
-/* 119 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var addToUnscopables = __webpack_require__(120);
-var step = __webpack_require__(121);
+var addToUnscopables = __webpack_require__(122);
+var step = __webpack_require__(123);
 var Iterators = __webpack_require__(40);
 var toIObject = __webpack_require__(14);
 
@@ -8525,14 +8702,14 @@ addToUnscopables('entries');
 
 
 /***/ }),
-/* 120 */
+/* 122 */
 /***/ (function(module, exports) {
 
 module.exports = function () { /* empty */ };
 
 
 /***/ }),
-/* 121 */
+/* 123 */
 /***/ (function(module, exports) {
 
 module.exports = function (done, value) {
@@ -8541,35 +8718,35 @@ module.exports = function (done, value) {
 
 
 /***/ }),
-/* 122 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(123), __esModule: true };
+module.exports = { "default": __webpack_require__(125), __esModule: true };
 
 /***/ }),
-/* 123 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(124);
-__webpack_require__(129);
-__webpack_require__(130);
+__webpack_require__(126);
 __webpack_require__(131);
+__webpack_require__(132);
+__webpack_require__(133);
 module.exports = __webpack_require__(3).Symbol;
 
 
 /***/ }),
-/* 124 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // ECMAScript 6 symbols shim
-var global = __webpack_require__(5);
+var global = __webpack_require__(6);
 var has = __webpack_require__(10);
 var DESCRIPTORS = __webpack_require__(9);
 var $export = __webpack_require__(7);
 var redefine = __webpack_require__(63);
-var META = __webpack_require__(125).KEY;
+var META = __webpack_require__(127).KEY;
 var $fails = __webpack_require__(13);
 var shared = __webpack_require__(36);
 var setToStringTag = __webpack_require__(42);
@@ -8577,15 +8754,15 @@ var uid = __webpack_require__(21);
 var wks = __webpack_require__(15);
 var wksExt = __webpack_require__(43);
 var wksDefine = __webpack_require__(44);
-var enumKeys = __webpack_require__(126);
-var isArray = __webpack_require__(127);
+var enumKeys = __webpack_require__(128);
+var isArray = __webpack_require__(129);
 var anObject = __webpack_require__(16);
 var isObject = __webpack_require__(12);
 var toIObject = __webpack_require__(14);
 var toPrimitive = __webpack_require__(32);
 var createDesc = __webpack_require__(20);
 var _create = __webpack_require__(41);
-var gOPNExt = __webpack_require__(128);
+var gOPNExt = __webpack_require__(130);
 var $GOPD = __webpack_require__(65);
 var $DP = __webpack_require__(8);
 var $keys = __webpack_require__(17);
@@ -8799,7 +8976,7 @@ setToStringTag(global.JSON, 'JSON', true);
 
 
 /***/ }),
-/* 125 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(21)('meta');
@@ -8858,7 +9035,7 @@ var meta = module.exports = {
 
 
 /***/ }),
-/* 126 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
@@ -8879,7 +9056,7 @@ module.exports = function (it) {
 
 
 /***/ }),
-/* 127 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 7.2.2 IsArray(argument)
@@ -8890,7 +9067,7 @@ module.exports = Array.isArray || function isArray(arg) {
 
 
 /***/ }),
-/* 128 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
@@ -8915,50 +9092,50 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 
 /***/ }),
-/* 129 */
+/* 131 */
 /***/ (function(module, exports) {
 
-
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(44)('asyncIterator');
-
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(44)('observable');
 
 
 /***/ }),
 /* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(133), __esModule: true };
+__webpack_require__(44)('asyncIterator');
+
 
 /***/ }),
 /* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(134);
-module.exports = __webpack_require__(3).Object.setPrototypeOf;
+__webpack_require__(44)('observable');
 
 
 /***/ }),
 /* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $export = __webpack_require__(7);
-$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(135).set });
-
+module.exports = { "default": __webpack_require__(135), __esModule: true };
 
 /***/ }),
 /* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(136);
+module.exports = __webpack_require__(3).Object.setPrototypeOf;
+
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.3.19 Object.setPrototypeOf(O, proto)
+var $export = __webpack_require__(7);
+$export($export.S, 'Object', { setPrototypeOf: __webpack_require__(137).set });
+
+
+/***/ }),
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // Works with __proto__ only. Old v8 can't work with null proto objects.
@@ -8989,16 +9166,16 @@ module.exports = {
 
 
 /***/ }),
-/* 136 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(137), __esModule: true };
+module.exports = { "default": __webpack_require__(139), __esModule: true };
 
 /***/ }),
-/* 137 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(138);
+__webpack_require__(140);
 var $Object = __webpack_require__(3).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
@@ -9006,7 +9183,7 @@ module.exports = function create(P, D) {
 
 
 /***/ }),
-/* 138 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(7);
@@ -9015,7 +9192,7 @@ $export($export.S, 'Object', { create: __webpack_require__(41) });
 
 
 /***/ }),
-/* 139 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9054,7 +9231,7 @@ function calculateSizeAndPositionDataAndUpdateScrollOffset(_ref) {
  */
 
 /***/ }),
-/* 140 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9075,7 +9252,7 @@ exports.default = function (obj, keys) {
 };
 
 /***/ }),
-/* 141 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9400,7 +9577,7 @@ var CellSizeAndPositionManager = function () {
 exports.default = CellSizeAndPositionManager;
 
 /***/ }),
-/* 142 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9430,7 +9607,7 @@ var getMaxElementSize = exports.getMaxElementSize = function getMaxElementSize()
 };
 
 /***/ }),
-/* 143 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9440,7 +9617,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _keys = __webpack_require__(144);
+var _keys = __webpack_require__(146);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -9481,21 +9658,21 @@ function createCallbackMemoizer() {
 }
 
 /***/ }),
-/* 144 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(145), __esModule: true };
+module.exports = { "default": __webpack_require__(147), __esModule: true };
 
 /***/ }),
-/* 145 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(146);
+__webpack_require__(148);
 module.exports = __webpack_require__(3).Object.keys;
 
 
 /***/ }),
-/* 146 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)
@@ -9510,7 +9687,7 @@ __webpack_require__(59)('keys', function () {
 
 
 /***/ }),
-/* 147 */
+/* 149 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9557,7 +9734,7 @@ function defaultOverscanIndicesGetter(_ref) {
 }
 
 /***/ }),
-/* 148 */
+/* 150 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9621,7 +9798,7 @@ function updateScrollIndexHelper(_ref) {
 }
 
 /***/ }),
-/* 149 */
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9774,7 +9951,7 @@ function warnAboutMissingStyle(parent, renderedCell) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 150 */
+/* 152 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9804,7 +9981,7 @@ exports.default = function (recalc) {
   return size;
 };
 
-var _inDOM = __webpack_require__(151);
+var _inDOM = __webpack_require__(153);
 
 var _inDOM2 = _interopRequireDefault(_inDOM);
 
@@ -9815,7 +9992,7 @@ var size = void 0;
 module.exports = exports['default'];
 
 /***/ }),
-/* 151 */
+/* 153 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9828,7 +10005,7 @@ exports.default = !!(typeof window !== 'undefined' && window.document && window.
 module.exports = exports['default'];
 
 /***/ }),
-/* 152 */
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9864,7 +10041,7 @@ var raf = exports.raf = request;
 var caf = exports.caf = cancel;
 
 /***/ }),
-/* 153 */
+/* 155 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -9898,11 +10075,11 @@ var _inherits2 = __webpack_require__(66);
 
 var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = __webpack_require__(6);
+var _react = __webpack_require__(4);
 
 var React = _interopRequireWildcard(_react);
 
-var _detectElementResize = __webpack_require__(154);
+var _detectElementResize = __webpack_require__(156);
 
 var _detectElementResize2 = _interopRequireDefault(_detectElementResize);
 
@@ -10093,7 +10270,7 @@ exports.default = AutoSizer;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 154 */
+/* 156 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10297,10 +10474,10 @@ function createDetectElementResize(nonce) {
     removeResizeListener: removeResizeListener
   };
 }
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(155)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(157)))
 
 /***/ }),
-/* 155 */
+/* 157 */
 /***/ (function(module, exports) {
 
 var g;
@@ -10327,7 +10504,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 156 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10355,7 +10532,7 @@ module.exports = g;
 }).call(undefined);
 
 /***/ }),
-/* 157 */
+/* 159 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

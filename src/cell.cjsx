@@ -12,10 +12,17 @@ extend = require('node.extend')
 module.exports = class Cell extends React.Component
   
   @propTypes: 
+    selected: PropTypes.bool
     editing: PropTypes.bool
+    editable: PropTypes.bool
     rowData: PropTypes.object
     column: PropTypes.object
-    datagrid: PropTypes.any    
+    datagrid: PropTypes.any   
+    
+    # this component and the underlying Datum are controlled components
+    # the value of the cell will not update until the value prop is passed in
+    value: PropTypes.any
+    onChange: PropTypes.func 
 
     # called when user clicks edit icon
     onEdit: PropTypes.func
@@ -23,6 +30,16 @@ module.exports = class Cell extends React.Component
     # default styles to apply to cell
     defaultCellStyle: PropTypes.object
     
+    
+  componentDidUpdate: (prevProps, prevState) ->
+    @setDatumErrors()
+    
+    if @props.editing && !prevProps.editing
+      @refs?.datum?.focus()
+      
+    # force cell to rerender in 5 sec to clear the cell highlights
+    # @_delayedForceUpdate()   
+
 
   render: -> 
     value = @props.value
@@ -32,6 +49,10 @@ module.exports = class Cell extends React.Component
       column: @props.column
       ref: 'datum'
       inputMode: if @props.editing then 'edit' else 'readonly'
+      stateless: true
+      value: value
+      onChange: @props.onChange
+        
         
     datumProps = _.defaults datumProps,
       # default placement of popover in datagrid is top because that's the safest to not be 
@@ -51,23 +72,18 @@ module.exports = class Cell extends React.Component
       title: null
       wrapperStyle: {}
       
-    @setDatumErrors()
+    
 
-    canEditCell = @getDatagrid()?.canEditCell(@props.column, @getModel())
-    wrapperStyle = extend(true, {}, options.wrapperStyle, @getCellStyle(canEditCell))
-
-    className = @getCellClass(canEditCell)
-    icon = @getPrimaryIcon(canEditCell)
+    wrapperStyle = extend(true, {}, options.wrapperStyle, @getCellStyle())
 
     <div 
       data-attr-row={@props.rowIndex} 
       data-attr-col={@props.column.key} 
-      className={className} 
+      className={@getCellClass()} 
       title={options.title}
       style={wrapperStyle} 
     >
-      {icon}
-      <span>{value}</span>
+      {value}
     </div>
     
   
@@ -79,23 +95,11 @@ module.exports = class Cell extends React.Component
   _delayedForceUpdate: (delay = 5000) => _.delay @_debouncedForceUpdate, 5000
   
   
-  onEditClick: (evt) =>
-    _.defer => 
-      if @props.onEdit? 
-        @props.onEdit(this, evt)
-      else
-        @getDatagrid()?.editCurrentCell?()
-  
-  
   getModel: ->
     return @props.rowData
   
   
-  getDatagrid: ->
-    return @props.datagrid
-  
-  
-  getCellClass: (canEditCell) ->
+  getCellClass: () ->
     model = @getModel()
     return Classnames(
       'rdd-cell', 
@@ -103,14 +107,14 @@ module.exports = class Cell extends React.Component
       @getAdditionalElementClasses(),
       {'rdd-cell-error': @getDatagridSaveErrors()?.length > 0},
       {'rdd-cell-saved': @getDatagridSaveSuccess() == true},
-      {'rdd-editable': canEditCell},
+      {'rdd-editable': @props.editable},
       # method provided by gridSelectMixin
-      {'rdd-selected': @isSelected()}
+      {'rdd-selected': @props.selected}
     )
   
   
   # you should consider overriding getCellDefaultStyle() or getCellOverrideStyle()
-  getCellStyle: (canEditCell)->
+  getCellStyle: ()->
     model = @getModel()
     
     extend true, {}, 
@@ -130,8 +134,8 @@ module.exports = class Cell extends React.Component
       cellStyle.padding = 0
       cellStyle.margin = 0
     
-    cellStyle.display = 'flex'
-    cellStyle.flexGrow = 1
+    # cellStyle.display = 'flex'
+    # cellStyle.flexGrow = 1
       
     return cellStyle
             
@@ -140,22 +144,6 @@ module.exports = class Cell extends React.Component
   getCellOverrideStyle: (model) ->
     # none for now, but it would be a good idea, if overriding this method, to call super.  
     return {}
-
-
-  getPrimaryIcon: (canEditCell) ->
-    icon = null
-    model = @getModel()
-    return null unless model?
-    
-    if @getDatagridSaving()
-      icon = <i className="fa fa-spin fa-refresh rdd-icon rdd-icon-refresh" title="Saving update..."/>
-    
-    else if canEditCell && !@props.column.hideEditableIcon
-      icon = <i className="fa fa-pencil rdd-icon rdd-icon-edit" onClick={this.onEditClick} 
-        title="Click to edit this cell (or dbclick or enter)"
-      />
-
-    return icon
 
 
   # you can extend this formatter and add css classes to the wrapper element if needed
@@ -188,10 +176,6 @@ module.exports = class Cell extends React.Component
     model?.getDatagridSaving?(@props.column.key) ? model?.__datagridSaving?[@props.column.key] ? false
     
       
-  isSelected: ->
-    @getDatagrid()?.isCellSelected?(@props.rowIndex, @props.column.key)
-      
-      
   setDatumErrors: ->
     model = @getModel()
     return unless model?
@@ -199,21 +183,18 @@ module.exports = class Cell extends React.Component
     # unlike success handler below, we leave the cell-error on until the next update
     saveErrorResp = @getDatagridSaveErrors()
     if saveErrorResp?.length > 0
-      _.defer => 
-        if @refs.datum?
-          @refs.datum.clearErrors?()
-          @refs.datum.onModelSaveError(@getModel(), saveErrorResp)
+      if @refs.datum?
+        @refs.datum.clearErrors?()
+        @refs.datum.onModelSaveError(@getModel(), saveErrorResp)
 
     if @getDatagridSaveSuccess()
-      _.defer => 
-        if @refs.datum?
-          @refs.datum.clearErrors?()
-        @setDatagridSaveSuccess(false)
+      @refs.datum?.clearErrors?()
+      @setDatagridSaveSuccess(false)
       
-      # force cell to rerender in 5 sec to clear the cell highlights
-      @_delayedForceUpdate()   
       
-  
+  focusInput: ->
+    if @props.editing
+      @refs.datum?.focus()
     
 
       

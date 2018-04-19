@@ -13,7 +13,7 @@ CompareObjects = require './compareObjects'
       {
         colKey: string      # Defines the model attribute associated with this cell
         rowIndex: number   # Defines the row index of the model this row represents
-        idx: number      # Defines the column index. Not probably too useful outside this mixin
+        columnIndex: number      # Defines the column index. Not probably too useful outside this mixin
       } 
       
   getSelectedCells() method is added to datagrid class being mixed into.  It returns an array 
@@ -32,7 +32,6 @@ module.exports = class GridSelect
   
   DOUBLE_CLICK_INTERVAL: 600  # in ms - max time between clicks to consider double click 
   
-  shouldEdit: false
   # A flattened list of model keys
   # needed to calculate the selection area
   # because math. 
@@ -65,10 +64,16 @@ module.exports = class GridSelect
     thisClickPosition = @_getCellPosition(cell)
     return unless thisClickPosition?
     
+    # we are editing this cell - do nothing on click
+    return if @isCellEditing(thisClickPosition.columnIndex, thisClickPosition.rowIndex)
+    # if we are editing another cell, save changes to that cell
+    if @isDatagridEditing()
+      @saveEditingCell()
+    
     # effectively double click to edit
     thisClickTick = Date.now()
     if thisClickTick - @lastClickTick < @DOUBLE_CLICK_INTERVAL && CompareObjects(thisClickPosition, @lastClickedPosition) 
-      @__startEdit()
+      @onCellEdit(evt, cell.props.column, cell.props.model, cell.props.columnIndex, cell.props.rowIndex)
       return       
       
     @lastClickedPosition = thisClickPosition
@@ -80,8 +85,12 @@ module.exports = class GridSelect
 
   onCellMouseUp: (evt, cell) =>
     endSelPosition =  @_getCellPosition(cell)
+    
+    # we are editing this cell - do nothing on click
+    return if @isCellEditing(endSelPosition.columnIndex, endSelPosition.rowIndex)
+    
     if evt.shiftKey && @state.selectedCells?.length > 0
-      @selectCellsBetween(@state.selectedCells[0], endSelPosition)
+      @selectCellsBetween(@getSelectedCell(), endSelPosition)
     else if @startSelPosition?
       unless endSelPosition?
         @startSelPosition = null
@@ -125,14 +134,16 @@ module.exports = class GridSelect
     switch 
       # editing should start on enter, space, decimal point, or alpha numeric key
       when (keyCode in [13, 32, 110] || keyCode in [48..90]) && !(evt.ctrlKey || evt.metaKey) 
-        @__startEdit()
+        if @state.selectedCells?.length > 0
+          {columnIndex, rowIndex} = @getSelectedCell()
+          @onCellEdit(evt, @getColumn(columnIndex), @getModelAt(rowIndex), columnIndex, rowIndex)
       when keyCode == 27   # escape clears selections
         @resetSelectedCells()
       when keyCode in [37, 38, 39, 40] # left, up, right, down
         evt.preventDefault()
         if evt.shiftKey 
           if @state.selectedCells.length > 0
-            @selectCellsBetween(@state.selectedCells[0], @_getRelativeCellPosition(keyCode))
+            @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(keyCode))
         else if @state.selectedCells.length > 0
           @startSelPosition = null
           cellPosition = @_getRelativeCellPosition(keyCode)
@@ -145,19 +156,19 @@ module.exports = class GridSelect
     lastSelectedCellPosition = @getLastSelectedCellPosition()
     adjacentCell = switch keyCode
       when 37    # left 
-        if lastSelectedCellPosition.idx > 0  
+        if lastSelectedCellPosition.columnIndex > 0  
           _.extend {}, lastSelectedCellPosition, 
-            idx: lastSelectedCellPosition.idx - 1
-            colKey: @getColumns()[lastSelectedCellPosition.idx - 1].key
+            columnIndex: lastSelectedCellPosition.columnIndex - 1
+            colKey: @props.columns[lastSelectedCellPosition.columnIndex - 1].key
       when 38    # up 
         if lastSelectedCellPosition.rowIndex > 0 
           _.extend {}, lastSelectedCellPosition, 
             rowIndex: lastSelectedCellPosition.rowIndex - 1
       when 39    # right 
-        if lastSelectedCellPosition.idx < @getColumns().length - 1 
+        if lastSelectedCellPosition.columnIndex < @props.columns.length - 1 
           _.extend {}, lastSelectedCellPosition, 
-            idx: lastSelectedCellPosition.idx + 1
-            colKey: @getColumns()[lastSelectedCellPosition.idx + 1].key
+            columnIndex: lastSelectedCellPosition.columnIndex + 1
+            colKey: @props.columns[lastSelectedCellPosition.columnIndex + 1].key
       when 40    # down 
         if lastSelectedCellPosition.rowIndex < @getRowCount() - 1
           _.extend {}, lastSelectedCellPosition, 
@@ -177,7 +188,7 @@ module.exports = class GridSelect
         result.push
           rowIndex: startRow + (rows * modifierX)
           colKey: @modelKeyIndex[startCol + (cols * modifierY)]
-          idx: startCol + (cols * modifierY)
+          columnIndex: startCol + (cols * modifierY)
     return result
     
     
@@ -205,7 +216,7 @@ module.exports = class GridSelect
         
         
   getSelectedColumn: () ->
-    colIndex = @getSelectedCell()?.idx
+    colIndex = @getSelectedCell()?.columnIndex
     return null unless colIndex? 
     return @getColumn(colIndex)
     
@@ -233,7 +244,7 @@ module.exports = class GridSelect
     
     
   selectCellsBetween: (@startSelPosition, endSelPosition) ->
-    cells = @_getCellsBetween(@startSelPosition.rowIndex, @startSelPosition.idx, endSelPosition.rowIndex, endSelPosition.idx)
+    cells = @_getCellsBetween(@startSelPosition.rowIndex, @startSelPosition.columnIndex, endSelPosition.rowIndex, endSelPosition.columnIndex)
     @selectCellPositions(cells)    
     
     
@@ -248,7 +259,7 @@ module.exports = class GridSelect
       
     return if cellPosition.rowIndex < 0 || @modelKeyIndex.indexOf(cellPosition.colKey) < 0
     
-    cell = {rowIndex: cellPosition.rowIndex, colKey: cellPosition.colKey, idx: @modelKeyIndex.indexOf(cellPosition.colKey)}
+    cell = {rowIndex: cellPosition.rowIndex, colKey: cellPosition.colKey, columnIndex: @modelKeyIndex.indexOf(cellPosition.colKey)}
     unless @isCellSelected(cellPosition.rowIndex, cellPosition.colKey)
       selectedCells = @state.selectedCells.slice(0)
       selectedCells.push(cellPosition)
@@ -290,10 +301,17 @@ module.exports = class GridSelect
     @props.onSelectedCellsChange?((@state.selectedCells ? []).slice(0))
     
     
+  onCellEdit:  (evt, columnDef, model, columnIndex, rowIndex) ->
+    @startSelPosition = null
+    @resetSelectedCells()
+    
+    @originalMethod?(evt, columnDef, model, columnIndex, rowIndex)   # ./gridEdit also extends this method
+    
+    
   # Used to check which set of columns we have right now
   # and make an index for mathematic purposes.
   _updateModelKeyIndex: ->
-    @modelKeyIndex = _.map @getColumns(), (columnDef) -> columnDef.key
+    @modelKeyIndex = _.map @props.columns, (columnDef) -> columnDef.key
     
     
   _getCellPosition: (cell) ->
@@ -301,17 +319,11 @@ module.exports = class GridSelect
     return {
       rowIndex: cell.props.rowIndex
       colKey: cell.props.column.key
-      idx: cell.props.columnIndex
+      columnIndex: cell.props.columnIndex
     }      
+
+
   
-              
-  __startEdit: ->
-    @startSelPosition = null
-    @startKeySelPosition = null
-    @resetSelectedCells()
-    @shouldEdit = true   
-    
-              
   __updateRowModelColumn: (rowIndex, rowModel, columnKey, value) ->
     return unless rowModel?
     

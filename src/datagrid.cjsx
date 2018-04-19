@@ -57,6 +57,12 @@ module.exports = class Datagrid extends React.Component
     # height of the "headers" (labels) when orientation == 'portrait' 
     headerHeight: PropTypes.number
     
+    # default column definition attributes
+    defaultColumnDef: PropTypes.object
+
+    # disables ctrl-Z to undo 
+    disableUndo: PropTypes.bool
+    
     # callback to call when columns are hidden.  called with (this, columnDef, evt)
     onHideColumn: PropTypes.func
     
@@ -65,9 +71,6 @@ module.exports = class Datagrid extends React.Component
     
     # callback to call when cell selections change
     onSelectedCellsChange: PropTypes.func
-    
-    # default column definition attributes
-    defaultColumnDef: PropTypes.object
     
 
   @defaultProps: 
@@ -78,6 +81,11 @@ module.exports = class Datagrid extends React.Component
       width: 120
       
     }
+    
+    
+  @LOG_UNDO_DEBOUNCE: 1
+  undo: {}
+  undoIndex: 0
     
   
   styles: new ReactStyles
@@ -169,7 +177,12 @@ module.exports = class Datagrid extends React.Component
   style: (name) -> 
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
 
-
+    # In milleseconds, this will efficiently collect
+    # model changes that happen within the same "action"
+    # and bucket the undo operations in such a way so as to work
+    # with multi grid paste as well as with single actions.
+    
+    
   componentWillMount: ->
     @_bindDocumentEvents()
     
@@ -195,7 +208,7 @@ module.exports = class Datagrid extends React.Component
       
     lastSelectedCellPosition = @getLastSelectedCellPosition()
     if lastSelectedCellPosition?
-      freeGridProps.scrollToColumn = lastSelectedCellPosition.idx - lockedColumns.length
+      freeGridProps.scrollToColumn = lastSelectedCellPosition.columnIndex - lockedColumns.length
       lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex
 
     <div style={@style('container')} className='react-datum-datagrid'>
@@ -285,27 +298,19 @@ module.exports = class Datagrid extends React.Component
     return 0 unless @props.collection?
     return @props.collection.getLength?() ? @props.collection.length ? 0
       
-  ###
-    Override me to conditionally enable editing on a per cell basis
-  ###
-  canEditCell: (col, rowModel) ->
-    if !col?.editable then return false
-    if col?.datum?.prototype?.isLocked?(col, rowModel) then return false
-    return true;        
 
-
-  refresh: ->
-    @refs.lockedGrid?.grid?.refresh()
-    @refs.freeGrid?.grid?.refresh()
-    
-    # resync the bottom grid scrolltop to the labels column scrolltop, prevents
-    # from scrolling back to top on refresh
-    @_onHeaderScroll()
-    # we have to do this twice.  The first effectively prevents the bottom grid
-    # from effecting the label scroll position on rerender.  The second defered 
-    # onLabelScroll causes the newly rerendered bottom grid to scroll down to 
-    # match the label scroll position.  
-    _.defer => @_onHeaderScroll()
+  # refresh: ->
+  #   @refs.lockedGrid?.grid?.refresh()
+  #   @refs.freeGrid?.grid?.refresh()
+  # 
+  #   # resync the bottom grid scrolltop to the labels column scrolltop, prevents
+  #   # from scrolling back to top on refresh
+  #   @_onHeaderScroll()
+  #   # we have to do this twice.  The first effectively prevents the bottom grid
+  #   # from effecting the label scroll position on rerender.  The second defered 
+  #   # onLabelScroll causes the newly rerendered bottom grid to scroll down to 
+  #   # match the label scroll position.  
+  #   _.defer => @_onHeaderScroll()
   
   
   _renderHeaderCells: (columnDefs) ->
@@ -330,25 +335,44 @@ module.exports = class Datagrid extends React.Component
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
     style = @_getCellWrapperStyle(style)
+    editingOurselves = @isCellEditing(columnIndex, rowIndex)
+    savingOurselves = @isCellSaving(columnIndex, rowIndex)
+    value = if editingOurselves
+      @state.editingCell.value
+    else
+      @getValueAt(columnIndex, rowIndex)
+    
+    props =
+      value: value
+      key: key
+      model: model
+      column: columnDef
+      rowIndex: rowIndex
+      columnIndex: columnIndex
+      style: style
+      showPlaceholder: showPlaceholder
+      datagrid: @
+      defaultCellStyle: @_getDefaultCellStyle(columnDef)
       
-    <CellWrapper
-      key={key}
-      model={model}
-      column={columnDef}
-      rowIndex={rowIndex}
-      columnIndex={columnIndex}
-      style={style}
-      showPlaceholder={showPlaceholder}
-      datagrid={@}
-      defaultCellStyle={@_getDefaultCellStyle(columnDef)}
-      selected={@isCellSelected(rowIndex, columnDef.key)}
+      editable: @canEditCell(columnDef, model)
+      selected: @isCellSelected(rowIndex, columnDef.key)  
+      editing: editingOurselves
+      saving: savingOurselves
+      wasSaved: @wasCellSaved(columnIndex, rowIndex)
+      saveErrors: @getSaveErrors(columnIndex, rowIndex)
       
-      onMouseDown={(evt,cell) => @onCellMouseDown(evt,cell)}
-      onMouseUp={(evt,cell) => @onCellMouseUp(evt,cell)}
-      onMouseMove={(evt,cell) => @onCellMouseMove(evt,cell)}
+      # the onOnCellMouse... event handlers above are provided by the GridSelect mixin 
+      onMouseDown: (evt,cell) => @onCellMouseDown(evt,cell)
+      onMouseUp: (evt,cell) => @onCellMouseUp(evt,cell)
+      onMouseMove: (evt,cell) => @onCellMouseMove(evt,cell)
       
-    />
-    # the onOnCellMouse... event handlers above are provided by the GridSelect mixin 
+      # cell edit and change handlers provided by helpers/gridEdit
+      onDoubleClick: (evt, cell) => @onCellEdit(evt, columnDef, model, columnIndex, rowIndex)
+      onEditIndicatorClick: (evt, cell) => @onCellEdit(evt, columnDef, model, columnIndex, rowIndex)
+      onChange: (value, cell) => @onCellChange(value, columnDef, model, columnIndex, rowIndex)
+      
+    <CellWrapper {... props}/>
+    
     
   _getLockedColumns: ->
     _.filter @props.columns, (columnDef) -> columnDef.locked  
@@ -402,8 +426,8 @@ module.exports = class Datagrid extends React.Component
     _.extend style,
       margin: 0
       padding: 0
-      display: 'flex'
-      flexDirection: 'column'
+      # display: 'flex'
+      # flexDirection: 'column'
       
     
   
@@ -441,7 +465,7 @@ module.exports = class Datagrid extends React.Component
   _onDocumentKeyDown: (evt) => @GridSelect_onDocumentKeyDown(evt)
     
     
-  # Mixin @, GridScroll
+  Mixin @, GridScroll
   Mixin @, GridEdit
   Mixin @, GridSelect
   Mixin @, GridCopyPaste

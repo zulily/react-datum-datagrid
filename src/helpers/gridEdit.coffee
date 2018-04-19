@@ -9,20 +9,89 @@ DeepGet = require './deepGet'
 ###
 module.exports = class GridEdit
   
-  getCollection: () ->
-    return @props.collection
+  
+  ###
+    Override me to conditionally enable editing on a per cell basis
+  ###
+  canEditCell: (column, model) ->
+    if column?.datum?.prototype?.isLocked?(column, model)  
+      return false
+    
+    return column.editable ? @props.defaultColumnDef.editable
+
+    
+  isCellEditing: (columnIndex, rowIndex) ->
+    editCell = @state.editingCell
+    return false unless editCell?
+    
+    return  editCell.rowIndex == rowIndex && editCell.columnIndex == columnIndex
+
+
+  isCellSaving: (columnIndex, rowIndex) ->
+    savingCells = @state.savingCells || {}
+    return false unless _.keys(savingCells).length > 0
+    
+    return savingCells["#{columnIndex}_#{rowIndex}"] == true
+
+
+  wasCellSaved: (columnIndex, rowIndex) ->
+    savedCells = @state.savedCells || {}
+    return false unless _.keys(savedCells).length > 0
+    return savedCells["#{columnIndex}_#{rowIndex}"]
+    
+
+  getSaveErrors: (columnIndex, rowIndex) ->
+    saveErrors = @state.saveErrors || {}
+    return false unless _.keys(saveErrors).length > 0
+    return saveErrors["#{columnIndex}_#{rowIndex}"]
+    
+
+  isDatagridEditing: () ->
+    return @state.editingCell? && true || false
+
+
+  onCellEdit: (evt, columnDef, model, columnIndex, rowIndex) ->
+    return false unless @canEditCell(columnDef, model)
+    
+    @setState editingCell: {
+      columnIndex: columnIndex
+      rowIndex: rowIndex, 
+      value: @getValueAt(columnIndex, rowIndex)
+    }
+    @originalMethod?(evt, columnDef, model, columnIndex, rowIndex)
+
+
+  onCellChange: (value, columnDef, model, columnIndex, rowIndex) ->
+    return false unless @canEditCell(columnDef, model) && @isCellEditing(columnIndex, rowIndex)
+    
+    newState = _.extend {}, @state.editingCell, value: value
+    @setState editingCell: newState
     
     
-  ###
-    returns columns with a defaulted name, formatter, header component
-  ###
-  getColumns: (columns=null) ->
-    if @originalMethod?
-      return @originalMethod(columns)
+  saveEditingCell: () ->
+    return false unless @state.editingCell?
+    
+    columnDef = @getColumn(@state.editingCell.columnIndex)
+    model = @getModelAt(@state.editingCell.rowIndex)
+    
+    return false unless @canEditCell(columnDef, model)
+    
+    columnIndex = @state.editingCell.columnIndex
+    rowIndex = @state.editingCell.rowIndex
+    value = @state.editingCell.value
       
-    return @props.columns
+    rowEvt = {  
+      cellKey: columnDef.key
+      key: "Enter"
+      columnIndex: columnIndex
+      rowIndex: rowIndex
+      updated: value
+    }
+    @saveModel(model, rowEvt)
+    @setState editingCell: null
 
-
+  
+    
   ###
     returns a column by key or index
   ###
@@ -30,15 +99,14 @@ module.exports = class GridEdit
     if @originalMethod?
       return @originalMethod()
 
-    columns = @getColumns()
     if _.isString keyOrIndex
-      return _.find @getColumns(), (c) -> c.key == keyOrIndex
+      return _.find @props.columns, (c) -> c.key == keyOrIndex
     else
-      return columns[keyOrIndex]
+      return @props.columns[keyOrIndex]
 
   
   getModelAt: (index) ->
-    collection = @getCollection()
+    collection = @props.collection
     return switch      
       when not collection? then null
       when collection.getItem? then collection.getItem(index)
@@ -51,7 +119,7 @@ module.exports = class GridEdit
     model.get?(attr) ? model[attr]
         
   
-  getValueAt: (rowIndex, colIndexOrKey) ->
+  getValueAt: (colIndexOrKey, rowIndex) ->
     [model, columnKey, datum] = @getModelColumnKeyAt(rowIndex, colIndexOrKey)
     return null unless model? && columnKey?
     # also support arrays of objects as models (may not have .get())
@@ -95,7 +163,7 @@ module.exports = class GridEdit
   getModelColumnKeyAt: (rowIndex, colIndexOrKey) ->
     model = @getModelAt(rowIndex)
     columnKey = if _.isNumber(colIndexOrKey) 
-      @getColumns()?[colIndexOrKey]?.key
+      @props.columns?[colIndexOrKey]?.key
     else
       colIndexOrKey
     
@@ -150,7 +218,7 @@ module.exports = class GridEdit
   debounce to ensure the actions are collected properly.
   ###
   _logUndo: (model, rowEvt, options={}) ->
-    return unless @props.enableUndo
+    return if @props.disableUndo
     @undo[@undoIndex++] = @constructor._batchUndoRequests
     @constructor._batchUndoRequests = []
     
@@ -173,7 +241,7 @@ module.exports = class GridEdit
     bucketKey = _.last(keys)
     operations = @undo[bucketKey]
     for operation in operations
-      @clearCellErrors(operation.model, operation.attr)
+      @clearCellErrors(operation.model, operation.rowEvt)
       # We set the model here because @props.setOnUpdate may be false
       # but we definitely want the model to be set.  And it needs to 
       # be set such that it picks up all of things changed in the revPatch
@@ -186,34 +254,37 @@ module.exports = class GridEdit
   
   
   ###
-    rowEvt from react-data-grid looks like this:
+    TODO : rengineer this, everything else is more simply {columnIndex, rowIndex}
+    
+    we mimick rowEvt from react-data-grid which looked like this:
     {  
       cellKey: "costing.wholesaleCost.amount"
       key: "Enter"
       rowIndex: 0
+      columnIndex: 0
       updated: "24"
     }
   ###
   saveModel: (model, rowEvt, options={})->
     options = _.defaults options, {
-      logUndo: @props.enableUndo
+      logUndo: !@props.disableUndo
       setOnUpdate: true
     }
     
     attr = rowEvt.attribute ? rowEvt.cellKey
     
-    oldValue = DeepGet(model._lastSyncAttributes, attr)
+    oldValue = @getValueAt(rowEvt.cellKey, rowEvt.rowIndex)
     newValue = if rowEvt.updated?.toString().trim() != ''
       rowEvt.updated
     else
       null
     
     return unless oldValue || newValue 
-    return if oldValue == newValue 
+    return if JSON.stringify(oldValue) == JSON.stringify(newValue) 
 
     # optimistically clear errors on the cell while saving new value, prevents the error
     # icon from very briefly showing again after the spinner stops
-    @clearCellErrors(model, attr)  
+    @clearCellErrors(model, rowEvt)  
 
     saveOptions = @getModelSaveOptions()
     saveOptions.__datagrid_rowEvt = rowEvt
@@ -222,72 +293,74 @@ module.exports = class GridEdit
       # returns false if validations fail
       return unless @setValueOnModel(model, attr, newValue, saveOptions) 
 
-    revPatch = model.getReversePatchObject()
+    revPatch = model.getReversePatchObject?()
     
-    # Fancy syntax to consider a bulk action as one
-    # using debounce which is markedly different from
-    # bucketing by time. Theoretically this is more
-    # accurate.
-    if options.logUndo != false && oldValue != newValue
+    if options.logUndo
       @constructor._batchUndoRequests ?= []
       @constructor._batchUndoRequests.push {
         model: model
         attr: attr
-        revPatch: revPatch
+        prevValue: revPatch ? oldValue
         rowEvt: rowEvt
       }
       @logUndoDebounced.apply @, arguments
     
     isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
     if @props.saveOnUpdate != false && isDirty
-      # __datagridSaving is used by DefaultFormatter to know when to display cell spinner
-      @setSaving(model, rowEvt.cellKey, true)
+      @setSaving(model, rowEvt, true)
       (model.patch || model.save)({}, saveOptions)      
     
 
   # this clears the previous error conditions if the save being undone fails:
-  clearCellErrors: (model, columnKey) ->
-    if _.isFunction model.setDatagridSaveErrors
-      model.setDatagridSaveErrors(columnKey, null)
-    else 
-      model.__datagridSaveErrors ?= {}
-      if columnKey?
-        delete model.__datagridSaveErrors[columnKey]
-      else
-        model.__datagridSaveErrors = {}
-
+  clearCellErrors: (model, rowEvt) ->
+    saveErrors = if @state.saveErrors? then _.extend({}, @state.saveErrors) else {}
+    delete saveErrors["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"]
+    @setState saveErrors: saveErrors
+  
   
   # this get's consumed by the DefaultFormatter
-  setSaveSuccess: (model, attr, trueOrFalse) ->
-    if _.isFunction model.setDatagridSaveSuccess
-      model.setDatagridSaveSuccess(attr, trueOrFalse)
-    else
-      model.__datagridSaveSuccess ?= {}
-      model.__datagridSaveSuccess[attr] = trueOrFalse
+  setSaveSuccess: (model, rowEvt, trueOrFalse) ->
+    model?.setDatagridSaveSuccess?(rowEvt.cellKey, trueOrFalse)
     
+    lookupKey = "#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"
+    savedCells = if @state.savedCells? then _.extend({}, @state.savedCells) else {}
+    savedCells[lookupKey] = trueOrFalse
+    @setState savedCells: savedCells
+    
+    # if the cell save was successfull, only show the indication of sucess for 7 sec
+    # if the save wasn't successful keep it showing indication of error until explicitly cleared
+    if trueOrFalse  
+      _.delay =>
+        delete savedCells[lookupKey]
+        @setState savedCells: savedCells
+      , 7000
+        
 
-  setSaveErrors: (model, attr, resp) ->
-    if _.isFunction model.setDatagridSaveErrors
-      model.setDatagridSaveErrors(attr, resp)
-    else
-      model.__datagridSaveErrors ?= {}
-      model.__datagridSaveErrors[attr] = resp
+  setSaveErrors: (model, rowEvt, resp) ->
+    model?.setDatagridSaveErrors?(rowEvt.cellKey, resp)
+    
+    lookupKey = "#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"
+    saveErrors = @state.saveErrors ? {}
+    saveErrors[lookupKey] ?= [] 
+    saveErrors[lookupKey].push resp
+    @setState saveErrors: saveErrors
+
       
-      
-  setSaving: (model, attr, trueOrFalse) ->
-    if _.isFunction model.setDatagridSaving
-      model.setDatagridSaving(attr, trueOrFalse)
+  setSaving: (model, rowEvt, trueOrFalse) ->
+    savingCells = @state.savingCells || {}
+    if trueOrFalse
+      savingCells["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"] = true
     else
-      model.__datagridSaving ?= {}
-      model.__datagridSaving[attr] = trueOrFalse
+      delete savingCells["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"]
+    @setState savingCells: savingCells
     
 
   onModelSaveSuccess: (model, resp, options) =>
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt
-      @setSaveSuccess(model, rowEvt.cellKey, true)
+      @setSaveSuccess(model, rowEvt, true)
       # clear previous errors on the whole row
-      @clearCellErrors(model)
+      @clearCellErrors(model, rowEvt)
 
     @onModelSaveComplete(model, resp, options)
     
@@ -298,7 +371,7 @@ module.exports = class GridEdit
     
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt?
-      @setSaveErrors(model, rowEvt.cellKey, resp)
+      @setSaveErrors(model, rowEvt, resp)
     
     @onModelSaveComplete(model, resp, options)
 
@@ -306,6 +379,7 @@ module.exports = class GridEdit
   onModelSaveComplete: (model, resp, options) =>
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt
-      @setSaving(model, rowEvt.cellKey, false)
+      @setSaving(model, rowEvt, false)
+      
 
 

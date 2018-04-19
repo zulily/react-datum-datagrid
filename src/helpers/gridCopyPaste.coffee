@@ -21,7 +21,7 @@ module.exports = class GridCopyPaste
       
       cellsInRow = _.filter cells, (cell) -> cell.rowIndex == row
       # Sort it so the paste is in the same order as the grid.
-      cellsInRow = _.sortBy cellsInRow, 'idx'
+      cellsInRow = _.sortBy cellsInRow, 'columnIndex'
       vals = []
       for cell in _.filter(cellsInRow, (cell) -> cell?)
         vals.push @getExportValue(rowModel, @getColumn(cell.colKey))
@@ -50,7 +50,7 @@ module.exports = class GridCopyPaste
         start = @_getUpperLeftBound()
         for rowIndex in [start.top .. start.top + paste.length - 1]
           cellsInRow = _.filter @state.selectedCells, (cell) -> cell? && cell.rowIndex == rowIndex
-          cellsInRow = _.sortBy cellsInRow, 'idx'
+          cellsInRow = _.sortBy cellsInRow, 'columnIndex'
           continue if cellsInRow.length == 0
           pasteRow = paste[rowIndex - start.top]
           pasteRow = [pasteRow] unless Array.isArray(pasteRow)
@@ -62,7 +62,7 @@ module.exports = class GridCopyPaste
         # We can create the shape
         highlightedCell = @getSelectedCell()
         if highlightedCell?
-          start = {top: highlightedCell.rowIndex, left: highlightedCell.idx}
+          start = {top: highlightedCell.rowIndex, left: highlightedCell.columnIndex}
           for rowIndex in [start.top .. start.top + paste.length - 1]
             pasteRow = paste[rowIndex - start.top]
             pasteRow = [pasteRow] unless _.isArray(pasteRow)
@@ -84,10 +84,10 @@ module.exports = class GridCopyPaste
     return [] unless cells?
     top = _.min cells, (cell) -> cell.rowIndex
     cells = _.filter cells, (cell) -> cell.rowIndex == top.rowIndex
-    left = _.min cells, (cell) -> cell.idx
+    left = _.min cells, (cell) -> cell.columnIndex
     return {
       top: top.rowIndex
-      left: left.idx
+      left: left.columnIndex
     }
   
   
@@ -95,10 +95,10 @@ module.exports = class GridCopyPaste
     return [] unless cells?
     bottom = _.max cells, (cell) -> cell.rowIndex
     cells = _.filter cells, (cell) -> cell.rowIndex == bottom.rowIndex
-    right = _.max cells, (cell) -> cell.idx
+    right = _.max cells, (cell) -> cell.columnIndex
     return {
       bottom: bottom.rowIndex
-      right: right.idx
+      right: right.columnIndex
     }
   
     

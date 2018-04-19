@@ -3,7 +3,11 @@
 let PuppyModel = Backbone.Model.extend({
   // Stub out save method and pretended it saved successfully (FOR DEMO PURPOSES ONLY)
   save: function(attrs, options){ 
-    options.success(this)
+    // add a 5 sec delay to see the saving indicator
+    _.delay( function(){
+      options.success(this, "OK", options)
+      console.log("Pretended to save model.", attrs, this)
+    }, 3000 )   
     return true
   }
 })
@@ -44,7 +48,6 @@ class EditableDatagridDisplay extends React.Component {
       name: 'Image',
       width: 120,
       datum: ReactDatum.LazyPhoto,
-      locked: true,
       // explicit column definition takes precedence over defaultColumnDef prop
       editable: false
     },{

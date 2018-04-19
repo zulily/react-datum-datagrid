@@ -1,7 +1,26 @@
+.react-datum-datagrid .rdd-editable-indicator svg,.react-datum-datagrid .rdd-saving-indicator svg{fill:currentColor}
 .react-datum-datagrid .rdd-headers{background-color:#eceff6;vertical-align:top}
 .react-datum-datagrid .rdd-cell-selected{background-color:#91A4CC;color:#f5f5f5}
 .react-datum-datagrid .rdd-cell .datum-display-value{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .react-datum-datagrid .rdd-cell img{max-height:100px;max-width:100px}
-.react-datum-datagrid .rdd-icon{color:#1254E8;cursor:pointer;float:right;margin-left:5px}
-.react-datum-datagrid .rdd-icon .rdd-icon-edit{background-color:#E0E0E0;background-color:rgba(224,224,224,.5);border-radius:10px;display:inline-block;padding:2px 2px 2px 4px}
-.react-datum-datagrid .rdd-icon .rdd-icon-refresh{color:#ccc;cursor:none}
+.react-datum-datagrid .rdd-cell-indicators{position:absolute;top:5px;right:5px}
+.react-datum-datagrid .rdd-editable-indicator{background-color:#E0E0E0;background-color:rgba(224,224,224,.5);border-radius:10px;color:#1254E8;cursor:pointer;display:inline-block;padding:2px 2px 2px 4px;height:12px;width:12px}
+.react-datum-datagrid .rdd-saving-indicator{color:#ccc;cursor:none;display:inline-block;height:12px;width:12px;-webkit-animation:rdd_spin 2s linear infinite;-moz-animation:rdd_spin 2s linear infinite;animation:rdd_spin 2s linear infinite}
+.react-datum-datagrid .rdd-was-saved{-webkit-animation:rdd_greenBackgroundFlash 5s linear infinite;-moz-animation:rdd_greenBackgroundFlash 5s linear infinite;animation:rdd_greenBackgroundFlash 5s linear infinite}
+.react-datum-datagrid .rdd-save-error{-webkit-animation:rdd_redBackgroundFlash 5s linear infinite;-moz-animation:rdd_redBackgroundFlash 5s linear infinite;animation:rdd_redBackgroundFlash 5s linear infinite}
+.react-datum-datagrid .datum input{display:inline-block;margin-bottom:1px;width:calc(100% - 40px)}
+.react-datum-datagrid .datum-invalid{color:#C70008;display:inline-block;vertical-align:top}
+@-moz-keyframes rdd_spin{100%{-moz-transform:rotate(360deg)}
+}
+@-webkit-keyframes rdd_spin{100%{-webkit-transform:rotate(360deg)}
+}
+@keyframes rdd_spin{100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}
+}
+@keyframes rdd_greenBackgroundFlash{10%{background-color:#83c16a}
+25%{background-color:#73b958}
+50%{background-color:#64b246}
+}
+@keyframes rdd_redBackgroundFlash{10%{background-color:#d97276}
+25%{background-color:#d46065}
+50%{background-color:#d04f54}
+}

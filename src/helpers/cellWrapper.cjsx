@@ -5,6 +5,13 @@ PropTypes = require 'prop-types'
 Classnames = require 'classnames'
 _ = require 'underscore'
 
+# FontAwesomeIcon = require '@fortawesome/react-fontawesome'
+# faCoffee = require '@fortawesome/fontawesome-free-solid/faCoffee'
+
+EditableIndicator = require './editableIndicator'
+SavingIndicator = require './savingIndicator'
+
+
 Cell = require '../cell'
   
 # CellWrapper owns the editing state and handles arrow key selection 
@@ -19,6 +26,8 @@ module.exports = class CellWrapper extends React.Component
     rowIndex: PropTypes.number
     # zero based column index being rendered
     columnIndex: PropTypes.number
+    # this is a controlled component - must pass a value
+    value: PropTypes.any
     # reference to datagrid parent object
     datagrid: PropTypes.any
     # This is the cell component to use when the cellComponent attribute 
@@ -33,6 +42,8 @@ module.exports = class CellWrapper extends React.Component
     selected: PropTypes.bool
     # true if cell is in edit mode
     editing: PropTypes.bool
+    # true if cell is editable
+    editable: PropTypes.bool
     # This is called with (event, cell) 
     onMouseDown: PropTypes.function
     # This is called with (event, cell) 
@@ -43,6 +54,8 @@ module.exports = class CellWrapper extends React.Component
     onMouseLeave: PropTypes.function
     # This is called with (event, cell) 
     onKeyDown: PropTypes.function
+    # This is called whenever the user enters a character when editing=true
+    onChange: PropTypes.function
     
     
   @defaultProps:
@@ -51,6 +64,7 @@ module.exports = class CellWrapper extends React.Component
     
   componentWillMount: ->
     @setState renderError: null
+    
     
   componentDidCatch: (error, info)->
     @props.onRenderError?(error, info)
@@ -69,6 +83,8 @@ module.exports = class CellWrapper extends React.Component
     classNames = Classnames 'rdd-cell-wrapper',
       'rdd-cell-selected': @isSelected(), 
       'rdd-cell-placeholder': @props.showPlaceholder
+      'rdd-was-saved': @props.wasSaved
+      'rdd-save-error': @props.saveErrors?.length > 0
 
     <div className={classNames}
         onMouseDown={@_onMouseDown}
@@ -84,6 +100,7 @@ module.exports = class CellWrapper extends React.Component
         {... dataProps}
         
     >
+      {@_renderIndicators()}
       {@_renderComponentOrPlaceholder()}
     </div>
     
@@ -95,25 +112,41 @@ module.exports = class CellWrapper extends React.Component
     CellComponent = @props.column.cellComponent ? @props.defaultCellComponent
 
     <CellComponent 
-      editing={@state.editing}
+      value={@props.value}
+      selected={@props.selected}
+      editable={@props.editable}
+      editing={@props.editing}
       rowData={@props.model}
       rowIndex={@props.rowIndex}
       column={@props.column}
       datagrid={@props.datagrid}
       defaultCellStyle={@props.defaultCellStyle}
       ref={'cellComponent'}
+      onChange={@_onChange}
     />
     
-
-  edit: ->
-    return unless @props.datagrid?.canEditCell?(@props.column, @props.model)
-    @setState editing: true
     
+  _renderIndicators: () ->
+    <div className="rdd-cell-indicators">
+      {@_renderEditableIndicator()}
+      {@_renderSavingIndicator()}
+    </div>
+    
+    
+  _renderEditableIndicator: ->
+    return null unless @props.editable && !@props.saving && !@props.editing
+    <EditableIndicator onClick={@_onEditIndicatorClick}/>
+    
+    
+  _renderSavingIndicator: ->
+    return null unless @props.saving
+    <SavingIndicator/>
+
 
   focus: ->
     ReactDOM.findDOMNode(@).focus()
-    
-  
+
+
   isSelected: ->
     @props.selected
 
@@ -145,28 +178,15 @@ module.exports = class CellWrapper extends React.Component
   _onBlur: (evt) =>
     @props._onBlur?(evt, @)
   
+  _onDoubleClick: (evt) =>
+    @props.onDoubleClick(evt, @)
   
-  ###
-    rowEvt from react-data-grid looks like this:
-    {  
-      cellKey: "costing.wholesaleCost.amount"
-      key: "Enter"
-      rowIndex: 0
-      updated: "24"
-    }
-    datagrid ignores .key
-  ###
-  _save: ->
-    rowEvt = 
-      cellKey: @props.column.key
-      key: "Other"
-      rowIndex: @props.rowIndex
-      # cell component must have a getValue method. See DefaultEditor
-      updated: @refs.cellComponent.getValue()
-    @props.datagrid.saveModel(@props.model, rowEvt)
-    @setState editing: false
+  _onEditIndicatorClick: (evt) =>
+    @props.onEditIndicatorClick(evt, @)
     
-    
+  _onChange: (value) =>
+    @props.onChange(value, @)
+
     
   
   
