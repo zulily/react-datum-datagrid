@@ -3,11 +3,11 @@
 let PuppyModel = Backbone.Model.extend({
   // Stub out save method and pretended it saved successfully (FOR DEMO PURPOSES ONLY)
   save: function(attrs, options){ 
-    // add a 5 sec delay to see the saving indicator
+    // add a few seconds delay to see the saving indicator
     _.delay( function(){
       options.success(this, "OK", options)
       console.log("Pretended to save model.", attrs, this)
-    }, 3000 )   
+    }, 2000 )   
     return true
   }
 })

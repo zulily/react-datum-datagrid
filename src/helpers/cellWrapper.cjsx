@@ -144,7 +144,7 @@ module.exports = class CellWrapper extends React.Component
 
 
   focus: ->
-    ReactDOM.findDOMNode(@).focus()
+    @refs?.cellComponent?.focus()
 
 
   isSelected: ->

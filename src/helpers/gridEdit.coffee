@@ -48,6 +48,10 @@ module.exports = class GridEdit
 
   isDatagridEditing: () ->
     return @state.editingCell? && true || false
+    
+    
+  editCellAt: (evt, columnIndex, rowIndex) ->
+    return @onCellEdit(evt, @getColumn(columnIndex), @getModelAt(rowIndex), columnIndex, rowIndex)
 
 
   onCellEdit: (evt, columnDef, model, columnIndex, rowIndex) ->
@@ -66,6 +70,10 @@ module.exports = class GridEdit
     
     newState = _.extend {}, @state.editingCell, value: value
     @setState editingCell: newState
+    
+    
+  getEditingCell: () ->
+    return @state.editingCell
     
     
   saveEditingCell: () ->
@@ -91,6 +99,9 @@ module.exports = class GridEdit
     @setState editingCell: null
 
   
+  cancelEditing: () ->
+    @setState editingCell: null
+    
     
   ###
     returns a column by key or index

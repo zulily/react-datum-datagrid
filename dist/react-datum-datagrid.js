@@ -4907,7 +4907,8 @@ module.exports = is;
     };
 
     CellWrapper.prototype.focus = function () {
-      return ReactDOM.findDOMNode(this).focus();
+      var ref, ref1;
+      return (ref = this.refs) != null ? (ref1 = ref.cellComponent) != null ? ref1.focus() : void 0 : void 0;
     };
 
     CellWrapper.prototype.isSelected = function () {
@@ -5177,6 +5178,10 @@ module.exports = function escapeRegExp(str) {
       return this.state.editingCell != null && true || false;
     };
 
+    GridEdit.prototype.editCellAt = function (evt, columnIndex, rowIndex) {
+      return this.onCellEdit(evt, this.getColumn(columnIndex), this.getModelAt(rowIndex), columnIndex, rowIndex);
+    };
+
     GridEdit.prototype.onCellEdit = function (evt, columnDef, model, columnIndex, rowIndex) {
       if (!this.canEditCell(columnDef, model)) {
         return false;
@@ -5204,6 +5209,10 @@ module.exports = function escapeRegExp(str) {
       });
     };
 
+    GridEdit.prototype.getEditingCell = function () {
+      return this.state.editingCell;
+    };
+
     GridEdit.prototype.saveEditingCell = function () {
       var columnDef, columnIndex, model, rowEvt, rowIndex, value;
       if (this.state.editingCell == null) {
@@ -5225,6 +5234,12 @@ module.exports = function escapeRegExp(str) {
         updated: value
       };
       this.saveModel(model, rowEvt);
+      return this.setState({
+        editingCell: null
+      });
+    };
+
+    GridEdit.prototype.cancelEditing = function () {
       return this.setState({
         editingCell: null
       });
@@ -5814,43 +5829,60 @@ module.exports = function escapeRegExp(str) {
         return;
       }
       keyCode = evt.keyCode;
-      switch (false) {
-        case !((keyCode === 13 || keyCode === 32 || keyCode === 110 || indexOf.call(function () {
-          results = [];
-          for (i = 48; i <= 90; i++) {
-            results.push(i);
-          }
-          return results;
-        }.apply(this), keyCode) >= 0) && !(evt.ctrlKey || evt.metaKey)):
-          if (((ref = this.state.selectedCells) != null ? ref.length : void 0) > 0) {
-            ref1 = this.getSelectedCell(), columnIndex = ref1.columnIndex, rowIndex = ref1.rowIndex;
-            return this.onCellEdit(evt, this.getColumn(columnIndex), this.getModelAt(rowIndex), columnIndex, rowIndex);
-          }
-          break;
-        case keyCode !== 27:
-          return this.resetSelectedCells();
-        case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
-          evt.preventDefault();
-          if (evt.shiftKey) {
-            if (this.state.selectedCells.length > 0) {
-              return this.selectCellsBetween(this.getSelectedCell(), this._getRelativeCellPosition(keyCode));
-            }
-          } else if (this.state.selectedCells.length > 0) {
-            this.startSelPosition = null;
+      if (this.isDatagridEditing()) {
+        switch (keyCode) {
+          case 13:
+          case 9:
+            evt.preventDefault();
             cellPosition = this._getRelativeCellPosition(keyCode);
+            this.saveEditingCell();
             if (cellPosition != null) {
-              return this.setSelectedCellAt(cellPosition);
+              this.setSelectedCellAt(cellPosition);
+              return this.editCellAt(evt, cellPosition.columnIndex, cellPosition.rowIndex);
             }
-          }
+            break;
+          case 27:
+            return this.cancelEditing();
+        }
+      } else {
+        switch (false) {
+          case !((keyCode === 13 || keyCode === 32 || keyCode === 110 || indexOf.call(function () {
+            results = [];
+            for (i = 48; i <= 90; i++) {
+              results.push(i);
+            }
+            return results;
+          }.apply(this), keyCode) >= 0) && !(evt.ctrlKey || evt.metaKey)):
+            if (((ref = this.state.selectedCells) != null ? ref.length : void 0) > 0) {
+              ref1 = this.getSelectedCell(), columnIndex = ref1.columnIndex, rowIndex = ref1.rowIndex;
+              return this.editCellAt(evt, columnIndex, rowIndex);
+            }
+            break;
+          case keyCode !== 27:
+            return this.resetSelectedCells();
+          case keyCode !== 37 && keyCode !== 38 && keyCode !== 39 && keyCode !== 40:
+            evt.preventDefault();
+            if (evt.shiftKey) {
+              if (this.state.selectedCells.length > 0) {
+                return this.selectCellsBetween(this.getSelectedCell(), this._getRelativeCellPosition(keyCode));
+              }
+            } else if (this.state.selectedCells.length > 0) {
+              this.startSelPosition = null;
+              cellPosition = this._getRelativeCellPosition(keyCode);
+              if (cellPosition != null) {
+                return this.setSelectedCellAt(cellPosition);
+              }
+            }
+        }
       }
     };
 
     GridSelect.prototype._getRelativeCellPosition = function (keyCode) {
-      var adjacentCell, lastSelectedCellPosition;
-      if (!(this.state.selectedCells.length > 0)) {
+      var adjacentCell, lastSelectedCellPosition, ref;
+      lastSelectedCellPosition = (ref = this.getLastSelectedCellPosition()) != null ? ref : this.getEditingCell();
+      if (lastSelectedCellPosition == null) {
         return null;
       }
-      lastSelectedCellPosition = this.getLastSelectedCellPosition();
       adjacentCell = function () {
         switch (keyCode) {
           case 37:
@@ -5869,6 +5901,7 @@ module.exports = function escapeRegExp(str) {
             }
             break;
           case 39:
+          case 9:
             if (lastSelectedCellPosition.columnIndex < this.props.columns.length - 1) {
               return _.extend({}, lastSelectedCellPosition, {
                 columnIndex: lastSelectedCellPosition.columnIndex + 1,
@@ -5877,6 +5910,7 @@ module.exports = function escapeRegExp(str) {
             }
             break;
           case 40:
+          case 13:
             if (lastSelectedCellPosition.rowIndex < this.getRowCount() - 1) {
               return _.extend({}, lastSelectedCellPosition, {
                 rowIndex: lastSelectedCellPosition.rowIndex + 1

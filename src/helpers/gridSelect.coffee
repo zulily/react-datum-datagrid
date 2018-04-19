@@ -129,31 +129,45 @@ module.exports = class GridSelect
     return unless @__isInOurDatagrid(evt.target)
     keyCode = evt.keyCode
     
-    # TODO : we should think about adding this: https://github.com/kabirbaidhya/keycode-js#usage 
-    #      instead of using the numeric values below
-    switch 
-      # editing should start on enter, space, decimal point, or alpha numeric key
-      when (keyCode in [13, 32, 110] || keyCode in [48..90]) && !(evt.ctrlKey || evt.metaKey) 
-        if @state.selectedCells?.length > 0
-          {columnIndex, rowIndex} = @getSelectedCell()
-          @onCellEdit(evt, @getColumn(columnIndex), @getModelAt(rowIndex), columnIndex, rowIndex)
-      when keyCode == 27   # escape clears selections
-        @resetSelectedCells()
-      when keyCode in [37, 38, 39, 40] # left, up, right, down
-        evt.preventDefault()
-        if evt.shiftKey 
-          if @state.selectedCells.length > 0
-            @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(keyCode))
-        else if @state.selectedCells.length > 0
-          @startSelPosition = null
+    if @isDatagridEditing()
+      switch keyCode
+        when 13, 9             # enter and tab save current edits and go to next row or cell to right 
+          evt.preventDefault()
           cellPosition = @_getRelativeCellPosition(keyCode)
-          @setSelectedCellAt(cellPosition) if cellPosition?
+          @saveEditingCell()
+          if cellPosition?
+            @setSelectedCellAt(cellPosition) 
+            @editCellAt(evt, cellPosition.columnIndex, cellPosition.rowIndex)
+        when 27
+          @cancelEditing()
+    
+    else
+      # TODO : we should think about adding this: https://github.com/kabirbaidhya/keycode-js#usage 
+      #      instead of using the numeric values below
+      switch 
+        # editing should start on enter, space, decimal point, or alpha numeric key
+        when (keyCode in [13, 32, 110] || keyCode in [48..90]) && !(evt.ctrlKey || evt.metaKey) 
+          if @state.selectedCells?.length > 0
+            {columnIndex, rowIndex} = @getSelectedCell()
+            @editCellAt(evt, columnIndex, rowIndex)
+        when keyCode == 27   # escape clears selections
+          @resetSelectedCells()
+        when keyCode in [37, 38, 39, 40] # left, up, right, down
+          evt.preventDefault()
+          if evt.shiftKey 
+            if @state.selectedCells.length > 0
+              @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(keyCode))
+          else if @state.selectedCells.length > 0
+            @startSelPosition = null
+            cellPosition = @_getRelativeCellPosition(keyCode)
+            @setSelectedCellAt(cellPosition) if cellPosition?
         
   
-  # returns the cell adjacent to the last selected cell by keycode
+  # returns the cell adjacent to the last selected cell or editing cell by keycode
   _getRelativeCellPosition: (keyCode) ->
-    return null unless @state.selectedCells.length > 0
-    lastSelectedCellPosition = @getLastSelectedCellPosition()
+    lastSelectedCellPosition = @getLastSelectedCellPosition() ? @getEditingCell()
+    return null unless lastSelectedCellPosition?
+    
     adjacentCell = switch keyCode
       when 37    # left 
         if lastSelectedCellPosition.columnIndex > 0  
@@ -164,12 +178,12 @@ module.exports = class GridSelect
         if lastSelectedCellPosition.rowIndex > 0 
           _.extend {}, lastSelectedCellPosition, 
             rowIndex: lastSelectedCellPosition.rowIndex - 1
-      when 39    # right 
+      when 39, 9    # right or tab 
         if lastSelectedCellPosition.columnIndex < @props.columns.length - 1 
           _.extend {}, lastSelectedCellPosition, 
             columnIndex: lastSelectedCellPosition.columnIndex + 1
             colKey: @props.columns[lastSelectedCellPosition.columnIndex + 1].key
-      when 40    # down 
+      when 40, 13    # down or enter 
         if lastSelectedCellPosition.rowIndex < @getRowCount() - 1
           _.extend {}, lastSelectedCellPosition, 
             rowIndex: lastSelectedCellPosition.rowIndex + 1

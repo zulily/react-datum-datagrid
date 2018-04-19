@@ -76,12 +76,16 @@
   animation: rdd_redBackgroundFlash 5s linear infinite;
 }
 
-
+/* TODO : lay this out using 'display: flex' */
+/*   Need input width to leave room for indicator icons in cells */
 .react-datum-datagrid .datum input {
   display: inline-block;
   margin-bottom: 1px;
+  max-width: calc(100% - 40px);
+  min-width: calc(100% - 40px);
   width: calc(100% - 40px);
 }
+
 
 
 .react-datum-datagrid .datum-invalid {
