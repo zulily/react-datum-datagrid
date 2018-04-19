@@ -68,18 +68,6 @@ class EditableDatagridDisplay extends React.Component {
         ellipsizeAt: false,
         reverseEllipsis: true,
       }
-    },{
-      key: 'contactCity',
-    },{
-      key: 'petfinderUrl',
-      name: 'Petfinder Link',
-      datum: ReactDatum.Link,
-      editable: false
-    },{
-      key: 'description',
-      datumProps: { 
-        ellipsizeAt: 80
-      }
     }]
   }
 }
