@@ -30,7 +30,7 @@
 .react-datum-datagrid .rdd-cell-indicators {
   position: absolute;
   top: 5px;
-  right: 5px;
+  right: 10px;
 }
 
 .react-datum-datagrid .rdd-editable-indicator {

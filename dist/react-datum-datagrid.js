@@ -5517,7 +5517,7 @@ module.exports = function escapeRegExp(str) {
               savedCells: savedCells
             });
           };
-        }(this), 7000);
+        }(this), 5000);
       }
     };
 
