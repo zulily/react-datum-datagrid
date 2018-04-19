@@ -1,7 +1,7 @@
 
 
 let PuppyModel = Backbone.Model.extend({
-  // Stub out save method and pretended it saved successfully (FOR DEMO PURPOSES ONLY)
+  // Stub out save method and pretend it saved successfully (FOR DEMO PURPOSES ONLY)
   save: function(attrs, options){ 
     // add a few seconds delay to see the saving indicator
     _.delay( function(){
@@ -26,7 +26,7 @@ class EditableDatagridDisplay extends React.Component {
   
   render(){
     return (
-      <div style={{height: "100%", width: 600}}>
+      <div style={{height: "100%", width: 900}}>
         <ReactDatumDatagrid 
           collection={puppyCollection}
           columns={this.getColumns()}
@@ -62,7 +62,7 @@ class EditableDatagridDisplay extends React.Component {
       width: 80
     },{
       key: 'contactEmail',
-      width: '200',
+      width: '250',
       datum: ReactDatum.Email,
       datumProps: {
         ellipsizeAt: false,

@@ -342,6 +342,7 @@ module.exports = class GridEdit
     # if the save wasn't successful keep it showing indication of error until explicitly cleared
     if trueOrFalse  
       _.delay =>
+        savedCells = _.extend {}, @state.savedCells
         delete savedCells[lookupKey]
         @setState savedCells: savedCells
       , 5000

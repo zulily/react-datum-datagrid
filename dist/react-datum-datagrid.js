@@ -1749,7 +1749,7 @@ module.exports = warning;
         cellStyle.textAlign = 'right';
         cellStyle.paddingRight = 10;
       } else {
-        cellStyle.padding = 0;
+        cellStyle.padding = 5;
         cellStyle.margin = 0;
       }
       return cellStyle;
@@ -5527,6 +5527,7 @@ module.exports = function escapeRegExp(str) {
       if (trueOrFalse) {
         return _.delay(function (_this) {
           return function () {
+            savedCells = _.extend({}, _this.state.savedCells);
             delete savedCells[lookupKey];
             return _this.setState({
               savedCells: savedCells

@@ -65,9 +65,9 @@
 }
 
 .react-datum-datagrid .rdd-was-saved {
-  -webkit-animation: rdd_greenBackgroundFlash 5s linear infinite;
-  -moz-animation: rdd_greenBackgroundFlash 5s linear infinite;
-  animation: rdd_greenBackgroundFlash 5s linear infinite;
+  -webkit-animation: rdd_greenBackgroundFlash 5s linear;
+  -moz-animation: rdd_greenBackgroundFlash 5s linear;
+  animation: rdd_greenBackgroundFlash 5s linear;
 }
 
 .react-datum-datagrid .rdd-save-error {

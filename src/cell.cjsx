@@ -131,7 +131,7 @@ module.exports = class Cell extends React.Component
       cellStyle.textAlign = 'right'
       cellStyle.paddingRight = 10
     else
-      cellStyle.padding = 0
+      cellStyle.padding = 5
       cellStyle.margin = 0
     
     # cellStyle.display = 'flex'
