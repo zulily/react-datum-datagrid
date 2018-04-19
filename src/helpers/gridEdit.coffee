@@ -333,7 +333,7 @@ module.exports = class GridEdit
       _.delay =>
         delete savedCells[lookupKey]
         @setState savedCells: savedCells
-      , 7000
+      , 5000
         
 
   setSaveErrors: (model, rowEvt, resp) ->

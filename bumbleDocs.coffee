@@ -44,7 +44,7 @@ module.exports =
       thumbnailUrl: null  
     },{
       id: "rvIssue",
-      name: "React Virtualized Issue Demo",
+      name: "React Virtualized Demo",
       path: "reactVirtualizedIssue/demo.jsx",
       description: "This demo shows how to create a react-virtualized grid component", 
       thumbnailUrl: null  
