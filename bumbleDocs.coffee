@@ -46,6 +46,6 @@ module.exports =
       id: "rvIssue",
       name: "React Virtualized Issue Demo",
       path: "reactVirtualizedIssue/demo.jsx",
-      description: "This demo shows how to create an editable react-datum-datagrid.", 
+      description: "This demo shows how to create a react-virtualized grid component", 
       thumbnailUrl: null  
     }]    
