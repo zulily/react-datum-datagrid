@@ -6416,7 +6416,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
               if (columnIndex >= this.props.columns.length) {
                 continue;
               }
-              this.updateCell(rowIndex, columnIndex, pasteRow[offset]);
+              this.updateCell(columnIndex, rowIndex, pasteRow[offset]);
             }
           }
         }
@@ -6425,7 +6425,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         for (k = 0, len = ref3.length; k < len; k++) {
           cell = ref3[k];
           rowModel = this.getModelAt(cell.rowIndex);
-          this.updateCell(cell.rowIndex, columnIndex, paste);
+          this.updateCell(cell.columnIndex, cell.rowIndex, paste);
         }
       }
       e.stopPropagation();
