@@ -38,7 +38,7 @@ module.exports = class GridCopyPaste
     paste = @copyPasteHelper.processPaste(e)
     activeEl = document.activeElement
     # don't handle copy paste events inside of editing grid cells let the input handle it
-    return if activeEl.closest('.rdd-cell-editing').length > 0 || activeEl.matches('input,textarea')     
+    return if activeEl.closest('.rdd-cell-editing')? || activeEl.matches('input,textarea')     
     
     # Small fix that doesn't catch rows that are only across.
     if !Array.isArray(paste) && paste.indexOf('\t') >= 0
@@ -49,31 +49,18 @@ module.exports = class GridCopyPaste
       if @state.selectedCells.length > 0
         start = @_getUpperLeftBound()
         for rowIndex in [start.top .. start.top + paste.length - 1]
-          cellsInRow = _.filter @state.selectedCells, (cell) -> cell? && cell.rowIndex == rowIndex
-          cellsInRow = _.sortBy cellsInRow, 'columnIndex'
-          continue if cellsInRow.length == 0
           pasteRow = paste[rowIndex - start.top]
           pasteRow = [pasteRow] unless Array.isArray(pasteRow)
           rowModel = @getModelAt(rowIndex)
-          for cellIdx in [0 .. pasteRow.length - 1]
-            continue if cellIdx >= cellsInRow.length
-            @__updateRowModelColumn(rowIndex, rowModel, cellsInRow[cellIdx].colKey, pasteRow[cellIdx])
-      else
-        # We can create the shape
-        highlightedCell = @getSelectedCell()
-        if highlightedCell?
-          start = {top: highlightedCell.rowIndex, left: highlightedCell.columnIndex}
-          for rowIndex in [start.top .. start.top + paste.length - 1]
-            pasteRow = paste[rowIndex - start.top]
-            pasteRow = [pasteRow] unless _.isArray(pasteRow)
-            rowModel = @getModelAt(rowIndex)
-            for cellIdx in [0 .. pasteRow.length - 1]
-              @__updateRowModelColumn(rowIndex, rowModel, @modelKeyIndex[start.left + cellIdx], pasteRow[cellIdx])
+          for offset in [0 .. pasteRow.length - 1]
+            columnIndex = start.left + offset
+            continue if columnIndex >= @props.columns.length
+            @updateCell(rowIndex, columnIndex, pasteRow[offset])
     else
       # Single paste of a value. So fill it.
       for cell in @getSelectedCells()
         rowModel = @getModelAt(cell.rowIndex)
-        @__updateRowModelColumn(cell.rowIndex, rowModel, cell.colKey, paste)            
+        @updateCell(cell.rowIndex, columnIndex, paste)            
         
     
     e.stopPropagation()

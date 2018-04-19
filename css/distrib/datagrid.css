@@ -28,9 +28,9 @@
 }
 
 .react-datum-datagrid .rdd-cell-indicators {
-  position: absolute;
-  top: 5px;
-  right: 10px;
+  float: right;
+  margin-right: 5px;
+  margin-top: 5px;
 }
 
 .react-datum-datagrid .rdd-editable-indicator {

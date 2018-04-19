@@ -337,29 +337,6 @@ module.exports = class GridSelect
     }      
 
 
-  
-  __updateRowModelColumn: (rowIndex, rowModel, columnKey, value) ->
-    return unless rowModel?
-    
-    try 
-      parsedJsonObj = JSON.parse(value) if _.isString(value)
-    catch
-      # nbd, it's probably not json
-    
-    # if there is a datum instance associated with the model, use that as it provides validation
-    attribute = columnKey
-    column = @getColumn(columnKey)
-    if @canEditCell(column, rowModel)
-      # by going through the @saveModel on widgets.react.Datagrid, we get cell spinners and flash notification
-      @saveModel rowModel, 
-        cellKey: columnKey   # mimicks react-datagrid row event 
-        rowIndex: rowIndex
-        updated: parsedJsonObj ? value
-        key: "Paste"
-        
-      rowModel.trigger 'invalidate'
-
-
   __isInOurDatagrid: (element) ->
     return ReactDOM.findDOMNode(@).contains(element)
 

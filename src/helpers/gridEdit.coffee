@@ -98,6 +98,25 @@ module.exports = class GridEdit
     @saveModel(model, rowEvt)
     @setState editingCell: null
 
+
+  updateCell: (columnIndex, rowIndex, value) ->
+    model = @getModelAt(rowIndex)
+    column = @getColumn(columnIndex)
+    return unless model? && column?
+    return false unless @canEditCell(column, model)
+    
+    try 
+      parsedJsonObj = JSON.parse(value) if _.isString(value)
+    catch
+      # nbd, it's probably not json
+
+    @saveModel model, 
+      cellKey: column.key   # mimicks react-datagrid row event 
+      rowIndex: rowIndex
+      columnIndex: columnIndex
+      updated: parsedJsonObj ? value
+      key: "Paste"
+      
   
   cancelEditing: () ->
     @setState editingCell: null

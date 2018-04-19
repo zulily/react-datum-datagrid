@@ -3,7 +3,7 @@
 .react-datum-datagrid .rdd-cell-selected{background-color:#91A4CC;color:#f5f5f5}
 .react-datum-datagrid .rdd-cell .datum-display-value{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .react-datum-datagrid .rdd-cell img{max-height:100px;max-width:100px}
-.react-datum-datagrid .rdd-cell-indicators{position:absolute;top:5px;right:10px}
+.react-datum-datagrid .rdd-cell-indicators{float:right;margin-right:5px;margin-top:5px}
 .react-datum-datagrid .rdd-editable-indicator{background-color:#E0E0E0;background-color:rgba(224,224,224,.5);border-radius:10px;color:#1254E8;cursor:pointer;display:inline-block;padding:2px 2px 2px 4px;height:12px;width:12px}
 .react-datum-datagrid .rdd-saving-indicator{color:#ccc;cursor:none;display:inline-block;height:12px;width:12px;-webkit-animation:rdd_spin 2s linear infinite;-moz-animation:rdd_spin 2s linear infinite;animation:rdd_spin 2s linear infinite}
 .react-datum-datagrid .rdd-was-saved{-webkit-animation:rdd_greenBackgroundFlash 5s linear;-moz-animation:rdd_greenBackgroundFlash 5s linear;animation:rdd_greenBackgroundFlash 5s linear}
