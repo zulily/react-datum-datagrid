@@ -4,19 +4,25 @@ PropTypes = require('prop-types')
 Rb = require('react-bootstrap')
 
 ReactStyles = require('./helpers/reactStyles')
-Cell = require('./cell')
 
-Titleize = require('underscore.string/Titleize')
-Humanize = require('underscore.string/Humanize')
-  
-module.exports = class HeaderCell extends Cell
+###
+  HeaderCell is a controlled component
+
+###
+module.exports = class HeaderCell extends React.Component
     
   @propTypes: 
-    rowData: PropTypes.any
     column: PropTypes.object
+    columnIndex: PropTypes.number
     style: PropTypes.object
-    onHideColumn: PropTypes.func
-    onShowColumn: PropTypes.func
+    # TBD:  needed for buydoc
+    # onHideColumn: PropTypes.func
+    # onShowColumn: PropTypes.func
+    sorted: PropTypes.oneOf(['asc', 'desc'])
+    # callback method called when user clicks sort indicator. Called with (evt, columnIndex)
+    onSort: PropTypes.func
+    # callback method called when user clicks column name called with (evt, columnIndex)
+    onSelectColumn: PropTypes.func
     
 
   
@@ -26,8 +32,11 @@ module.exports = class HeaderCell extends Cell
       color: '#4767AA'
     wrapper: 
       includes: ->
-        @props.style
+        _.extend {}, @props.style,
+          width: @props.column.width
       position: 'relative'
+      display: 'inline-block'
+      
     showHideIcon: 
       position: 'absolute'
       left: -5
@@ -48,24 +57,23 @@ module.exports = class HeaderCell extends Cell
   style: (name) -> 
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
 
-  renderWrapped: ->
-    unless @props.column?.tooltip
-      return super( 
-        <div style={@style('wrapper')}>
-          {@_renderShowHideControl()}
-          {@getColumnName()}
+  render: ->
+    if @props.column?.tooltip
+      return (
+        <div style={@style('wrapper')} className="rdd-header-wrapper">
+          <Rb.OverlayTrigger overlay={@_renderTooltipPopover()}>
+            <div>
+              {@_renderShowHideControl()}
+              {@_renderColumnName()}
+              <i style={@style('icon')} className='fa fa-question-circle'/>
+            </div>
+          </Rb.OverlayTrigger>
         </div>
       ) 
-    
-    super( 
-      <div style={@style('wrapper')}>
-        <Rb.OverlayTrigger overlay={@_renderTooltipPopover()}>
-          <div>
-            {@_renderShowHideControl()}
-            {@getColumnName}
-            <i style={@style('icon')} className='fa fa-question-circle'/>
-          </div>
-        </Rb.OverlayTrigger>
+    else return ( 
+      <div style={@style('wrapper')} className="rdd-header-wrapper">
+        {@_renderShowHideControl()}
+        {@_renderColumnName()}
       </div>
     )
 
@@ -96,12 +104,13 @@ module.exports = class HeaderCell extends Cell
       </span>
       
       
-  getColumnName: ->
-    @props.column.name ? Titleize(Humanize(@props.column.key))
-    
+  _renderColumnName: ->
+    name = @props.column.name
+    <a title="click to select all in column" onClick={(evt) => @_onColumnNameClick(evt)}>{name}</a>
+
 
   getCellOverrideStyle: (model) ->
-    sval = super(model)
+    sval = {}
     
     _.extend sval, if @props.orientation == 'landscape' 
       display: 'inline-block'
@@ -121,6 +130,8 @@ module.exports = class HeaderCell extends Cell
     @forceUpdate => @props.onHideColumn?(@, @props.column, evt)
   
   
+  _onColumnNameClick: (evt) =>
+    @props.onSelectColumn?(evt, @props.columnIndex)
     
     
   

@@ -6,6 +6,16 @@
   vertical-align: top;
 }
 
+.react-datum-datagrid .rdd-header-wrapper a {
+  color: black;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.react-datum-datagrid .rdd-header-wrapper a:hover {
+    text-decoration: underline;
+}
+
 .react-datum-datagrid .rdd-cell-selected {
   background-color: #91A4CC;
   color: whitesmoke;

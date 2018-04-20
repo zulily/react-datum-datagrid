@@ -55,14 +55,16 @@ module.exports = class GridCopyPaste
           for offset in [0 .. pasteRow.length - 1]
             columnIndex = start.left + offset
             continue if columnIndex >= @props.columns.length
-            @updateCell(columnIndex, rowIndex, pasteRow[offset])
+            @updateCell(columnIndex, rowIndex, pasteRow[offset], silent: true)
     else
       # Single paste of a value. So fill it.
       for cell in @getSelectedCells()
         rowModel = @getModelAt(cell.rowIndex)
-        @updateCell(cell.columnIndex, cell.rowIndex, paste)            
+        @updateCell(cell.columnIndex, cell.rowIndex, paste, silent: true)
         
-    
+    # we silenced state changes in the updateCell calls above; apply them now
+    #  so user sees saving indicators
+    @forceUpdate()  
     e.stopPropagation()
     e.preventDefault()
     

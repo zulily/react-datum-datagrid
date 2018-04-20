@@ -4,6 +4,9 @@ _ = require 'underscore'
 Extend = require 'node.extend'
 DeepGet = require './deepGet'
 
+Titleize = require('underscore.string/Titleize')
+Humanize = require('underscore.string/Humanize')
+
 ###
 
 ###
@@ -99,7 +102,10 @@ module.exports = class GridEdit
     @setState editingCell: null
 
 
-  updateCell: (columnIndex, rowIndex, value) ->
+  updateCell: (columnIndex, rowIndex, value, options={}) ->
+    _.defaults options,
+      silent: false
+      
     model = @getModelAt(rowIndex)
     column = @getColumn(columnIndex)
     return unless model? && column?
@@ -110,12 +116,13 @@ module.exports = class GridEdit
     catch
       # nbd, it's probably not json
 
-    @saveModel model, 
+    @saveModel model, {
       cellKey: column.key   # mimicks react-datagrid row event 
       rowIndex: rowIndex
       columnIndex: columnIndex
       updated: parsedJsonObj ? value
       key: "Paste"
+    }, options
       
   
   cancelEditing: () ->
@@ -123,17 +130,25 @@ module.exports = class GridEdit
     
     
   ###
-    returns a column by key or index
+    returns a column with defaulted attributes by key or index
   ###
   getColumn: (keyOrIndex) ->
     if @originalMethod?
       return @originalMethod()
 
-    if _.isString keyOrIndex
-      return _.find @props.columns, (c) -> c.key == keyOrIndex
+    columnDef = if _.isString keyOrIndex
+      _.find @props.columns, (c) -> c.key == keyOrIndex
     else
-      return @props.columns[keyOrIndex]
-
+      @props.columns[keyOrIndex]
+    
+    return @getColumnDefaults(columnDef)
+    
+    
+  getColumnDefaults: (columnDef) ->
+    columnDef = Extend true, {}, @props.defaultColumnDef, columnDef
+    columnDef.name ?= Titleize(Humanize(columnDef.key))
+    return columnDef
+    
   
   getModelAt: (index) ->
     collection = @props.collection
@@ -299,6 +314,7 @@ module.exports = class GridEdit
     options = _.defaults options, {
       logUndo: !@props.disableUndo
       setOnUpdate: true
+      silent: false
     }
     
     attr = rowEvt.attribute ? rowEvt.cellKey
@@ -314,10 +330,11 @@ module.exports = class GridEdit
 
     # optimistically clear errors on the cell while saving new value, prevents the error
     # icon from very briefly showing again after the spinner stops
-    @clearCellErrors(model, rowEvt)  
+    @clearCellErrors(model, rowEvt, options)  
 
     saveOptions = @getModelSaveOptions()
     saveOptions.__datagrid_rowEvt = rowEvt
+    saveOptions.silent = options.silent
 
     unless @props.setOnUpdate == false || options.setOnUpdate == false
       # returns false if validations fail
@@ -337,25 +354,33 @@ module.exports = class GridEdit
     
     isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
     if @props.saveOnUpdate != false && isDirty
-      @setSaving(model, rowEvt, true)
+      @setSaving(model, rowEvt, true, options)
       (model.patch || model.save)({}, saveOptions)      
     
 
   # this clears the previous error conditions if the save being undone fails:
-  clearCellErrors: (model, rowEvt) ->
+  clearCellErrors: (model, rowEvt, options={}) ->
+    _.defaults options,
+      silent: false
+    
     saveErrors = if @state.saveErrors? then _.extend({}, @state.saveErrors) else {}
     delete saveErrors["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"]
-    @setState saveErrors: saveErrors
+    if options.silent
+      @state.saveErrors = saveErrors
+    else
+      @setState saveErrors: saveErrors
   
   
   # this get's consumed by the DefaultFormatter
-  setSaveSuccess: (model, rowEvt, trueOrFalse) ->
+  setSaveSuccess: (model, rowEvt, trueOrFalse, options={}) ->
     model?.setDatagridSaveSuccess?(rowEvt.cellKey, trueOrFalse)
     
     lookupKey = "#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"
     savedCells = if @state.savedCells? then _.extend({}, @state.savedCells) else {}
     savedCells[lookupKey] = trueOrFalse
-    @setState savedCells: savedCells
+    
+    if options.silent
+      @state.savedCells = savedCells
     
     # if the cell save was successfull, only show the indication of sucess for 7 sec
     # if the save wasn't successful keep it showing indication of error until explicitly cleared
@@ -363,7 +388,11 @@ module.exports = class GridEdit
       _.delay =>
         savedCells = _.extend {}, @state.savedCells
         delete savedCells[lookupKey]
-        @setState savedCells: savedCells
+        if options.silent
+          @state.savedCells = savedCells
+          @_debouncedForceUpdate()
+        else
+          @setState savedCells: savedCells
       , 5000
         
 
@@ -377,21 +406,29 @@ module.exports = class GridEdit
     @setState saveErrors: saveErrors
 
       
-  setSaving: (model, rowEvt, trueOrFalse) ->
+  setSaving: (model, rowEvt, trueOrFalse, options={}) ->
+    _.defaults options,
+      # if true, silently updates @state
+      silent: false   
+      
     savingCells = @state.savingCells || {}
     if trueOrFalse
       savingCells["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"] = true
     else
       delete savingCells["#{rowEvt.columnIndex}_#{rowEvt.rowIndex}"]
-    @setState savingCells: savingCells
+    
+    if options.silent
+      @state.savingCells = savingCells
+    else
+      @setState savingCells: savingCells
     
 
   onModelSaveSuccess: (model, resp, options) =>
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt
-      @setSaveSuccess(model, rowEvt, true)
+      @setSaveSuccess(model, rowEvt, true, options)
       # clear previous errors on the whole row
-      @clearCellErrors(model, rowEvt)
+      @clearCellErrors(model, rowEvt, options)
 
     @onModelSaveComplete(model, resp, options)
     
@@ -410,7 +447,11 @@ module.exports = class GridEdit
   onModelSaveComplete: (model, resp, options) =>
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt
-      @setSaving(model, rowEvt, false)
+      @setSaving(model, rowEvt, false, options)
+    
+    # if we've silenced backbone events and state changes, 
+    # they need to be applied at some time
+    @_debouncedForceUpdate() if options.silent
       
 
 

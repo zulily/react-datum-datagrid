@@ -87,14 +87,6 @@ module.exports = class Cell extends React.Component
     </div>
     
   
-  # doesn't need to be big but in the event of multiple cells posting saves at the near same time,
-  # don't call forceUpdate for each one
-  _debouncedForceUpdate: => _.debounce((=> @forceUpdate()), 50)
-  
-  # this is used when save success and errors need to be cleared
-  _delayedForceUpdate: (delay = 5000) => _.delay @_debouncedForceUpdate, 5000
-  
-  
   getModel: ->
     return @props.rowData
   

@@ -125,6 +125,34 @@ module.exports = class GridSelect
       @selectCellsBetween(@startSelPosition, thisCellPosition)
 
 
+  onSelectColumn: (evt, columnIndex) ->
+      evt.stopPropagation()
+      
+      # TODO
+      # return unless @_canSelectAllCells()
+      
+      @setState selectingAll: true
+      selectAllCells = () =>
+        column = @getColumn(columnIndex)
+        selectedCells = []
+        models = if Array.isArray(@props.collection) then @props.collection else @props.collection.models ? []
+        for model, index in models
+          selectedCells.push({
+            rowIndex: index, 
+            colKey: column.key, 
+            columnIndex: columnIndex
+            })
+        # 
+        @setState selectedCells: selectedCells, selectingAll: false
+        
+      if _.isFunction @props.collection.ensureAllRows
+        @setState selectedCells: [], selectingAll: true
+        @props.collection.ensureAllRows
+          success: selectAllCells
+      else
+        selectAllCells()
+
+
   GridSelect_onDocumentKeyDown: (evt) =>
     return unless @__isInOurDatagrid(evt.target)
     keyCode = evt.keyCode

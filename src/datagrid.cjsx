@@ -173,6 +173,15 @@ module.exports = class Datagrid extends React.Component
       verticalAlign: 'top'
       whiteSpace: 'nowrap'
     
+    
+    
+  constructor: ->
+    super
+    # doesn't need to be big but in the event of multiple cells posting saves at the near same time,
+    # don't call forceUpdate for each one
+    @_debouncedForceUpdate = _.debounce((=> @forceUpdate()), 50)
+
+    
 
   style: (name) -> 
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
@@ -214,10 +223,10 @@ module.exports = class Datagrid extends React.Component
     <div style={@style('container')} className='react-datum-datagrid'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
-          {@_renderHeaderCells(lockedColumns)}
+          {@_renderHeaderCells(0, lockedColumns)}
         </div>
         <div style={@style('scrollingHeaderCells')} className='rdd-scrolling-header-cells' >
-          {@_renderHeaderCells(freeColumns)}
+          {@_renderHeaderCells(lockedColumns.length, freeColumns)}
         </div>
       </div>
       <div style={@style('gridsContainer')} className='rdd-grids-container'>
@@ -313,25 +322,26 @@ module.exports = class Datagrid extends React.Component
   #   _.defer => @_onHeaderScroll()
   
   
-  _renderHeaderCells: (columnDefs) ->
+  _renderHeaderCells: (baseIndex, columnDefs) ->
     cells = for columnDef, index in columnDefs
-      @_renderHeaderCell(index, columnDef)
+      @_renderHeaderCell(baseIndex + index, columnDef)
     return cells
 
       
-  _renderHeaderCell: (index, columnDef) ->
+  _renderHeaderCell: (columnIndex, columnDef) ->
     return null unless columnDef?
-    labelStyle = extend true, {}, @_getDefaultCellStyle(columnDef, true), columnDef.flipgrid?.labelStyle
+    columnDef = @getColumnDefaults(columnDef)
+    
     <HeaderCell 
-      key={index} 
+      key={columnIndex}
       column={columnDef} 
+      columnIndex={columnIndex}
       orientation={@props.orientation}
-      datagrid={@} 
-      defaultCellStyle={labelStyle}
       onShowColumn={@props.onShowColumn}
       onHideColumn={@props.onHideColumn}
+      onSelectColumn={(evt,columnIndex) => @onSelectColumn(evt,columnIndex)} 
     />
-
+    # @onSelectColumn is in helpers/gridSelect
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
     style = @_getCellWrapperStyle(style)
