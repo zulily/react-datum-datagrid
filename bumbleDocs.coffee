@@ -49,6 +49,12 @@ module.exports =
       description: "This demo shows how to create a grid that will sort without a callback method", 
       thumbnailUrl: null  
     },{
+      id: "collectionSorting",
+      name: "Collection Fetch Sorting Grid Demo",
+      path: "collectionFetchSorting/collectionFetchSorting.jsx",
+      description: "This demo shows how to create a grid that will sort using a method on the collection that presumably has to fetch data from a data service.", 
+      thumbnailUrl: null  
+    },{
       id: "rvIssue",
       name: "React Virtualized Demo",
       path: "reactVirtualizedIssue/demo.jsx",

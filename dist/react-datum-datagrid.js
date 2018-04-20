@@ -6857,29 +6857,36 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     function GridSort() {}
 
     GridSort.prototype.onSortColumn = function (columnIndex, columnDef, direction) {
-      if (this.props.onSort) {
-        return this.setState({
-          isSorting: true
-        }, function (_this) {
-          return function () {
+      return this.setState({
+        isSorting: true,
+        sortColumnIndex: columnIndex,
+        sortDirection: direction
+      }, function (_this) {
+        return function () {
+          var arrayToSort, getSortableValue, i, len, model, ref;
+          if (_this.props.onSort) {
             return _this.props.onSort(columnIndex, columnDef, direction, function () {
               return _this.setState({
                 isSorting: false
               });
             });
-          };
-        }(this));
-      } else {
-        return this.setState({
-          isSorting: true,
-          sortColumnIndex: columnIndex,
-          sortDirection: direction
-        }, function (_this) {
-          return function () {
-            var arrayToSort, getSortableValue, i, len, model;
+          } else if (_.isFunction((ref = _this.props.collection) != null ? ref.onDatagridSort : void 0)) {
+            return _this.props.collection.onDatagridSort(columnDef.key, direction, columnDef, {
+              success: function success() {
+                return _this.setState({
+                  isSorting: false
+                });
+              },
+              error: function error() {
+                return _this.setState({
+                  isSorting: false
+                });
+              }
+            });
+          } else {
             getSortableValue = function getSortableValue(object) {
-              var attr, ref;
-              attr = (ref = columnDef.sortAttr) != null ? ref : columnDef.key;
+              var attr, ref1;
+              attr = (ref1 = columnDef.sortAttr) != null ? ref1 : columnDef.key;
               if (_.isFunction(object.get)) {
                 return object.get(attr);
               } else {
@@ -6888,7 +6895,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             };
             arrayToSort = _.isArray(_this.props.collection) ? _this.props.collection : _this.props.collection.models || [];
             arrayToSort.sort(function (a, b) {
-              var aVal, bVal, isNumeric, ref, temp;
+              var aVal, bVal, isNumeric, ref1, temp;
               aVal = getSortableValue(a);
               bVal = getSortableValue(b);
               isNumeric = isFinite(aVal) && isFinite(bVal);
@@ -6900,7 +6907,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
               if (isNumeric) {
                 return aVal - bVal;
               } else {
-                return Bstr.weaklyCompare((ref = aVal != null ? aVal.toString() : void 0) != null ? ref : "", bVal != null ? bVal : "");
+                return Bstr.weaklyCompare((ref1 = aVal != null ? aVal.toString() : void 0) != null ? ref1 : "", bVal != null ? bVal : "");
               }
             });
             for (i = 0, len = arrayToSort.length; i < len; i++) {
@@ -6916,9 +6923,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             return _this.setState({
               isSorting: false
             });
-          };
-        }(this));
-      }
+          }
+        };
+      }(this));
     };
 
     return GridSort;
