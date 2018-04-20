@@ -13,8 +13,34 @@
 }
 
 .react-datum-datagrid .rdd-header-wrapper a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
+
+.react-datum-datagrid .rdd-header-icons {
+  float: right;
+  margin-right: 5px;
+}
+
+.react-datum-datagrid .rdd-header-icon {
+  height: 11px;
+  width: 11px;
+  cursor: pointer;
+}
+
+.react-datum-datagrid .rdd-sort-indicator {
+  color: #999999;
+  opacity: .4;
+}
+
+.react-datum-datagrid .rdd-sort-indicator-asc {
+  color: #0C0C0C;
+  opacity: 1;
+}
+
+.react-datum-datagrid .rdd-sort-indicator-desc {
+  opacity: 1;
+}
+
 
 .react-datum-datagrid .rdd-cell-selected {
   background-color: #91A4CC;

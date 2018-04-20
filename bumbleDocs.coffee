@@ -43,6 +43,12 @@ module.exports =
       description: "This demo shows how to create an editable react-datum-datagrid.", 
       thumbnailUrl: null  
     },{
+      id: "selfSorting",
+      name: "Self Sorting Grid Demo",
+      path: "selfSorting/selfSorting.jsx",
+      description: "This demo shows how to create a grid that will sort without a callback method", 
+      thumbnailUrl: null  
+    },{
       id: "rvIssue",
       name: "React Virtualized Demo",
       path: "reactVirtualizedIssue/demo.jsx",

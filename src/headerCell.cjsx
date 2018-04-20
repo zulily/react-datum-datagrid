@@ -4,6 +4,8 @@ PropTypes = require('prop-types')
 Rb = require('react-bootstrap')
 
 ReactStyles = require('./helpers/reactStyles')
+SortIndicator = require('./helpers/sortIndicator')
+SavingIndicator = require('./helpers/savingIndicator')
 
 ###
   HeaderCell is a controlled component
@@ -15,44 +17,42 @@ module.exports = class HeaderCell extends React.Component
     column: PropTypes.object
     columnIndex: PropTypes.number
     style: PropTypes.object
-    # TBD:  needed for buydoc
-    # onHideColumn: PropTypes.func
-    # onShowColumn: PropTypes.func
-    sorted: PropTypes.oneOf(['asc', 'desc'])
+    isSorting: PropTypes.bool
+    sorted: PropTypes.oneOf(['ASC', 'DESC'])
     # callback method called when user clicks sort indicator. Called with (evt, columnIndex)
     onSort: PropTypes.func
     # callback method called when user clicks column name called with (evt, columnIndex)
     onSelectColumn: PropTypes.func
+    # orientation of the data rows 
+    orientation: PropTypes.oneOf(['portrait', 'landscape'])
+    # width of header when orientation is portrait and columnDef.width is ignored
+    width: PropTypes.number
+    # height of header when orientation is landscape and columnDef.height is ignored
+    height: PropTypes.number
+    
     
 
-  
   styles: new ReactStyles
     icon: 
       float: 'right'
       color: '#4767AA'
     wrapper: 
-      includes: ->
-        _.extend {}, @props.style,
-          width: @props.column.width
-      position: 'relative'
       display: 'inline-block'
+      position: 'relative'
+      includes: ->
+        style =_.extend {}, @props.style
+        if @props.orientation == 'landscape' 
+          _.extend style,
+            display: 'inline-block'
+            width: @props.column.width
+            height: @props.height
+        else
+          _.extend style, 
+            display: 'block'
+            height: @props.column.height
+            width: @props.width
+        return style
       
-    showHideIcon: 
-      position: 'absolute'
-      left: -5
-      top: 0
-      fontSize: 17
-      color: '#4767AA'
-    showIcon: 
-      includes: 'showHideIcon'
-      left: 2
-      top: 1
-    banIcon:
-      includes: 'showHideIcon'
-      color: '#DE8387'
-      top: 1
-      left: 1
-      fontSize: 21
       
   style: (name) -> 
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
@@ -63,7 +63,7 @@ module.exports = class HeaderCell extends React.Component
         <div style={@style('wrapper')} className="rdd-header-wrapper">
           <Rb.OverlayTrigger overlay={@_renderTooltipPopover()}>
             <div>
-              {@_renderShowHideControl()}
+              {@_renderIcons()}
               {@_renderColumnName()}
               <i style={@style('icon')} className='fa fa-question-circle'/>
             </div>
@@ -72,7 +72,7 @@ module.exports = class HeaderCell extends React.Component
       ) 
     else return ( 
       <div style={@style('wrapper')} className="rdd-header-wrapper">
-        {@_renderShowHideControl()}
+        {@_renderIcons()}
         {@_renderColumnName()}
       </div>
     )
@@ -84,51 +84,36 @@ module.exports = class HeaderCell extends React.Component
     </Rb.Popover>
     
   
-  _renderShowHideControl: ->
-    return null unless @props.column.canHide
-    if @props.column.isHidden
-      return <i className='fa fa-eye' 
-        style={@style('showHideIcon')} 
-        title='Click to show this attribute when "Mine" attributes selected'
-        onClick={@_onShowIconClick}
-      />
-    else
-      return <span 
-        class="fa-stack"
-        title='Click to hide this attribute when "Mine" attributes selected'
-        onClick={@_onHideIconClick}
-        style={@style('showHideIcon')}
-      >
-        <i className="fa fa-eye fa-stack-1x" style={@style('showIcon')}/> 
-        <i className="fa fa-ban fa-stack-2x" style={@style('banIcon')} />
-      </span>
+  _renderIcons: ->
+    <div className='rdd-header-icons'>
+      {@_renderSortIndicator()}
+    </div>
+    
+  
+  _renderSortIndicator: ->
+    return null unless @props.column.sortable
+    return @_renderSpinnySpinner() if @props.isSorting
+  
+    <SortIndicator sorted={@props.sorted} onClick={@_onSort}/>
+  
+
+  _renderSpinnySpinner: ->
+    <SavingIndicator/>
+
+
+  _onSort: () =>
+    direction = switch @props.sorted
+      when null, undefined then 'ASC'
+      when 'ASC' then 'DESC'
+      when 'DESC' then null
       
-      
+    @props.onSort(@props.columnIndex, @props.column, direction)
+    
+
   _renderColumnName: ->
     name = @props.column.name
     <a title="click to select all in column" onClick={(evt) => @_onColumnNameClick(evt)}>{name}</a>
 
-
-  getCellOverrideStyle: (model) ->
-    sval = {}
-    
-    _.extend sval, if @props.orientation == 'landscape' 
-      display: 'inline-block'
-    else
-      display: 'block'
-    
-    return sval
-    
-  
-  _onShowIconClick: (evt)  =>      
-    @props.column.isHidden = false
-    @forceUpdate => @props.onShowColumn?(@, @props.column, evt)
-  
-  
-  _onHideIconClick: (evt) =>
-    @props.column.isHidden = true
-    @forceUpdate => @props.onHideColumn?(@, @props.column, evt)
-  
   
   _onColumnNameClick: (evt) =>
     @props.onSelectColumn?(evt, @props.columnIndex)

@@ -40,13 +40,6 @@ module.exports = class GridSelect
   # TODO : should this be in @state?
   startSelPosition: null
   
-  componentWillMount: ->  
-    @originalMethod?()
-    @setState
-      # The array of {rowIndex, colKey} which represent which cells are selected.
-      selectedCells: []
-
-
   onCollectionReset: =>
     @resetSelectedCells()
     @originalMethod?()
@@ -183,9 +176,9 @@ module.exports = class GridSelect
         when keyCode in [37, 38, 39, 40] # left, up, right, down
           evt.preventDefault()
           if evt.shiftKey 
-            if @state.selectedCells.length > 0
+            if @state.selectedCells?.length > 0
               @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(keyCode))
-          else if @state.selectedCells.length > 0
+          else if @state.selectedCells?.length > 0
             @startSelPosition = null
             cellPosition = @_getRelativeCellPosition(keyCode)
             @setSelectedCellAt(cellPosition) if cellPosition?
@@ -236,7 +229,7 @@ module.exports = class GridSelect
     
   # this returns the anchor cell if multiple cells are selected
   getSelectedCell: () ->
-    return @state.selectedCells[0]
+    return @state.selectedCells?[0] || null
     
     
   # this sets the cell at cellPosition as the only selected cell  

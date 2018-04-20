@@ -23,10 +23,7 @@
   },
   "homepage": "https://github.com/zulily/react-datum-datagrid#readme",
   "dependencies": {
-    "@fortawesome/fontawesome": "^1.1.5",
-    "@fortawesome/fontawesome-free-solid": "^5.0.10",
-    "@fortawesome/react-fontawesome": "0.0.18",
-    "bumble-strings": "0.5.1",
+    "bumble-strings": "0.6.3",
     "classnames": "2.2.5",
     "node.extend": "2.0.0",
     "prop-types": "15.6.1",

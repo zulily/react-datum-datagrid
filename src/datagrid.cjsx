@@ -13,6 +13,7 @@ GridEdit = require './helpers/gridEdit'
 GridSelect = require './helpers/gridSelect'
 GridScroll = require './helpers/gridScroll'
 GridCopyPaste = require './helpers/gridCopyPaste'
+GridSort = require './helpers/gridSort'
 
 HeaderCell = require './headerCell'
 
@@ -63,14 +64,26 @@ module.exports = class Datagrid extends React.Component
     # disables ctrl-Z to undo 
     disableUndo: PropTypes.bool
     
-    # callback to call when columns are hidden.  called with (this, columnDef, evt)
-    onHideColumn: PropTypes.func
+    # the index of the sorted column (if one is sorted)
+    sortColumnIndex: PropTypes.number
     
-    # callback to call when columns are shown. (this, columnDef, evt)
-    onShowColumn: PropTypes.func
+    # the direction the sortColumnIndex column is sorted
+    sortDirection: PropTypes.oneOf(["ASC", "DESC"])
     
     # callback to call when cell selections change
     onSelectedCellsChange: PropTypes.func
+    
+    # If provided, this callback method is called to sort the underlying collection
+    # when the user clicks the sort icon in the header.  
+    #
+    # If provided, you ** MUST ** also provide `sortColumnIndex` and `sortColumnDirection`
+    # 
+    # If not, provided, rdd will assume the collection is fully fetched will sort the collection
+    # internally.   
+    # 
+    # Called with (columnIndex, columnDef, direction, onComplete)
+    # you ** must call the onComplete ** method passed when sorting is complete
+    onSort: PropTypes.func 
     
 
   @defaultProps: 
@@ -176,6 +189,7 @@ module.exports = class Datagrid extends React.Component
     
     
   constructor: ->
+    @state = {}
     super
     # doesn't need to be big but in the event of multiple cells posting saves at the near same time,
     # don't call forceUpdate for each one
@@ -191,11 +205,25 @@ module.exports = class Datagrid extends React.Component
     # and bucket the undo operations in such a way so as to work
     # with multi grid paste as well as with single actions.
     
+  
+  # https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
+  @getDerivedStateFromProps: (nextProps, prevState) ->
+    newState = {}
     
-  componentWillMount: ->
+    if nextProps.sortColumnIndex != prevState._cachedSortColumnIndex
+      newState.sortColumnIndex = newState._cachedSortColumnIndex = nextProps.sortColumnIndex
+      
+    if nextProps.sortDirection != prevState._cachedSortDirection
+      newState.sortDirection = newState._cachedSortDirection = nextProps.sortDirection
+      
+    return null if _.isEmpty(newState)
+    return newstate
+    
+    
+  componentDidMount: ->
     @_bindDocumentEvents()
-    
-    
+  
+  
   componentWillUnmount: ->
     @_unbindDocumentEvents()
     
@@ -306,22 +334,8 @@ module.exports = class Datagrid extends React.Component
   getRowCount: () ->
     return 0 unless @props.collection?
     return @props.collection.getLength?() ? @props.collection.length ? 0
-      
 
-  # refresh: ->
-  #   @refs.lockedGrid?.grid?.refresh()
-  #   @refs.freeGrid?.grid?.refresh()
-  # 
-  #   # resync the bottom grid scrolltop to the labels column scrolltop, prevents
-  #   # from scrolling back to top on refresh
-  #   @_onHeaderScroll()
-  #   # we have to do this twice.  The first effectively prevents the bottom grid
-  #   # from effecting the label scroll position on rerender.  The second defered 
-  #   # onLabelScroll causes the newly rerendered bottom grid to scroll down to 
-  #   # match the label scroll position.  
-  #   _.defer => @_onHeaderScroll()
-  
-  
+
   _renderHeaderCells: (baseIndex, columnDefs) ->
     cells = for columnDef, index in columnDefs
       @_renderHeaderCell(baseIndex + index, columnDef)
@@ -331,17 +345,26 @@ module.exports = class Datagrid extends React.Component
   _renderHeaderCell: (columnIndex, columnDef) ->
     return null unless columnDef?
     columnDef = @getColumnDefaults(columnDef)
+    isSortedByUs = @state.sortColumnIndex? && @state.sortColumnIndex == columnIndex
+    isSortingByUs = @state.isSorting && isSortedByUs
+    sortDirection = if isSortedByUs then @state.sortDirection else null
     
     <HeaderCell 
       key={columnIndex}
       column={columnDef} 
       columnIndex={columnIndex}
       orientation={@props.orientation}
-      onShowColumn={@props.onShowColumn}
-      onHideColumn={@props.onHideColumn}
+      
+      isSorting={isSortingByUs}
+      sorted={sortDirection}
       onSelectColumn={(evt,columnIndex) => @onSelectColumn(evt,columnIndex)} 
+      onSort={(columnIndex, columnDef, direction) => @onSortColumn(columnIndex, columnDef, direction)}
+      
+      width={@props.headerWidth}
+      height={@props.headerHeight}
     />
     # @onSelectColumn is in helpers/gridSelect
+    # @onSortColumn is in helpers/gridSort
 
   _renderDataCell: (columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) ->
     style = @_getCellWrapperStyle(style)
@@ -479,3 +502,4 @@ module.exports = class Datagrid extends React.Component
   Mixin @, GridEdit
   Mixin @, GridSelect
   Mixin @, GridCopyPaste
+  Mixin @, GridSort
