@@ -1,3 +1,9 @@
+## [0.3.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.0...0.3.1) (2018-04-21)
+The breaking change in 0.3.0 was this:
+
+### Other Commits
+* [71cdcc2](git+https://github.com/zulily/react-datum-datagrid.git/commit/71cdcc2be14799d6f74488b9e38acdd49df15de7) also update README with new requires syntax
+
 ## [0.3.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.2.0...0.3.0) (2018-04-21)
 Breaking Change!   
 
