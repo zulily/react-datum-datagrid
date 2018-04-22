@@ -44,7 +44,7 @@ class CollectionSortingDatagridDisplay extends React.Component {
   render(){
     return (
       <div style={{height: "100%", width: 900}}>
-        <ReactDatumDatagrid 
+        <ReactDatumDatagrid.Datagrid
           collection={puppyCollection}
           columns={this.getColumns()}
           headerHeight={40}
