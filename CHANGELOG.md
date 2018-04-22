@@ -1,3 +1,10 @@
+## [0.3.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.2.0...0.3.0) (2018-04-21)
+Breaking Change!   
+
+### Other Commits
+* [d356b1b](git+https://github.com/zulily/react-datum-datagrid.git/commit/d356b1b78f0ca104bf0fed1e76d3ebfc82b5759e) also need to export cell and headerCell in package
+* [2619013](git+https://github.com/zulily/react-datum-datagrid.git/commit/26190136a3bd5d60b2b641ba1cbcf57d3cf94232) ammend changelog
+
 ## [0.2.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.1.1...0.2.0) (2018-04-21)
 MVP release!  Includes:
 
