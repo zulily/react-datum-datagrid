@@ -44,7 +44,7 @@ class BasicDatagridDisplay extends React.Component {
     // You can also use Flex!  See TODO Flexy Demo
     return (
       <div style={{height: "100%", width: 600}}>
-        <ReactDatumDatagrid 
+        <ReactDatumDatagrid.Datagrid 
           collection={puppyCollection}
           columns={this.getColumns()}
           headerHeight={40}
