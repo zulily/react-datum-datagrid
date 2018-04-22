@@ -1,3 +1,9 @@
+## [0.3.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.1...0.3.2) (2018-04-21)
+
+
+### Other Commits
+* [be9e888](git+https://github.com/zulily/react-datum-datagrid.git/commit/be9e8883cb5f56246c8062001dae86785804b99a) fill in gaps with zuKeeper datagrid and make aliases for older react-data-grid column attrs like defaultFormatter (now defaultCellComponent) and header
+
 ## [0.3.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.0...0.3.1) (2018-04-21)
 The breaking change in 0.3.0 was this:
 
