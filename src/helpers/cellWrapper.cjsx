@@ -28,8 +28,11 @@ module.exports = class CellWrapper extends React.Component
     columnIndex: PropTypes.number
     # this is a controlled component - must pass a value
     value: PropTypes.any
-    # reference to datagrid parent object
-    datagrid: PropTypes.any
+    # The collection the datagrid is rendering
+    collection: PropTypes.oneOfType([
+      PropTypes.object
+      PropTypes.array
+    ])  
     # This is the cell component to use when the cellComponent attribute 
     # is not specified in in the column definition
     defaultCellComponent: PropTypes.any 
@@ -109,7 +112,9 @@ module.exports = class CellWrapper extends React.Component
     if @props.showPlaceholder 
         return <span>...</span> 
 
-    CellComponent = @props.column.cellComponent ? @props.defaultCellComponent
+    # @props.column.defaultFormatter was from react-data-grid 
+    # which copied slick-grid, we support both
+    CellComponent = @props.column.cellComponent ? @props.column.defaultFormatter ? @props.defaultCellComponent
 
     <CellComponent 
       value={@props.value}
@@ -118,13 +123,14 @@ module.exports = class CellWrapper extends React.Component
       editing={@props.editing}
       rowData={@props.model}
       rowIndex={@props.rowIndex}
+      rowIdx={@props.rowIndex}
       column={@props.column}
-      datagrid={@props.datagrid}
+      collection={@props.collection}
       defaultCellStyle={@props.defaultCellStyle}
       ref={'cellComponent'}
       onChange={@_onChange}
     />
-    
+    # rowIdx is for backward compat.
     
   _renderIndicators: () ->
     <div className="rdd-cell-indicators">

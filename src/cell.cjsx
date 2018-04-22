@@ -12,21 +12,29 @@ extend = require('node.extend')
 module.exports = class Cell extends React.Component
   
   @propTypes: 
+    # is this cell selected
     selected: PropTypes.bool
+    # is this cell currently being edited
     editing: PropTypes.bool
+    # is this cell able to be edited
     editable: PropTypes.bool
+    # backbone model or object 
     rowData: PropTypes.object
+    # row index of row being rendered
+    rowIndex: PropTypes.number
+    # column defition object
     column: PropTypes.object
-    datagrid: PropTypes.any   
-    
+    # The collection the datagrid is rendering
+    collection: PropTypes.oneOfType([
+      PropTypes.object
+      PropTypes.array
+    ])  
     # this component and the underlying Datum are controlled components
     # the value of the cell will not update until the value prop is passed in
     value: PropTypes.any
     onChange: PropTypes.func 
-
     # called when user clicks edit icon
     onEdit: PropTypes.func
-    
     # default styles to apply to cell
     defaultCellStyle: PropTypes.object
     

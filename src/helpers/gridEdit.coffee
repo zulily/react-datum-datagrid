@@ -20,6 +20,9 @@ module.exports = class GridEdit
     if column?.datum?.prototype?.isLocked?(column, model)  
       return false
     
+    if col?.datumProps?.shouldLock?(col, rowModel)
+      return false
+          
     return column.editable ? @props.defaultColumnDef.editable
 
     
@@ -147,6 +150,7 @@ module.exports = class GridEdit
   getColumnDefaults: (columnDef) ->
     columnDef = Extend true, {}, @props.defaultColumnDef, columnDef
     columnDef.name ?= Titleize(Humanize(columnDef.key))
+    columnDef.givenName = columnDef.name
     return columnDef
     
   

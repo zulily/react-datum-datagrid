@@ -114,6 +114,8 @@ Currently supported column feature attributes:
   - `exportFunction`       - a callback function Called with (model, columnDef, datagrid, options). If specified, has precedence over exportAttr and csvExportAttr. It should return a text or numeric value to export for the given model and column definition. Called with (model, columnDefinition, datagrid, options) where options can be `forCsv`: true if being exported for Csv .
   - `validations`          - An array of methods to call with (model, columnDef, value). Each method specified must return true or the model value will not be set. Failing validations should return a string error message suitable for user comprehension. 
   - `cellStyle`            - inline styles to apply to the cell. 
+  - `cellComponent`        - Component to display in cells. alias: `defaultFormatter`. default: ReactDatumDatagrid.Cell
+  - `headerComponent`      - Component to display in header cells. alias: `header`. default: ReactDatumDatagrid.HeaderCell
 
 
 ## API Docs

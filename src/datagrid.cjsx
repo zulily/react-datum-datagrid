@@ -15,6 +15,7 @@ GridScroll = require './helpers/gridScroll'
 GridCopyPaste = require './helpers/gridCopyPaste'
 GridSort = require './helpers/gridSort'
 
+Cell = require './cell'
 HeaderCell = require './headerCell'
 
 Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
@@ -61,6 +62,12 @@ module.exports = class Datagrid extends React.Component
     # default column definition attributes
     defaultColumnDef: PropTypes.object
 
+    # default component to render in data cells.  default: ReactDatumDatagrid.Cell
+    defaultCellComponent: PropTypes.any
+    
+    # default component to render in header cell. default: ReactDatumDatagrid.HeaderCell
+    defaultHeaderComponent: PropTypes.any
+  
     # disables ctrl-Z to undo 
     disableUndo: PropTypes.bool
     
@@ -90,6 +97,8 @@ module.exports = class Datagrid extends React.Component
     headerWidth: 150
     headerHeight: 60
     orientation: 'landscape'
+    defaultHeaderComponent: HeaderCell
+    defaultCellComponent: Cell
     defaultColumnDef: {
       width: 120
       
@@ -349,10 +358,13 @@ module.exports = class Datagrid extends React.Component
     isSortingByUs = @state.isSorting && isSortedByUs
     sortDirection = if isSortedByUs then @state.sortDirection else null
     
-    <HeaderCell 
+    HeaderCellComponent = columnDef.headerComponent ? columnDef.header ? @props.defaultHeaderComponent
+    
+    <HeaderCellComponent 
       key={columnIndex}
       column={columnDef} 
       columnIndex={columnIndex}
+      collection={@props.collection}
       orientation={@props.orientation}
       
       isSorting={isSortingByUs}
@@ -382,10 +394,12 @@ module.exports = class Datagrid extends React.Component
       column: columnDef
       rowIndex: rowIndex
       columnIndex: columnIndex
+      collection: @props.collection
       style: style
       showPlaceholder: showPlaceholder
       datagrid: @
       defaultCellStyle: @_getDefaultCellStyle(columnDef)
+      defaultCellComponent: @props.defaultCellComponent
       
       editable: @canEditCell(columnDef, model)
       selected: @isCellSelected(rowIndex, columnDef.key)  

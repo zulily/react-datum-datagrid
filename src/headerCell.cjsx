@@ -14,8 +14,15 @@ SavingIndicator = require('./helpers/savingIndicator')
 module.exports = class HeaderCell extends React.Component
     
   @propTypes: 
+    # the column definition
     column: PropTypes.object
+    # the index of the column
     columnIndex: PropTypes.number
+    # the collection the datagrid is rendered from 
+    collection: PropTypes.oneOfType([
+      PropTypes.object
+      PropTypes.array
+    ])  
     style: PropTypes.object
     isSorting: PropTypes.bool
     sorted: PropTypes.oneOf(['ASC', 'DESC'])
@@ -96,7 +103,6 @@ module.exports = class HeaderCell extends React.Component
   
     <SortIndicator sorted={@props.sorted} onClick={@_onSort}/>
   
-
   _renderSpinnySpinner: ->
     <SavingIndicator/>
 
