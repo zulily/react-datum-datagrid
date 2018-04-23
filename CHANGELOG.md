@@ -1,3 +1,9 @@
+## [0.3.6](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.5...0.3.6) (2018-04-23)
+
+
+### Other Commits
+* [7dae654](git+https://github.com/zulily/react-datum-datagrid.git/commit/7dae654c4af4a60e3fd59db91d9193f2dabdad1f) update bumble-docs to latest. love you, babel
+
 ## [0.3.5](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.4...0.3.5) (2018-04-22)
 
 
