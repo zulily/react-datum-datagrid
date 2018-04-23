@@ -1,3 +1,10 @@
+## [0.3.3](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.2...0.3.3) (2018-04-22)
+
+
+### Other Commits
+* [1f8711f](git+https://github.com/zulily/react-datum-datagrid.git/commit/1f8711f84f337618376f6ff0c42e431db6a1fe6e) clean build
+* [a8a7f58](git+https://github.com/zulily/react-datum-datagrid.git/commit/a8a7f5803fdea0e8fd8820974af0e92b4a4f3317) upgrade to latest bumble-strings and replace underscore.string
+
 ## [0.3.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.1...0.3.2) (2018-04-21)
 
 
