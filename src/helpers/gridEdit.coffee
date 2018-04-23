@@ -1,11 +1,8 @@
 
 _ = require 'underscore'
-
+Bstr = require 'bumble-strings'
 Extend = require 'node.extend'
 DeepGet = require './deepGet'
-
-Titleize = require('underscore.string/Titleize')
-Humanize = require('underscore.string/Humanize')
 
 ###
 
@@ -149,7 +146,7 @@ module.exports = class GridEdit
     
   getColumnDefaults: (columnDef) ->
     columnDef = Extend true, {}, @props.defaultColumnDef, columnDef
-    columnDef.name ?= Titleize(Humanize(columnDef.key))
+    columnDef.name ?= Bstr.titleize(Bstr.humanize(columnDef.key))
     columnDef.givenName = columnDef.name
     return columnDef
     

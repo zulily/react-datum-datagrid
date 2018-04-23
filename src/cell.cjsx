@@ -4,8 +4,8 @@ React = require('react')
 ReactDatum = require('react-datum')
 PropTypes = require('prop-types')
 Classnames = require('classnames')
+Bstr = require('bumble-strings')
 
-dasherize = require('underscore.string/dasherize')
 _ = require('underscore')
 extend = require('node.extend')
 
@@ -103,7 +103,7 @@ module.exports = class Cell extends React.Component
     model = @getModel()
     return Classnames(
       'rdd-cell', 
-      "rdd-#{dasherize(@props.column.key)}-column no-help-icon",
+      "rdd-#{Bstr.dasherize(@props.column.key)}-column no-help-icon",
       @getAdditionalElementClasses(),
       {'rdd-cell-error': @getDatagridSaveErrors()?.length > 0},
       {'rdd-cell-saved': @getDatagridSaveSuccess() == true},

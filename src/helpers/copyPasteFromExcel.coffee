@@ -1,5 +1,5 @@
 
-trim = require('underscore.string/trim')
+Bstr = require 'bumble-strings'
 
 ###
 
@@ -24,7 +24,7 @@ module.exports = class CopyPasteFromExcel
 
   removeQuotes: (str) ->
     return str unless str?
-    trimmed = trim(str)
+    trimmed = Bstr.trim(str)
     if trimmed[0] == '\"' && trimmed[trimmed.length - 1] == '\"'
       return trimmed.substr(trimmed.indexOf('\"') + 1, trimmed.lastIndexOf('\"') - 1)
     else
