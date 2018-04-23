@@ -1,3 +1,9 @@
+## [0.3.5](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.4...0.3.5) (2018-04-22)
+
+
+### Other Commits
+* [607e0e0](git+https://github.com/zulily/react-datum-datagrid.git/commit/607e0e034dae8b3a14cdfae02124efbbc55d1705) upgrade to latest bumble-docs to mitigate ES2015 preset issue
+
 ## [0.3.4](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.3...0.3.4) (2018-04-22)
 
 
