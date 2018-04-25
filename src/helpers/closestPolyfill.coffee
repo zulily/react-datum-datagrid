@@ -14,3 +14,5 @@ if window.Element and !Element::closest
       unless i < 0 and (el = el.parentElement)
         break
     el
+
+module.exports = {}

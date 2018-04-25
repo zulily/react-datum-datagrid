@@ -11240,6 +11240,8 @@ module.exports = g;
       return el;
     };
   }
+
+  module.exports = {};
 }).call(undefined);
 
 /***/ }),
