@@ -2940,6 +2940,10 @@ module.exports = function(module) {
 
     Datagrid.prototype.exportToCsv = function () {};
 
+    Datagrid.prototype.getCollection = function () {
+      return this.props.collection;
+    };
+
     Datagrid.prototype._renderHeaderCells = function (baseIndex, columnDefs) {
       var cells, columnDef, index;
       cells = function () {

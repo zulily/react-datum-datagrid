@@ -349,7 +349,11 @@ module.exports = class Datagrid extends React.Component
   ###
   exportToCsv: () ->
     # this method is provided by helpers/gridExport. here for docs purposes
-
+    
+  
+  getCollection: () ->
+    return @props.collection
+    
 
   _renderHeaderCells: (baseIndex, columnDefs) ->
     cells = for columnDef, index in columnDefs
