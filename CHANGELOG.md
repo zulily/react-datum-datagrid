@@ -1,3 +1,14 @@
+## [0.3.7](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.6...0.3.7) (2018-04-25)
+
+
+### New Features
+* [380cbef](git+https://github.com/zulily/react-datum-datagrid.git/commit/380cbef68b1af99da98c3988007891f4d7cc8cfe)  add exportToCsv() api
+
+### Other Commits
+* [594698f](git+https://github.com/zulily/react-datum-datagrid.git/commit/594698fccfff1f8ba46996a970011b9cdff970e1) cells should be wrapped in an Rd.Model which provides a model context and response to changes in model
+* [68f2f6e](git+https://github.com/zulily/react-datum-datagrid.git/commit/68f2f6e5b36a6eaeeb63fd3bff424d656878703c) should support legacy 'formatter' column def attribute
+* [63813ec](git+https://github.com/zulily/react-datum-datagrid.git/commit/63813eca6f4571414888ffcc6a28ea79738820d1) add getCollection legacy api
+
 ## [0.3.6](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.5...0.3.6) (2018-04-23)
 
 
