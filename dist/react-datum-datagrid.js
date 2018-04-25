@@ -5145,7 +5145,7 @@ module.exports = is;
       }
       CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;
       return React.createElement(Rd.Model, {
-        "model": this.props.rowData
+        "model": this.props.model
       }, React.createElement(CellComponent, {
         "value": this.props.value,
         "selected": this.props.selected,

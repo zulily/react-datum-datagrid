@@ -117,7 +117,7 @@ module.exports = class CellWrapper extends React.Component
     # @props.column.formatter was from react-data-grid 
     # which copied slick-grid, we support both
     CellComponent = @props.column.cellComponent ? @props.column.formatter ? @props.defaultCellComponent
-    <Rd.Model model={@props.rowData}>
+    <Rd.Model model={@props.model}>
       <CellComponent 
         value={@props.value}
         selected={@props.selected}
