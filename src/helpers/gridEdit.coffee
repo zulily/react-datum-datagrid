@@ -130,6 +130,15 @@ module.exports = class GridEdit
     
     
   ###
+    returns the current columns with defaults
+  ###
+  getColumns: () ->
+    return [] unless @props.columns?.length > 0
+    columns = @props.columns.slice(0)
+    return (@getColumn(i) for i in [0..columns.length - 1])
+    
+    
+  ###
     returns a column with defaulted attributes by key or index
   ###
   getColumn: (keyOrIndex) ->
@@ -148,6 +157,7 @@ module.exports = class GridEdit
     columnDef = Extend true, {}, @props.defaultColumnDef, columnDef
     columnDef.name ?= Bstr.titleize(Bstr.humanize(columnDef.key))
     columnDef.givenName = columnDef.name
+    columnDef.exportable ?= true
     return columnDef
     
   

@@ -13,6 +13,7 @@ GridEdit = require './helpers/gridEdit'
 GridSelect = require './helpers/gridSelect'
 GridScroll = require './helpers/gridScroll'
 GridCopyPaste = require './helpers/gridCopyPaste'
+GridExport = require './helpers/gridExport'
 GridSort = require './helpers/gridSort'
 
 Cell = require './cell'
@@ -203,16 +204,14 @@ module.exports = class Datagrid extends React.Component
     # doesn't need to be big but in the event of multiple cells posting saves at the near same time,
     # don't call forceUpdate for each one
     @_debouncedForceUpdate = _.debounce((=> @forceUpdate()), 50)
-
-    
-
-  style: (name) -> 
-    _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
-
     # In milleseconds, this will efficiently collect
     # model changes that happen within the same "action"
     # and bucket the undo operations in such a way so as to work
     # with multi grid paste as well as with single actions.
+    
+
+  style: (name) -> 
+    _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
     
   
   # https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
@@ -343,6 +342,13 @@ module.exports = class Datagrid extends React.Component
   getRowCount: () ->
     return 0 unless @props.collection?
     return @props.collection.getLength?() ? @props.collection.length ? 0
+
+
+  ###
+    Call this method to get a csv text representation of the grid
+  ###
+  exportToCsv: () ->
+    # this method is provided by helpers/gridExport. here for docs purposes
 
 
   _renderHeaderCells: (baseIndex, columnDefs) ->
@@ -516,4 +522,5 @@ module.exports = class Datagrid extends React.Component
   Mixin @, GridEdit
   Mixin @, GridSelect
   Mixin @, GridCopyPaste
+  Mixin @, GridExport
   Mixin @, GridSort
