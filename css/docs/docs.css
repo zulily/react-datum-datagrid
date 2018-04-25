@@ -14,3 +14,10 @@ p {
   height: 50%;
   position: relative;
 }
+
+.datum.lazy-image {
+  height: 95px;
+  width: 95px;
+  position: relative;
+  display: block;  
+}
