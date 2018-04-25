@@ -3,6 +3,8 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 PropTypes = require 'prop-types'
 Classnames = require 'classnames'
+Rd = require 'react-datum'
+
 _ = require 'underscore'
 
 # FontAwesomeIcon = require '@fortawesome/react-fontawesome'
@@ -115,21 +117,22 @@ module.exports = class CellWrapper extends React.Component
     # @props.column.formatter was from react-data-grid 
     # which copied slick-grid, we support both
     CellComponent = @props.column.cellComponent ? @props.column.formatter ? @props.defaultCellComponent
-
-    <CellComponent 
-      value={@props.value}
-      selected={@props.selected}
-      editable={@props.editable}
-      editing={@props.editing}
-      rowData={@props.model}
-      rowIndex={@props.rowIndex}
-      rowIdx={@props.rowIndex}
-      column={@props.column}
-      collection={@props.collection}
-      defaultCellStyle={@props.defaultCellStyle}
-      ref={'cellComponent'}
-      onChange={@_onChange}
-    />
+    <Rd.Model model={@props.rowData}>
+      <CellComponent 
+        value={@props.value}
+        selected={@props.selected}
+        editable={@props.editable}
+        editing={@props.editing}
+        rowData={@props.model}
+        rowIndex={@props.rowIndex}
+        rowIdx={@props.rowIndex}
+        column={@props.column}
+        collection={@props.collection}
+        defaultCellStyle={@props.defaultCellStyle}
+        ref={'cellComponent'}
+        onChange={@_onChange}
+      />
+    </Rd.Model>
     # rowIdx is for backward compat.
     
   _renderIndicators: () ->
