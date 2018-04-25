@@ -15,4 +15,3 @@ if window.Element and !Element::closest
         break
     el
 
-module.exports = {}

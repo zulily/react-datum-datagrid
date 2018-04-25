@@ -5096,7 +5096,7 @@ module.exports = is;
       if (typeof (base = this.props).onRenderError === "function") {
         base.onRenderError(error, info);
       }
-      console.error("react-datum-datagrid: Cell at " + rowIndex + ", " + columnIndex + " (" + column.key + ") failed to render", error, info);
+      console.error("react-datum-datagrid: Cell at " + this.props.rowIndex + ", " + this.props.columnIndex + " (" + this.props.column.key + ") failed to render", error, info);
       return this.setState({
         renderError: {
           error: error,
@@ -11240,8 +11240,6 @@ module.exports = g;
       return el;
     };
   }
-
-  module.exports = {};
 }).call(undefined);
 
 /***/ }),

@@ -73,7 +73,7 @@ module.exports = class CellWrapper extends React.Component
     
   componentDidCatch: (error, info)->
     @props.onRenderError?(error, info)
-    console.error "react-datum-datagrid: Cell at #{rowIndex}, #{columnIndex} (#{column.key}) failed to render", error, info
+    console.error "react-datum-datagrid: Cell at #{@props.rowIndex}, #{@props.columnIndex} (#{@props.column.key}) failed to render", error, info
     @setState renderError: {error: error, info: info}
     
   render: ->
