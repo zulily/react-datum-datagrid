@@ -1,12 +1,13 @@
 .react-datum-datagrid .rdd-editable-indicator svg,.react-datum-datagrid .rdd-saving-indicator svg{fill:currentColor}
 .react-datum-datagrid .rdd-headers{background-color:#eceff6;vertical-align:top}
-.react-datum-datagrid .rdd-header-wrapper a{color:#000;cursor:pointer;margin:5px}
+.react-datum-datagrid .rdd-header-wrapper a{color:#000;cursor:pointer;margin:5px;word-break:break-word;white-space:pre-wrap}
 .react-datum-datagrid .rdd-header-wrapper a:hover{text-decoration:underline}
 .react-datum-datagrid .rdd-header-icons{float:right;margin-right:5px}
 .react-datum-datagrid .rdd-header-icon{height:11px;width:11px;cursor:pointer}
 .react-datum-datagrid .rdd-sort-indicator{color:#999;opacity:.4}
 .react-datum-datagrid .rdd-sort-indicator-asc{color:#0C0C0C;opacity:1}
 .react-datum-datagrid .rdd-sort-indicator-desc{opacity:1}
+.react-datum-datagrid .rdd-cell-wrapper{word-break:break-word;white-space:pre-wrap}
 .react-datum-datagrid .rdd-cell-selected{background-color:#91A4CC;color:#f5f5f5}
 .react-datum-datagrid .rdd-cell .datum-display-value{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .react-datum-datagrid .rdd-cell img{max-height:100px;max-width:100px}
