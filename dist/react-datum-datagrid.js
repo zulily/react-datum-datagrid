@@ -5140,7 +5140,7 @@ module.exports = is;
       if (this.props.showPlaceholder) {
         return React.createElement("span", null, "...");
       }
-      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.defaultFormatter) != null ? ref : this.props.defaultCellComponent;
+      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;
       return React.createElement(CellComponent, {
         "value": this.props.value,
         "selected": this.props.selected,

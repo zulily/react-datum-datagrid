@@ -112,9 +112,9 @@ module.exports = class CellWrapper extends React.Component
     if @props.showPlaceholder 
         return <span>...</span> 
 
-    # @props.column.defaultFormatter was from react-data-grid 
+    # @props.column.formatter was from react-data-grid 
     # which copied slick-grid, we support both
-    CellComponent = @props.column.cellComponent ? @props.column.defaultFormatter ? @props.defaultCellComponent
+    CellComponent = @props.column.cellComponent ? @props.column.formatter ? @props.defaultCellComponent
 
     <CellComponent 
       value={@props.value}
