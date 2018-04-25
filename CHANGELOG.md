@@ -1,3 +1,16 @@
+## [0.3.8](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.7...0.3.8) (2018-04-25)
+
+
+### Other Commits
+* [538f499](git+https://github.com/zulily/react-datum-datagrid.git/commit/538f499ea40f6a6a11fa22f790475a0c48c24766) fix error boundary handler in CellWrapper
+* [9e7dcd5](git+https://github.com/zulily/react-datum-datagrid.git/commit/9e7dcd5368c5a908dac004ff8589e952f33ad468) test: seeing if the problem in im-products-grid webpack and closestPolyfill is because it doesn't module.exports anything?
+* [1d2d010](git+https://github.com/zulily/react-datum-datagrid.git/commit/1d2d0108505ca4c62c9868ce66b4fcd1738077fc) add more recommended css for cell images beautification
+* [d45c691](git+https://github.com/zulily/react-datum-datagrid.git/commit/d45c691087a264b8361b190af347b37de41a0f35) add more recommended css for cell and header cell beautification
+* [c5df531](git+https://github.com/zulily/react-datum-datagrid.git/commit/c5df531edeb5c3faca10efd692b6a73aa1f05142) add suggested css to wrap and break words in cells
+* [9087231](git+https://github.com/zulily/react-datum-datagrid.git/commit/90872312241e9212d1f8ec8dcad62fe16fd7c884) one more change to docs publishing
+* [f5a7fe6](git+https://github.com/zulily/react-datum-datagrid.git/commit/f5a7fe6a106184aed0c4e2a3ce0f17c3c207be86) change to make scripts/publishDocs.sh more reliable
+* [c4b0612](git+https://github.com/zulily/react-datum-datagrid.git/commit/c4b06122132cf9be0342f8a6f02d80504b1dc094) change to make scripts/publishDocs.sh more reliable
+
 ## [0.3.7](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.6...0.3.7) (2018-04-25)
 
 
