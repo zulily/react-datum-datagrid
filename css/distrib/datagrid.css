@@ -6,12 +6,15 @@
   vertical-align: top;
 }
 
+.react-datum-datagrid .rdd-header-wrapper {
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
 .react-datum-datagrid .rdd-header-wrapper a {
   color: black;
   cursor: pointer;
   margin: 5px;
-  word-break: break-word;
-  white-space: pre-wrap;
 }
 
 .react-datum-datagrid .rdd-header-wrapper a:hover {
