@@ -392,6 +392,8 @@ module.exports = class GridEdit
     
     if options.silent
       @state.savedCells = savedCells
+    else
+      @setState savedCells: savedCells
     
     # if the cell save was successfull, only show the indication of sucess for 7 sec
     # if the save wasn't successful keep it showing indication of error until explicitly cleared
@@ -445,9 +447,6 @@ module.exports = class GridEdit
     
     
   onModelSaveError: (model, resp, options) =>
-    unless @props.silentSaveErrors
-      throw "Unable to save changes<br><br>#{JSON.stringify(resp)}"
-    
     rowEvt = options?.__datagrid_rowEvt
     if rowEvt?
       @setSaveErrors(model, rowEvt, resp)

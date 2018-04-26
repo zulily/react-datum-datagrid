@@ -12,6 +12,7 @@ _ = require 'underscore'
 
 EditableIndicator = require './editableIndicator'
 SavingIndicator = require './savingIndicator'
+ErrorIndicator = require './errorIndicator'
 
 
 Cell = require '../cell'
@@ -41,15 +42,27 @@ module.exports = class CellWrapper extends React.Component
     # This is the cell style to use when the cellComponent attribute 
     # is not specified in in the column definition
     defaultCellStyle: PropTypes.object
+    
     # This should be the style passed from RV Grid render callback
     style: PropTypes.object
+    # show placeholder instead of value if true
+    showPlaceholder: PropTypes.bool
+    
+    editable: PropTypes.bool
+    # This is called with (event, cell) 
+    
     # true if cell is selected
     selected: PropTypes.bool
     # true if cell is in edit mode
     editing: PropTypes.bool
+    # true if cell is saving
+    saving: PropTypes.bool
+    # true if cell was recently saved
+    wasSaved: PropTypes.bool
+    # array of error messages from last save; empty if none
+    saveErrors: PropTypes.array
+
     # true if cell is editable
-    editable: PropTypes.bool
-    # This is called with (event, cell) 
     onMouseDown: PropTypes.function
     # This is called with (event, cell) 
     onMouseUp: PropTypes.function
@@ -139,6 +152,7 @@ module.exports = class CellWrapper extends React.Component
     <div className="rdd-cell-indicators">
       {@_renderEditableIndicator()}
       {@_renderSavingIndicator()}
+      {@_renderErrorIndicator()}
     </div>
     
     
@@ -150,6 +164,11 @@ module.exports = class CellWrapper extends React.Component
   _renderSavingIndicator: ->
     return null unless @props.saving
     <SavingIndicator/>
+
+
+  _renderErrorIndicator: ->
+    return null unless @props.saveErrors?.length > 0
+    <ErrorIndicator errors={@props.saveErrors}/>
 
 
   focus: ->

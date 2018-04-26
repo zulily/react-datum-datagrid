@@ -1,12 +1,20 @@
 
+let saveCount = 0
 
 let PuppyModel = Backbone.Model.extend({
   // Stub out save method and pretend it saved successfully (FOR DEMO PURPOSES ONLY)
   save: function(attrs, options){ 
+    saveCount++
     // add a few seconds delay to see the saving indicator
     _.delay( function(){
-      options.success(this, "OK", options)
-      console.log("Pretended to save model.", attrs, this)
+      // simulate a failure on every 5th Edit
+      if( saveCount % 5 == 0 ){
+        options.error(this, "Not cool, man. Not cool.", options)
+        console.log("Pretended to fail saving model.", attrs, this)
+      } else {
+        options.success(this, "OK", options)
+        console.log("Pretended to successfully save model.", attrs, this)
+      }
     }, 2000 )   
     return true
   }

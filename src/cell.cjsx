@@ -9,6 +9,10 @@ Bstr = require('bumble-strings')
 _ = require('underscore')
 extend = require('node.extend')
 
+###
+  Cell is the controlled component rendered by default in each cell.
+   
+###
 module.exports = class Cell extends React.Component
   
   @propTypes: 

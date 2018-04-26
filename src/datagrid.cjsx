@@ -407,11 +407,12 @@ module.exports = class Datagrid extends React.Component
       collection: @props.collection
       style: style
       showPlaceholder: showPlaceholder
-      datagrid: @
+
       defaultCellStyle: @_getDefaultCellStyle(columnDef)
       defaultCellComponent: @props.defaultCellComponent
       
       editable: @canEditCell(columnDef, model)
+      
       selected: @isCellSelected(rowIndex, columnDef.key)  
       editing: editingOurselves
       saving: savingOurselves
