@@ -1,3 +1,9 @@
+## [0.3.9](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.8...0.3.9) (2018-04-26)
+can haz error indicators
+
+### Other Commits
+* [ae5fcb5](git+https://github.com/zulily/react-datum-datagrid.git/commit/ae5fcb5f1d3b2ec2a906e008d6403a2cd515241f) Add error indicators and make editing example simulate error on every 5th update
+
 ## [0.3.8](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.7...0.3.8) (2018-04-25)
 
 
