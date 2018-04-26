@@ -1079,7 +1079,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
     Cell.prototype.componentDidUpdate = function (prevProps, prevState) {
       var ref, ref1;
-      this.setDatumErrors();
       if (this.props.editing && !prevProps.editing) {
         return (ref = this.refs) != null ? (ref1 = ref.datum) != null ? ref1.focus() : void 0 : void 0;
       }
@@ -1088,22 +1087,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
     Cell.prototype.render = function () {
       var datumComponent, datumProps, ref, value;
       value = this.props.value;
-      datumProps = _.extend({}, this.props.column.datumProps, {
-        model: this.getModel(),
-        attr: this.props.column.key,
-        column: this.props.column,
-        ref: 'datum',
-        inputMode: this.props.editing ? 'edit' : 'readonly',
-        stateless: true,
-        value: value,
-        onChange: this.props.onChange
-      });
-      datumProps = _.defaults(datumProps, {
-        rbOverlayProps: {
-          trigger: ['hover', 'focus', 'click'],
-          placement: 'top'
-        }
-      });
+      datumProps = this.getDatumProps(value);
       datumComponent = (ref = this.props.column.datum) != null ? ref : ReactDatum.Text;
       value = React.createElement(datumComponent, datumProps);
       return this.renderWrapped(value);
@@ -1132,18 +1116,39 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
       return this.props.rowData;
     };
 
-    Cell.prototype.getCellClass = function () {
-      var model, ref;
-      model = this.getModel();
-      return Classnames('rdd-cell', "rdd-" + Bstr.dasherize(this.props.column.key) + "-column no-help-icon", this.getAdditionalElementClasses(), {
-        'rdd-cell-error': ((ref = this.getDatagridSaveErrors()) != null ? ref.length : void 0) > 0
-      }, {
-        'rdd-cell-saved': this.getDatagridSaveSuccess() === true
-      }, {
-        'rdd-editable': this.props.editable
-      }, {
-        'rdd-selected': this.props.selected
+    /*
+      You can override or extend this method to change the props passed to 
+      the datum at runtime
+     */
+
+    Cell.prototype.getDatumProps = function (value) {
+      var datumProps;
+      datumProps = extend(true, {}, this.props.column.datumProps, {
+        model: this.getModel(),
+        attr: this.props.column.key,
+        column: this.props.column,
+        ref: 'datum',
+        inputMode: this.props.editing ? 'edit' : 'readonly',
+        stateless: true,
+        value: value,
+        setOnChange: false,
+        setOnBlur: false,
+        saveOnSet: false,
+        onChange: this.props.onChange
       });
+      datumProps = _.defaults(datumProps, {
+        rbOverlayProps: {
+          trigger: ['hover', 'focus', 'click'],
+          placement: 'top'
+        }
+      });
+      return datumProps;
+    };
+
+    Cell.prototype.getCellClass = function () {
+      var model;
+      model = this.getModel();
+      return Classnames('rdd-cell', "rdd-" + Bstr.dasherize(this.props.column.key) + "-column no-help-icon", this.getAdditionalElementClasses());
     };
 
     Cell.prototype.getCellStyle = function () {
@@ -1171,62 +1176,6 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
     Cell.prototype.getAdditionalElementClasses = function () {
       return null;
-    };
-
-    Cell.prototype.getDatagridSaveErrors = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveErrors === "function" ? model.getDatagridSaveErrors(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveErrors) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : [];
-    };
-
-    Cell.prototype.getDatagridSaveSuccess = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaveSuccess === "function" ? model.getDatagridSaveSuccess(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaveSuccess) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
-    };
-
-    Cell.prototype.setDatagridSaveSuccess = function (trueOrFalse) {
-      var model, ref;
-      model = this.getModel();
-      if (model == null) {
-        return;
-      }
-      if (_.isFunction(model.setDatagridSaveSuccess)) {
-        return model.setDatagridSaveSuccess(this.props.column.key, trueOrFalse);
-      } else {
-        return (ref = model.__datagridSaveSuccess) != null ? ref[this.props.column.key] = trueOrFalse : void 0;
-      }
-    };
-
-    Cell.prototype.getDatagridSaving = function () {
-      var model, ref, ref1, ref2;
-      model = this.getModel();
-      return (ref = (ref1 = model != null ? typeof model.getDatagridSaving === "function" ? model.getDatagridSaving(this.props.column.key) : void 0 : void 0) != null ? ref1 : model != null ? (ref2 = model.__datagridSaving) != null ? ref2[this.props.column.key] : void 0 : void 0) != null ? ref : false;
-    };
-
-    Cell.prototype.setDatumErrors = function () {
-      var base, model, ref, saveErrorResp;
-      model = this.getModel();
-      if (model == null) {
-        return;
-      }
-      saveErrorResp = this.getDatagridSaveErrors();
-      if ((saveErrorResp != null ? saveErrorResp.length : void 0) > 0) {
-        if (this.refs.datum != null) {
-          if (typeof (base = this.refs.datum).clearErrors === "function") {
-            base.clearErrors();
-          }
-          this.refs.datum.onModelSaveError(this.getModel(), saveErrorResp);
-        }
-      }
-      if (this.getDatagridSaveSuccess()) {
-        if ((ref = this.refs.datum) != null) {
-          if (typeof ref.clearErrors === "function") {
-            ref.clearErrors();
-          }
-        }
-        return this.setDatagridSaveSuccess(false);
-      }
     };
 
     Cell.prototype.focusInput = function () {
@@ -5130,6 +5079,7 @@ module.exports = is;
       classNames = Classnames('rdd-cell-wrapper', {
         'rdd-cell-selected': this.isSelected(),
         'rdd-cell-placeholder': this.props.showPlaceholder,
+        'rdd-editable': this.props.editable,
         'rdd-was-saved': this.props.wasSaved,
         'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0
       });

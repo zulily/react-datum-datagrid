@@ -101,6 +101,7 @@ module.exports = class CellWrapper extends React.Component
     classNames = Classnames 'rdd-cell-wrapper',
       'rdd-cell-selected': @isSelected(), 
       'rdd-cell-placeholder': @props.showPlaceholder
+      'rdd-editable': @props.editable
       'rdd-was-saved': @props.wasSaved
       'rdd-save-error': @props.saveErrors?.length > 0
 

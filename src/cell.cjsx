@@ -44,8 +44,6 @@ module.exports = class Cell extends React.Component
     
     
   componentDidUpdate: (prevProps, prevState) ->
-    @setDatumErrors()
-    
     if @props.editing && !prevProps.editing
       @refs?.datum?.focus()
       
@@ -55,24 +53,7 @@ module.exports = class Cell extends React.Component
 
   render: -> 
     value = @props.value
-    datumProps = _.extend {}, @props.column.datumProps,
-      model: @getModel() 
-      attr: @props.column.key
-      column: @props.column
-      ref: 'datum'
-      inputMode: if @props.editing then 'edit' else 'readonly'
-      stateless: true
-      value: value
-      onChange: @props.onChange
-        
-        
-    datumProps = _.defaults datumProps,
-      # default placement of popover in datagrid is top because that's the safest to not be 
-      # cut off by a viewport edge
-      rbOverlayProps: 
-        trigger: ['hover','focus', 'click']
-        placement: 'top'          
-    
+    datumProps = @getDatumProps(value)
     datumComponent = @props.column.datum ? ReactDatum.Text
     value = React.createElement datumComponent, datumProps
     return @renderWrapped(value)
@@ -103,17 +84,41 @@ module.exports = class Cell extends React.Component
     return @props.rowData
   
   
+  ###
+    You can override or extend this method to change the props passed to 
+    the datum at runtime
+  ###
+  getDatumProps: (value) ->
+    datumProps = extend true, {}, @props.column.datumProps,
+      model: @getModel() 
+      attr: @props.column.key
+      column: @props.column
+      ref: 'datum'
+      inputMode: if @props.editing then 'edit' else 'readonly'
+      stateless: true
+      value: value
+      setOnChange: false
+      setOnBlur: false
+      saveOnSet: false
+      onChange: @props.onChange
+        
+        
+    datumProps = _.defaults datumProps,
+      # default placement of popover in datagrid is top because that's the safest to not be 
+      # cut off by a viewport edge
+      rbOverlayProps: 
+        trigger: ['hover','focus', 'click']
+        placement: 'top'          
+    
+    return datumProps
+    
+  
   getCellClass: () ->
     model = @getModel()
     return Classnames(
       'rdd-cell', 
       "rdd-#{Bstr.dasherize(@props.column.key)}-column no-help-icon",
       @getAdditionalElementClasses(),
-      {'rdd-cell-error': @getDatagridSaveErrors()?.length > 0},
-      {'rdd-cell-saved': @getDatagridSaveSuccess() == true},
-      {'rdd-editable': @props.editable},
-      # method provided by gridSelectMixin
-      {'rdd-selected': @props.selected}
     )
   
   
@@ -153,47 +158,6 @@ module.exports = class Cell extends React.Component
   # you can extend this formatter and add css classes to the wrapper element if needed
   getAdditionalElementClasses: ->
     return null 
-      
-      
-  getDatagridSaveErrors: ->
-    model = @getModel()
-    model?.getDatagridSaveErrors?(@props.column.key) ? model?.__datagridSaveErrors?[@props.column.key] ? []
-    
-  
-  getDatagridSaveSuccess: ->
-    model = @getModel()
-    model?.getDatagridSaveSuccess?(@props.column.key) ? model?.__datagridSaveSuccess?[@props.column.key] ? false
-    
-    
-  setDatagridSaveSuccess: (trueOrFalse) ->
-    model = @getModel()
-    return unless model?
-    
-    if _.isFunction model.setDatagridSaveSuccess
-      model.setDatagridSaveSuccess(@props.column.key, trueOrFalse)
-    else
-      model.__datagridSaveSuccess?[@props.column.key] = trueOrFalse
-      
-      
-  getDatagridSaving: () ->
-    model = @getModel()
-    model?.getDatagridSaving?(@props.column.key) ? model?.__datagridSaving?[@props.column.key] ? false
-    
-      
-  setDatumErrors: ->
-    model = @getModel()
-    return unless model?
-    
-    # unlike success handler below, we leave the cell-error on until the next update
-    saveErrorResp = @getDatagridSaveErrors()
-    if saveErrorResp?.length > 0
-      if @refs.datum?
-        @refs.datum.clearErrors?()
-        @refs.datum.onModelSaveError(@getModel(), saveErrorResp)
-
-    if @getDatagridSaveSuccess()
-      @refs.datum?.clearErrors?()
-      @setDatagridSaveSuccess(false)
       
       
   focusInput: ->
