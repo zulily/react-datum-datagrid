@@ -1,3 +1,9 @@
+## [0.4.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.9...0.4.0) (2018-04-26)
+Possibly breaking change to custom "formatter"s.  
+
+### Other Commits
+* [c139ec0](git+https://github.com/zulily/react-datum-datagrid.git/commit/c139ec06f5f6ad8d9cb1778b6d3c39681433ee9f) remove redundant model set, save and error handling by cell
+
 ## [0.3.9](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.8...0.3.9) (2018-04-26)
 can haz error indicators
 
