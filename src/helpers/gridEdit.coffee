@@ -165,6 +165,11 @@ module.exports = class GridEdit
   
   getModelAt: (index) ->
     collection = @props.collection
+
+    if collection?.ensureRows?
+      # we need to ignore the collection add events that might come with this 
+      collection.ensureRows Math.max(index - 25, 0), index + 25
+    
     return switch      
       when not collection? then null
       when collection.getItem? then collection.getItem(index)

@@ -5933,6 +5933,9 @@ module.exports = is;
     GridEdit.prototype.getModelAt = function (index) {
       var collection;
       collection = this.props.collection;
+      if ((collection != null ? collection.ensureRows : void 0) != null) {
+        collection.ensureRows(Math.max(index - 25, 0), index + 25);
+      }
       switch (false) {
         case !(collection == null):
           return null;
