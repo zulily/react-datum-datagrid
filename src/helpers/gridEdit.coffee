@@ -14,6 +14,8 @@ module.exports = class GridEdit
     Override me to conditionally enable editing on a per cell basis
   ###
   canEditCell: (column, model) ->
+    return false if @props.readOnly
+    
     if column?.datum?.prototype?.isLocked?(column, model)  
       return false
     

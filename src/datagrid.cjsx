@@ -50,9 +50,8 @@ module.exports = class Datagrid extends React.Component
     # orientation of columns and rows can be flipped by setting this prop to 'portrait'
     orientation: PropTypes.oneOf(['landscape', 'portrait'])
     
-    # set to true to not display save errors in Oh My Something is amiss. Cells will 
-    # passively only show icon and popover  
-    silentSaveErrors: PropTypes.bool
+    # set to true to ignore column definition `editable` and make all cells readonly
+    readOnly: PropTypes.bool
     
     # width of the "headers" (labels) when orientation == 'portrait' 
     headerWidth: PropTypes.number

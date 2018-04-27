@@ -2561,7 +2561,7 @@ module.exports = function(module) {
       collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
       columns: PropTypes.array,
       orientation: PropTypes.oneOf(['landscape', 'portrait']),
-      silentSaveErrors: PropTypes.bool,
+      readOnly: PropTypes.bool,
       headerWidth: PropTypes.number,
       headerHeight: PropTypes.number,
       defaultColumnDef: PropTypes.object,
@@ -5734,6 +5734,9 @@ module.exports = is;
 
     GridEdit.prototype.canEditCell = function (column, model) {
       var ref, ref1, ref2, ref3;
+      if (this.props.readonly) {
+        return false;
+      }
       if (column != null ? (ref = column.datum) != null ? (ref1 = ref.prototype) != null ? typeof ref1.isLocked === "function" ? ref1.isLocked(column, model) : void 0 : void 0 : void 0 : void 0) {
         return false;
       }
