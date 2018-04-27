@@ -125,7 +125,7 @@ module.exports = class CellWrapper extends React.Component
     
     
   _renderComponentOrPlaceholder: () ->
-    if @props.showPlaceholder 
+    if @props.showPlaceholder || !@props.model?
         return <span>...</span> 
 
     # @props.column.formatter was from react-data-grid 

@@ -5100,7 +5100,7 @@ module.exports = is;
 
     CellWrapper.prototype._renderComponentOrPlaceholder = function () {
       var CellComponent, ref, ref1;
-      if (this.props.showPlaceholder) {
+      if (this.props.showPlaceholder || this.props.model == null) {
         return React.createElement("span", null, "...");
       }
       CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;
@@ -5734,7 +5734,7 @@ module.exports = is;
 
     GridEdit.prototype.canEditCell = function (column, model) {
       var ref, ref1, ref2, ref3;
-      if (this.props.readonly) {
+      if (this.props.readOnly) {
         return false;
       }
       if (column != null ? (ref = column.datum) != null ? (ref1 = ref.prototype) != null ? typeof ref1.isLocked === "function" ? ref1.isLocked(column, model) : void 0 : void 0 : void 0 : void 0) {
