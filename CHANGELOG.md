@@ -1,3 +1,9 @@
+## [0.4.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.0...0.4.1) (2018-04-27)
+ 
+
+### New Features
+* [5bfcca7](git+https://github.com/zulily/react-datum-datagrid.git/commit/5bfcca7e272f6ab34c2c6cce4f3d66030fd9c693)  add support for readOnly prop to make datagrid ignore column def editable
+
 ## [0.4.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.3.9...0.4.0) (2018-04-26)
 Possibly breaking change to custom "formatter"s.  
 
