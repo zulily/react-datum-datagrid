@@ -1,3 +1,6 @@
+## [0.4.3](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.2...0.4.3) (2018-04-27)
+build release
+
 ## [0.4.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.1...0.4.2) (2018-04-27)
  
 
