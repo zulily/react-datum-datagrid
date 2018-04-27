@@ -1,3 +1,9 @@
+## [0.4.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.1...0.4.2) (2018-04-27)
+ 
+
+### Other Commits
+* [b151d77](git+https://github.com/zulily/react-datum-datagrid.git/commit/b151d77353b4cb87545ef3f92f49bd1313aa3813) add missing error indicator component and better handle null models
+
 ## [0.4.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.0...0.4.1) (2018-04-27)
  
 
