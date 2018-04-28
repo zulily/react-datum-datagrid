@@ -1,3 +1,10 @@
+## [0.4.7](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.5...0.4.7) (2018-04-28)
+
+
+### Other Commits
+* [40c11b3](git+https://github.com/zulily/react-datum-datagrid.git/commit/40c11b3ee3129ede7480081e1396bfcdf10bb2af) datagrid should listen for collection events
+* [3f18df0](git+https://github.com/zulily/react-datum-datagrid.git/commit/3f18df02f082f7220be8073833e51a7037a671d4) remove extraneous console logging
+
 ## [0.4.5](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.4...0.4.5) (2018-04-27)
 
 
