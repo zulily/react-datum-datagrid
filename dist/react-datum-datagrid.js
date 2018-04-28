@@ -2859,7 +2859,6 @@ module.exports = function(module) {
       var index, width;
       index = arg.index;
       width = this.getColumnWidth(index, this._getLockedColumns());
-      console.log('getLockedColumnWidth', index, width);
       return width;
     };
 
@@ -2867,7 +2866,6 @@ module.exports = function(module) {
       var index, width;
       index = arg.index;
       width = this.getColumnWidth(index, this._getFreeColumns());
-      console.log('getFreeColumnWidth', index, width);
       return width;
     };
 

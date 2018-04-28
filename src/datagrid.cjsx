@@ -324,13 +324,13 @@ module.exports = class Datagrid extends React.Component
     
   getLockedColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getLockedColumns())
-    console.log('getLockedColumnWidth', index, width)
+    # console.log('getLockedColumnWidth', index, width)
     return width
     
   
   getFreeColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getFreeColumns())
-    console.log('getFreeColumnWidth', index, width)
+    # console.log('getFreeColumnWidth', index, width)
     return width
     
     
