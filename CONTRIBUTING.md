@@ -9,8 +9,6 @@ This project adheres to the (Contributor Covenant 1.2)[http://contributor-covena
 
 ## Getting started (public contributor)
 
-*Note to Zulily teammates, skip this section.  See the section that follows for setup and special instructions to build and test react-datum-datagrid in zuKeeper.
-
 Clone that repo!  
 
 `git clone https://github.com/zulily/react-datum-datagrid.git`
@@ -43,8 +41,7 @@ will watch all the source and tests and distribution relevant files and rebuild 
 
 ## Getting started (zuKeeper developer):
 
-TBD - we need a better way then the past and I think it involves symlinking your react-datum-datagrid local dev
-directory into htdocs_ems/app/v7/node_modules
+
 
 ## Tests
 
