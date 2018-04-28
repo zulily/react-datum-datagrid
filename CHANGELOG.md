@@ -1,3 +1,9 @@
+## [0.4.5](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.4...0.4.5) (2018-04-27)
+
+
+### Other Commits
+* [9266885](git+https://github.com/zulily/react-datum-datagrid.git/commit/9266885b554566d1b44e7ab4d340892bac31df37) updated package-lock
+
 ## [0.4.4](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.3...0.4.4) (2018-04-27)
 
 
