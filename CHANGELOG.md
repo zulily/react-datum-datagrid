@@ -1,3 +1,10 @@
+## [0.4.4](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.3...0.4.4) (2018-04-27)
+
+
+### Other Commits
+* [34164e1](git+https://github.com/zulily/react-datum-datagrid.git/commit/34164e184e36afd6e652cdd6a103dd401ab2d8da) remove backbone and underscore as peer deps
+* [7c2230e](git+https://github.com/zulily/react-datum-datagrid.git/commit/7c2230eb9b61718197a967b89e03e56e0544ca78) add legacy support for collection.ensureRows
+
 ## [0.4.3](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.2...0.4.3) (2018-04-27)
 build release
 
