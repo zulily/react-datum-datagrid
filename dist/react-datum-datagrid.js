@@ -2722,6 +2722,9 @@ module.exports = function(module) {
     });
 
     function Datagrid() {
+      this._onCollectionUpdate = bind(this._onCollectionUpdate, this);
+      this._unbindCollectionEvents = bind(this._unbindCollectionEvents, this);
+      this._bindCollectionEvents = bind(this._bindCollectionEvents, this);
       this._onDocumentKeyDown = bind(this._onDocumentKeyDown, this);
       this._onDocumentPaste = bind(this._onDocumentPaste, this);
       this._onDocumentCopy = bind(this._onDocumentCopy, this);
@@ -2761,11 +2764,20 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype.componentDidMount = function () {
-      return this._bindDocumentEvents();
+      this._bindDocumentEvents();
+      return this._bindCollectionEvents();
+    };
+
+    Datagrid.prototype.componentDidUpdate = function (prevProps) {
+      if (prevProps.collection !== this.props.collection) {
+        this._unbindCollectionEvents(prevProps.collection);
+        return this._bindCollectionEvents();
+      }
     };
 
     Datagrid.prototype.componentWillUnmount = function () {
-      return this._unbindDocumentEvents();
+      this._unbindDocumentEvents();
+      return this._unbindCollectionEvents();
     };
 
     Datagrid.prototype.render = function () {
@@ -3114,6 +3126,24 @@ module.exports = function(module) {
 
     Datagrid.prototype._onDocumentKeyDown = function (evt) {
       return this.GridSelect_onDocumentKeyDown(evt);
+    };
+
+    Datagrid.prototype._bindCollectionEvents = function (collection) {
+      if (collection == null) {
+        collection = this.props.collection;
+      }
+      return typeof collection.on === "function" ? collection.on('reset add remove', this._onCollectionUpdate) : void 0;
+    };
+
+    Datagrid.prototype._unbindCollectionEvents = function (collection) {
+      if (collection == null) {
+        collection = this.props.collection;
+      }
+      return typeof collection.off === "function" ? collection.off('reset add remove', this._onCollectionUpdate) : void 0;
+    };
+
+    Datagrid.prototype._onCollectionUpdate = function () {
+      return this._debouncedForceUpdate();
     };
 
     Mixin(Datagrid, GridScroll);

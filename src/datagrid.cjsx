@@ -229,10 +229,18 @@ module.exports = class Datagrid extends React.Component
     
   componentDidMount: ->
     @_bindDocumentEvents()
+    @_bindCollectionEvents()
+    
+    
+  componentDidUpdate: (prevProps) ->
+    if prevProps.collection != @props.collection
+      @_unbindCollectionEvents(prevProps.collection)
+      @_bindCollectionEvents()
   
   
   componentWillUnmount: ->
     @_unbindDocumentEvents()
+    @_unbindCollectionEvents()
     
     
   render: ->
@@ -522,6 +530,19 @@ module.exports = class Datagrid extends React.Component
   _onDocumentKeyDown: (evt) => @GridSelect_onDocumentKeyDown(evt)
     
     
+  _bindCollectionEvents: (collection=@props.collection) =>
+    collection?.on?('reset add remove', @_onCollectionUpdate)
+    
+  
+  _unbindCollectionEvents: (collection=@props.collection)=>
+    collection?.off?('reset add remove', @_onCollectionUpdate)
+    
+    
+  _onCollectionUpdate: =>
+    @_debouncedForceUpdate()
+    
+    
+        
   Mixin @, GridScroll
   Mixin @, GridEdit
   Mixin @, GridSelect
