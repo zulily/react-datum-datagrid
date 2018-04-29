@@ -375,6 +375,8 @@ module.exports = class Datagrid extends React.Component
     isSortingByUs = @state.isSorting && isSortedByUs
     sortDirection = if isSortedByUs then @state.sortDirection else null
     
+    isSelectingThisColumn = @state.selectingColumnIndex == columnIndex
+    
     HeaderCellComponent = columnDef.headerComponent ? columnDef.header ? @props.defaultHeaderComponent
     
     <HeaderCellComponent 
@@ -386,6 +388,7 @@ module.exports = class Datagrid extends React.Component
       
       isSorting={isSortingByUs}
       sorted={sortDirection}
+      isSelecting={isSelectingThisColumn}
       onSelectColumn={(evt,columnIndex) => @onSelectColumn(evt,columnIndex)} 
       onSort={(columnIndex, columnDef, direction) => @onSortColumn(columnIndex, columnDef, direction)}
       

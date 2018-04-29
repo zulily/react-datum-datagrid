@@ -25,6 +25,7 @@ module.exports = class HeaderCell extends React.Component
     ])  
     style: PropTypes.object
     isSorting: PropTypes.bool
+    isSelecting: PropTypes.bool
     sorted: PropTypes.oneOf(['ASC', 'DESC'])
     # callback method called when user clicks sort indicator. Called with (evt, columnIndex)
     onSort: PropTypes.func
@@ -99,7 +100,7 @@ module.exports = class HeaderCell extends React.Component
   
   _renderSortIndicator: ->
     return null unless @props.column.sortable
-    return @_renderSpinnySpinner() if @props.isSorting
+    return @_renderSpinnySpinner() if @props.isSorting || @props.isSelecting
   
     <SortIndicator sorted={@props.sorted} onClick={@_onSort}/>
   

@@ -1851,6 +1851,7 @@ module.exports = warning;
       collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
       style: PropTypes.object,
       isSorting: PropTypes.bool,
+      isSelecting: PropTypes.bool,
       sorted: PropTypes.oneOf(['ASC', 'DESC']),
       onSort: PropTypes.func,
       onSelectColumn: PropTypes.func,
@@ -1929,7 +1930,7 @@ module.exports = warning;
       if (!this.props.column.sortable) {
         return null;
       }
-      if (this.props.isSorting) {
+      if (this.props.isSorting || this.props.isSelecting) {
         return this._renderSpinnySpinner();
       }
       return React.createElement(SortIndicator, {
@@ -2922,7 +2923,7 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._renderHeaderCell = function (columnIndex, columnDef) {
-      var HeaderCellComponent, isSortedByUs, isSortingByUs, ref, ref1, sortDirection;
+      var HeaderCellComponent, isSelectingThisColumn, isSortedByUs, isSortingByUs, ref, ref1, sortDirection;
       if (columnDef == null) {
         return null;
       }
@@ -2930,6 +2931,7 @@ module.exports = function(module) {
       isSortedByUs = this.state.sortColumnIndex != null && this.state.sortColumnIndex === columnIndex;
       isSortingByUs = this.state.isSorting && isSortedByUs;
       sortDirection = isSortedByUs ? this.state.sortDirection : null;
+      isSelectingThisColumn = this.state.selectingColumnIndex === columnIndex;
       HeaderCellComponent = (ref = (ref1 = columnDef.headerComponent) != null ? ref1 : columnDef.header) != null ? ref : this.props.defaultHeaderComponent;
       return React.createElement(HeaderCellComponent, {
         "key": columnIndex,
@@ -2939,6 +2941,7 @@ module.exports = function(module) {
         "orientation": this.props.orientation,
         "isSorting": isSortingByUs,
         "sorted": sortDirection,
+        "isSelecting": isSelectingThisColumn,
         "onSelectColumn": function (_this) {
           return function (evt, columnIndex) {
             return _this.onSelectColumn(evt, columnIndex);
@@ -6552,11 +6555,11 @@ module.exports = is;
       var selectAllCells;
       evt.stopPropagation();
       this.setState({
-        selectingAll: true
+        selectingColumnIndex: columnIndex
       });
       selectAllCells = function (_this) {
         return function () {
-          var column, i, index, len, model, models, ref, selectedCells;
+          var column, i, index, len, model, models, ref, selectedCells, selectingColumnIndex;
           column = _this.getColumn(columnIndex);
           selectedCells = [];
           models = Array.isArray(_this.props.collection) ? _this.props.collection : (ref = _this.props.collection.models) != null ? ref : [];
@@ -6568,9 +6571,10 @@ module.exports = is;
               columnIndex: columnIndex
             });
           }
+          selectingColumnIndex = _this.state.selectingColumnIndex === columnIndex ? null : _this.state.selectingColumnIndex;
           return _this.setState({
             selectedCells: selectedCells,
-            selectingAll: false
+            selectingColumnIndex: selectingColumnIndex
           });
         };
       }(this);

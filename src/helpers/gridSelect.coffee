@@ -124,7 +124,9 @@ module.exports = class GridSelect
       # TODO
       # return unless @_canSelectAllCells()
       
-      @setState selectingAll: true
+      @setState 
+        selectingColumnIndex: columnIndex
+      
       selectAllCells = () =>
         column = @getColumn(columnIndex)
         selectedCells = []
@@ -136,7 +138,10 @@ module.exports = class GridSelect
             columnIndex: columnIndex
             })
         # 
-        @setState selectedCells: selectedCells, selectingAll: false
+        selectingColumnIndex = if @state.selectingColumnIndex == columnIndex then null else @state.selectingColumnIndex
+        @setState 
+          selectedCells: selectedCells 
+          selectingColumnIndex: selectingColumnIndex
         
       if _.isFunction @props.collection.ensureAllRows
         @setState selectedCells: [], selectingAll: true
