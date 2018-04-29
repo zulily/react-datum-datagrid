@@ -91,7 +91,7 @@ module.exports = class GridEdit
     
     columnIndex = @state.editingCell.columnIndex
     rowIndex = @state.editingCell.rowIndex
-    value = @state.editingCell.value
+    value = @state.editingCell.value?.value ? @state.editingCell.value ? null
       
     rowEvt = {  
       cellKey: columnDef.key

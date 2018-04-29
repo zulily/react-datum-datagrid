@@ -3132,14 +3132,14 @@ module.exports = function(module) {
       if (collection == null) {
         collection = this.props.collection;
       }
-      return typeof collection.on === "function" ? collection.on('reset add remove', this._onCollectionUpdate) : void 0;
+      return collection != null ? typeof collection.on === "function" ? collection.on('reset add remove', this._onCollectionUpdate) : void 0 : void 0;
     };
 
     Datagrid.prototype._unbindCollectionEvents = function (collection) {
       if (collection == null) {
         collection = this.props.collection;
       }
-      return typeof collection.off === "function" ? collection.off('reset add remove', this._onCollectionUpdate) : void 0;
+      return collection != null ? typeof collection.off === "function" ? collection.off('reset add remove', this._onCollectionUpdate) : void 0 : void 0;
     };
 
     Datagrid.prototype._onCollectionUpdate = function () {
@@ -5850,7 +5850,7 @@ module.exports = is;
     };
 
     GridEdit.prototype.saveEditingCell = function () {
-      var columnDef, columnIndex, model, rowEvt, rowIndex, value;
+      var columnDef, columnIndex, model, ref, ref1, ref2, rowEvt, rowIndex, value;
       if (this.state.editingCell == null) {
         return false;
       }
@@ -5861,7 +5861,7 @@ module.exports = is;
       }
       columnIndex = this.state.editingCell.columnIndex;
       rowIndex = this.state.editingCell.rowIndex;
-      value = this.state.editingCell.value;
+      value = (ref = (ref1 = (ref2 = this.state.editingCell.value) != null ? ref2.value : void 0) != null ? ref1 : this.state.editingCell.value) != null ? ref : null;
       rowEvt = {
         cellKey: columnDef.key,
         key: "Enter",
