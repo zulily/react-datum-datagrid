@@ -1,3 +1,9 @@
+## [0.4.9](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.8...0.4.9) (2018-04-29)
+
+
+### Other Commits
+* [164de85](git+https://github.com/zulily/react-datum-datagrid.git/commit/164de85352b4dabd3c21d43705adb0a0783219ee) column header spinner should spin while selecting all in column
+
 ## [0.4.8](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.7...0.4.8) (2018-04-29)
 
 
