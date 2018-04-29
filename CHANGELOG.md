@@ -1,3 +1,9 @@
+## [0.4.8](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.7...0.4.8) (2018-04-29)
+
+
+### Other Commits
+* [6096454](git+https://github.com/zulily/react-datum-datagrid.git/commit/6096454fbeebe532e04b16489c002a4b1e41e1d4) add support for collection picker style value
+
 ## [0.4.7](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.5...0.4.7) (2018-04-28)
 
 
