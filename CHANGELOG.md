@@ -1,3 +1,8 @@
+## [0.5.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.4.9...v0.5.0) - (2018-06-11)
+
+### Other Commits
+* [8b52434](git+https://github.com/zulily/react-datum-datagrid.git/commit/8b52434f42323e23ec17e8a685b0f2c765948fb9) update bumble-test to 0.5.0 = mocha to 4.1.0 = fix growl < v1.10 security nanny alert
+
 ## [0.4.9](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.8...0.4.9) (2018-04-29)
 
 
