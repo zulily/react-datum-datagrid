@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/zulily/react-datum-datagrid.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  
   "keywords": [
     "react",
     "react-virtualized",
