@@ -1,3 +1,9 @@
+## [0.5.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.5.0...v0.5.1) - (2018-06-11)
+Dependency updates to appease the vulnerability nanny.
+### Other Commits
+* [5d83e54](git+https://github.com/zulily/react-datum-datagrid.git/commit/5d83e542c6a40236f9bc8eac6276ae4307c3afe8) configure publish to always publish to npmjs.org
+* [b0291d0](git+https://github.com/zulily/react-datum-datagrid.git/commit/b0291d0f4e336999c4ec0b75660c431864b3e536) remove package-lock.json leftover from brief switch to node v8
+
 ## [0.5.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.4.9...v0.5.0) - (2018-06-11)
 
 ### Other Commits
