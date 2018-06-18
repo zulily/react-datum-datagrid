@@ -42,7 +42,7 @@ module.exports = class Datagrid extends React.Component
       PropTypes.object
       PropTypes.array
     ])  
-  
+    
     # the columns are compatible with the prop of the same name passed to App.views.widgets.react.Datagrid
     # see Class comment above for which column def attributes are used
     columns: PropTypes.array
