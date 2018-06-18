@@ -11,5 +11,6 @@ tags
 coverage/
 node_modules/
 
+/lib/
 /docs/
 /dist/webpackStats.json
