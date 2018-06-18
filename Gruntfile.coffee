@@ -164,7 +164,7 @@ module.exports = (grunt) ->
     # /docs dir is normally ignored by git via .gitignore, but in the gh-pages
     #  branch /docs needs to be checked in
     Util.systemCmd 'git add -f docs'
-    Util.systemCmd 'git push origin gh-pages'
+    Util.systemCmd 'git push -f origin gh-pages'
     Util.systemCmd 'git co master'
     
     
