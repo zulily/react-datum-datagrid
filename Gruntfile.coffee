@@ -158,7 +158,8 @@ module.exports = (grunt) ->
       console.log "Cowardly refusing to publish to gh-pages from branch (#{@gitStatus.branch}) other than master"
       return false
     Util.systemCmd 'git co gh-pages'
-    Util.systemCmd 'git pull . master'
+    Util.systemCmd 'git reset --hard origin/master'
+    Util.systemCmd 'git pull origin master'
     Util.systemCmd 'grunt build'
     # /docs dir is normally ignored by git via .gitignore, but in the gh-pages
     #  branch /docs needs to be checked in
