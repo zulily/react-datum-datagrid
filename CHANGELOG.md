@@ -1,3 +1,9 @@
+## [0.5.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.5.1...v0.5.2) - (2018-06-18)
+
+### Other Commits
+* [873cbd5](git+https://github.com/zulily/react-datum-datagrid.git/commit/873cbd5446217ba7353ad17c00861a66ad28e467) update git and npm ignores
+* [bb935e2](git+https://github.com/zulily/react-datum-datagrid.git/commit/bb935e29245329e711171cf9d042eb35b5cbcdfa) remove lib and dist dirs from git
+
 ## [0.5.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.5.0...v0.5.1) - (2018-06-11)
 Dependency updates to appease the vulnerability nanny.
 ### Other Commits
