@@ -1,6 +1,6 @@
-  
+
   _ = require 'underscore'
-  
+
   ###
     Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
     be added to klass and function as full members of that class.
