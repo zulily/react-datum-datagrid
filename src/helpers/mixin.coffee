@@ -2,7 +2,7 @@
   _ = require 'underscore'
 
   ###
-    Extends a class with another class.  Klass is the main class and mixinKlass methods and attributes will
+    Extends a class with another class.   Klass is the main class and mixinKlass methods and attributes will
     be added to klass and function as full members of that class.
 
     In the context of a mixinKlass method,
@@ -52,10 +52,10 @@
 
 
   ###
-  module.exports = mixin = (klass, mixinKlass) ->
-    unless mixinKlass
+  module.exports = mixin = (klass, mixinKlassName, mixinKlass) ->
+    unless mixinKlass && mixinKlassName
       console.trace()
-      throw "Dev: Mixin class undefined. Make sure you are correctly requiring file."
+      throw "Dev: Mixin class or classname undefined. Make sure you are correctly requiring file."
 
     if klass == window || klass == document
       throw "Dev: The class being mixed into should not be window or document.
@@ -63,10 +63,9 @@
         at the same indentation as the instance method definitions in the class at the very end of the
         class definition.</p>"
 
-    mixinKlassName = mixinKlass.toString().match(/^\s*function\s*([^\(]*)/)[1] || "unknown"
     for key, val of mixinKlass.prototype
       # Considered excluding constructor method override from mixin, but I then wished I'd had it several times
-      continue if key == 'constructor'   #
+      continue if key == 'constructor' #
 
       # _.isFunction() will also return true for Class type things we only want to wrap real functions
       if _.isFunction(val) && (_.isEmpty(_.keys(val)) || key == 'constructor')
