@@ -1,6 +1,6 @@
 {
   "name": "react-datum-datagrid",
-  "version": "0.5.1",
+  "version": "0.5.3",
   "description": "A datagrid based on react-virtualized that works with or without Backbone.js and ReactDatum",
   "main": "index.js",
   "scripts": {
@@ -9,6 +9,9 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zulily/react-datum-datagrid.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
   },
   "keywords": [
     "react",
@@ -51,8 +54,8 @@
     "babel-preset-stage-2": "6.24.1",
     "backbone": "1.3.3",
     "bumble-build": "1.2.3",
-    "bumble-docs": "0.9.3",
-    "bumble-test": "0.4.3",
+    "bumble-docs": "0.9.4",
+    "bumble-test": "0.5.0",
     "bumble-util": "0.3.2",
     "cache-loader": "1.0.3",
     "chai-string": "1.3.0",

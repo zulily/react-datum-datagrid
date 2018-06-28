@@ -1,3 +1,20 @@
+## [0.5.2](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.5.1...v0.5.2) - (2018-06-18)
+
+### Other Commits
+* [873cbd5](git+https://github.com/zulily/react-datum-datagrid.git/commit/873cbd5446217ba7353ad17c00861a66ad28e467) update git and npm ignores
+* [bb935e2](git+https://github.com/zulily/react-datum-datagrid.git/commit/bb935e29245329e711171cf9d042eb35b5cbcdfa) remove lib and dist dirs from git
+
+## [0.5.1](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.5.0...v0.5.1) - (2018-06-11)
+Dependency updates to appease the vulnerability nanny.
+### Other Commits
+* [5d83e54](git+https://github.com/zulily/react-datum-datagrid.git/commit/5d83e542c6a40236f9bc8eac6276ae4307c3afe8) configure publish to always publish to npmjs.org
+* [b0291d0](git+https://github.com/zulily/react-datum-datagrid.git/commit/b0291d0f4e336999c4ec0b75660c431864b3e536) remove package-lock.json leftover from brief switch to node v8
+
+## [0.5.0](git+https://github.com/zulily/react-datum-datagrid.git/compare/v0.4.9...v0.5.0) - (2018-06-11)
+
+### Other Commits
+* [8b52434](git+https://github.com/zulily/react-datum-datagrid.git/commit/8b52434f42323e23ec17e8a685b0f2c765948fb9) update bumble-test to 0.5.0 = mocha to 4.1.0 = fix growl < v1.10 security nanny alert
+
 ## [0.4.9](git+https://github.com/zulily/react-datum-datagrid.git/compare/0.4.8...0.4.9) (2018-04-29)
 
 
