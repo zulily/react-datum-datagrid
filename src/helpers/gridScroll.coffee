@@ -1,4 +1,5 @@
 
+ReactDOM = require('react-dom')
 
 ###
   This mixin (see ./mixin.coffee) provides the scrolling syncronization between headers, 

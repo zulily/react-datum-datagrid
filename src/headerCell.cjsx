@@ -2,6 +2,7 @@
 React = require('react')
 PropTypes = require('prop-types')
 Rb = require('react-bootstrap')
+_ = require('underscore')
 
 ReactStyles = require('./helpers/reactStyles')
 SortIndicator = require('./helpers/sortIndicator')

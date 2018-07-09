@@ -1,6 +1,7 @@
 
 
 #  see https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+#
 
 if window.Element and !Element::closest
   Element::closest = (s) ->
@@ -14,4 +15,3 @@ if window.Element and !Element::closest
       unless i < 0 and (el = el.parentElement)
         break
     el
-

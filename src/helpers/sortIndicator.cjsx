@@ -1,6 +1,6 @@
 
 React = require 'react'
-
+PropTypes = require 'prop-types'
 
 module.exports = class SortIndicator extends React.Component
   

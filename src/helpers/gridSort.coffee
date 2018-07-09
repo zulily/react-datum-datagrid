@@ -1,11 +1,10 @@
-
-
 Bstr = require('bumble-strings')
+_ = require('underscore')
 
 module.exports = class GridSort
-  
+
   onSortColumn: (columnIndex, columnDef, direction) ->
-    
+
     @setState {
       isSorting: true
       sortColumnIndex: columnIndex
@@ -15,7 +14,7 @@ module.exports = class GridSort
         @props.onSort columnIndex, columnDef, direction, =>
           @setState isSorting: false
       else if _.isFunction(@props.collection?.onDatagridSort)
-        @props.collection.onDatagridSort columnDef.key, direction, columnDef, 
+        @props.collection.onDatagridSort columnDef.key, direction, columnDef,
           success: => @setState isSorting: false
           error: => @setState isSorting: false
       else
@@ -30,25 +29,24 @@ module.exports = class GridSort
           aVal = getSortableValue(a)
           bVal = getSortableValue(b)
           isNumeric = isFinite(aVal) && isFinite(bVal)
-          if direction == "DESC" 
+          if direction == "DESC"
             temp = aVal; aVal = bVal; bVal = temp # swap a and b
-          
-          return if isNumeric 
+
+          return if isNumeric
             aVal - bVal
           else
-            Bstr.weaklyCompare(aVal?.toString() ? "", bVal ? "")          
-        
+            Bstr.weaklyCompare(aVal?.toString() ? "", bVal ? "")
+
         # TODO reconsider this
         for model in arrayToSort
           delete model.index
           delete model.attributes.index
-        
+
         if _.isFunction @props.collection.reset
           @props.collection.reset(arrayToSort)
         else
           @props.collection = arrayToSort
-        
+
         @setState isSorting: false
-        
-      
-  
+
+

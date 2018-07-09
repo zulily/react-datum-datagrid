@@ -1,6 +1,6 @@
 {
   "name": "react-datum-datagrid",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A datagrid based on react-virtualized that works with or without Backbone.js and ReactDatum",
   "main": "index.js",
   "scripts": {

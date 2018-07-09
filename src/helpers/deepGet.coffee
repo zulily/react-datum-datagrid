@@ -1,3 +1,5 @@
+_ = require('underscore')
+
 ###
   gets the value of a nested member of an object.
 
@@ -34,7 +36,7 @@ module.exports = deepGet = (object, pathToAttribute, isFunctional=true) ->
     else if current['attributes']?[part]?
       current = current['attributes'][part]
     else if _.isArray(current)
-      current = _.map current, (currentEntity) -> 
+      current = _.map current, (currentEntity) ->
         if currentEntity? then deepGet(currentEntity, part, isFunctional) else currentEntity
     else
       current = current[part]
