@@ -263,7 +263,7 @@ module.exports = class Datagrid extends React.Component
       freeGridProps.scrollToColumn = lastSelectedCellPosition.columnIndex - lockedColumns.length
       lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex
 
-    <div style={@style('container')} className='react-datum-datagrid'>
+    <div style={@style('container')} className='react-datum-datagrid-beta'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
           {@_renderHeaderCells(0, lockedColumns)}
