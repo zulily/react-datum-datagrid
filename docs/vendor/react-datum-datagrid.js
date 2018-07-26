@@ -5020,6 +5020,7 @@ module.exports = function(module) {
       }
       if (prevProps.columns !== this.props.columns) {
         console.log("reset");
+        this._resetAfterDataTransition();
         return this.render();
       }
     };
