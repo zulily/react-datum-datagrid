@@ -5074,7 +5074,11 @@ module.exports = function(module) {
       }(this))), React.createElement("div", {
         "style": this.style('freeGrid'),
         "className": 'rdd-free-grid'
-      }, React.createElement("div", null, React.createElement(AutoSizer, null, function (_this) {
+      }, React.createElement("div", {
+        "style": {
+          'display': 'inline-block'
+        }
+      }, React.createElement(AutoSizer, null, function (_this) {
         return function (arg) {
           var height, width;
           height = arg.height, width = arg.width;
@@ -7446,6 +7450,8 @@ module.exports = is;
         return style = extend(true, {}, style, {
           'backgroundColor': this.props.stripColor
         });
+      } else {
+        return style;
       }
     };
 

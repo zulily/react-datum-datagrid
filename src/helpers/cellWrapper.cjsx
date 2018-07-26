@@ -183,6 +183,8 @@ module.exports = class CellWrapper extends React.Component
     style = @props.style
     if @props.styleAsStrippedGrid && (@props.rowIndex % 2 != 0)
       style = extend(true, {}, style, {'backgroundColor': @props.stripColor})
+    else 
+      return style
 
   
   focus: ->
