@@ -242,7 +242,8 @@ module.exports = class Datagrid extends React.Component
 
     if prevProps.columns != @props.columns
       console.log("reset")
-      @_resetAfterDataTransition()
+      @render()
+
 
 
   componentWillUnmount: ->
