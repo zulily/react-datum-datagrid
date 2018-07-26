@@ -7449,7 +7449,9 @@ module.exports = is;
       var style;
       style = this.props.style;
       if (this.props.styleAsStrippedGrid && this.props.rowIndex % 2 !== 0) {
-        return style = extend(true, {}, style, this.style('stripe'));
+        return style = extend(true, {}, style, {
+          'backgroundColor': this.props.stripColor
+        });
       }
     };
 
