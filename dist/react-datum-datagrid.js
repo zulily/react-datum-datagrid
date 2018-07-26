@@ -4906,7 +4906,7 @@ module.exports = function(module) {
         }
       },
       freeGrid: {
-        flex: '1, 1, auto',
+        flexGrow: 1,
         margin: 0,
         padding: 0,
         includes: function includes() {
@@ -7325,14 +7325,8 @@ module.exports = is;
       defaultCellComponent: Cell,
       hideEditableIcon: false,
       styleAsStrippedGrid: true,
-      stripColor: '#91A4CC'
+      stripColor: '#F5F5F5'
     };
-
-    CellWrapper.prototype.styles = new ReactStyles({
-      stripe: {
-        backgroundColor: '#91A4CC'
-      }
-    });
 
     CellWrapper.prototype.componentWillMount = function () {
       return this.setState({

@@ -84,12 +84,7 @@ module.exports = class CellWrapper extends React.Component
     defaultCellComponent: Cell
     hideEditableIcon: false
     styleAsStrippedGrid: true
-    stripColor: '#91A4CC'
-    
-
-  styles: new ReactStyles
-    stripe:
-      backgroundColor: '#91A4CC'
+    stripColor: '#F5F5F5'
     
   
   componentWillMount: ->

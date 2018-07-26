@@ -158,7 +158,7 @@ module.exports = class Datagrid extends React.Component
           height: @_sumLockedColumnHeights()
 
     freeGrid:
-      flex: '1, 1, auto'
+      flexGrow: 1
       margin: 0
       padding: 0
       includes: ->
