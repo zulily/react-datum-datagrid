@@ -165,7 +165,7 @@ module.exports = class Datagrid extends React.Component
           width: "calc(100% - #{@_sumLockedColumnWidths()}px"
         else
           height: "calc(100% - #{@_sumLockedColumnHeights()}px"
-      overflow: 'hidden'
+      overflow: 'visible'
 
     fixedHeaderCells:
       includes: ->
@@ -288,18 +288,20 @@ module.exports = class Datagrid extends React.Component
           </AutoSizer>
         </div>
         <div style={@style('freeGrid')} className='rdd-free-grid'>
-          <AutoSizer>
-            { ({height, width}) =>
-              <Grid
-                cellRenderer={@freeCellRenderer}
-                columnWidth={@getFreeColumnWidth}
-                columnCount={freeColumns.length}
-                height={height}
-                width={width}
-                {... freeGridProps}
-              />
-            }
-          </AutoSizer>
+          <div>
+            <AutoSizer>
+              { ({height, width}) =>
+                <Grid
+                  cellRenderer={@freeCellRenderer}
+                  columnWidth={@getFreeColumnWidth}
+                  columnCount={freeColumns.length}
+                  height={height}
+                  width={width}
+                  {... freeGridProps}
+                />
+              }
+            </AutoSizer>
+          </div>
         </div>
       </div>
     </div>
