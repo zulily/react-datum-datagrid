@@ -6,6 +6,7 @@ Classnames = require 'classnames'
 Rd = require 'react-datum'
 
 _ = require 'underscore'
+extend = require('node.extend')
 
 # FontAwesomeIcon = require '@fortawesome/react-fontawesome'
 # faCoffee = require '@fortawesome/fontawesome-free-solid/faCoffee'
@@ -49,7 +50,9 @@ module.exports = class CellWrapper extends React.Component
     showPlaceholder: PropTypes.bool
     
     editable: PropTypes.bool
-    # This is called with (event, cell) 
+    hideEditableIcon: PropTypes.bool
+    styleAsStrippedGrid: PropTypes.bool
+    stripColor: PropTypes.string
     
     # true if cell is selected
     selected: PropTypes.bool
@@ -78,8 +81,16 @@ module.exports = class CellWrapper extends React.Component
     
   @defaultProps:
     defaultCellComponent: Cell
+    hideEditableIcon: false
+    styleAsStrippedGrid: true
+    stripColor: '#91A4CC'
     
+
+  styles: new ReactStyles
+    oddStripeStyle:
+      backgroundColor: '#91A4CC'
     
+  
   componentWillMount: ->
     @setState renderError: null
     
@@ -115,7 +126,7 @@ module.exports = class CellWrapper extends React.Component
         onFocus={@_onFocus}
         onBlur={@_onBlur}
         onDoubleClick={@_onDoubleClick}
-        style={@props.style}
+        style={@_getWrapperStyle()}
         {... dataProps}
         
     >
@@ -158,7 +169,7 @@ module.exports = class CellWrapper extends React.Component
     
     
   _renderEditableIndicator: ->
-    return null unless @props.editable && !@props.saving && !@props.editing
+    return null unless @props.editable && !@props.saving && !@props.editing && !@props.column?.hideEditableIcon
     <EditableIndicator onClick={@_onEditIndicatorClick}/>
     
     
@@ -172,6 +183,12 @@ module.exports = class CellWrapper extends React.Component
     <ErrorIndicator errors={@props.saveErrors}/>
 
 
+  _getWrapperStyle: ->
+    style = @props.style
+    if @props.styleAsStrippedGrid && (@props.rowIndex % 2 > 0)
+      style = extend(true, {}, style, @style('oddStripeStyle'))
+
+  
   focus: ->
     @refs?.cellComponent?.focus()
 

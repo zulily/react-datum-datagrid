@@ -21,6 +21,7 @@ HeaderCell = require './headerCell'
 
 Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
 AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['default']
+MultiGrid = require('react-virtualized/dist/commonjs/MultiGrid/MultiGrid')['default']
 
 require('./helpers/closestPolyfill')
 require('./helpers/matchesPolyfill')
@@ -157,7 +158,7 @@ module.exports = class Datagrid extends React.Component
           height: @_sumLockedColumnHeights()
 
     freeGrid:
-      flexGrow: 1
+      flex: '1, 1, auto'
       margin: 0
       padding: 0
       includes: ->
@@ -244,6 +245,7 @@ module.exports = class Datagrid extends React.Component
 
 
   render: ->
+    console.log("scrollbarsize ", Grid.props.getScrollbarSize())
     lockedColumns = @_getLockedColumns()
     freeColumns = @_getFreeColumns()
 
@@ -263,7 +265,7 @@ module.exports = class Datagrid extends React.Component
       freeGridProps.scrollToColumn = lastSelectedCellPosition.columnIndex - lockedColumns.length
       lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex
 
-    <div style={@style('container')} className='react-datum-datagrid-beta'>
+    <div style={@style('container')} className='react-datum-datagrid beta'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
           {@_renderHeaderCells(0, lockedColumns)}
