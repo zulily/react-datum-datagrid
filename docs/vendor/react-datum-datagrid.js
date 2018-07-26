@@ -5012,9 +5012,14 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype.componentDidUpdate = function (prevProps) {
+      console.log("update");
       if (prevProps.collection !== this.props.collection) {
         this._unbindCollectionEvents(prevProps.collection);
-        return this._bindCollectionEvents();
+        this._bindCollectionEvents();
+      }
+      if (prevProps.collection !== this.props.collection || prevProps.columns !== this.props.columns) {
+        console.log("reset");
+        return this.resetSelectedCells();
       }
     };
 
@@ -8735,7 +8740,6 @@ module.exports = is;
       this.onCellMouseMove = bind(this.onCellMouseMove, this);
       this.onCellMouseUp = bind(this.onCellMouseUp, this);
       this.onCellMouseDown = bind(this.onCellMouseDown, this);
-      this.onMouseDown = bind(this.onMouseDown, this);
       this.onCollectionReset = bind(this.onCollectionReset, this);
     }
 
@@ -8748,15 +8752,6 @@ module.exports = is;
     GridSelect.prototype.onCollectionReset = function () {
       this.resetSelectedCells();
       return typeof this.originalMethod === "function" ? this.originalMethod() : void 0;
-    };
-
-    GridSelect.prototype.onMouseDown = function (evt) {
-      if (!this.__isInOurDatagrid(evt.target)) {
-        if (this.isDatagridEditing()) {
-          this.cancelEditing();
-        }
-        return this.resetSelectedCells();
-      }
     };
 
     GridSelect.prototype.onCellMouseDown = function (evt, cell) {
@@ -9141,6 +9136,7 @@ module.exports = is;
 
     GridSelect.prototype.onSelectedCellsChange = function () {
       var base, ref;
+      console.log("onSelectedCellsChange: selectedCells=", JSON.stringify(this.state.selectedCells));
       return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(((ref = this.state.selectedCells) != null ? ref : []).slice(0)) : void 0;
     };
 

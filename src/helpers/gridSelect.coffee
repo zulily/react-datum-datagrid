@@ -43,13 +43,6 @@ module.exports = class GridSelect
   onCollectionReset: =>
     @resetSelectedCells()
     @originalMethod?()
-
-
-  onMouseDown: (evt) =>
-    if !@__isInOurDatagrid(evt.target)
-      if @isDatagridEditing()
-        @cancelEditing()
-      @resetSelectedCells()
     
 
   onCellMouseDown: (evt, cell) =>
@@ -348,7 +341,7 @@ module.exports = class GridSelect
 
 
   onSelectedCellsChange: () ->
-    # console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
+    console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
     @props.onSelectedCellsChange?((@state.selectedCells ? []).slice(0))
 
 

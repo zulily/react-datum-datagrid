@@ -234,9 +234,14 @@ module.exports = class Datagrid extends React.Component
 
 
   componentDidUpdate: (prevProps) ->
+    console.log("update")
     if prevProps.collection != @props.collection
       @_unbindCollectionEvents(prevProps.collection)
       @_bindCollectionEvents()
+
+    if prevProps.collection != @props.collection || prevProps.columns != @props.columns
+      console.log("reset")
+      @resetSelectedCells()
 
 
   componentWillUnmount: ->
