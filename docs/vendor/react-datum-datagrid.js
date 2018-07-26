@@ -5016,10 +5016,11 @@ module.exports = function(module) {
       if (prevProps.collection !== this.props.collection) {
         this._unbindCollectionEvents(prevProps.collection);
         this._bindCollectionEvents();
+        this._resetAfterDataTransition();
       }
-      if (prevProps.collection !== this.props.collection || prevProps.columns !== this.props.columns) {
+      if (prevProps.columns !== this.props.columns) {
         console.log("reset");
-        return this.resetSelectedCells();
+        return this._resetAfterDataTransition();
       }
     };
 
@@ -5352,6 +5353,13 @@ module.exports = function(module) {
         width: width
       };
       return cellStyle;
+    };
+
+    Datagrid.prototype._resetAfterDataTransition = function () {
+      if (this.isDatagridEditing()) {
+        this.cancelEditing();
+      }
+      return this.resetSelectedCells();
     };
 
     Datagrid.prototype._bindDocumentEvents = function () {

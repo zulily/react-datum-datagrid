@@ -238,10 +238,11 @@ module.exports = class Datagrid extends React.Component
     if prevProps.collection != @props.collection
       @_unbindCollectionEvents(prevProps.collection)
       @_bindCollectionEvents()
+      @_resetAfterDataTransition()
 
-    if prevProps.collection != @props.collection || prevProps.columns != @props.columns
+    if prevProps.columns != @props.columns
       console.log("reset")
-      @resetSelectedCells()
+      @_resetAfterDataTransition()
 
 
   componentWillUnmount: ->
@@ -519,6 +520,12 @@ module.exports = class Datagrid extends React.Component
       width: width
 
     return cellStyle
+
+
+  _resetAfterDataTransition: ->
+    if @isDatagridEditing()
+      @cancelEditing()
+    @resetSelectedCells()
 
 
   _bindDocumentEvents: =>
