@@ -5025,7 +5025,6 @@ module.exports = function(module) {
 
     Datagrid.prototype.render = function () {
       var freeColumns, freeGridProps, lastSelectedCellPosition, lockedColumns, lockedGridProps;
-      console.log("scrollbarsize ", Grid.props.getScrollbarSize());
       lockedColumns = this._getLockedColumns();
       freeColumns = this._getFreeColumns();
       lockedGridProps = {

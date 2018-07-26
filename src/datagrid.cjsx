@@ -245,7 +245,6 @@ module.exports = class Datagrid extends React.Component
 
 
   render: ->
-    console.log("scrollbarsize ", Grid.props.getScrollbarSize())
     lockedColumns = @_getLockedColumns()
     freeColumns = @_getFreeColumns()
 
