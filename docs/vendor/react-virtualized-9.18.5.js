@@ -1905,7 +1905,7 @@
         hasScrollToIndex && (size !== previousSize || sizeJustIncreasedFromZero || !previousCellSize || "number" == typeof cellSize && cellSize !== previousCellSize || scrollToAlignment !== previousScrollToAlignment || scrollToIndex !== previousScrollToIndex) ? updateScrollIndexCallback(scrollToIndex) : !hasScrollToIndex && cellCount > 0 && (size < previousSize || cellCount < previousCellsCount) && scrollOffset > cellSizeAndPositionManager.getTotalSize() - size && updateScrollIndexCallback(cellCount - 1);
     }
     function defaultCellRangeRenderer(_ref) {
-        for (var cellCache = _ref.cellCache, cellRenderer = _ref.cellRenderer, columnSizeAndPositionManager = _ref.columnSizeAndPositionManager, columnStartIndex = _ref.columnStartIndex, columnStopIndex = _ref.columnStopIndex, deferredMeasurementCache = _ref.deferredMeasurementCache, horizontalOffsetAdjustment = _ref.horizontalOffsetAdjustment, isScrolling = _ref.isScrolling, parent = _ref.parent, rowSizeAndPositionManager = _ref.rowSizeAndPositionManager, rowStartIndex = _ref.rowStartIndex, rowStopIndex = _ref.rowStopIndex, styleCache = _ref.styleCache, verticalOffsetAdjustment = _ref.verticalOffsetAdjustment, visibleColumnIndices = _ref.visibleColumnIndices, visibleRowIndices = _ref.visibleRowIndices, renderedCells = [], areOffsetsAdjusted = columnSizeAndPositionManager.areOffsetsAdjusted() || rowSizeAndPositionManager.areOffsetsAdjusted(), canCacheStyle = !isScrolling && !areOffsetsAdjusted, rowIndex = rowStartIndex; rowIndex <= rowStopIndex; rowIndex++) for (var rowDatum = rowSizeAndPositionManager.getSizeAndPositionOfCell(rowIndex), columnIndex = columnStartIndex; columnIndex <= columnStopIndex; columnIndex++) {
+        for (var cellCache = _ref.cellCache, cellRenderer = _ref.cellRenderer, columnSizeAndPositionManager = _ref.columnSizeAndPositionManager, columnStartIndex = _ref.columnStartIndex, columnStopIndex = _ref.columnStopIndex, deferredMeasurementCache = _ref.deferredMeasurementCache, horizontalOffsetAdjustment = _ref.horizontalOffsetAdjustment, isScrolling = _ref.isScrolling, isScrollingOptOut = _ref.isScrollingOptOut, parent = _ref.parent, rowSizeAndPositionManager = _ref.rowSizeAndPositionManager, rowStartIndex = _ref.rowStartIndex, rowStopIndex = _ref.rowStopIndex, styleCache = _ref.styleCache, verticalOffsetAdjustment = _ref.verticalOffsetAdjustment, visibleColumnIndices = _ref.visibleColumnIndices, visibleRowIndices = _ref.visibleRowIndices, renderedCells = [], areOffsetsAdjusted = columnSizeAndPositionManager.areOffsetsAdjusted() || rowSizeAndPositionManager.areOffsetsAdjusted(), canCacheStyle = !isScrolling && !areOffsetsAdjusted, rowIndex = rowStartIndex; rowIndex <= rowStopIndex; rowIndex++) for (var rowDatum = rowSizeAndPositionManager.getSizeAndPositionOfCell(rowIndex), columnIndex = columnStartIndex; columnIndex <= columnStopIndex; columnIndex++) {
             var columnDatum = columnSizeAndPositionManager.getSizeAndPositionOfCell(columnIndex), isVisible = columnIndex >= visibleColumnIndices.start && columnIndex <= visibleColumnIndices.stop && rowIndex >= visibleRowIndices.start && rowIndex <= visibleRowIndices.stop, key = rowIndex + "-" + columnIndex, style = void 0;
             canCacheStyle && styleCache[key] ? style = styleCache[key] : deferredMeasurementCache && !deferredMeasurementCache.has(rowIndex, columnIndex) ? style = {
                 height: "auto",
@@ -1929,7 +1929,7 @@
                 rowIndex: rowIndex,
                 style: style
             }, renderedCell = void 0;
-            !isScrolling || horizontalOffsetAdjustment || verticalOffsetAdjustment ? renderedCell = cellRenderer(cellRendererParams) : (cellCache[key] || (cellCache[key] = cellRenderer(cellRendererParams)), 
+            !isScrollingOptOut && !isScrolling || horizontalOffsetAdjustment || verticalOffsetAdjustment ? renderedCell = cellRenderer(cellRendererParams) : (cellCache[key] || (cellCache[key] = cellRenderer(cellRendererParams)), 
             renderedCell = cellCache[key]), null != renderedCell && !1 !== renderedCell && (warnAboutMissingStyle(parent, renderedCell), 
             renderedCells.push(renderedCell));
         }
@@ -1947,7 +1947,11 @@
     }, cancelAnimationTimeout = function(frame) {
         return caf(frame.id);
     }, requestAnimationTimeout = function(callback, delay) {
-        var start = Date.now(), frame = {
+        var start = void 0;
+        Promise.resolve().then(function() {
+            start = Date.now();
+        });
+        var frame = {
             id: raf(function timeout() {
                 Date.now() - start >= delay ? callback.call() : frame.id = raf(timeout);
             })
@@ -2092,9 +2096,9 @@
             value: function() {
                 var _ref4 = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : {}, _ref4$columnIndex = _ref4.columnIndex, columnIndex = void 0 === _ref4$columnIndex ? 0 : _ref4$columnIndex, _ref4$rowIndex = _ref4.rowIndex, rowIndex = void 0 === _ref4$rowIndex ? 0 : _ref4$rowIndex, _props3 = this.props, scrollToColumn = _props3.scrollToColumn, scrollToRow = _props3.scrollToRow, instanceProps = this.state.instanceProps;
                 instanceProps.columnSizeAndPositionManager.resetCell(columnIndex), instanceProps.rowSizeAndPositionManager.resetCell(rowIndex), 
-                this._recomputeScrollLeftFlag = scrollToColumn >= 0 && columnIndex <= scrollToColumn, 
-                this._recomputeScrollTopFlag = scrollToRow >= 0 && rowIndex <= scrollToRow, this._styleCache = {}, 
-                this._cellCache = {}, this.forceUpdate();
+                this._recomputeScrollLeftFlag = scrollToColumn >= 0 && (this.state.scrollDirectionHorizontal === SCROLL_DIRECTION_FORWARD ? columnIndex <= scrollToColumn : columnIndex >= scrollToColumn), 
+                this._recomputeScrollTopFlag = scrollToRow >= 0 && (this.state.scrollDirectionVertical === SCROLL_DIRECTION_FORWARD ? rowIndex <= scrollToRow : rowIndex >= scrollToRow), 
+                this._styleCache = {}, this._cellCache = {}, this.forceUpdate();
             }
         }, {
             key: "scrollToCell",
@@ -2110,19 +2114,23 @@
             key: "componentDidMount",
             value: function() {
                 var _props4 = this.props, getScrollbarSize = _props4.getScrollbarSize, height = _props4.height, scrollLeft = _props4.scrollLeft, scrollToColumn = _props4.scrollToColumn, scrollTop = _props4.scrollTop, scrollToRow = _props4.scrollToRow, width = _props4.width, instanceProps = this.state.instanceProps;
-                this._initialScrollTop = 0, this._initialScrollLeft = 0, this._handleInvalidatedGridSize(), 
+                if (this._initialScrollTop = 0, this._initialScrollLeft = 0, this._handleInvalidatedGridSize(), 
                 instanceProps.scrollbarSizeMeasured || this.setState(function(prevState) {
-                    return prevState.instanceProps.scrollbarSize = getScrollbarSize(), prevState.instanceProps.scrollbarSizeMeasured = !0, 
-                    prevState.needToResetStyleCache = !1, prevState;
-                }), ("number" == typeof scrollLeft && scrollLeft >= 0 || "number" == typeof scrollTop && scrollTop >= 0) && this.setState(function(prevState) {
+                    var stateUpdate = _extends({}, prevState, {
+                        needToResetStyleCache: !1
+                    });
+                    return stateUpdate.instanceProps.scrollbarSize = getScrollbarSize(), stateUpdate.instanceProps.scrollbarSizeMeasured = !0, 
+                    stateUpdate;
+                }), "number" == typeof scrollLeft && scrollLeft >= 0 || "number" == typeof scrollTop && scrollTop >= 0) {
                     var stateUpdate = Grid._getScrollToPositionStateUpdate({
-                        prevState: prevState,
+                        prevState: this.state,
                         scrollLeft: scrollLeft,
                         scrollTop: scrollTop
                     });
-                    return stateUpdate ? (stateUpdate.needToResetStyleCache = !1, stateUpdate) : null;
-                }), this._scrollingContainer.scrollLeft !== this.state.scrollLeft && (this._scrollingContainer.scrollLeft = this.state.scrollLeft), 
-                this._scrollingContainer.scrollTop !== this.state.scrollTop && (this._scrollingContainer.scrollTop = this.state.scrollTop);
+                    stateUpdate && (stateUpdate.needToResetStyleCache = !1, this.setState(stateUpdate));
+                }
+                this._scrollingContainer && (this._scrollingContainer.scrollLeft !== this.state.scrollLeft && (this._scrollingContainer.scrollLeft = this.state.scrollLeft), 
+                this._scrollingContainer.scrollTop !== this.state.scrollTop && (this._scrollingContainer.scrollTop = this.state.scrollTop));
                 var sizeIsBiggerThanZero = height > 0 && width > 0;
                 scrollToColumn >= 0 && sizeIsBiggerThanZero && this._updateScrollLeftForScrollToColumn(), 
                 scrollToRow >= 0 && sizeIsBiggerThanZero && this._updateScrollTopForScrollToRow(), 
@@ -2236,7 +2244,7 @@
         }, {
             key: "_calculateChildrenToRender",
             value: function() {
-                var props = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.props, state = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : this.state, cellRenderer = props.cellRenderer, cellRangeRenderer = props.cellRangeRenderer, columnCount = props.columnCount, deferredMeasurementCache = props.deferredMeasurementCache, height = props.height, overscanColumnCount = props.overscanColumnCount, overscanIndicesGetter = props.overscanIndicesGetter, overscanRowCount = props.overscanRowCount, rowCount = props.rowCount, width = props.width, scrollDirectionHorizontal = state.scrollDirectionHorizontal, scrollDirectionVertical = state.scrollDirectionVertical, instanceProps = state.instanceProps, scrollTop = this._initialScrollTop > 0 ? this._initialScrollTop : state.scrollTop, scrollLeft = this._initialScrollLeft > 0 ? this._initialScrollLeft : state.scrollLeft, isScrolling = this._isScrolling(props, state);
+                var props = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.props, state = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : this.state, cellRenderer = props.cellRenderer, cellRangeRenderer = props.cellRangeRenderer, columnCount = props.columnCount, deferredMeasurementCache = props.deferredMeasurementCache, height = props.height, overscanColumnCount = props.overscanColumnCount, overscanIndicesGetter = props.overscanIndicesGetter, overscanRowCount = props.overscanRowCount, rowCount = props.rowCount, width = props.width, isScrollingOptOut = props.isScrollingOptOut, scrollDirectionHorizontal = state.scrollDirectionHorizontal, scrollDirectionVertical = state.scrollDirectionVertical, instanceProps = state.instanceProps, scrollTop = this._initialScrollTop > 0 ? this._initialScrollTop : state.scrollTop, scrollLeft = this._initialScrollLeft > 0 ? this._initialScrollLeft : state.scrollLeft, isScrolling = this._isScrolling(props, state);
                 if (this._childrenToDisplay = [], height > 0 && width > 0) {
                     var visibleColumnIndices = instanceProps.columnSizeAndPositionManager.getVisibleCellRange({
                         containerSize: width,
@@ -2287,6 +2295,7 @@
                         deferredMeasurementCache: deferredMeasurementCache,
                         horizontalOffsetAdjustment: horizontalOffsetAdjustment,
                         isScrolling: isScrolling,
+                        isScrollingOptOut: isScrollingOptOut,
                         parent: this,
                         rowSizeAndPositionManager: instanceProps.rowSizeAndPositionManager,
                         rowStartIndex: rowStartIndex,
@@ -2363,15 +2372,12 @@
         }, {
             key: "scrollToPosition",
             value: function(_ref8) {
-                var scrollLeft = _ref8.scrollLeft, scrollTop = _ref8.scrollTop;
-                this.setState(function(prevState) {
-                    var stateUpdate = Grid._getScrollToPositionStateUpdate({
-                        prevState: prevState,
-                        scrollLeft: scrollLeft,
-                        scrollTop: scrollTop
-                    });
-                    return stateUpdate ? (stateUpdate.needToResetStyleCache = !1, stateUpdate) : null;
+                var scrollLeft = _ref8.scrollLeft, scrollTop = _ref8.scrollTop, stateUpdate = Grid._getScrollToPositionStateUpdate({
+                    prevState: this.state,
+                    scrollLeft: scrollLeft,
+                    scrollTop: scrollTop
                 });
+                stateUpdate && (stateUpdate.needToResetStyleCache = !1, this.setState(stateUpdate));
             }
         }, {
             key: "_getCalculatedScrollLeft",
@@ -2383,7 +2389,7 @@
             key: "_updateScrollLeftForScrollToColumn",
             value: function() {
                 var props = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.props, state = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : this.state, stateUpdate = Grid._getScrollLeftForScrollToColumnStateUpdate(props, state);
-                stateUpdate && (stateUpdate.needToResetStyleCache = !1), this.setState(stateUpdate);
+                stateUpdate && (stateUpdate.needToResetStyleCache = !1, this.setState(stateUpdate));
             }
         }, {
             key: "_getCalculatedScrollTop",
@@ -2394,25 +2400,25 @@
         }, {
             key: "_resetStyleCache",
             value: function() {
-                var styleCache = this._styleCache;
+                var styleCache = this._styleCache, cellCache = this._cellCache, isScrollingOptOut = this.props.isScrollingOptOut;
                 this._cellCache = {}, this._styleCache = {};
                 for (var rowIndex = this._rowStartIndex; rowIndex <= this._rowStopIndex; rowIndex++) for (var columnIndex = this._columnStartIndex; columnIndex <= this._columnStopIndex; columnIndex++) {
                     var key = rowIndex + "-" + columnIndex;
-                    this._styleCache[key] = styleCache[key];
+                    this._styleCache[key] = styleCache[key], isScrollingOptOut && (this._cellCache[key] = cellCache[key]);
                 }
             }
         }, {
             key: "_updateScrollTopForScrollToRow",
             value: function() {
                 var props = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : this.props, state = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : this.state, stateUpdate = Grid._getScrollTopForScrollToRowStateUpdate(props, state);
-                stateUpdate && (stateUpdate.needToResetStyleCache = !1), this.setState(stateUpdate);
+                stateUpdate && (stateUpdate.needToResetStyleCache = !1, this.setState(stateUpdate));
             }
         } ], [ {
             key: "getDerivedStateFromProps",
             value: function(nextProps, prevState) {
                 var newState = {};
                 0 === nextProps.columnCount && 0 !== prevState.scrollLeft || 0 === nextProps.rowCount && 0 !== prevState.scrollTop ? (newState.scrollLeft = 0, 
-                newState.scrollTop = 0) : nextProps.scrollLeft === prevState.scrollLeft && nextProps.scrollTop === prevState.scrollTop || nextProps.scrollToColumn > 0 && prevState.scrollLeft && 0 === nextProps.scrollLeft || nextProps.scrollToRow > 0 && prevState.scrollTop && 0 === nextProps.scrollTop || Object.assign(newState, Grid._getScrollToPositionStateUpdate({
+                newState.scrollTop = 0) : (nextProps.scrollLeft !== prevState.scrollLeft && nextProps.scrollToColumn < 0 || nextProps.scrollTop !== prevState.scrollTop && nextProps.scrollToRow < 0) && Object.assign(newState, Grid._getScrollToPositionStateUpdate({
                     prevState: prevState,
                     scrollLeft: nextProps.scrollLeft,
                     scrollTop: nextProps.scrollTop
@@ -2574,7 +2580,8 @@
         scrollToColumn: -1,
         scrollToRow: -1,
         style: {},
-        tabIndex: 0
+        tabIndex: 0,
+        isScrollingOptOut: !1
     }, polyfill(Grid);
     var SCROLL_DIRECTION_FORWARD$1 = 1;
     function defaultOverscanIndicesGetter$1(_ref) {
