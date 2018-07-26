@@ -2,7 +2,7 @@
   "errors": [],
   "warnings": [],
   "version": "3.4.1",
-  "hash": "a24596754c2f9a5c050e",
+  "hash": "64dab17d9d26a1856882",
   "publicPath": "dist/",
   "assetsByChunkName": {
     "main": "react-datum-datagrid.min.js"
@@ -10,7 +10,7 @@
   "assets": [
     {
       "name": "react-datum-datagrid.min.js",
-      "size": 254157,
+      "size": 254190,
       "chunks": [
         0
       ],
@@ -36,14 +36,14 @@
       "initial": true,
       "entry": true,
       "extraAsync": false,
-      "size": 413597,
+      "size": 413645,
       "names": [
         "main"
       ],
       "files": [
         "react-datum-datagrid.min.js"
       ],
-      "hash": "d120c5e3c57cee86d6d1",
+      "hash": "7ab4a71473ad01c2fd71",
       "parents": [],
       "modules": [
         {
@@ -78,7 +78,7 @@
               "loc": "2:11-29"
             },
             {
-              "moduleId": 43,
+              "moduleId": 44,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -87,7 +87,7 @@
               "loc": "1:11-29"
             },
             {
-              "moduleId": 49,
+              "moduleId": 50,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -260,7 +260,7 @@
               "loc": "1:13-33"
             },
             {
-              "moduleId": 38,
+              "moduleId": 39,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
@@ -269,7 +269,7 @@
               "loc": "2:15-35"
             },
             {
-              "moduleId": 43,
+              "moduleId": 44,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -278,7 +278,7 @@
               "loc": "2:13-33"
             },
             {
-              "moduleId": 49,
+              "moduleId": 50,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -389,9 +389,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "issuerId": 38,
+          "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -406,7 +406,7 @@
               "loc": "8:13-29"
             },
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -457,7 +457,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "react",
-              "loc": "30:10-26"
+              "loc": "31:10-26"
             },
             {
               "moduleId": 95,
@@ -534,30 +534,30 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "issuerId": 38,
+          "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 37,
-              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-              "module": "./lib/cell.js",
-              "moduleName": "./lib/cell.js",
-              "type": "cjs require",
-              "userRequest": "underscore",
-              "loc": "36:6-27"
-            },
-            {
-              "moduleId": 52,
+              "moduleId": 36,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
               "module": "./lib/helpers/reactStyles.js",
               "moduleName": "./lib/helpers/reactStyles.js",
               "type": "cjs require",
               "userRequest": "underscore",
               "loc": "9:6-27"
+            },
+            {
+              "moduleId": 38,
+              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+              "module": "./lib/cell.js",
+              "moduleName": "./lib/cell.js",
+              "type": "cjs require",
+              "userRequest": "underscore",
+              "loc": "36:6-27"
             },
             {
               "moduleId": 54,
@@ -602,7 +602,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "underscore",
-              "loc": "40:6-27"
+              "loc": "43:6-27"
             },
             {
               "moduleId": 97,
@@ -696,7 +696,7 @@
               "loc": "3:10-27"
             },
             {
-              "moduleId": 48,
+              "moduleId": 49,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
@@ -825,9 +825,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "issuerId": 38,
+          "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -842,7 +842,7 @@
               "loc": "16:17-38"
             },
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -893,7 +893,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "prop-types",
-              "loc": "34:14-35"
+              "loc": "35:14-35"
             },
             {
               "moduleId": 108,
@@ -1098,7 +1098,7 @@
               "loc": "1:15-38"
             },
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -1217,7 +1217,7 @@
               "loc": "1:10-33"
             },
             {
-              "moduleId": 49,
+              "moduleId": 50,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -1309,7 +1309,7 @@
               "loc": "1:15-38"
             },
             {
-              "moduleId": 38,
+              "moduleId": 39,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
@@ -1318,7 +1318,7 @@
               "loc": "1:15-38"
             },
             {
-              "moduleId": 39,
+              "moduleId": 40,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
@@ -1502,7 +1502,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -1603,7 +1603,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -1704,7 +1704,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -2170,7 +2170,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "react-dom",
-              "loc": "32:13-33"
+              "loc": "33:13-33"
             },
             {
               "moduleId": 100,
@@ -2450,7 +2450,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 43,
+              "moduleId": 44,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -2459,7 +2459,7 @@
               "loc": "10:8-29"
             },
             {
-              "moduleId": 49,
+              "moduleId": 50,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -2590,15 +2590,15 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "issuerId": 38,
+          "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -2622,7 +2622,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "node.extend",
-              "loc": "42:11-33"
+              "loc": "45:11-33"
             },
             {
               "moduleId": 98,
@@ -2656,14 +2656,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-          "issuerId": 37,
+          "issuerId": 38,
           "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -2737,7 +2737,7 @@
               "loc": "2:16-40"
             },
             {
-              "moduleId": 51,
+              "moduleId": 52,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
@@ -2867,7 +2867,7 @@
               "loc": "2:10-27"
             },
             {
-              "moduleId": 42,
+              "moduleId": 43,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
@@ -3305,15 +3305,15 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "issuerId": 38,
+          "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -3337,7 +3337,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "react-datum",
-              "loc": "38:7-29"
+              "loc": "39:7-29"
             }
           ],
           "usedExports": true,
@@ -3347,6 +3347,62 @@
         },
         {
           "id": 36,
+          "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
+          "name": "./lib/helpers/reactStyles.js",
+          "index": 17,
+          "index2": 15,
+          "size": 2250,
+          "cacheable": true,
+          "built": true,
+          "optional": false,
+          "prefetched": false,
+          "chunks": [
+            0
+          ],
+          "assets": [],
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
+          "issuerId": 85,
+          "issuerName": "./lib/datagrid.js",
+          "failed": false,
+          "errors": 0,
+          "warnings": 0,
+          "reasons": [
+            {
+              "moduleId": 54,
+              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/headerCell.js",
+              "module": "./lib/headerCell.js",
+              "moduleName": "./lib/headerCell.js",
+              "type": "cjs require",
+              "userRequest": "./helpers/reactStyles",
+              "loc": "34:16-48"
+            },
+            {
+              "moduleId": 85,
+              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
+              "module": "./lib/datagrid.js",
+              "moduleName": "./lib/datagrid.js",
+              "type": "cjs require",
+              "userRequest": "./helpers/reactStyles",
+              "loc": "53:16-48"
+            },
+            {
+              "moduleId": 94,
+              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/cellWrapper.js",
+              "module": "./lib/helpers/cellWrapper.js",
+              "moduleName": "./lib/helpers/cellWrapper.js",
+              "type": "cjs require",
+              "userRequest": "./reactStyles",
+              "loc": "41:16-40"
+            }
+          ],
+          "usedExports": true,
+          "providedExports": null,
+          "optimizationBailout": [],
+          "depth": 3,
+          "source": "'use strict';\n\n(function () {\n  var DeepSet,\n      ReactStyles,\n      _,\n      slice = [].slice;\n\n  _ = require('underscore');\n\n  DeepSet = require('./deepSet');\n\n  module.exports = ReactStyles = function () {\n    function ReactStyles(styles) {\n      this.styles = styles;\n    }\n\n    /*\n      Get's an object of React inline styles resolving any includes.\n    \n      Context is optional and defaults to window.\n      (see, ./reactStyles.md for more)\n     */\n\n    ReactStyles.prototype.get = function () {\n      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;\n      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];\n      if (_.isString(context)) {\n        styleNames.splice(0, 0, context);\n        context = window;\n      }\n      outStyles = [{}];\n      for (i = 0, len = styleNames.length; i < len; i++) {\n        styleName = styleNames[i];\n        style = _.extend({}, this.styles[styleName]);\n        if (style == null) {\n          console.error(\"ReactStyles: invalid styleName specified: '\" + styleName + \"'\");\n          continue;\n        }\n        if (style.includes != null) {\n          includes = _.isArray(style.includes) ? style.includes : [style.includes];\n          for (j = 0, len1 = includes.length; j < len1; j++) {\n            include = includes[j];\n            switch (false) {\n              case !_.isString(include):\n                outStyles.push(this.get(context, include));\n                break;\n              case !_.isFunction(include):\n                outStyles.push(include.call(context));\n                break;\n              case !_.isObject(include):\n                outStyles.push(include);\n                break;\n              default:\n                throw \"Unrecognized include type (should be string, object or function): \" + JSON.stringify(include) + \" for styles: \" + JSON.stringify(this.styles);\n            }\n          }\n          delete style.includes;\n        }\n        outStyles.push(style);\n      }\n      return _.extend.apply(this, outStyles);\n    };\n\n    ReactStyles.prototype.set = function (deepAttr, value) {\n      return DeepSet(this.styles, deepAttr, value);\n    };\n\n    return ReactStyles;\n  }();\n}).call(undefined);"
+        },
+        {
+          "id": 37,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/classnames/index.js",
           "name": "./node_modules/classnames/index.js",
           "index": 20,
@@ -3361,14 +3417,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-          "issuerId": 37,
+          "issuerId": 38,
           "issuerName": "./lib/cell.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 37,
+              "moduleId": 38,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
               "module": "./lib/cell.js",
               "moduleName": "./lib/cell.js",
@@ -3392,7 +3448,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "classnames",
-              "loc": "36:15-36"
+              "loc": "37:15-36"
             }
           ],
           "usedExports": true,
@@ -3402,7 +3458,7 @@
           "source": "/*!\n  Copyright (c) 2016 Jed Watson.\n  Licensed under the MIT License (MIT), see\n  http://jedwatson.github.io/classnames\n*/\n/* global define */\n\n(function () {\n\t'use strict';\n\n\tvar hasOwn = {}.hasOwnProperty;\n\n\tfunction classNames () {\n\t\tvar classes = [];\n\n\t\tfor (var i = 0; i < arguments.length; i++) {\n\t\t\tvar arg = arguments[i];\n\t\t\tif (!arg) continue;\n\n\t\t\tvar argType = typeof arg;\n\n\t\t\tif (argType === 'string' || argType === 'number') {\n\t\t\t\tclasses.push(arg);\n\t\t\t} else if (Array.isArray(arg)) {\n\t\t\t\tclasses.push(classNames.apply(null, arg));\n\t\t\t} else if (argType === 'object') {\n\t\t\t\tfor (var key in arg) {\n\t\t\t\t\tif (hasOwn.call(arg, key) && arg[key]) {\n\t\t\t\t\t\tclasses.push(key);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\treturn classes.join(' ');\n\t}\n\n\tif (typeof module !== 'undefined' && module.exports) {\n\t\tmodule.exports = classNames;\n\t} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {\n\t\t// register as 'classnames', consistent with npm package name\n\t\tdefine('classnames', [], function () {\n\t\t\treturn classNames;\n\t\t});\n\t} else {\n\t\twindow.classNames = classNames;\n\t}\n}());\n"
         },
         {
-          "id": 37,
+          "id": 38,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "name": "./lib/cell.js",
           "index": 24,
@@ -3448,7 +3504,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "../cell",
-              "loc": "50:9-27"
+              "loc": "53:9-27"
             }
           ],
           "usedExports": true,
@@ -3458,7 +3514,7 @@
           "source": "'use strict';\n\n(function () {\n  var Bstr,\n      Cell,\n      Classnames,\n      PropTypes,\n      React,\n      ReactDatum,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDatum = require('react-datum');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Bstr = require('bumble-strings');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  /*\n    Cell is the controlled component rendered by default in each cell.\n   */\n\n  module.exports = Cell = function (superClass) {\n    extend1(Cell, superClass);\n\n    function Cell() {\n      this.renderWrapped = bind(this.renderWrapped, this);\n      return Cell.__super__.constructor.apply(this, arguments);\n    }\n\n    Cell.propTypes = {\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      editable: PropTypes.bool,\n      rowData: PropTypes.object,\n      rowIndex: PropTypes.number,\n      column: PropTypes.object,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      value: PropTypes.any,\n      onChange: PropTypes.func,\n      onEdit: PropTypes.func,\n      defaultCellStyle: PropTypes.object\n    };\n\n    Cell.prototype.componentDidUpdate = function (prevProps, prevState) {\n      var ref, ref1;\n      if (this.props.editing && !prevProps.editing) {\n        return (ref = this.refs) != null ? (ref1 = ref.datum) != null ? ref1.focus() : void 0 : void 0;\n      }\n    };\n\n    Cell.prototype.render = function () {\n      var datumComponent, datumProps, ref, value;\n      value = this.props.value;\n      datumProps = this.getDatumProps(value);\n      datumComponent = (ref = this.props.column.datum) != null ? ref : ReactDatum.Text;\n      value = React.createElement(datumComponent, datumProps);\n      return this.renderWrapped(value);\n    };\n\n    Cell.prototype.renderWrapped = function (value, options) {\n      var wrapperStyle;\n      if (options == null) {\n        options = {};\n      }\n      options = _.defaults(options, {\n        title: null,\n        wrapperStyle: {}\n      });\n      wrapperStyle = extend(true, {}, options.wrapperStyle, this.getCellStyle());\n      return React.createElement(\"div\", {\n        \"data-attr-row\": this.props.rowIndex,\n        \"data-attr-col\": this.props.column.key,\n        \"className\": this.getCellClass(),\n        \"title\": options.title,\n        \"style\": wrapperStyle\n      }, value);\n    };\n\n    Cell.prototype.getModel = function () {\n      return this.props.rowData;\n    };\n\n    /*\n      You can override or extend this method to change the props passed to \n      the datum at runtime\n     */\n\n    Cell.prototype.getDatumProps = function (value) {\n      var datumProps;\n      datumProps = extend(true, {}, this.props.column.datumProps, {\n        model: this.getModel(),\n        attr: this.props.column.key,\n        column: this.props.column,\n        ref: 'datum',\n        inputMode: this.props.editing ? 'edit' : 'readonly',\n        stateless: true,\n        value: value,\n        setOnChange: false,\n        setOnBlur: false,\n        saveOnSet: false,\n        onChange: this.props.onChange\n      });\n      datumProps = _.defaults(datumProps, {\n        rbOverlayProps: {\n          trigger: ['hover', 'focus', 'click'],\n          placement: 'top'\n        }\n      });\n      return datumProps;\n    };\n\n    Cell.prototype.getCellClass = function () {\n      var model;\n      model = this.getModel();\n      return Classnames('rdd-cell', \"rdd-\" + Bstr.dasherize(this.props.column.key) + \"-column no-help-icon\", this.getAdditionalElementClasses());\n    };\n\n    Cell.prototype.getCellStyle = function () {\n      var model;\n      model = this.getModel();\n      return extend(true, {}, this.getCellDefaultStyle(model), this.props.column.cellStyle, this.getCellOverrideStyle(model));\n    };\n\n    Cell.prototype.getCellDefaultStyle = function (model) {\n      var cellStyle, ref;\n      cellStyle = _.extend({}, (ref = this.props.defaultCellStyle) != null ? ref : {});\n      if (this.props.column.rightAlign) {\n        cellStyle.textAlign = 'right';\n        cellStyle.paddingRight = 10;\n      } else {\n        cellStyle.padding = 5;\n        cellStyle.margin = 0;\n      }\n      return cellStyle;\n    };\n\n    Cell.prototype.getCellOverrideStyle = function (model) {\n      return {};\n    };\n\n    Cell.prototype.getAdditionalElementClasses = function () {\n      return null;\n    };\n\n    Cell.prototype.focusInput = function () {\n      var ref;\n      if (this.props.editing) {\n        return (ref = this.refs.datum) != null ? ref.focus() : void 0;\n      }\n    };\n\n    return Cell;\n  }(React.Component);\n}).call(undefined);"
         },
         {
-          "id": 38,
+          "id": 39,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "index": 55,
@@ -3480,7 +3536,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -3514,7 +3570,7 @@
           "source": "var isObject = require('./_is-object');\nvar document = require('./_global').document;\n// typeof document.createElement is 'object' in old IE\nvar is = isObject(document) && isObject(document.createElement);\nmodule.exports = function (it) {\n  return is ? document.createElement(it) : {};\n};\n"
         },
         {
-          "id": 39,
+          "id": 40,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
           "index": 56,
@@ -3570,7 +3626,7 @@
           "source": "// 7.1.1 ToPrimitive(input [, PreferredType])\nvar isObject = require('./_is-object');\n// instead of the ES6 spec version, we didn't implement @@toPrimitive case\n// and the second argument - flag - preferred type is a string\nmodule.exports = function (it, S) {\n  if (!isObject(it)) return it;\n  var fn, val;\n  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;\n  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;\n  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;\n  throw TypeError(\"Can't convert object to primitive value\");\n};\n"
         },
         {
-          "id": 40,
+          "id": 41,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_defined.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_defined.js",
           "index": 65,
@@ -3626,7 +3682,7 @@
           "source": "// 7.2.1 RequireObjectCoercible(argument)\nmodule.exports = function (it) {\n  if (it == undefined) throw TypeError(\"Can't call method on  \" + it);\n  return it;\n};\n"
         },
         {
-          "id": 41,
+          "id": 42,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js",
           "index": 68,
@@ -3682,7 +3738,7 @@
           "source": "// 7.1.4 ToInteger\nvar ceil = Math.ceil;\nvar floor = Math.floor;\nmodule.exports = function (it) {\n  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);\n};\n"
         },
         {
-          "id": 42,
+          "id": 43,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "index": 70,
@@ -3704,7 +3760,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -3738,7 +3794,7 @@
           "source": "var shared = require('./_shared')('keys');\nvar uid = require('./_uid');\nmodule.exports = function (key) {\n  return shared[key] || (shared[key] = uid(key));\n};\n"
         },
         {
-          "id": 43,
+          "id": 44,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "index": 71,
@@ -3769,7 +3825,7 @@
               "loc": "1:12-32"
             },
             {
-              "moduleId": 42,
+              "moduleId": 43,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
@@ -3794,7 +3850,7 @@
           "source": "var core = require('./_core');\nvar global = require('./_global');\nvar SHARED = '__core-js_shared__';\nvar store = global[SHARED] || (global[SHARED] = {});\n\n(module.exports = function (key, value) {\n  return store[key] || (store[key] = value !== undefined ? value : {});\n})('versions', []).push({\n  version: core.version,\n  mode: require('./_library') ? 'pure' : 'global',\n  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'\n});\n"
         },
         {
-          "id": 44,
+          "id": 45,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-bug-keys.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-bug-keys.js",
           "index": 74,
@@ -3825,7 +3881,7 @@
               "loc": "3:18-45"
             },
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -3850,7 +3906,7 @@
           "source": "// IE 8- don't enum bug keys\nmodule.exports = (\n  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'\n).split(',');\n"
         },
         {
-          "id": 45,
+          "id": 46,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gops.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gops.js",
           "index": 75,
@@ -3906,7 +3962,7 @@
           "source": "exports.f = Object.getOwnPropertySymbols;\n"
         },
         {
-          "id": 46,
+          "id": 47,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/extends.js",
           "name": "./node_modules/babel-runtime/helpers/extends.js",
           "index": 78,
@@ -3962,7 +4018,7 @@
           "source": "\"use strict\";\n\nexports.__esModule = true;\n\nvar _assign = require(\"../core-js/object/assign\");\n\nvar _assign2 = _interopRequireDefault(_assign);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = _assign2.default || function (target) {\n  for (var i = 1; i < arguments.length; i++) {\n    var source = arguments[i];\n\n    for (var key in source) {\n      if (Object.prototype.hasOwnProperty.call(source, key)) {\n        target[key] = source[key];\n      }\n    }\n  }\n\n  return target;\n};"
         },
         {
-          "id": 47,
+          "id": 48,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "index": 99,
@@ -4018,7 +4074,7 @@
           "source": "// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])\nvar anObject = require('./_an-object');\nvar dPs = require('./_object-dps');\nvar enumBugKeys = require('./_enum-bug-keys');\nvar IE_PROTO = require('./_shared-key')('IE_PROTO');\nvar Empty = function () { /* empty */ };\nvar PROTOTYPE = 'prototype';\n\n// Create object with fake `null` prototype: use iframe Object with cleared prototype\nvar createDict = function () {\n  // Thrash, waste and sodomy: IE GC bug\n  var iframe = require('./_dom-create')('iframe');\n  var i = enumBugKeys.length;\n  var lt = '<';\n  var gt = '>';\n  var iframeDocument;\n  iframe.style.display = 'none';\n  require('./_html').appendChild(iframe);\n  iframe.src = 'javascript:'; // eslint-disable-line no-script-url\n  // createDict = iframe.contentWindow.Object;\n  // html.removeChild(iframe);\n  iframeDocument = iframe.contentWindow.document;\n  iframeDocument.open();\n  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);\n  iframeDocument.close();\n  createDict = iframeDocument.F;\n  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];\n  return createDict();\n};\n\nmodule.exports = Object.create || function create(O, Properties) {\n  var result;\n  if (O !== null) {\n    Empty[PROTOTYPE] = anObject(O);\n    result = new Empty();\n    Empty[PROTOTYPE] = null;\n    // add \"__proto__\" for Object.getPrototypeOf polyfill\n    result[IE_PROTO] = O;\n  } else result = createDict();\n  return Properties === undefined ? result : dPs(result, Properties);\n};\n"
         },
         {
-          "id": 48,
+          "id": 49,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
           "index": 108,
@@ -4040,7 +4096,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 49,
+              "moduleId": 50,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -4074,7 +4130,7 @@
           "source": "exports.f = require('./_wks');\n"
         },
         {
-          "id": 49,
+          "id": 50,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "index": 113,
@@ -4088,9 +4144,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.async-iterator.js",
-          "issuerId": 134,
-          "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.async-iterator.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/es6.symbol.js",
+          "issuerId": 129,
+          "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/es6.symbol.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -4130,7 +4186,7 @@
           "source": "var global = require('./_global');\nvar core = require('./_core');\nvar LIBRARY = require('./_library');\nvar wksExt = require('./_wks-ext');\nvar defineProperty = require('./_object-dp').f;\nmodule.exports = function (name) {\n  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});\n  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });\n};\n"
         },
         {
-          "id": 50,
+          "id": 51,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "name": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "index": 131,
@@ -4186,7 +4242,7 @@
           "source": "'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');\n\nvar _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);\n\nvar _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');\n\nvar _classCallCheck3 = _interopRequireDefault(_classCallCheck2);\n\nvar _createClass2 = require('babel-runtime/helpers/createClass');\n\nvar _createClass3 = _interopRequireDefault(_createClass2);\n\nvar _CellSizeAndPositionManager = require('./CellSizeAndPositionManager');\n\nvar _CellSizeAndPositionManager2 = _interopRequireDefault(_CellSizeAndPositionManager);\n\nvar _maxElementSize = require('./maxElementSize.js');\n\nvar _types = require('../types');\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n/**\n * Extends CellSizeAndPositionManager and adds scaling behavior for lists that are too large to fit within a browser's native limits.\n */\n\n\n/**\n * Browsers have scroll offset limitations (eg Chrome stops scrolling at ~33.5M pixels where as Edge tops out at ~1.5M pixels).\n * After a certain position, the browser won't allow the user to scroll further (even via JavaScript scroll offset adjustments).\n * This util picks a lower ceiling for max size and artificially adjusts positions within to make it transparent for users.\n */\n\nvar ScalingCellSizeAndPositionManager = function () {\n  function ScalingCellSizeAndPositionManager(_ref) {\n    var _ref$maxScrollSize = _ref.maxScrollSize,\n        maxScrollSize = _ref$maxScrollSize === undefined ? (0, _maxElementSize.getMaxElementSize)() : _ref$maxScrollSize,\n        params = (0, _objectWithoutProperties3.default)(_ref, ['maxScrollSize']);\n    (0, _classCallCheck3.default)(this, ScalingCellSizeAndPositionManager);\n\n    // Favor composition over inheritance to simplify IE10 support\n    this._cellSizeAndPositionManager = new _CellSizeAndPositionManager2.default(params);\n    this._maxScrollSize = maxScrollSize;\n  }\n\n  (0, _createClass3.default)(ScalingCellSizeAndPositionManager, [{\n    key: 'areOffsetsAdjusted',\n    value: function areOffsetsAdjusted() {\n      return this._cellSizeAndPositionManager.getTotalSize() > this._maxScrollSize;\n    }\n  }, {\n    key: 'configure',\n    value: function configure(params) {\n      this._cellSizeAndPositionManager.configure(params);\n    }\n  }, {\n    key: 'getCellCount',\n    value: function getCellCount() {\n      return this._cellSizeAndPositionManager.getCellCount();\n    }\n  }, {\n    key: 'getEstimatedCellSize',\n    value: function getEstimatedCellSize() {\n      return this._cellSizeAndPositionManager.getEstimatedCellSize();\n    }\n  }, {\n    key: 'getLastMeasuredIndex',\n    value: function getLastMeasuredIndex() {\n      return this._cellSizeAndPositionManager.getLastMeasuredIndex();\n    }\n\n    /**\n     * Number of pixels a cell at the given position (offset) should be shifted in order to fit within the scaled container.\n     * The offset passed to this function is scaled (safe) as well.\n     */\n\n  }, {\n    key: 'getOffsetAdjustment',\n    value: function getOffsetAdjustment(_ref2) {\n      var containerSize = _ref2.containerSize,\n          offset = _ref2.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n      var offsetPercentage = this._getOffsetPercentage({\n        containerSize: containerSize,\n        offset: offset,\n        totalSize: safeTotalSize\n      });\n\n      return Math.round(offsetPercentage * (safeTotalSize - totalSize));\n    }\n  }, {\n    key: 'getSizeAndPositionOfCell',\n    value: function getSizeAndPositionOfCell(index) {\n      return this._cellSizeAndPositionManager.getSizeAndPositionOfCell(index);\n    }\n  }, {\n    key: 'getSizeAndPositionOfLastMeasuredCell',\n    value: function getSizeAndPositionOfLastMeasuredCell() {\n      return this._cellSizeAndPositionManager.getSizeAndPositionOfLastMeasuredCell();\n    }\n\n    /** See CellSizeAndPositionManager#getTotalSize */\n\n  }, {\n    key: 'getTotalSize',\n    value: function getTotalSize() {\n      return Math.min(this._maxScrollSize, this._cellSizeAndPositionManager.getTotalSize());\n    }\n\n    /** See CellSizeAndPositionManager#getUpdatedOffsetForIndex */\n\n  }, {\n    key: 'getUpdatedOffsetForIndex',\n    value: function getUpdatedOffsetForIndex(_ref3) {\n      var _ref3$align = _ref3.align,\n          align = _ref3$align === undefined ? 'auto' : _ref3$align,\n          containerSize = _ref3.containerSize,\n          currentOffset = _ref3.currentOffset,\n          targetIndex = _ref3.targetIndex;\n\n      currentOffset = this._safeOffsetToOffset({\n        containerSize: containerSize,\n        offset: currentOffset\n      });\n\n      var offset = this._cellSizeAndPositionManager.getUpdatedOffsetForIndex({\n        align: align,\n        containerSize: containerSize,\n        currentOffset: currentOffset,\n        targetIndex: targetIndex\n      });\n\n      return this._offsetToSafeOffset({\n        containerSize: containerSize,\n        offset: offset\n      });\n    }\n\n    /** See CellSizeAndPositionManager#getVisibleCellRange */\n\n  }, {\n    key: 'getVisibleCellRange',\n    value: function getVisibleCellRange(_ref4) {\n      var containerSize = _ref4.containerSize,\n          offset = _ref4.offset;\n\n      offset = this._safeOffsetToOffset({\n        containerSize: containerSize,\n        offset: offset\n      });\n\n      return this._cellSizeAndPositionManager.getVisibleCellRange({\n        containerSize: containerSize,\n        offset: offset\n      });\n    }\n  }, {\n    key: 'resetCell',\n    value: function resetCell(index) {\n      this._cellSizeAndPositionManager.resetCell(index);\n    }\n  }, {\n    key: '_getOffsetPercentage',\n    value: function _getOffsetPercentage(_ref5) {\n      var containerSize = _ref5.containerSize,\n          offset = _ref5.offset,\n          totalSize = _ref5.totalSize;\n\n      return totalSize <= containerSize ? 0 : offset / (totalSize - containerSize);\n    }\n  }, {\n    key: '_offsetToSafeOffset',\n    value: function _offsetToSafeOffset(_ref6) {\n      var containerSize = _ref6.containerSize,\n          offset = _ref6.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n\n      if (totalSize === safeTotalSize) {\n        return offset;\n      } else {\n        var offsetPercentage = this._getOffsetPercentage({\n          containerSize: containerSize,\n          offset: offset,\n          totalSize: totalSize\n        });\n\n        return Math.round(offsetPercentage * (safeTotalSize - containerSize));\n      }\n    }\n  }, {\n    key: '_safeOffsetToOffset',\n    value: function _safeOffsetToOffset(_ref7) {\n      var containerSize = _ref7.containerSize,\n          offset = _ref7.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n\n      if (totalSize === safeTotalSize) {\n        return offset;\n      } else {\n        var offsetPercentage = this._getOffsetPercentage({\n          containerSize: containerSize,\n          offset: offset,\n          totalSize: safeTotalSize\n        });\n\n        return Math.round(offsetPercentage * (totalSize - containerSize));\n      }\n    }\n  }]);\n  return ScalingCellSizeAndPositionManager;\n}();\n\nexports.default = ScalingCellSizeAndPositionManager;"
         },
         {
-          "id": 51,
+          "id": 52,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
           "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
           "index": 160,
@@ -4242,53 +4298,6 @@
           "source": "'use strict';\n// 25.4.1.5 NewPromiseCapability(C)\nvar aFunction = require('./_a-function');\n\nfunction PromiseCapability(C) {\n  var resolve, reject;\n  this.promise = new C(function ($$resolve, $$reject) {\n    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');\n    resolve = $$resolve;\n    reject = $$reject;\n  });\n  this.resolve = aFunction(resolve);\n  this.reject = aFunction(reject);\n}\n\nmodule.exports.f = function (C) {\n  return new PromiseCapability(C);\n};\n"
         },
         {
-          "id": 52,
-          "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
-          "name": "./lib/helpers/reactStyles.js",
-          "index": 17,
-          "index2": 15,
-          "size": 2250,
-          "cacheable": true,
-          "built": true,
-          "optional": false,
-          "prefetched": false,
-          "chunks": [
-            0
-          ],
-          "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "issuerId": 85,
-          "issuerName": "./lib/datagrid.js",
-          "failed": false,
-          "errors": 0,
-          "warnings": 0,
-          "reasons": [
-            {
-              "moduleId": 54,
-              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/headerCell.js",
-              "module": "./lib/headerCell.js",
-              "moduleName": "./lib/headerCell.js",
-              "type": "cjs require",
-              "userRequest": "./helpers/reactStyles",
-              "loc": "34:16-48"
-            },
-            {
-              "moduleId": 85,
-              "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-              "module": "./lib/datagrid.js",
-              "moduleName": "./lib/datagrid.js",
-              "type": "cjs require",
-              "userRequest": "./helpers/reactStyles",
-              "loc": "53:16-48"
-            }
-          ],
-          "usedExports": true,
-          "providedExports": null,
-          "optimizationBailout": [],
-          "depth": 3,
-          "source": "'use strict';\n\n(function () {\n  var DeepSet,\n      ReactStyles,\n      _,\n      slice = [].slice;\n\n  _ = require('underscore');\n\n  DeepSet = require('./deepSet');\n\n  module.exports = ReactStyles = function () {\n    function ReactStyles(styles) {\n      this.styles = styles;\n    }\n\n    /*\n      Get's an object of React inline styles resolving any includes.\n    \n      Context is optional and defaults to window.\n      (see, ./reactStyles.md for more)\n     */\n\n    ReactStyles.prototype.get = function () {\n      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;\n      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];\n      if (_.isString(context)) {\n        styleNames.splice(0, 0, context);\n        context = window;\n      }\n      outStyles = [{}];\n      for (i = 0, len = styleNames.length; i < len; i++) {\n        styleName = styleNames[i];\n        style = _.extend({}, this.styles[styleName]);\n        if (style == null) {\n          console.error(\"ReactStyles: invalid styleName specified: '\" + styleName + \"'\");\n          continue;\n        }\n        if (style.includes != null) {\n          includes = _.isArray(style.includes) ? style.includes : [style.includes];\n          for (j = 0, len1 = includes.length; j < len1; j++) {\n            include = includes[j];\n            switch (false) {\n              case !_.isString(include):\n                outStyles.push(this.get(context, include));\n                break;\n              case !_.isFunction(include):\n                outStyles.push(include.call(context));\n                break;\n              case !_.isObject(include):\n                outStyles.push(include);\n                break;\n              default:\n                throw \"Unrecognized include type (should be string, object or function): \" + JSON.stringify(include) + \" for styles: \" + JSON.stringify(this.styles);\n            }\n          }\n          delete style.includes;\n        }\n        outStyles.push(style);\n      }\n      return _.extend.apply(this, outStyles);\n    };\n\n    ReactStyles.prototype.set = function (deepAttr, value) {\n      return DeepSet(this.styles, deepAttr, value);\n    };\n\n    return ReactStyles;\n  }();\n}).call(undefined);"
-        },
-        {
           "id": 53,
           "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/savingIndicator.js",
           "name": "./lib/helpers/savingIndicator.js",
@@ -4326,7 +4335,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "./savingIndicator",
-              "loc": "46:20-48"
+              "loc": "49:20-48"
             }
           ],
           "usedExports": true,
@@ -4452,7 +4461,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 46,
+              "moduleId": 47,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/extends.js",
               "module": "./node_modules/babel-runtime/helpers/extends.js",
               "moduleName": "./node_modules/babel-runtime/helpers/extends.js",
@@ -4773,9 +4782,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/inherits.js",
-          "issuerId": 34,
-          "issuerName": "./node_modules/babel-runtime/helpers/inherits.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/possibleConstructorReturn.js",
+          "issuerId": 32,
+          "issuerName": "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -4969,7 +4978,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -5204,7 +5213,7 @@
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -5337,9 +5346,9 @@
             0
           ],
           "assets": [],
-          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/MultiGrid/MultiGrid.js",
-          "issuerId": 174,
-          "issuerName": "./node_modules/react-virtualized/dist/commonjs/MultiGrid/MultiGrid.js",
+          "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/Grid.js",
+          "issuerId": 55,
+          "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/Grid.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
@@ -6076,14 +6085,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
-          "issuerId": 52,
+          "issuerId": 36,
           "issuerName": "./lib/helpers/reactStyles.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 52,
+              "moduleId": 36,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
               "module": "./lib/helpers/reactStyles.js",
               "moduleName": "./lib/helpers/reactStyles.js",
@@ -6104,7 +6113,7 @@
           "name": "./lib/helpers/cellWrapper.js",
           "index": 19,
           "index2": 23,
-          "size": 9591,
+          "size": 9639,
           "cacheable": true,
           "built": true,
           "optional": false,
@@ -6134,7 +6143,7 @@
           "providedExports": null,
           "optimizationBailout": [],
           "depth": 3,
-          "source": "'use strict';\n\n(function () {\n  var Cell,\n      CellWrapper,\n      Classnames,\n      EditableIndicator,\n      ErrorIndicator,\n      PropTypes,\n      Rd,\n      React,\n      ReactDOM,\n      SavingIndicator,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDOM = require('react-dom');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Rd = require('react-datum');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  EditableIndicator = require('./editableIndicator');\n\n  SavingIndicator = require('./savingIndicator');\n\n  ErrorIndicator = require('./errorIndicator');\n\n  Cell = require('../cell');\n\n  module.exports = CellWrapper = function (superClass) {\n    extend1(CellWrapper, superClass);\n\n    function CellWrapper() {\n      this._onChange = bind(this._onChange, this);\n      this._onEditIndicatorClick = bind(this._onEditIndicatorClick, this);\n      this._onDoubleClick = bind(this._onDoubleClick, this);\n      this._onBlur = bind(this._onBlur, this);\n      this._onFocus = bind(this._onFocus, this);\n      this._onMouseLeave = bind(this._onMouseLeave, this);\n      this._onMouseEnter = bind(this._onMouseEnter, this);\n      this._onMouseMove = bind(this._onMouseMove, this);\n      this._onMouseUp = bind(this._onMouseUp, this);\n      this._onMouseDown = bind(this._onMouseDown, this);\n      return CellWrapper.__super__.constructor.apply(this, arguments);\n    }\n\n    CellWrapper.props = {\n      model: PropTypes.any,\n      column: PropTypes.object,\n      rowIndex: PropTypes.number,\n      columnIndex: PropTypes.number,\n      value: PropTypes.any,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      defaultCellComponent: PropTypes.any,\n      defaultCellStyle: PropTypes.object,\n      style: PropTypes.object,\n      showPlaceholder: PropTypes.bool,\n      editable: PropTypes.bool,\n      hideEditableIcon: PropTypes.bool,\n      styleAsStrippedGrid: PropTypes.bool,\n      stripColor: PropTypes.string,\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      saving: PropTypes.bool,\n      wasSaved: PropTypes.bool,\n      saveErrors: PropTypes.array,\n      onMouseDown: PropTypes[\"function\"],\n      onMouseUp: PropTypes[\"function\"],\n      onMouseEnter: PropTypes[\"function\"],\n      onMouseLeave: PropTypes[\"function\"],\n      onKeyDown: PropTypes[\"function\"],\n      onChange: PropTypes[\"function\"]\n    };\n\n    CellWrapper.defaultProps = {\n      defaultCellComponent: Cell,\n      hideEditableIcon: false,\n      styleAsStrippedGrid: true,\n      stripColor: '#91A4CC'\n    };\n\n    CellWrapper.prototype.styles = new ReactStyles({\n      oddStripeStyle: {\n        backgroundColor: '#91A4CC'\n      }\n    });\n\n    CellWrapper.prototype.componentWillMount = function () {\n      return this.setState({\n        renderError: null\n      });\n    };\n\n    CellWrapper.prototype.componentDidCatch = function (error, info) {\n      var base;\n      if (typeof (base = this.props).onRenderError === \"function\") {\n        base.onRenderError(error, info);\n      }\n      console.error(\"react-datum-datagrid: Cell at \" + this.props.rowIndex + \", \" + this.props.columnIndex + \" (\" + this.props.column.key + \") failed to render\", error, info);\n      return this.setState({\n        renderError: {\n          error: error,\n          info: info\n        }\n      });\n    };\n\n    CellWrapper.prototype.render = function () {\n      var classNames, dataProps, ref, title;\n      if (this.state.renderError != null) {\n        title = \"This cell failed to render. Additional Details: \" + JSON.stringify(this.state.renderError);\n        return React.createElement(\"span\", {\n          \"title\": title\n        }, \":(\");\n      }\n      dataProps = {\n        'data-row': this.props.rowIndex,\n        'data-col': this.props.columnIndex\n      };\n      classNames = Classnames('rdd-cell-wrapper', {\n        'rdd-cell-selected': this.isSelected(),\n        'rdd-cell-placeholder': this.props.showPlaceholder,\n        'rdd-editable': this.props.editable,\n        'rdd-was-saved': this.props.wasSaved,\n        'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0\n      });\n      return React.createElement(\"div\", Object.assign({\n        \"className\": classNames,\n        \"onMouseDown\": this._onMouseDown,\n        \"onMouseUp\": this._onMouseUp,\n        \"onMouseMove\": this._onMouseMove,\n        \"onMouseEnter\": this._onMouseEnter,\n        \"onMouseLeave\": this._onMouseLeave,\n        \"onKeyDown\": this._onKeydown,\n        \"onFocus\": this._onFocus,\n        \"onBlur\": this._onBlur,\n        \"onDoubleClick\": this._onDoubleClick,\n        \"style\": this._getWrapperStyle()\n      }, dataProps), this._renderIndicators(), this._renderComponentOrPlaceholder());\n    };\n\n    CellWrapper.prototype._renderComponentOrPlaceholder = function () {\n      var CellComponent, ref, ref1;\n      if (this.props.showPlaceholder || this.props.model == null) {\n        return React.createElement(\"span\", null, \"...\");\n      }\n      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;\n      return React.createElement(Rd.Model, {\n        \"model\": this.props.model\n      }, React.createElement(CellComponent, {\n        \"value\": this.props.value,\n        \"selected\": this.props.selected,\n        \"editable\": this.props.editable,\n        \"editing\": this.props.editing,\n        \"rowData\": this.props.model,\n        \"rowIndex\": this.props.rowIndex,\n        \"rowIdx\": this.props.rowIndex,\n        \"column\": this.props.column,\n        \"collection\": this.props.collection,\n        \"defaultCellStyle\": this.props.defaultCellStyle,\n        \"ref\": 'cellComponent',\n        \"onChange\": this._onChange\n      }));\n    };\n\n    CellWrapper.prototype._renderIndicators = function () {\n      return React.createElement(\"div\", {\n        \"className\": \"rdd-cell-indicators\"\n      }, this._renderEditableIndicator(), this._renderSavingIndicator(), this._renderErrorIndicator());\n    };\n\n    CellWrapper.prototype._renderEditableIndicator = function () {\n      var ref;\n      if (!(this.props.editable && !this.props.saving && !this.props.editing && !((ref = this.props.column) != null ? ref.hideEditableIcon : void 0))) {\n        return null;\n      }\n      return React.createElement(EditableIndicator, {\n        \"onClick\": this._onEditIndicatorClick\n      });\n    };\n\n    CellWrapper.prototype._renderSavingIndicator = function () {\n      if (!this.props.saving) {\n        return null;\n      }\n      return React.createElement(SavingIndicator, null);\n    };\n\n    CellWrapper.prototype._renderErrorIndicator = function () {\n      var ref;\n      if (!(((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0)) {\n        return null;\n      }\n      return React.createElement(ErrorIndicator, {\n        \"errors\": this.props.saveErrors\n      });\n    };\n\n    CellWrapper.prototype._getWrapperStyle = function () {\n      var style;\n      style = this.props.style;\n      if (this.props.styleAsStrippedGrid && this.props.rowIndex % 2 > 0) {\n        return style = extend(true, {}, style, this.style('oddStripeStyle'));\n      }\n    };\n\n    CellWrapper.prototype.focus = function () {\n      var ref, ref1;\n      return (ref = this.refs) != null ? (ref1 = ref.cellComponent) != null ? ref1.focus() : void 0 : void 0;\n    };\n\n    CellWrapper.prototype.isSelected = function () {\n      return this.props.selected;\n    };\n\n    CellWrapper.prototype._onMouseDown = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseDown === \"function\" ? base.onMouseDown(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseUp = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseUp === \"function\" ? base.onMouseUp(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseMove = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseMove === \"function\" ? base.onMouseMove(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseEnter = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseEnter === \"function\" ? base.onMouseEnter(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseLeave = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseLeave === \"function\" ? base.onMouseLeave(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onFocus = function (evt) {\n      return this.setState({\n        selected: true\n      });\n    };\n\n    CellWrapper.prototype._onBlur = function (evt) {\n      var base;\n      return typeof (base = this.props)._onBlur === \"function\" ? base._onBlur(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onDoubleClick = function (evt) {\n      return this.props.onDoubleClick(evt, this);\n    };\n\n    CellWrapper.prototype._onEditIndicatorClick = function (evt) {\n      return this.props.onEditIndicatorClick(evt, this);\n    };\n\n    CellWrapper.prototype._onChange = function (value) {\n      return this.props.onChange(value, this);\n    };\n\n    return CellWrapper;\n  }(React.Component);\n}).call(undefined);"
+          "source": "'use strict';\n\n(function () {\n  var Cell,\n      CellWrapper,\n      Classnames,\n      EditableIndicator,\n      ErrorIndicator,\n      PropTypes,\n      Rd,\n      React,\n      ReactDOM,\n      ReactStyles,\n      SavingIndicator,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDOM = require('react-dom');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Rd = require('react-datum');\n\n  ReactStyles = require('./reactStyles');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  EditableIndicator = require('./editableIndicator');\n\n  SavingIndicator = require('./savingIndicator');\n\n  ErrorIndicator = require('./errorIndicator');\n\n  Cell = require('../cell');\n\n  module.exports = CellWrapper = function (superClass) {\n    extend1(CellWrapper, superClass);\n\n    function CellWrapper() {\n      this._onChange = bind(this._onChange, this);\n      this._onEditIndicatorClick = bind(this._onEditIndicatorClick, this);\n      this._onDoubleClick = bind(this._onDoubleClick, this);\n      this._onBlur = bind(this._onBlur, this);\n      this._onFocus = bind(this._onFocus, this);\n      this._onMouseLeave = bind(this._onMouseLeave, this);\n      this._onMouseEnter = bind(this._onMouseEnter, this);\n      this._onMouseMove = bind(this._onMouseMove, this);\n      this._onMouseUp = bind(this._onMouseUp, this);\n      this._onMouseDown = bind(this._onMouseDown, this);\n      return CellWrapper.__super__.constructor.apply(this, arguments);\n    }\n\n    CellWrapper.props = {\n      model: PropTypes.any,\n      column: PropTypes.object,\n      rowIndex: PropTypes.number,\n      columnIndex: PropTypes.number,\n      value: PropTypes.any,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      defaultCellComponent: PropTypes.any,\n      defaultCellStyle: PropTypes.object,\n      style: PropTypes.object,\n      showPlaceholder: PropTypes.bool,\n      editable: PropTypes.bool,\n      hideEditableIcon: PropTypes.bool,\n      styleAsStrippedGrid: PropTypes.bool,\n      stripColor: PropTypes.string,\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      saving: PropTypes.bool,\n      wasSaved: PropTypes.bool,\n      saveErrors: PropTypes.array,\n      onMouseDown: PropTypes[\"function\"],\n      onMouseUp: PropTypes[\"function\"],\n      onMouseEnter: PropTypes[\"function\"],\n      onMouseLeave: PropTypes[\"function\"],\n      onKeyDown: PropTypes[\"function\"],\n      onChange: PropTypes[\"function\"]\n    };\n\n    CellWrapper.defaultProps = {\n      defaultCellComponent: Cell,\n      hideEditableIcon: false,\n      styleAsStrippedGrid: true,\n      stripColor: '#91A4CC'\n    };\n\n    CellWrapper.prototype.styles = new ReactStyles({\n      stripe: {\n        backgroundColor: '#91A4CC'\n      }\n    });\n\n    CellWrapper.prototype.componentWillMount = function () {\n      return this.setState({\n        renderError: null\n      });\n    };\n\n    CellWrapper.prototype.componentDidCatch = function (error, info) {\n      var base;\n      if (typeof (base = this.props).onRenderError === \"function\") {\n        base.onRenderError(error, info);\n      }\n      console.error(\"react-datum-datagrid: Cell at \" + this.props.rowIndex + \", \" + this.props.columnIndex + \" (\" + this.props.column.key + \") failed to render\", error, info);\n      return this.setState({\n        renderError: {\n          error: error,\n          info: info\n        }\n      });\n    };\n\n    CellWrapper.prototype.render = function () {\n      var classNames, dataProps, ref, title;\n      if (this.state.renderError != null) {\n        title = \"This cell failed to render. Additional Details: \" + JSON.stringify(this.state.renderError);\n        return React.createElement(\"span\", {\n          \"title\": title\n        }, \":(\");\n      }\n      dataProps = {\n        'data-row': this.props.rowIndex,\n        'data-col': this.props.columnIndex\n      };\n      classNames = Classnames('rdd-cell-wrapper', {\n        'rdd-cell-selected': this.isSelected(),\n        'rdd-cell-placeholder': this.props.showPlaceholder,\n        'rdd-editable': this.props.editable,\n        'rdd-was-saved': this.props.wasSaved,\n        'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0\n      });\n      return React.createElement(\"div\", Object.assign({\n        \"className\": classNames,\n        \"onMouseDown\": this._onMouseDown,\n        \"onMouseUp\": this._onMouseUp,\n        \"onMouseMove\": this._onMouseMove,\n        \"onMouseEnter\": this._onMouseEnter,\n        \"onMouseLeave\": this._onMouseLeave,\n        \"onKeyDown\": this._onKeydown,\n        \"onFocus\": this._onFocus,\n        \"onBlur\": this._onBlur,\n        \"onDoubleClick\": this._onDoubleClick,\n        \"style\": this._getWrapperStyle()\n      }, dataProps), this._renderIndicators(), this._renderComponentOrPlaceholder());\n    };\n\n    CellWrapper.prototype._renderComponentOrPlaceholder = function () {\n      var CellComponent, ref, ref1;\n      if (this.props.showPlaceholder || this.props.model == null) {\n        return React.createElement(\"span\", null, \"...\");\n      }\n      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;\n      return React.createElement(Rd.Model, {\n        \"model\": this.props.model\n      }, React.createElement(CellComponent, {\n        \"value\": this.props.value,\n        \"selected\": this.props.selected,\n        \"editable\": this.props.editable,\n        \"editing\": this.props.editing,\n        \"rowData\": this.props.model,\n        \"rowIndex\": this.props.rowIndex,\n        \"rowIdx\": this.props.rowIndex,\n        \"column\": this.props.column,\n        \"collection\": this.props.collection,\n        \"defaultCellStyle\": this.props.defaultCellStyle,\n        \"ref\": 'cellComponent',\n        \"onChange\": this._onChange\n      }));\n    };\n\n    CellWrapper.prototype._renderIndicators = function () {\n      return React.createElement(\"div\", {\n        \"className\": \"rdd-cell-indicators\"\n      }, this._renderEditableIndicator(), this._renderSavingIndicator(), this._renderErrorIndicator());\n    };\n\n    CellWrapper.prototype._renderEditableIndicator = function () {\n      var ref;\n      if (!(this.props.editable && !this.props.saving && !this.props.editing && !((ref = this.props.column) != null ? ref.hideEditableIcon : void 0))) {\n        return null;\n      }\n      return React.createElement(EditableIndicator, {\n        \"onClick\": this._onEditIndicatorClick\n      });\n    };\n\n    CellWrapper.prototype._renderSavingIndicator = function () {\n      if (!this.props.saving) {\n        return null;\n      }\n      return React.createElement(SavingIndicator, null);\n    };\n\n    CellWrapper.prototype._renderErrorIndicator = function () {\n      var ref;\n      if (!(((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0)) {\n        return null;\n      }\n      return React.createElement(ErrorIndicator, {\n        \"errors\": this.props.saveErrors\n      });\n    };\n\n    CellWrapper.prototype._getWrapperStyle = function () {\n      var style;\n      style = this.props.style;\n      if (this.props.styleAsStrippedGrid && this.props.rowIndex % 2 !== 0) {\n        return style = extend(true, {}, style, this.style('stripe'));\n      }\n    };\n\n    CellWrapper.prototype.focus = function () {\n      var ref, ref1;\n      return (ref = this.refs) != null ? (ref1 = ref.cellComponent) != null ? ref1.focus() : void 0 : void 0;\n    };\n\n    CellWrapper.prototype.isSelected = function () {\n      return this.props.selected;\n    };\n\n    CellWrapper.prototype._onMouseDown = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseDown === \"function\" ? base.onMouseDown(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseUp = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseUp === \"function\" ? base.onMouseUp(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseMove = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseMove === \"function\" ? base.onMouseMove(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseEnter = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseEnter === \"function\" ? base.onMouseEnter(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseLeave = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseLeave === \"function\" ? base.onMouseLeave(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onFocus = function (evt) {\n      return this.setState({\n        selected: true\n      });\n    };\n\n    CellWrapper.prototype._onBlur = function (evt) {\n      var base;\n      return typeof (base = this.props)._onBlur === \"function\" ? base._onBlur(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onDoubleClick = function (evt) {\n      return this.props.onDoubleClick(evt, this);\n    };\n\n    CellWrapper.prototype._onEditIndicatorClick = function (evt) {\n      return this.props.onEditIndicatorClick(evt, this);\n    };\n\n    CellWrapper.prototype._onChange = function (value) {\n      return this.props.onChange(value, this);\n    };\n\n    return CellWrapper;\n  }(React.Component);\n}).call(undefined);"
         },
         {
           "id": 95,
@@ -6165,7 +6174,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "./editableIndicator",
-              "loc": "44:22-52"
+              "loc": "47:22-52"
             }
           ],
           "usedExports": true,
@@ -6203,7 +6212,7 @@
               "moduleName": "./lib/helpers/cellWrapper.js",
               "type": "cjs require",
               "userRequest": "./errorIndicator",
-              "loc": "48:19-46"
+              "loc": "51:19-46"
             }
           ],
           "usedExports": true,
@@ -7215,14 +7224,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
-          "issuerId": 47,
+          "issuerId": 48,
           "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 47,
+              "moduleId": 48,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
               "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -8013,14 +8022,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
-          "issuerId": 50,
+          "issuerId": 51,
           "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -8051,14 +8060,14 @@
           ],
           "assets": [],
           "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
-          "issuerId": 50,
+          "issuerId": 51,
           "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "failed": false,
           "errors": 0,
           "warnings": 0,
           "reasons": [
             {
-              "moduleId": 50,
+              "moduleId": 51,
               "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
               "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -9527,7 +9536,7 @@
           "loc": "2:11-29"
         },
         {
-          "moduleId": 43,
+          "moduleId": 44,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -9536,7 +9545,7 @@
           "loc": "1:11-29"
         },
         {
-          "moduleId": 49,
+          "moduleId": 50,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -9709,7 +9718,7 @@
           "loc": "1:13-33"
         },
         {
-          "moduleId": 38,
+          "moduleId": 39,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
@@ -9718,7 +9727,7 @@
           "loc": "2:15-35"
         },
         {
-          "moduleId": 43,
+          "moduleId": 44,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -9727,7 +9736,7 @@
           "loc": "2:13-33"
         },
         {
-          "moduleId": 49,
+          "moduleId": 50,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -9838,9 +9847,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+      "issuerId": 38,
+      "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
@@ -9855,7 +9864,7 @@
           "loc": "8:13-29"
         },
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -9906,7 +9915,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "react",
-          "loc": "30:10-26"
+          "loc": "31:10-26"
         },
         {
           "moduleId": 95,
@@ -9983,30 +9992,30 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+      "issuerId": 38,
+      "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 37,
-          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-          "module": "./lib/cell.js",
-          "moduleName": "./lib/cell.js",
-          "type": "cjs require",
-          "userRequest": "underscore",
-          "loc": "36:6-27"
-        },
-        {
-          "moduleId": 52,
+          "moduleId": 36,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
           "module": "./lib/helpers/reactStyles.js",
           "moduleName": "./lib/helpers/reactStyles.js",
           "type": "cjs require",
           "userRequest": "underscore",
           "loc": "9:6-27"
+        },
+        {
+          "moduleId": 38,
+          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+          "module": "./lib/cell.js",
+          "moduleName": "./lib/cell.js",
+          "type": "cjs require",
+          "userRequest": "underscore",
+          "loc": "36:6-27"
         },
         {
           "moduleId": 54,
@@ -10051,7 +10060,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "underscore",
-          "loc": "40:6-27"
+          "loc": "43:6-27"
         },
         {
           "moduleId": 97,
@@ -10145,7 +10154,7 @@
           "loc": "3:10-27"
         },
         {
-          "moduleId": 48,
+          "moduleId": 49,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
@@ -10274,9 +10283,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+      "issuerId": 38,
+      "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
@@ -10291,7 +10300,7 @@
           "loc": "16:17-38"
         },
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -10342,7 +10351,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "prop-types",
-          "loc": "34:14-35"
+          "loc": "35:14-35"
         },
         {
           "moduleId": 108,
@@ -10547,7 +10556,7 @@
           "loc": "1:15-38"
         },
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -10666,7 +10675,7 @@
           "loc": "1:10-33"
         },
         {
-          "moduleId": 49,
+          "moduleId": 50,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -10758,7 +10767,7 @@
           "loc": "1:15-38"
         },
         {
-          "moduleId": 38,
+          "moduleId": 39,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
@@ -10767,7 +10776,7 @@
           "loc": "1:15-38"
         },
         {
-          "moduleId": 39,
+          "moduleId": 40,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
@@ -10951,7 +10960,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -11052,7 +11061,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -11153,7 +11162,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -11619,7 +11628,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "react-dom",
-          "loc": "32:13-33"
+          "loc": "33:13-33"
         },
         {
           "moduleId": 100,
@@ -11899,7 +11908,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 43,
+          "moduleId": 44,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
@@ -11908,7 +11917,7 @@
           "loc": "10:8-29"
         },
         {
-          "moduleId": 49,
+          "moduleId": 50,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -12039,15 +12048,15 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+      "issuerId": 38,
+      "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -12071,7 +12080,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "node.extend",
-          "loc": "42:11-33"
+          "loc": "45:11-33"
         },
         {
           "moduleId": 98,
@@ -12105,14 +12114,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-      "issuerId": 37,
+      "issuerId": 38,
       "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -12186,7 +12195,7 @@
           "loc": "2:16-40"
         },
         {
-          "moduleId": 51,
+          "moduleId": 52,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
@@ -12316,7 +12325,7 @@
           "loc": "2:10-27"
         },
         {
-          "moduleId": 42,
+          "moduleId": 43,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
@@ -12754,15 +12763,15 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
+      "issuerId": 38,
+      "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -12786,7 +12795,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "react-datum",
-          "loc": "38:7-29"
+          "loc": "39:7-29"
         }
       ],
       "usedExports": true,
@@ -12796,6 +12805,62 @@
     },
     {
       "id": 36,
+      "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
+      "name": "./lib/helpers/reactStyles.js",
+      "index": 17,
+      "index2": 15,
+      "size": 2250,
+      "cacheable": true,
+      "built": true,
+      "optional": false,
+      "prefetched": false,
+      "chunks": [
+        0
+      ],
+      "assets": [],
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
+      "issuerId": 85,
+      "issuerName": "./lib/datagrid.js",
+      "failed": false,
+      "errors": 0,
+      "warnings": 0,
+      "reasons": [
+        {
+          "moduleId": 54,
+          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/headerCell.js",
+          "module": "./lib/headerCell.js",
+          "moduleName": "./lib/headerCell.js",
+          "type": "cjs require",
+          "userRequest": "./helpers/reactStyles",
+          "loc": "34:16-48"
+        },
+        {
+          "moduleId": 85,
+          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
+          "module": "./lib/datagrid.js",
+          "moduleName": "./lib/datagrid.js",
+          "type": "cjs require",
+          "userRequest": "./helpers/reactStyles",
+          "loc": "53:16-48"
+        },
+        {
+          "moduleId": 94,
+          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/cellWrapper.js",
+          "module": "./lib/helpers/cellWrapper.js",
+          "moduleName": "./lib/helpers/cellWrapper.js",
+          "type": "cjs require",
+          "userRequest": "./reactStyles",
+          "loc": "41:16-40"
+        }
+      ],
+      "usedExports": true,
+      "providedExports": null,
+      "optimizationBailout": [],
+      "depth": 3,
+      "source": "'use strict';\n\n(function () {\n  var DeepSet,\n      ReactStyles,\n      _,\n      slice = [].slice;\n\n  _ = require('underscore');\n\n  DeepSet = require('./deepSet');\n\n  module.exports = ReactStyles = function () {\n    function ReactStyles(styles) {\n      this.styles = styles;\n    }\n\n    /*\n      Get's an object of React inline styles resolving any includes.\n    \n      Context is optional and defaults to window.\n      (see, ./reactStyles.md for more)\n     */\n\n    ReactStyles.prototype.get = function () {\n      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;\n      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];\n      if (_.isString(context)) {\n        styleNames.splice(0, 0, context);\n        context = window;\n      }\n      outStyles = [{}];\n      for (i = 0, len = styleNames.length; i < len; i++) {\n        styleName = styleNames[i];\n        style = _.extend({}, this.styles[styleName]);\n        if (style == null) {\n          console.error(\"ReactStyles: invalid styleName specified: '\" + styleName + \"'\");\n          continue;\n        }\n        if (style.includes != null) {\n          includes = _.isArray(style.includes) ? style.includes : [style.includes];\n          for (j = 0, len1 = includes.length; j < len1; j++) {\n            include = includes[j];\n            switch (false) {\n              case !_.isString(include):\n                outStyles.push(this.get(context, include));\n                break;\n              case !_.isFunction(include):\n                outStyles.push(include.call(context));\n                break;\n              case !_.isObject(include):\n                outStyles.push(include);\n                break;\n              default:\n                throw \"Unrecognized include type (should be string, object or function): \" + JSON.stringify(include) + \" for styles: \" + JSON.stringify(this.styles);\n            }\n          }\n          delete style.includes;\n        }\n        outStyles.push(style);\n      }\n      return _.extend.apply(this, outStyles);\n    };\n\n    ReactStyles.prototype.set = function (deepAttr, value) {\n      return DeepSet(this.styles, deepAttr, value);\n    };\n\n    return ReactStyles;\n  }();\n}).call(undefined);"
+    },
+    {
+      "id": 37,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/classnames/index.js",
       "name": "./node_modules/classnames/index.js",
       "index": 20,
@@ -12810,14 +12875,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
-      "issuerId": 37,
+      "issuerId": 38,
       "issuerName": "./lib/cell.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 37,
+          "moduleId": 38,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
           "module": "./lib/cell.js",
           "moduleName": "./lib/cell.js",
@@ -12841,7 +12906,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "classnames",
-          "loc": "36:15-36"
+          "loc": "37:15-36"
         }
       ],
       "usedExports": true,
@@ -12851,7 +12916,7 @@
       "source": "/*!\n  Copyright (c) 2016 Jed Watson.\n  Licensed under the MIT License (MIT), see\n  http://jedwatson.github.io/classnames\n*/\n/* global define */\n\n(function () {\n\t'use strict';\n\n\tvar hasOwn = {}.hasOwnProperty;\n\n\tfunction classNames () {\n\t\tvar classes = [];\n\n\t\tfor (var i = 0; i < arguments.length; i++) {\n\t\t\tvar arg = arguments[i];\n\t\t\tif (!arg) continue;\n\n\t\t\tvar argType = typeof arg;\n\n\t\t\tif (argType === 'string' || argType === 'number') {\n\t\t\t\tclasses.push(arg);\n\t\t\t} else if (Array.isArray(arg)) {\n\t\t\t\tclasses.push(classNames.apply(null, arg));\n\t\t\t} else if (argType === 'object') {\n\t\t\t\tfor (var key in arg) {\n\t\t\t\t\tif (hasOwn.call(arg, key) && arg[key]) {\n\t\t\t\t\t\tclasses.push(key);\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\n\t\treturn classes.join(' ');\n\t}\n\n\tif (typeof module !== 'undefined' && module.exports) {\n\t\tmodule.exports = classNames;\n\t} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {\n\t\t// register as 'classnames', consistent with npm package name\n\t\tdefine('classnames', [], function () {\n\t\t\treturn classNames;\n\t\t});\n\t} else {\n\t\twindow.classNames = classNames;\n\t}\n}());\n"
     },
     {
-      "id": 37,
+      "id": 38,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/cell.js",
       "name": "./lib/cell.js",
       "index": 24,
@@ -12897,7 +12962,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "../cell",
-          "loc": "50:9-27"
+          "loc": "53:9-27"
         }
       ],
       "usedExports": true,
@@ -12907,7 +12972,7 @@
       "source": "'use strict';\n\n(function () {\n  var Bstr,\n      Cell,\n      Classnames,\n      PropTypes,\n      React,\n      ReactDatum,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDatum = require('react-datum');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Bstr = require('bumble-strings');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  /*\n    Cell is the controlled component rendered by default in each cell.\n   */\n\n  module.exports = Cell = function (superClass) {\n    extend1(Cell, superClass);\n\n    function Cell() {\n      this.renderWrapped = bind(this.renderWrapped, this);\n      return Cell.__super__.constructor.apply(this, arguments);\n    }\n\n    Cell.propTypes = {\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      editable: PropTypes.bool,\n      rowData: PropTypes.object,\n      rowIndex: PropTypes.number,\n      column: PropTypes.object,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      value: PropTypes.any,\n      onChange: PropTypes.func,\n      onEdit: PropTypes.func,\n      defaultCellStyle: PropTypes.object\n    };\n\n    Cell.prototype.componentDidUpdate = function (prevProps, prevState) {\n      var ref, ref1;\n      if (this.props.editing && !prevProps.editing) {\n        return (ref = this.refs) != null ? (ref1 = ref.datum) != null ? ref1.focus() : void 0 : void 0;\n      }\n    };\n\n    Cell.prototype.render = function () {\n      var datumComponent, datumProps, ref, value;\n      value = this.props.value;\n      datumProps = this.getDatumProps(value);\n      datumComponent = (ref = this.props.column.datum) != null ? ref : ReactDatum.Text;\n      value = React.createElement(datumComponent, datumProps);\n      return this.renderWrapped(value);\n    };\n\n    Cell.prototype.renderWrapped = function (value, options) {\n      var wrapperStyle;\n      if (options == null) {\n        options = {};\n      }\n      options = _.defaults(options, {\n        title: null,\n        wrapperStyle: {}\n      });\n      wrapperStyle = extend(true, {}, options.wrapperStyle, this.getCellStyle());\n      return React.createElement(\"div\", {\n        \"data-attr-row\": this.props.rowIndex,\n        \"data-attr-col\": this.props.column.key,\n        \"className\": this.getCellClass(),\n        \"title\": options.title,\n        \"style\": wrapperStyle\n      }, value);\n    };\n\n    Cell.prototype.getModel = function () {\n      return this.props.rowData;\n    };\n\n    /*\n      You can override or extend this method to change the props passed to \n      the datum at runtime\n     */\n\n    Cell.prototype.getDatumProps = function (value) {\n      var datumProps;\n      datumProps = extend(true, {}, this.props.column.datumProps, {\n        model: this.getModel(),\n        attr: this.props.column.key,\n        column: this.props.column,\n        ref: 'datum',\n        inputMode: this.props.editing ? 'edit' : 'readonly',\n        stateless: true,\n        value: value,\n        setOnChange: false,\n        setOnBlur: false,\n        saveOnSet: false,\n        onChange: this.props.onChange\n      });\n      datumProps = _.defaults(datumProps, {\n        rbOverlayProps: {\n          trigger: ['hover', 'focus', 'click'],\n          placement: 'top'\n        }\n      });\n      return datumProps;\n    };\n\n    Cell.prototype.getCellClass = function () {\n      var model;\n      model = this.getModel();\n      return Classnames('rdd-cell', \"rdd-\" + Bstr.dasherize(this.props.column.key) + \"-column no-help-icon\", this.getAdditionalElementClasses());\n    };\n\n    Cell.prototype.getCellStyle = function () {\n      var model;\n      model = this.getModel();\n      return extend(true, {}, this.getCellDefaultStyle(model), this.props.column.cellStyle, this.getCellOverrideStyle(model));\n    };\n\n    Cell.prototype.getCellDefaultStyle = function (model) {\n      var cellStyle, ref;\n      cellStyle = _.extend({}, (ref = this.props.defaultCellStyle) != null ? ref : {});\n      if (this.props.column.rightAlign) {\n        cellStyle.textAlign = 'right';\n        cellStyle.paddingRight = 10;\n      } else {\n        cellStyle.padding = 5;\n        cellStyle.margin = 0;\n      }\n      return cellStyle;\n    };\n\n    Cell.prototype.getCellOverrideStyle = function (model) {\n      return {};\n    };\n\n    Cell.prototype.getAdditionalElementClasses = function () {\n      return null;\n    };\n\n    Cell.prototype.focusInput = function () {\n      var ref;\n      if (this.props.editing) {\n        return (ref = this.refs.datum) != null ? ref.focus() : void 0;\n      }\n    };\n\n    return Cell;\n  }(React.Component);\n}).call(undefined);"
     },
     {
-      "id": 38,
+      "id": 39,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js",
       "index": 55,
@@ -12929,7 +12994,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -12963,7 +13028,7 @@
       "source": "var isObject = require('./_is-object');\nvar document = require('./_global').document;\n// typeof document.createElement is 'object' in old IE\nvar is = isObject(document) && isObject(document.createElement);\nmodule.exports = function (it) {\n  return is ? document.createElement(it) : {};\n};\n"
     },
     {
-      "id": 39,
+      "id": 40,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js",
       "index": 56,
@@ -13019,7 +13084,7 @@
       "source": "// 7.1.1 ToPrimitive(input [, PreferredType])\nvar isObject = require('./_is-object');\n// instead of the ES6 spec version, we didn't implement @@toPrimitive case\n// and the second argument - flag - preferred type is a string\nmodule.exports = function (it, S) {\n  if (!isObject(it)) return it;\n  var fn, val;\n  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;\n  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;\n  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;\n  throw TypeError(\"Can't convert object to primitive value\");\n};\n"
     },
     {
-      "id": 40,
+      "id": 41,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_defined.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_defined.js",
       "index": 65,
@@ -13075,7 +13140,7 @@
       "source": "// 7.2.1 RequireObjectCoercible(argument)\nmodule.exports = function (it) {\n  if (it == undefined) throw TypeError(\"Can't call method on  \" + it);\n  return it;\n};\n"
     },
     {
-      "id": 41,
+      "id": 42,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js",
       "index": 68,
@@ -13131,7 +13196,7 @@
       "source": "// 7.1.4 ToInteger\nvar ceil = Math.ceil;\nvar floor = Math.floor;\nmodule.exports = function (it) {\n  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);\n};\n"
     },
     {
-      "id": 42,
+      "id": 43,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
       "index": 70,
@@ -13153,7 +13218,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -13187,7 +13252,7 @@
       "source": "var shared = require('./_shared')('keys');\nvar uid = require('./_uid');\nmodule.exports = function (key) {\n  return shared[key] || (shared[key] = uid(key));\n};\n"
     },
     {
-      "id": 43,
+      "id": 44,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js",
       "index": 71,
@@ -13218,7 +13283,7 @@
           "loc": "1:12-32"
         },
         {
-          "moduleId": 42,
+          "moduleId": 43,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js",
@@ -13243,7 +13308,7 @@
       "source": "var core = require('./_core');\nvar global = require('./_global');\nvar SHARED = '__core-js_shared__';\nvar store = global[SHARED] || (global[SHARED] = {});\n\n(module.exports = function (key, value) {\n  return store[key] || (store[key] = value !== undefined ? value : {});\n})('versions', []).push({\n  version: core.version,\n  mode: require('./_library') ? 'pure' : 'global',\n  copyright: '© 2018 Denis Pushkarev (zloirock.ru)'\n});\n"
     },
     {
-      "id": 44,
+      "id": 45,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-bug-keys.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-bug-keys.js",
       "index": 74,
@@ -13274,7 +13339,7 @@
           "loc": "3:18-45"
         },
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -13299,7 +13364,7 @@
       "source": "// IE 8- don't enum bug keys\nmodule.exports = (\n  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'\n).split(',');\n"
     },
     {
-      "id": 45,
+      "id": 46,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gops.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gops.js",
       "index": 75,
@@ -13355,7 +13420,7 @@
       "source": "exports.f = Object.getOwnPropertySymbols;\n"
     },
     {
-      "id": 46,
+      "id": 47,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/extends.js",
       "name": "./node_modules/babel-runtime/helpers/extends.js",
       "index": 78,
@@ -13411,7 +13476,7 @@
       "source": "\"use strict\";\n\nexports.__esModule = true;\n\nvar _assign = require(\"../core-js/object/assign\");\n\nvar _assign2 = _interopRequireDefault(_assign);\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\nexports.default = _assign2.default || function (target) {\n  for (var i = 1; i < arguments.length; i++) {\n    var source = arguments[i];\n\n    for (var key in source) {\n      if (Object.prototype.hasOwnProperty.call(source, key)) {\n        target[key] = source[key];\n      }\n    }\n  }\n\n  return target;\n};"
     },
     {
-      "id": 47,
+      "id": 48,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
       "index": 99,
@@ -13467,7 +13532,7 @@
       "source": "// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])\nvar anObject = require('./_an-object');\nvar dPs = require('./_object-dps');\nvar enumBugKeys = require('./_enum-bug-keys');\nvar IE_PROTO = require('./_shared-key')('IE_PROTO');\nvar Empty = function () { /* empty */ };\nvar PROTOTYPE = 'prototype';\n\n// Create object with fake `null` prototype: use iframe Object with cleared prototype\nvar createDict = function () {\n  // Thrash, waste and sodomy: IE GC bug\n  var iframe = require('./_dom-create')('iframe');\n  var i = enumBugKeys.length;\n  var lt = '<';\n  var gt = '>';\n  var iframeDocument;\n  iframe.style.display = 'none';\n  require('./_html').appendChild(iframe);\n  iframe.src = 'javascript:'; // eslint-disable-line no-script-url\n  // createDict = iframe.contentWindow.Object;\n  // html.removeChild(iframe);\n  iframeDocument = iframe.contentWindow.document;\n  iframeDocument.open();\n  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);\n  iframeDocument.close();\n  createDict = iframeDocument.F;\n  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];\n  return createDict();\n};\n\nmodule.exports = Object.create || function create(O, Properties) {\n  var result;\n  if (O !== null) {\n    Empty[PROTOTYPE] = anObject(O);\n    result = new Empty();\n    Empty[PROTOTYPE] = null;\n    // add \"__proto__\" for Object.getPrototypeOf polyfill\n    result[IE_PROTO] = O;\n  } else result = createDict();\n  return Properties === undefined ? result : dPs(result, Properties);\n};\n"
     },
     {
-      "id": 48,
+      "id": 49,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js",
       "index": 108,
@@ -13489,7 +13554,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 49,
+          "moduleId": 50,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
@@ -13523,7 +13588,7 @@
       "source": "exports.f = require('./_wks');\n"
     },
     {
-      "id": 49,
+      "id": 50,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js",
       "index": 113,
@@ -13537,9 +13602,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.async-iterator.js",
-      "issuerId": 134,
-      "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.async-iterator.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/es6.symbol.js",
+      "issuerId": 129,
+      "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/es6.symbol.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
@@ -13579,7 +13644,7 @@
       "source": "var global = require('./_global');\nvar core = require('./_core');\nvar LIBRARY = require('./_library');\nvar wksExt = require('./_wks-ext');\nvar defineProperty = require('./_object-dp').f;\nmodule.exports = function (name) {\n  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});\n  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });\n};\n"
     },
     {
-      "id": 50,
+      "id": 51,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
       "name": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
       "index": 131,
@@ -13635,7 +13700,7 @@
       "source": "'use strict';\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\n\nvar _objectWithoutProperties2 = require('babel-runtime/helpers/objectWithoutProperties');\n\nvar _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);\n\nvar _classCallCheck2 = require('babel-runtime/helpers/classCallCheck');\n\nvar _classCallCheck3 = _interopRequireDefault(_classCallCheck2);\n\nvar _createClass2 = require('babel-runtime/helpers/createClass');\n\nvar _createClass3 = _interopRequireDefault(_createClass2);\n\nvar _CellSizeAndPositionManager = require('./CellSizeAndPositionManager');\n\nvar _CellSizeAndPositionManager2 = _interopRequireDefault(_CellSizeAndPositionManager);\n\nvar _maxElementSize = require('./maxElementSize.js');\n\nvar _types = require('../types');\n\nfunction _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }\n\n/**\n * Extends CellSizeAndPositionManager and adds scaling behavior for lists that are too large to fit within a browser's native limits.\n */\n\n\n/**\n * Browsers have scroll offset limitations (eg Chrome stops scrolling at ~33.5M pixels where as Edge tops out at ~1.5M pixels).\n * After a certain position, the browser won't allow the user to scroll further (even via JavaScript scroll offset adjustments).\n * This util picks a lower ceiling for max size and artificially adjusts positions within to make it transparent for users.\n */\n\nvar ScalingCellSizeAndPositionManager = function () {\n  function ScalingCellSizeAndPositionManager(_ref) {\n    var _ref$maxScrollSize = _ref.maxScrollSize,\n        maxScrollSize = _ref$maxScrollSize === undefined ? (0, _maxElementSize.getMaxElementSize)() : _ref$maxScrollSize,\n        params = (0, _objectWithoutProperties3.default)(_ref, ['maxScrollSize']);\n    (0, _classCallCheck3.default)(this, ScalingCellSizeAndPositionManager);\n\n    // Favor composition over inheritance to simplify IE10 support\n    this._cellSizeAndPositionManager = new _CellSizeAndPositionManager2.default(params);\n    this._maxScrollSize = maxScrollSize;\n  }\n\n  (0, _createClass3.default)(ScalingCellSizeAndPositionManager, [{\n    key: 'areOffsetsAdjusted',\n    value: function areOffsetsAdjusted() {\n      return this._cellSizeAndPositionManager.getTotalSize() > this._maxScrollSize;\n    }\n  }, {\n    key: 'configure',\n    value: function configure(params) {\n      this._cellSizeAndPositionManager.configure(params);\n    }\n  }, {\n    key: 'getCellCount',\n    value: function getCellCount() {\n      return this._cellSizeAndPositionManager.getCellCount();\n    }\n  }, {\n    key: 'getEstimatedCellSize',\n    value: function getEstimatedCellSize() {\n      return this._cellSizeAndPositionManager.getEstimatedCellSize();\n    }\n  }, {\n    key: 'getLastMeasuredIndex',\n    value: function getLastMeasuredIndex() {\n      return this._cellSizeAndPositionManager.getLastMeasuredIndex();\n    }\n\n    /**\n     * Number of pixels a cell at the given position (offset) should be shifted in order to fit within the scaled container.\n     * The offset passed to this function is scaled (safe) as well.\n     */\n\n  }, {\n    key: 'getOffsetAdjustment',\n    value: function getOffsetAdjustment(_ref2) {\n      var containerSize = _ref2.containerSize,\n          offset = _ref2.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n      var offsetPercentage = this._getOffsetPercentage({\n        containerSize: containerSize,\n        offset: offset,\n        totalSize: safeTotalSize\n      });\n\n      return Math.round(offsetPercentage * (safeTotalSize - totalSize));\n    }\n  }, {\n    key: 'getSizeAndPositionOfCell',\n    value: function getSizeAndPositionOfCell(index) {\n      return this._cellSizeAndPositionManager.getSizeAndPositionOfCell(index);\n    }\n  }, {\n    key: 'getSizeAndPositionOfLastMeasuredCell',\n    value: function getSizeAndPositionOfLastMeasuredCell() {\n      return this._cellSizeAndPositionManager.getSizeAndPositionOfLastMeasuredCell();\n    }\n\n    /** See CellSizeAndPositionManager#getTotalSize */\n\n  }, {\n    key: 'getTotalSize',\n    value: function getTotalSize() {\n      return Math.min(this._maxScrollSize, this._cellSizeAndPositionManager.getTotalSize());\n    }\n\n    /** See CellSizeAndPositionManager#getUpdatedOffsetForIndex */\n\n  }, {\n    key: 'getUpdatedOffsetForIndex',\n    value: function getUpdatedOffsetForIndex(_ref3) {\n      var _ref3$align = _ref3.align,\n          align = _ref3$align === undefined ? 'auto' : _ref3$align,\n          containerSize = _ref3.containerSize,\n          currentOffset = _ref3.currentOffset,\n          targetIndex = _ref3.targetIndex;\n\n      currentOffset = this._safeOffsetToOffset({\n        containerSize: containerSize,\n        offset: currentOffset\n      });\n\n      var offset = this._cellSizeAndPositionManager.getUpdatedOffsetForIndex({\n        align: align,\n        containerSize: containerSize,\n        currentOffset: currentOffset,\n        targetIndex: targetIndex\n      });\n\n      return this._offsetToSafeOffset({\n        containerSize: containerSize,\n        offset: offset\n      });\n    }\n\n    /** See CellSizeAndPositionManager#getVisibleCellRange */\n\n  }, {\n    key: 'getVisibleCellRange',\n    value: function getVisibleCellRange(_ref4) {\n      var containerSize = _ref4.containerSize,\n          offset = _ref4.offset;\n\n      offset = this._safeOffsetToOffset({\n        containerSize: containerSize,\n        offset: offset\n      });\n\n      return this._cellSizeAndPositionManager.getVisibleCellRange({\n        containerSize: containerSize,\n        offset: offset\n      });\n    }\n  }, {\n    key: 'resetCell',\n    value: function resetCell(index) {\n      this._cellSizeAndPositionManager.resetCell(index);\n    }\n  }, {\n    key: '_getOffsetPercentage',\n    value: function _getOffsetPercentage(_ref5) {\n      var containerSize = _ref5.containerSize,\n          offset = _ref5.offset,\n          totalSize = _ref5.totalSize;\n\n      return totalSize <= containerSize ? 0 : offset / (totalSize - containerSize);\n    }\n  }, {\n    key: '_offsetToSafeOffset',\n    value: function _offsetToSafeOffset(_ref6) {\n      var containerSize = _ref6.containerSize,\n          offset = _ref6.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n\n      if (totalSize === safeTotalSize) {\n        return offset;\n      } else {\n        var offsetPercentage = this._getOffsetPercentage({\n          containerSize: containerSize,\n          offset: offset,\n          totalSize: totalSize\n        });\n\n        return Math.round(offsetPercentage * (safeTotalSize - containerSize));\n      }\n    }\n  }, {\n    key: '_safeOffsetToOffset',\n    value: function _safeOffsetToOffset(_ref7) {\n      var containerSize = _ref7.containerSize,\n          offset = _ref7.offset;\n\n      var totalSize = this._cellSizeAndPositionManager.getTotalSize();\n      var safeTotalSize = this.getTotalSize();\n\n      if (totalSize === safeTotalSize) {\n        return offset;\n      } else {\n        var offsetPercentage = this._getOffsetPercentage({\n          containerSize: containerSize,\n          offset: offset,\n          totalSize: safeTotalSize\n        });\n\n        return Math.round(offsetPercentage * (totalSize - containerSize));\n      }\n    }\n  }]);\n  return ScalingCellSizeAndPositionManager;\n}();\n\nexports.default = ScalingCellSizeAndPositionManager;"
     },
     {
-      "id": 51,
+      "id": 52,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
       "name": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_new-promise-capability.js",
       "index": 160,
@@ -13691,53 +13756,6 @@
       "source": "'use strict';\n// 25.4.1.5 NewPromiseCapability(C)\nvar aFunction = require('./_a-function');\n\nfunction PromiseCapability(C) {\n  var resolve, reject;\n  this.promise = new C(function ($$resolve, $$reject) {\n    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');\n    resolve = $$resolve;\n    reject = $$reject;\n  });\n  this.resolve = aFunction(resolve);\n  this.reject = aFunction(reject);\n}\n\nmodule.exports.f = function (C) {\n  return new PromiseCapability(C);\n};\n"
     },
     {
-      "id": 52,
-      "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
-      "name": "./lib/helpers/reactStyles.js",
-      "index": 17,
-      "index2": 15,
-      "size": 2250,
-      "cacheable": true,
-      "built": true,
-      "optional": false,
-      "prefetched": false,
-      "chunks": [
-        0
-      ],
-      "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-      "issuerId": 85,
-      "issuerName": "./lib/datagrid.js",
-      "failed": false,
-      "errors": 0,
-      "warnings": 0,
-      "reasons": [
-        {
-          "moduleId": 54,
-          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/headerCell.js",
-          "module": "./lib/headerCell.js",
-          "moduleName": "./lib/headerCell.js",
-          "type": "cjs require",
-          "userRequest": "./helpers/reactStyles",
-          "loc": "34:16-48"
-        },
-        {
-          "moduleId": 85,
-          "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/datagrid.js",
-          "module": "./lib/datagrid.js",
-          "moduleName": "./lib/datagrid.js",
-          "type": "cjs require",
-          "userRequest": "./helpers/reactStyles",
-          "loc": "53:16-48"
-        }
-      ],
-      "usedExports": true,
-      "providedExports": null,
-      "optimizationBailout": [],
-      "depth": 3,
-      "source": "'use strict';\n\n(function () {\n  var DeepSet,\n      ReactStyles,\n      _,\n      slice = [].slice;\n\n  _ = require('underscore');\n\n  DeepSet = require('./deepSet');\n\n  module.exports = ReactStyles = function () {\n    function ReactStyles(styles) {\n      this.styles = styles;\n    }\n\n    /*\n      Get's an object of React inline styles resolving any includes.\n    \n      Context is optional and defaults to window.\n      (see, ./reactStyles.md for more)\n     */\n\n    ReactStyles.prototype.get = function () {\n      var context, i, include, includes, j, len, len1, outStyles, style, styleName, styleNames;\n      context = arguments[0], styleNames = 2 <= arguments.length ? slice.call(arguments, 1) : [];\n      if (_.isString(context)) {\n        styleNames.splice(0, 0, context);\n        context = window;\n      }\n      outStyles = [{}];\n      for (i = 0, len = styleNames.length; i < len; i++) {\n        styleName = styleNames[i];\n        style = _.extend({}, this.styles[styleName]);\n        if (style == null) {\n          console.error(\"ReactStyles: invalid styleName specified: '\" + styleName + \"'\");\n          continue;\n        }\n        if (style.includes != null) {\n          includes = _.isArray(style.includes) ? style.includes : [style.includes];\n          for (j = 0, len1 = includes.length; j < len1; j++) {\n            include = includes[j];\n            switch (false) {\n              case !_.isString(include):\n                outStyles.push(this.get(context, include));\n                break;\n              case !_.isFunction(include):\n                outStyles.push(include.call(context));\n                break;\n              case !_.isObject(include):\n                outStyles.push(include);\n                break;\n              default:\n                throw \"Unrecognized include type (should be string, object or function): \" + JSON.stringify(include) + \" for styles: \" + JSON.stringify(this.styles);\n            }\n          }\n          delete style.includes;\n        }\n        outStyles.push(style);\n      }\n      return _.extend.apply(this, outStyles);\n    };\n\n    ReactStyles.prototype.set = function (deepAttr, value) {\n      return DeepSet(this.styles, deepAttr, value);\n    };\n\n    return ReactStyles;\n  }();\n}).call(undefined);"
-    },
-    {
       "id": 53,
       "identifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/savingIndicator.js",
       "name": "./lib/helpers/savingIndicator.js",
@@ -13775,7 +13793,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "./savingIndicator",
-          "loc": "46:20-48"
+          "loc": "49:20-48"
         }
       ],
       "usedExports": true,
@@ -13901,7 +13919,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 46,
+          "moduleId": 47,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/extends.js",
           "module": "./node_modules/babel-runtime/helpers/extends.js",
           "moduleName": "./node_modules/babel-runtime/helpers/extends.js",
@@ -14222,9 +14240,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/inherits.js",
-      "issuerId": 34,
-      "issuerName": "./node_modules/babel-runtime/helpers/inherits.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/helpers/possibleConstructorReturn.js",
+      "issuerId": 32,
+      "issuerName": "./node_modules/babel-runtime/helpers/possibleConstructorReturn.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
@@ -14418,7 +14436,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -14653,7 +14671,7 @@
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -14786,9 +14804,9 @@
         0
       ],
       "assets": [],
-      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/MultiGrid/MultiGrid.js",
-      "issuerId": 174,
-      "issuerName": "./node_modules/react-virtualized/dist/commonjs/MultiGrid/MultiGrid.js",
+      "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/Grid.js",
+      "issuerId": 55,
+      "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/Grid.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
@@ -15525,14 +15543,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
-      "issuerId": 52,
+      "issuerId": 36,
       "issuerName": "./lib/helpers/reactStyles.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 52,
+          "moduleId": 36,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/cache-loader/dist/cjs.js!/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-loader/lib/index.js!/Users/kcalderon/Repos/react-datum-datagrid/lib/helpers/reactStyles.js",
           "module": "./lib/helpers/reactStyles.js",
           "moduleName": "./lib/helpers/reactStyles.js",
@@ -15553,7 +15571,7 @@
       "name": "./lib/helpers/cellWrapper.js",
       "index": 19,
       "index2": 23,
-      "size": 9591,
+      "size": 9639,
       "cacheable": true,
       "built": true,
       "optional": false,
@@ -15583,7 +15601,7 @@
       "providedExports": null,
       "optimizationBailout": [],
       "depth": 3,
-      "source": "'use strict';\n\n(function () {\n  var Cell,\n      CellWrapper,\n      Classnames,\n      EditableIndicator,\n      ErrorIndicator,\n      PropTypes,\n      Rd,\n      React,\n      ReactDOM,\n      SavingIndicator,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDOM = require('react-dom');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Rd = require('react-datum');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  EditableIndicator = require('./editableIndicator');\n\n  SavingIndicator = require('./savingIndicator');\n\n  ErrorIndicator = require('./errorIndicator');\n\n  Cell = require('../cell');\n\n  module.exports = CellWrapper = function (superClass) {\n    extend1(CellWrapper, superClass);\n\n    function CellWrapper() {\n      this._onChange = bind(this._onChange, this);\n      this._onEditIndicatorClick = bind(this._onEditIndicatorClick, this);\n      this._onDoubleClick = bind(this._onDoubleClick, this);\n      this._onBlur = bind(this._onBlur, this);\n      this._onFocus = bind(this._onFocus, this);\n      this._onMouseLeave = bind(this._onMouseLeave, this);\n      this._onMouseEnter = bind(this._onMouseEnter, this);\n      this._onMouseMove = bind(this._onMouseMove, this);\n      this._onMouseUp = bind(this._onMouseUp, this);\n      this._onMouseDown = bind(this._onMouseDown, this);\n      return CellWrapper.__super__.constructor.apply(this, arguments);\n    }\n\n    CellWrapper.props = {\n      model: PropTypes.any,\n      column: PropTypes.object,\n      rowIndex: PropTypes.number,\n      columnIndex: PropTypes.number,\n      value: PropTypes.any,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      defaultCellComponent: PropTypes.any,\n      defaultCellStyle: PropTypes.object,\n      style: PropTypes.object,\n      showPlaceholder: PropTypes.bool,\n      editable: PropTypes.bool,\n      hideEditableIcon: PropTypes.bool,\n      styleAsStrippedGrid: PropTypes.bool,\n      stripColor: PropTypes.string,\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      saving: PropTypes.bool,\n      wasSaved: PropTypes.bool,\n      saveErrors: PropTypes.array,\n      onMouseDown: PropTypes[\"function\"],\n      onMouseUp: PropTypes[\"function\"],\n      onMouseEnter: PropTypes[\"function\"],\n      onMouseLeave: PropTypes[\"function\"],\n      onKeyDown: PropTypes[\"function\"],\n      onChange: PropTypes[\"function\"]\n    };\n\n    CellWrapper.defaultProps = {\n      defaultCellComponent: Cell,\n      hideEditableIcon: false,\n      styleAsStrippedGrid: true,\n      stripColor: '#91A4CC'\n    };\n\n    CellWrapper.prototype.styles = new ReactStyles({\n      oddStripeStyle: {\n        backgroundColor: '#91A4CC'\n      }\n    });\n\n    CellWrapper.prototype.componentWillMount = function () {\n      return this.setState({\n        renderError: null\n      });\n    };\n\n    CellWrapper.prototype.componentDidCatch = function (error, info) {\n      var base;\n      if (typeof (base = this.props).onRenderError === \"function\") {\n        base.onRenderError(error, info);\n      }\n      console.error(\"react-datum-datagrid: Cell at \" + this.props.rowIndex + \", \" + this.props.columnIndex + \" (\" + this.props.column.key + \") failed to render\", error, info);\n      return this.setState({\n        renderError: {\n          error: error,\n          info: info\n        }\n      });\n    };\n\n    CellWrapper.prototype.render = function () {\n      var classNames, dataProps, ref, title;\n      if (this.state.renderError != null) {\n        title = \"This cell failed to render. Additional Details: \" + JSON.stringify(this.state.renderError);\n        return React.createElement(\"span\", {\n          \"title\": title\n        }, \":(\");\n      }\n      dataProps = {\n        'data-row': this.props.rowIndex,\n        'data-col': this.props.columnIndex\n      };\n      classNames = Classnames('rdd-cell-wrapper', {\n        'rdd-cell-selected': this.isSelected(),\n        'rdd-cell-placeholder': this.props.showPlaceholder,\n        'rdd-editable': this.props.editable,\n        'rdd-was-saved': this.props.wasSaved,\n        'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0\n      });\n      return React.createElement(\"div\", Object.assign({\n        \"className\": classNames,\n        \"onMouseDown\": this._onMouseDown,\n        \"onMouseUp\": this._onMouseUp,\n        \"onMouseMove\": this._onMouseMove,\n        \"onMouseEnter\": this._onMouseEnter,\n        \"onMouseLeave\": this._onMouseLeave,\n        \"onKeyDown\": this._onKeydown,\n        \"onFocus\": this._onFocus,\n        \"onBlur\": this._onBlur,\n        \"onDoubleClick\": this._onDoubleClick,\n        \"style\": this._getWrapperStyle()\n      }, dataProps), this._renderIndicators(), this._renderComponentOrPlaceholder());\n    };\n\n    CellWrapper.prototype._renderComponentOrPlaceholder = function () {\n      var CellComponent, ref, ref1;\n      if (this.props.showPlaceholder || this.props.model == null) {\n        return React.createElement(\"span\", null, \"...\");\n      }\n      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;\n      return React.createElement(Rd.Model, {\n        \"model\": this.props.model\n      }, React.createElement(CellComponent, {\n        \"value\": this.props.value,\n        \"selected\": this.props.selected,\n        \"editable\": this.props.editable,\n        \"editing\": this.props.editing,\n        \"rowData\": this.props.model,\n        \"rowIndex\": this.props.rowIndex,\n        \"rowIdx\": this.props.rowIndex,\n        \"column\": this.props.column,\n        \"collection\": this.props.collection,\n        \"defaultCellStyle\": this.props.defaultCellStyle,\n        \"ref\": 'cellComponent',\n        \"onChange\": this._onChange\n      }));\n    };\n\n    CellWrapper.prototype._renderIndicators = function () {\n      return React.createElement(\"div\", {\n        \"className\": \"rdd-cell-indicators\"\n      }, this._renderEditableIndicator(), this._renderSavingIndicator(), this._renderErrorIndicator());\n    };\n\n    CellWrapper.prototype._renderEditableIndicator = function () {\n      var ref;\n      if (!(this.props.editable && !this.props.saving && !this.props.editing && !((ref = this.props.column) != null ? ref.hideEditableIcon : void 0))) {\n        return null;\n      }\n      return React.createElement(EditableIndicator, {\n        \"onClick\": this._onEditIndicatorClick\n      });\n    };\n\n    CellWrapper.prototype._renderSavingIndicator = function () {\n      if (!this.props.saving) {\n        return null;\n      }\n      return React.createElement(SavingIndicator, null);\n    };\n\n    CellWrapper.prototype._renderErrorIndicator = function () {\n      var ref;\n      if (!(((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0)) {\n        return null;\n      }\n      return React.createElement(ErrorIndicator, {\n        \"errors\": this.props.saveErrors\n      });\n    };\n\n    CellWrapper.prototype._getWrapperStyle = function () {\n      var style;\n      style = this.props.style;\n      if (this.props.styleAsStrippedGrid && this.props.rowIndex % 2 > 0) {\n        return style = extend(true, {}, style, this.style('oddStripeStyle'));\n      }\n    };\n\n    CellWrapper.prototype.focus = function () {\n      var ref, ref1;\n      return (ref = this.refs) != null ? (ref1 = ref.cellComponent) != null ? ref1.focus() : void 0 : void 0;\n    };\n\n    CellWrapper.prototype.isSelected = function () {\n      return this.props.selected;\n    };\n\n    CellWrapper.prototype._onMouseDown = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseDown === \"function\" ? base.onMouseDown(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseUp = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseUp === \"function\" ? base.onMouseUp(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseMove = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseMove === \"function\" ? base.onMouseMove(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseEnter = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseEnter === \"function\" ? base.onMouseEnter(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseLeave = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseLeave === \"function\" ? base.onMouseLeave(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onFocus = function (evt) {\n      return this.setState({\n        selected: true\n      });\n    };\n\n    CellWrapper.prototype._onBlur = function (evt) {\n      var base;\n      return typeof (base = this.props)._onBlur === \"function\" ? base._onBlur(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onDoubleClick = function (evt) {\n      return this.props.onDoubleClick(evt, this);\n    };\n\n    CellWrapper.prototype._onEditIndicatorClick = function (evt) {\n      return this.props.onEditIndicatorClick(evt, this);\n    };\n\n    CellWrapper.prototype._onChange = function (value) {\n      return this.props.onChange(value, this);\n    };\n\n    return CellWrapper;\n  }(React.Component);\n}).call(undefined);"
+      "source": "'use strict';\n\n(function () {\n  var Cell,\n      CellWrapper,\n      Classnames,\n      EditableIndicator,\n      ErrorIndicator,\n      PropTypes,\n      Rd,\n      React,\n      ReactDOM,\n      ReactStyles,\n      SavingIndicator,\n      _,\n      extend,\n      bind = function bind(fn, me) {\n    return function () {\n      return fn.apply(me, arguments);\n    };\n  },\n      extend1 = function extend1(child, parent) {\n    for (var key in parent) {\n      if (hasProp.call(parent, key)) child[key] = parent[key];\n    }function ctor() {\n      this.constructor = child;\n    }ctor.prototype = parent.prototype;child.prototype = new ctor();child.__super__ = parent.prototype;return child;\n  },\n      hasProp = {}.hasOwnProperty;\n\n  React = require('react');\n\n  ReactDOM = require('react-dom');\n\n  PropTypes = require('prop-types');\n\n  Classnames = require('classnames');\n\n  Rd = require('react-datum');\n\n  ReactStyles = require('./reactStyles');\n\n  _ = require('underscore');\n\n  extend = require('node.extend');\n\n  EditableIndicator = require('./editableIndicator');\n\n  SavingIndicator = require('./savingIndicator');\n\n  ErrorIndicator = require('./errorIndicator');\n\n  Cell = require('../cell');\n\n  module.exports = CellWrapper = function (superClass) {\n    extend1(CellWrapper, superClass);\n\n    function CellWrapper() {\n      this._onChange = bind(this._onChange, this);\n      this._onEditIndicatorClick = bind(this._onEditIndicatorClick, this);\n      this._onDoubleClick = bind(this._onDoubleClick, this);\n      this._onBlur = bind(this._onBlur, this);\n      this._onFocus = bind(this._onFocus, this);\n      this._onMouseLeave = bind(this._onMouseLeave, this);\n      this._onMouseEnter = bind(this._onMouseEnter, this);\n      this._onMouseMove = bind(this._onMouseMove, this);\n      this._onMouseUp = bind(this._onMouseUp, this);\n      this._onMouseDown = bind(this._onMouseDown, this);\n      return CellWrapper.__super__.constructor.apply(this, arguments);\n    }\n\n    CellWrapper.props = {\n      model: PropTypes.any,\n      column: PropTypes.object,\n      rowIndex: PropTypes.number,\n      columnIndex: PropTypes.number,\n      value: PropTypes.any,\n      collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),\n      defaultCellComponent: PropTypes.any,\n      defaultCellStyle: PropTypes.object,\n      style: PropTypes.object,\n      showPlaceholder: PropTypes.bool,\n      editable: PropTypes.bool,\n      hideEditableIcon: PropTypes.bool,\n      styleAsStrippedGrid: PropTypes.bool,\n      stripColor: PropTypes.string,\n      selected: PropTypes.bool,\n      editing: PropTypes.bool,\n      saving: PropTypes.bool,\n      wasSaved: PropTypes.bool,\n      saveErrors: PropTypes.array,\n      onMouseDown: PropTypes[\"function\"],\n      onMouseUp: PropTypes[\"function\"],\n      onMouseEnter: PropTypes[\"function\"],\n      onMouseLeave: PropTypes[\"function\"],\n      onKeyDown: PropTypes[\"function\"],\n      onChange: PropTypes[\"function\"]\n    };\n\n    CellWrapper.defaultProps = {\n      defaultCellComponent: Cell,\n      hideEditableIcon: false,\n      styleAsStrippedGrid: true,\n      stripColor: '#91A4CC'\n    };\n\n    CellWrapper.prototype.styles = new ReactStyles({\n      stripe: {\n        backgroundColor: '#91A4CC'\n      }\n    });\n\n    CellWrapper.prototype.componentWillMount = function () {\n      return this.setState({\n        renderError: null\n      });\n    };\n\n    CellWrapper.prototype.componentDidCatch = function (error, info) {\n      var base;\n      if (typeof (base = this.props).onRenderError === \"function\") {\n        base.onRenderError(error, info);\n      }\n      console.error(\"react-datum-datagrid: Cell at \" + this.props.rowIndex + \", \" + this.props.columnIndex + \" (\" + this.props.column.key + \") failed to render\", error, info);\n      return this.setState({\n        renderError: {\n          error: error,\n          info: info\n        }\n      });\n    };\n\n    CellWrapper.prototype.render = function () {\n      var classNames, dataProps, ref, title;\n      if (this.state.renderError != null) {\n        title = \"This cell failed to render. Additional Details: \" + JSON.stringify(this.state.renderError);\n        return React.createElement(\"span\", {\n          \"title\": title\n        }, \":(\");\n      }\n      dataProps = {\n        'data-row': this.props.rowIndex,\n        'data-col': this.props.columnIndex\n      };\n      classNames = Classnames('rdd-cell-wrapper', {\n        'rdd-cell-selected': this.isSelected(),\n        'rdd-cell-placeholder': this.props.showPlaceholder,\n        'rdd-editable': this.props.editable,\n        'rdd-was-saved': this.props.wasSaved,\n        'rdd-save-error': ((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0\n      });\n      return React.createElement(\"div\", Object.assign({\n        \"className\": classNames,\n        \"onMouseDown\": this._onMouseDown,\n        \"onMouseUp\": this._onMouseUp,\n        \"onMouseMove\": this._onMouseMove,\n        \"onMouseEnter\": this._onMouseEnter,\n        \"onMouseLeave\": this._onMouseLeave,\n        \"onKeyDown\": this._onKeydown,\n        \"onFocus\": this._onFocus,\n        \"onBlur\": this._onBlur,\n        \"onDoubleClick\": this._onDoubleClick,\n        \"style\": this._getWrapperStyle()\n      }, dataProps), this._renderIndicators(), this._renderComponentOrPlaceholder());\n    };\n\n    CellWrapper.prototype._renderComponentOrPlaceholder = function () {\n      var CellComponent, ref, ref1;\n      if (this.props.showPlaceholder || this.props.model == null) {\n        return React.createElement(\"span\", null, \"...\");\n      }\n      CellComponent = (ref = (ref1 = this.props.column.cellComponent) != null ? ref1 : this.props.column.formatter) != null ? ref : this.props.defaultCellComponent;\n      return React.createElement(Rd.Model, {\n        \"model\": this.props.model\n      }, React.createElement(CellComponent, {\n        \"value\": this.props.value,\n        \"selected\": this.props.selected,\n        \"editable\": this.props.editable,\n        \"editing\": this.props.editing,\n        \"rowData\": this.props.model,\n        \"rowIndex\": this.props.rowIndex,\n        \"rowIdx\": this.props.rowIndex,\n        \"column\": this.props.column,\n        \"collection\": this.props.collection,\n        \"defaultCellStyle\": this.props.defaultCellStyle,\n        \"ref\": 'cellComponent',\n        \"onChange\": this._onChange\n      }));\n    };\n\n    CellWrapper.prototype._renderIndicators = function () {\n      return React.createElement(\"div\", {\n        \"className\": \"rdd-cell-indicators\"\n      }, this._renderEditableIndicator(), this._renderSavingIndicator(), this._renderErrorIndicator());\n    };\n\n    CellWrapper.prototype._renderEditableIndicator = function () {\n      var ref;\n      if (!(this.props.editable && !this.props.saving && !this.props.editing && !((ref = this.props.column) != null ? ref.hideEditableIcon : void 0))) {\n        return null;\n      }\n      return React.createElement(EditableIndicator, {\n        \"onClick\": this._onEditIndicatorClick\n      });\n    };\n\n    CellWrapper.prototype._renderSavingIndicator = function () {\n      if (!this.props.saving) {\n        return null;\n      }\n      return React.createElement(SavingIndicator, null);\n    };\n\n    CellWrapper.prototype._renderErrorIndicator = function () {\n      var ref;\n      if (!(((ref = this.props.saveErrors) != null ? ref.length : void 0) > 0)) {\n        return null;\n      }\n      return React.createElement(ErrorIndicator, {\n        \"errors\": this.props.saveErrors\n      });\n    };\n\n    CellWrapper.prototype._getWrapperStyle = function () {\n      var style;\n      style = this.props.style;\n      if (this.props.styleAsStrippedGrid && this.props.rowIndex % 2 !== 0) {\n        return style = extend(true, {}, style, this.style('stripe'));\n      }\n    };\n\n    CellWrapper.prototype.focus = function () {\n      var ref, ref1;\n      return (ref = this.refs) != null ? (ref1 = ref.cellComponent) != null ? ref1.focus() : void 0 : void 0;\n    };\n\n    CellWrapper.prototype.isSelected = function () {\n      return this.props.selected;\n    };\n\n    CellWrapper.prototype._onMouseDown = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseDown === \"function\" ? base.onMouseDown(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseUp = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseUp === \"function\" ? base.onMouseUp(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseMove = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseMove === \"function\" ? base.onMouseMove(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseEnter = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseEnter === \"function\" ? base.onMouseEnter(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onMouseLeave = function (evt) {\n      var base;\n      return typeof (base = this.props).onMouseLeave === \"function\" ? base.onMouseLeave(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onFocus = function (evt) {\n      return this.setState({\n        selected: true\n      });\n    };\n\n    CellWrapper.prototype._onBlur = function (evt) {\n      var base;\n      return typeof (base = this.props)._onBlur === \"function\" ? base._onBlur(evt, this) : void 0;\n    };\n\n    CellWrapper.prototype._onDoubleClick = function (evt) {\n      return this.props.onDoubleClick(evt, this);\n    };\n\n    CellWrapper.prototype._onEditIndicatorClick = function (evt) {\n      return this.props.onEditIndicatorClick(evt, this);\n    };\n\n    CellWrapper.prototype._onChange = function (value) {\n      return this.props.onChange(value, this);\n    };\n\n    return CellWrapper;\n  }(React.Component);\n}).call(undefined);"
     },
     {
       "id": 95,
@@ -15614,7 +15632,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "./editableIndicator",
-          "loc": "44:22-52"
+          "loc": "47:22-52"
         }
       ],
       "usedExports": true,
@@ -15652,7 +15670,7 @@
           "moduleName": "./lib/helpers/cellWrapper.js",
           "type": "cjs require",
           "userRequest": "./errorIndicator",
-          "loc": "48:19-46"
+          "loc": "51:19-46"
         }
       ],
       "usedExports": true,
@@ -16664,14 +16682,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
-      "issuerId": 47,
+      "issuerId": 48,
       "issuerName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 47,
+          "moduleId": 48,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "module": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
           "moduleName": "./node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js",
@@ -17462,14 +17480,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
-      "issuerId": 50,
+      "issuerId": 51,
       "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
@@ -17500,14 +17518,14 @@
       ],
       "assets": [],
       "issuer": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
-      "issuerId": 50,
+      "issuerId": 51,
       "issuerName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
       "failed": false,
       "errors": 0,
       "warnings": 0,
       "reasons": [
         {
-          "moduleId": 50,
+          "moduleId": 51,
           "moduleIdentifier": "/Users/kcalderon/Repos/react-datum-datagrid/node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "module": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",
           "moduleName": "./node_modules/react-virtualized/dist/commonjs/Grid/utils/ScalingCellSizeAndPositionManager.js",

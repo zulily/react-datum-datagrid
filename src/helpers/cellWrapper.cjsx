@@ -5,6 +5,7 @@ PropTypes = require 'prop-types'
 Classnames = require 'classnames'
 Rd = require 'react-datum'
 
+ReactStyles = require './reactStyles'
 _ = require 'underscore'
 extend = require('node.extend')
 
@@ -87,7 +88,7 @@ module.exports = class CellWrapper extends React.Component
     
 
   styles: new ReactStyles
-    oddStripeStyle:
+    stripe:
       backgroundColor: '#91A4CC'
     
   
@@ -185,8 +186,8 @@ module.exports = class CellWrapper extends React.Component
 
   _getWrapperStyle: ->
     style = @props.style
-    if @props.styleAsStrippedGrid && (@props.rowIndex % 2 > 0)
-      style = extend(true, {}, style, @style('oddStripeStyle'))
+    if @props.styleAsStrippedGrid && (@props.rowIndex % 2 != 0)
+      style = extend(true, {}, style, @style('stripe'))
 
   
   focus: ->
