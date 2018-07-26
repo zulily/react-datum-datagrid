@@ -5074,10 +5074,6 @@ module.exports = function(module) {
       }(this))), React.createElement("div", {
         "style": this.style('freeGrid'),
         "className": 'rdd-free-grid'
-      }, React.createElement("div", {
-        "style": {
-          'display': 'inline-block'
-        }
       }, React.createElement(AutoSizer, null, function (_this) {
         return function (arg) {
           var height, width;
@@ -5090,7 +5086,7 @@ module.exports = function(module) {
             "width": width
           }, freeGridProps));
         };
-      }(this))))));
+      }(this)))));
     };
 
     Datagrid.prototype.lockedCellRenderer = function (arg) {
@@ -8739,6 +8735,7 @@ module.exports = is;
       this.onCellMouseMove = bind(this.onCellMouseMove, this);
       this.onCellMouseUp = bind(this.onCellMouseUp, this);
       this.onCellMouseDown = bind(this.onCellMouseDown, this);
+      this.onMouseDown = bind(this.onMouseDown, this);
       this.onCollectionReset = bind(this.onCollectionReset, this);
     }
 
@@ -8751,6 +8748,15 @@ module.exports = is;
     GridSelect.prototype.onCollectionReset = function () {
       this.resetSelectedCells();
       return typeof this.originalMethod === "function" ? this.originalMethod() : void 0;
+    };
+
+    GridSelect.prototype.onMouseDown = function (evt) {
+      if (!this.__isInOurDatagrid(evt.target)) {
+        if (this.isDatagridEditing()) {
+          this.cancelEditing();
+        }
+        return this.resetSelectedCells();
+      }
     };
 
     GridSelect.prototype.onCellMouseDown = function (evt, cell) {
@@ -8866,7 +8872,10 @@ module.exports = is;
     GridSelect.prototype.GridSelect_onDocumentKeyDown = function (evt) {
       var cellPosition, columnIndex, i, keyCode, ref, ref1, ref2, ref3, results, rowIndex;
       if (!this.__isInOurDatagrid(evt.target)) {
-        return;
+        if (this.isDatagridEditing()) {
+          this.cancelEditing();
+        }
+        this.resetSelectedCells();
       }
       keyCode = evt.keyCode;
       if (this.isDatagridEditing()) {

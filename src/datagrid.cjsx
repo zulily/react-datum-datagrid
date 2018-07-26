@@ -289,7 +289,6 @@ module.exports = class Datagrid extends React.Component
           </AutoSizer>
         </div>
         <div style={@style('freeGrid')} className='rdd-free-grid'>
-          <div style={ 'display': 'inline-block' }>
             <AutoSizer>
               { ({height, width}) =>
                 <Grid
@@ -302,7 +301,6 @@ module.exports = class Datagrid extends React.Component
                 />
               }
             </AutoSizer>
-          </div>
         </div>
       </div>
     </div>

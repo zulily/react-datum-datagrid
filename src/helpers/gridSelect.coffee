@@ -45,6 +45,13 @@ module.exports = class GridSelect
     @originalMethod?()
 
 
+  onMouseDown: (evt) =>
+    if !@__isInOurDatagrid(evt.target)
+      if @isDatagridEditing()
+        @cancelEditing()
+      @resetSelectedCells()
+    
+
   onCellMouseDown: (evt, cell) =>
     # DONT preventDefault - instead use styling {user-select: none} to block text selection.
     #     using prevent default prevents grid from focusing the cell
@@ -152,7 +159,11 @@ module.exports = class GridSelect
 
 
   GridSelect_onDocumentKeyDown: (evt) =>
-    return unless @__isInOurDatagrid(evt.target)
+    if !@__isInOurDatagrid(evt.target)
+      if @isDatagridEditing()
+        @cancelEditing()
+      @resetSelectedCells()
+
     keyCode = evt.keyCode
 
     if @isDatagridEditing()
