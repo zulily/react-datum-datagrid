@@ -152,11 +152,7 @@ module.exports = class GridSelect
 
 
   GridSelect_onDocumentKeyDown: (evt) =>
-    if !@__isInOurDatagrid(evt.target)
-      if @isDatagridEditing()
-        @cancelEditing()
-      @resetSelectedCells()
-
+    return unless @__isInOurDatagrid(evt.target)
     keyCode = evt.keyCode
 
     if @isDatagridEditing()

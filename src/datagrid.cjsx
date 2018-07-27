@@ -243,7 +243,7 @@ module.exports = class Datagrid extends React.Component
     if prevProps.columns != @props.columns
       console.log("reset")
       @_resetAfterDataTransition()
-      @render()
+      # @render()
 
 
 
@@ -387,7 +387,8 @@ module.exports = class Datagrid extends React.Component
     isSelectingThisColumn = @state.selectingColumnIndex == columnIndex
 
     HeaderCellComponent = columnDef.headerComponent ? columnDef.header ? @props.defaultHeaderComponent
-
+    width = columnDef.width ? @props.defaultColumnDef.width
+    console.log("HeaderWidth: ", width, " for ", columnDef)
     <HeaderCellComponent
       key={columnIndex}
       column={columnDef}
@@ -401,7 +402,7 @@ module.exports = class Datagrid extends React.Component
       onSelectColumn={(evt,columnIndex) => @onSelectColumn(evt,columnIndex)}
       onSort={(columnIndex, columnDef, direction) => @onSortColumn(columnIndex, columnDef, direction)}
 
-      width={@props.headerWidth}
+      width={width}
       height={@props.headerHeight}
     />
     # @onSelectColumn is in helpers/gridSelect
@@ -515,7 +516,7 @@ module.exports = class Datagrid extends React.Component
         width = columnDef.width ? @props.defaultColumnDef.width
       else
         height = columnDef.height ? @props.defaultColumnDef.height
-        width = @props.headerWidth
+        width = columnDef.width ? @props.defaultColumnDef.width
 
     cellStyle =
       height: height
@@ -526,7 +527,8 @@ module.exports = class Datagrid extends React.Component
 
   _resetAfterDataTransition: ->
     if @isDatagridEditing()
-      @cancelEditing()
+      # @cancelEditing()
+      @saveEditingCell()
     @resetSelectedCells()
 
 

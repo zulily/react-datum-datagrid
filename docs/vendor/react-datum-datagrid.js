@@ -2053,6 +2053,7 @@ module.exports = warning;
 
     HeaderCell.prototype.render = function () {
       var ref;
+      console.log("HeaderCell render", this.props.column);
       if ((ref = this.props.column) != null ? ref.tooltip : void 0) {
         return React.createElement("div", {
           "style": this.style('wrapper'),
@@ -5020,8 +5021,7 @@ module.exports = function(module) {
       }
       if (prevProps.columns !== this.props.columns) {
         console.log("reset");
-        this._resetAfterDataTransition();
-        return this.render();
+        return this._resetAfterDataTransition();
       }
     };
 
@@ -5172,7 +5172,7 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._renderHeaderCell = function (columnIndex, columnDef) {
-      var HeaderCellComponent, isSelectingThisColumn, isSortedByUs, isSortingByUs, ref, ref1, sortDirection;
+      var HeaderCellComponent, isSelectingThisColumn, isSortedByUs, isSortingByUs, ref, ref1, ref2, sortDirection, width;
       if (columnDef == null) {
         return null;
       }
@@ -5182,6 +5182,8 @@ module.exports = function(module) {
       sortDirection = isSortedByUs ? this.state.sortDirection : null;
       isSelectingThisColumn = this.state.selectingColumnIndex === columnIndex;
       HeaderCellComponent = (ref = (ref1 = columnDef.headerComponent) != null ? ref1 : columnDef.header) != null ? ref : this.props.defaultHeaderComponent;
+      width = (ref2 = columnDef.width) != null ? ref2 : this.props.defaultColumnDef.width;
+      console.log("HeaderWidth: ", width, " for ", columnDef);
       return React.createElement(HeaderCellComponent, {
         "key": columnIndex,
         "column": columnDef,
@@ -5201,7 +5203,7 @@ module.exports = function(module) {
             return _this.onSortColumn(columnIndex, columnDef, direction);
           };
         }(this),
-        "width": this.props.headerWidth,
+        "width": width,
         "height": this.props.headerHeight
       });
     };
@@ -5336,7 +5338,7 @@ module.exports = function(module) {
     };
 
     Datagrid.prototype._getDefaultCellStyle = function (columnDef, isHeader) {
-      var cellStyle, height, ref, ref1, width;
+      var cellStyle, height, ref, ref1, ref2, width;
       if (isHeader == null) {
         isHeader = false;
       }
@@ -5346,7 +5348,7 @@ module.exports = function(module) {
           width = (ref = columnDef.width) != null ? ref : this.props.defaultColumnDef.width;
         } else {
           height = (ref1 = columnDef.height) != null ? ref1 : this.props.defaultColumnDef.height;
-          width = this.props.headerWidth;
+          width = (ref2 = columnDef.width) != null ? ref2 : this.props.defaultColumnDef.width;
         }
       }
       cellStyle = {
@@ -5358,7 +5360,7 @@ module.exports = function(module) {
 
     Datagrid.prototype._resetAfterDataTransition = function () {
       if (this.isDatagridEditing()) {
-        this.cancelEditing();
+        this.saveEditingCell();
       }
       return this.resetSelectedCells();
     };
@@ -8876,10 +8878,7 @@ module.exports = is;
     GridSelect.prototype.GridSelect_onDocumentKeyDown = function (evt) {
       var cellPosition, columnIndex, i, keyCode, ref, ref1, ref2, ref3, results, rowIndex;
       if (!this.__isInOurDatagrid(evt.target)) {
-        if (this.isDatagridEditing()) {
-          this.cancelEditing();
-        }
-        this.resetSelectedCells();
+        return;
       }
       keyCode = evt.keyCode;
       if (this.isDatagridEditing()) {
