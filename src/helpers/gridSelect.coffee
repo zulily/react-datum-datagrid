@@ -337,7 +337,7 @@ module.exports = class GridSelect
 
 
   onSelectedCellsChange: () ->
-    console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
+    # console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
     @props.onSelectedCellsChange?((@state.selectedCells ? []).slice(0))
 
 
@@ -365,5 +365,3 @@ module.exports = class GridSelect
 
   __isInOurDatagrid: (element) ->
     return ReactDOM.findDOMNode(@).contains(element)
-
-

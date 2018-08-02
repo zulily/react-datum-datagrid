@@ -67,7 +67,6 @@ module.exports = class HeaderCell extends React.Component
     _.extend {}, @styles.get(@, name), @props.styles?[name] || {}    
 
   render: ->
-    console.log("HeaderCell render", @props.column)
     if @props.column?.tooltip
       return (
         <div style={@style('wrapper')} className="rdd-header-wrapper">
@@ -126,8 +125,3 @@ module.exports = class HeaderCell extends React.Component
   
   _onColumnNameClick: (evt) =>
     @props.onSelectColumn?(evt, @props.columnIndex)
-    
-    
-  
-  
-  

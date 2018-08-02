@@ -54,7 +54,7 @@
 
 
 .react-datum-datagrid .rdd-cell-selected {
-  background-color: #91A4CC;
+  background-color: #91A4CC !important;
   color: whitesmoke;
 }
 
@@ -173,5 +173,3 @@
       background-color: #d04f54;
   }  
 }
-
-

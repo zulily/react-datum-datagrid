@@ -234,14 +234,12 @@ module.exports = class Datagrid extends React.Component
 
 
   componentDidUpdate: (prevProps) ->
-    console.log("update")
     if prevProps.collection != @props.collection
       @_unbindCollectionEvents(prevProps.collection)
       @_bindCollectionEvents()
       @_resetAfterDataTransition()
 
     if prevProps.columns != @props.columns
-      console.log("reset")
       @_resetAfterDataTransition()
       # @render()
 
@@ -341,13 +339,11 @@ module.exports = class Datagrid extends React.Component
 
   getLockedColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getLockedColumns())
-    # console.log('getLockedColumnWidth', index, width)
     return width
 
 
   getFreeColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getFreeColumns())
-    # console.log('getFreeColumnWidth', index, width)
     return width
 
 
@@ -388,7 +384,6 @@ module.exports = class Datagrid extends React.Component
 
     HeaderCellComponent = columnDef.headerComponent ? columnDef.header ? @props.defaultHeaderComponent
     width = columnDef.width ? @props.defaultColumnDef.width
-    console.log("HeaderWidth: ", width, " for ", columnDef)
     <HeaderCellComponent
       key={columnIndex}
       column={columnDef}
@@ -527,8 +522,8 @@ module.exports = class Datagrid extends React.Component
 
   _resetAfterDataTransition: ->
     if @isDatagridEditing()
-      # @cancelEditing()
-      @saveEditingCell()
+      @cancelEditing()
+      # @saveEditingCell()
     @resetSelectedCells()
 
 

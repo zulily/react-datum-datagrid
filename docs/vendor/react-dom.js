@@ -1,4 +1,4 @@
-/** @license React v16.4.1
+/** @license React v16.4.0
  * react-dom.development.js
  *
  * Copyright (c) 2013-present, Facebook, Inc.
@@ -2389,9 +2389,7 @@ var DOCUMENT_FRAGMENT_NODE = 11;
  * @return {DOMEventTarget} Target node.
  */
 function getEventTarget(nativeEvent) {
-  // Fallback to nativeEvent.srcElement for IE9
-  // https://github.com/facebook/react/issues/12506
-  var target = nativeEvent.target || nativeEvent.srcElement || window;
+  var target = nativeEvent.target || window;
 
   // Normalize SVG <use> element events #4963
   if (target.correspondingUseElement) {
@@ -3361,28 +3359,20 @@ function updateWrapper(element, props) {
   }
 }
 
-function postMountWrapper(element, props, isHydrating) {
+function postMountWrapper(element, props) {
   var node = element;
 
   if (props.hasOwnProperty('value') || props.hasOwnProperty('defaultValue')) {
-    var _initialValue = '' + node._wrapperState.initialValue;
-    var currentValue = node.value;
-
     // Do not assign value if it is already set. This prevents user text input
     // from being lost during SSR hydration.
-    if (!isHydrating) {
-      // Do not re-assign the value property if there is no change. This
-      // potentially avoids a DOM write and prevents Firefox (~60.0.1) from
-      // prematurely marking required inputs as invalid
-      if (_initialValue !== currentValue) {
-        node.value = _initialValue;
-      }
+    if (node.value === '') {
+      node.value = '' + node._wrapperState.initialValue;
     }
 
     // value must be assigned before defaultValue. This fixes an issue where the
     // visually displayed value of date inputs disappears on mobile Safari and Chrome:
     // https://github.com/facebook/react/issues/7233
-    node.defaultValue = _initialValue;
+    node.defaultValue = '' + node._wrapperState.initialValue;
   }
 
   // Normally, we'd just do `node.checked = node.checked` upon initial mount, less this bug
@@ -3655,8 +3645,14 @@ function getTargetInstForInputOrChangeEvent(topLevelType, targetInst) {
   }
 }
 
-function handleControlledInputBlur(node) {
-  var state = node._wrapperState;
+function handleControlledInputBlur(inst, node) {
+  // TODO: In IE, inst is occasionally null. Why?
+  if (inst == null) {
+    return;
+  }
+
+  // Fiber and ReactDOM keep wrapper state in separate places
+  var state = inst._wrapperState || node._wrapperState;
 
   if (!state || !state.controlled || node.type !== 'number') {
     return;
@@ -3713,7 +3709,7 @@ var ChangeEventPlugin = {
 
     // When blurring, set the value attribute for number inputs
     if (topLevelType === TOP_BLUR) {
-      handleControlledInputBlur(targetNode);
+      handleControlledInputBlur(targetInst, targetNode);
     }
   }
 };
@@ -5383,14 +5379,9 @@ function isInDocument(node) {
  * Input selection module for React.
  */
 
-/**
- * @hasSelectionCapabilities: we get the element types that support selection
- * from https://html.spec.whatwg.org/#do-not-apply, looking at `selectionStart`
- * and `selectionEnd` rows.
- */
 function hasSelectionCapabilities(elem) {
   var nodeName = elem && elem.nodeName && elem.nodeName.toLowerCase();
-  return nodeName && (nodeName === 'input' && (elem.type === 'text' || elem.type === 'search' || elem.type === 'tel' || elem.type === 'url' || elem.type === 'password') || nodeName === 'textarea' || elem.contentEditable === 'true');
+  return nodeName && (nodeName === 'input' && elem.type === 'text' || nodeName === 'textarea' || elem.contentEditable === 'true');
 }
 
 function getSelectionInformation() {
@@ -5411,7 +5402,7 @@ function restoreSelection(priorSelectionInformation) {
   var priorFocusedElem = priorSelectionInformation.focusedElem;
   var priorSelectionRange = priorSelectionInformation.selectionRange;
   if (curFocusedElem !== priorFocusedElem && isInDocument(priorFocusedElem)) {
-    if (priorSelectionRange !== null && hasSelectionCapabilities(priorFocusedElem)) {
+    if (hasSelectionCapabilities(priorFocusedElem)) {
       setSelection(priorFocusedElem, priorSelectionRange);
     }
 
@@ -5428,9 +5419,7 @@ function restoreSelection(priorSelectionInformation) {
       }
     }
 
-    if (typeof priorFocusedElem.focus === 'function') {
-      priorFocusedElem.focus();
-    }
+    priorFocusedElem.focus();
 
     for (var i = 0; i < ancestors.length; i++) {
       var info = ancestors[i];
@@ -5670,11 +5659,11 @@ var emptyObject = {};
 
 var emptyObject_1 = emptyObject;
 
-// We capture a local reference to any global, in case it gets polyfilled after
-// this module is initially evaluated.
-// We want to be using a consistent implementation.
-
-var localRequestAnimationFrame$1 = typeof requestAnimationFrame === 'function' ? requestAnimationFrame : undefined;
+{
+  if (ExecutionEnvironment_1.canUseDOM && typeof requestAnimationFrame !== 'function') {
+    warning_1(false, 'React depends on requestAnimationFrame. Make sure that you load a ' + 'polyfill in older browsers. https://fb.me/react-polyfills');
+  }
+}
 
 /**
  * A scheduling library to allow scheduling work with more granular priority and
@@ -5697,42 +5686,32 @@ var localRequestAnimationFrame$1 = typeof requestAnimationFrame === 'function' ?
 // layout, paint and other browser work is counted against the available time.
 // The frame rate is dynamically adjusted.
 
-// We capture a local reference to any global, in case it gets polyfilled after
-// this module is initially evaluated.
-// We want to be using a consistent implementation.
-var localDate = Date;
-var localSetTimeout = setTimeout;
-var localClearTimeout = clearTimeout;
-
 var hasNativePerformanceNow = typeof performance === 'object' && typeof performance.now === 'function';
 
 var now$1 = void 0;
 if (hasNativePerformanceNow) {
-  var Performance = performance;
   now$1 = function () {
-    return Performance.now();
+    return performance.now();
   };
 } else {
   now$1 = function () {
-    return localDate.now();
+    return Date.now();
   };
 }
 
+// TODO: There's no way to cancel, because Fiber doesn't atm.
 var scheduleWork = void 0;
 var cancelScheduledWork = void 0;
 
 if (!ExecutionEnvironment_1.canUseDOM) {
-  var timeoutIds = new Map();
+  var callbackIdCounter = 0;
+  // Timeouts are objects in Node.
+  // For consistency, we'll use numbers in the public API anyway.
+  var timeoutIds = {};
 
   scheduleWork = function (callback, options) {
-    // keeping return type consistent
-    var callbackConfig = {
-      scheduledCallback: callback,
-      timeoutTime: 0,
-      next: null,
-      prev: null
-    };
-    var timeoutId = localSetTimeout(function () {
+    var callbackId = callbackIdCounter++;
+    var timeoutId = setTimeout(function () {
       callback({
         timeRemaining: function () {
           return Infinity;
@@ -5741,28 +5720,33 @@ if (!ExecutionEnvironment_1.canUseDOM) {
         didTimeout: false
       });
     });
-    timeoutIds.set(callback, timeoutId);
-    return callbackConfig;
+    timeoutIds[callbackId] = timeoutId;
+    return callbackId;
   };
   cancelScheduledWork = function (callbackId) {
-    var callback = callbackId.scheduledCallback;
-    var timeoutId = timeoutIds.get(callback);
-    timeoutIds.delete(callbackId);
-    localClearTimeout(timeoutId);
+    var timeoutId = timeoutIds[callbackId];
+    delete timeoutIds[callbackId];
+    clearTimeout(timeoutId);
   };
 } else {
-  {
-    if (typeof localRequestAnimationFrame$1 !== 'function') {
-      warning_1(false, 'React depends on requestAnimationFrame. Make sure that you load a ' + 'polyfill in older browsers. https://fb.me/react-polyfills');
-    }
-  }
+  // We keep callbacks in a queue.
+  // Calling scheduleWork will push in a new callback at the end of the queue.
+  // When we get idle time, callbacks are removed from the front of the queue
+  var pendingCallbacks = [];
 
-  var localRequestAnimationFrame = typeof localRequestAnimationFrame$1 === 'function' ? localRequestAnimationFrame$1 : function (callback) {
-    invariant_1(false, 'React depends on requestAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills');
+  var _callbackIdCounter = 0;
+  var getCallbackId = function () {
+    _callbackIdCounter++;
+    return _callbackIdCounter;
   };
 
-  var headOfPendingCallbacksLinkedList = null;
-  var tailOfPendingCallbacksLinkedList = null;
+  // When a callback is scheduled, we register it by adding it's id to this
+  // object.
+  // If the user calls 'cancelScheduledWork' with the id of that callback, it will be
+  // unregistered by removing the id from this object.
+  // Then we skip calling any callback which is not registered.
+  // This means cancelling is an O(1) time complexity instead of O(n).
+  var registeredCallbackIds = {};
 
   // We track what the next soonest timeoutTime is, to be able to quickly tell
   // if none of the scheduled callbacks have timed out.
@@ -5786,27 +5770,17 @@ if (!ExecutionEnvironment_1.canUseDOM) {
     }
   };
 
-  /**
-   * Handles the case where a callback errors:
-   * - don't catch the error, because this changes debugging behavior
-   * - do start a new postMessage callback, to call any remaining callbacks,
-   * - but only if there is an error, so there is not extra overhead.
-   */
-  var callUnsafely = function (callbackConfig, arg) {
-    var callback = callbackConfig.scheduledCallback;
-    var finishedCalling = false;
+  var safelyCallScheduledCallback = function (callback, callbackId) {
+    if (!registeredCallbackIds[callbackId]) {
+      // ignore cancelled callbacks
+      return;
+    }
     try {
-      callback(arg);
-      finishedCalling = true;
+      callback(frameDeadlineObject);
+      // Avoid using 'catch' to keep errors easy to debug
     } finally {
-      // always remove it from linked list
-      cancelScheduledWork(callbackConfig);
-
-      if (!finishedCalling) {
-        // an error must have been thrown
-        isIdleScheduled = true;
-        window.postMessage(messageKey, '*');
-      }
+      // always clean up the callbackId, even if the callback throws
+      delete registeredCallbackIds[callbackId];
     }
   };
 
@@ -5816,7 +5790,7 @@ if (!ExecutionEnvironment_1.canUseDOM) {
    * Keeps doing this until there are none which have currently timed out.
    */
   var callTimedOutCallbacks = function () {
-    if (headOfPendingCallbacksLinkedList === null) {
+    if (pendingCallbacks.length === 0) {
       return;
     }
 
@@ -5833,38 +5807,24 @@ if (!ExecutionEnvironment_1.canUseDOM) {
       // We know that none of them have timed out yet.
       return;
     }
-    // NOTE: we intentionally wait to update the nextSoonestTimeoutTime until
-    // after successfully calling any timed out callbacks.
-    // If a timed out callback throws an error, we could get stuck in a state
-    // where the nextSoonestTimeoutTime was set wrong.
-    var updatedNextSoonestTimeoutTime = -1; // we will update nextSoonestTimeoutTime below
-    var timedOutCallbacks = [];
+    nextSoonestTimeoutTime = -1; // we will reset it below
 
-    // iterate once to find timed out callbacks and find nextSoonestTimeoutTime
-    var currentCallbackConfig = headOfPendingCallbacksLinkedList;
-    while (currentCallbackConfig !== null) {
+    // keep checking until we don't find any more timed out callbacks
+    frameDeadlineObject.didTimeout = true;
+    for (var i = 0, len = pendingCallbacks.length; i < len; i++) {
+      var currentCallbackConfig = pendingCallbacks[i];
       var _timeoutTime = currentCallbackConfig.timeoutTime;
       if (_timeoutTime !== -1 && _timeoutTime <= currentTime) {
         // it has timed out!
-        timedOutCallbacks.push(currentCallbackConfig);
+        // call it
+        var _callback = currentCallbackConfig.scheduledCallback;
+        safelyCallScheduledCallback(_callback, currentCallbackConfig.callbackId);
       } else {
-        if (_timeoutTime !== -1 && (updatedNextSoonestTimeoutTime === -1 || _timeoutTime < updatedNextSoonestTimeoutTime)) {
-          updatedNextSoonestTimeoutTime = _timeoutTime;
+        if (_timeoutTime !== -1 && (nextSoonestTimeoutTime === -1 || _timeoutTime < nextSoonestTimeoutTime)) {
+          nextSoonestTimeoutTime = _timeoutTime;
         }
       }
-      currentCallbackConfig = currentCallbackConfig.next;
     }
-
-    if (timedOutCallbacks.length > 0) {
-      frameDeadlineObject.didTimeout = true;
-      for (var i = 0, len = timedOutCallbacks.length; i < len; i++) {
-        callUnsafely(timedOutCallbacks[i], frameDeadlineObject);
-      }
-    }
-
-    // NOTE: we intentionally wait to update the nextSoonestTimeoutTime until
-    // after successfully calling any timed out callbacks.
-    nextSoonestTimeoutTime = updatedNextSoonestTimeoutTime;
   };
 
   // We use the postMessage trick to defer idle work until after the repaint.
@@ -5875,7 +5835,7 @@ if (!ExecutionEnvironment_1.canUseDOM) {
     }
     isIdleScheduled = false;
 
-    if (headOfPendingCallbacksLinkedList === null) {
+    if (pendingCallbacks.length === 0) {
       return;
     }
 
@@ -5884,18 +5844,19 @@ if (!ExecutionEnvironment_1.canUseDOM) {
 
     var currentTime = now$1();
     // Next, as long as we have idle time, try calling more callbacks.
-    while (frameDeadline - currentTime > 0 && headOfPendingCallbacksLinkedList !== null) {
-      var latestCallbackConfig = headOfPendingCallbacksLinkedList;
+    while (frameDeadline - currentTime > 0 && pendingCallbacks.length > 0) {
+      var latestCallbackConfig = pendingCallbacks.shift();
       frameDeadlineObject.didTimeout = false;
-      // callUnsafely will remove it from the head of the linked list
-      callUnsafely(latestCallbackConfig, frameDeadlineObject);
+      var latestCallback = latestCallbackConfig.scheduledCallback;
+      var newCallbackId = latestCallbackConfig.callbackId;
+      safelyCallScheduledCallback(latestCallback, newCallbackId);
       currentTime = now$1();
     }
-    if (headOfPendingCallbacksLinkedList !== null) {
+    if (pendingCallbacks.length > 0) {
       if (!isAnimationFrameScheduled) {
         // Schedule another animation callback so we retry later.
         isAnimationFrameScheduled = true;
-        localRequestAnimationFrame(animationTick);
+        requestAnimationFrame(animationTick);
       }
     }
   };
@@ -5930,7 +5891,7 @@ if (!ExecutionEnvironment_1.canUseDOM) {
     }
   };
 
-  scheduleWork = function (callback, options) /* CallbackConfigType */{
+  scheduleWork = function (callback, options) {
     var timeoutTime = -1;
     if (options != null && typeof options.timeout === 'number') {
       timeoutTime = now$1() + options.timeout;
@@ -5939,100 +5900,28 @@ if (!ExecutionEnvironment_1.canUseDOM) {
       nextSoonestTimeoutTime = timeoutTime;
     }
 
+    var newCallbackId = getCallbackId();
     var scheduledCallbackConfig = {
       scheduledCallback: callback,
-      timeoutTime: timeoutTime,
-      prev: null,
-      next: null
+      callbackId: newCallbackId,
+      timeoutTime: timeoutTime
     };
-    if (headOfPendingCallbacksLinkedList === null) {
-      // Make this callback the head and tail of our list
-      headOfPendingCallbacksLinkedList = scheduledCallbackConfig;
-      tailOfPendingCallbacksLinkedList = scheduledCallbackConfig;
-    } else {
-      // Add latest callback as the new tail of the list
-      scheduledCallbackConfig.prev = tailOfPendingCallbacksLinkedList;
-      // renaming for clarity
-      var oldTailOfPendingCallbacksLinkedList = tailOfPendingCallbacksLinkedList;
-      if (oldTailOfPendingCallbacksLinkedList !== null) {
-        oldTailOfPendingCallbacksLinkedList.next = scheduledCallbackConfig;
-      }
-      tailOfPendingCallbacksLinkedList = scheduledCallbackConfig;
-    }
+    pendingCallbacks.push(scheduledCallbackConfig);
 
+    registeredCallbackIds[newCallbackId] = true;
     if (!isAnimationFrameScheduled) {
       // If rAF didn't already schedule one, we need to schedule a frame.
       // TODO: If this rAF doesn't materialize because the browser throttles, we
       // might want to still have setTimeout trigger scheduleWork as a backup to ensure
       // that we keep performing work.
       isAnimationFrameScheduled = true;
-      localRequestAnimationFrame(animationTick);
+      requestAnimationFrame(animationTick);
     }
-    return scheduledCallbackConfig;
+    return newCallbackId;
   };
 
-  cancelScheduledWork = function (callbackConfig /* CallbackConfigType */
-  ) {
-    if (callbackConfig.prev === null && headOfPendingCallbacksLinkedList !== callbackConfig) {
-      // this callbackConfig has already been cancelled.
-      // cancelScheduledWork should be idempotent, a no-op after first call.
-      return;
-    }
-
-    /**
-     * There are four possible cases:
-     * - Head/nodeToRemove/Tail -> null
-     *   In this case we set Head and Tail to null.
-     * - Head -> ... middle nodes... -> Tail/nodeToRemove
-     *   In this case we point the middle.next to null and put middle as the new
-     *   Tail.
-     * - Head/nodeToRemove -> ...middle nodes... -> Tail
-     *   In this case we point the middle.prev at null and move the Head to
-     *   middle.
-     * - Head -> ... ?some nodes ... -> nodeToRemove -> ... ?some nodes ... -> Tail
-     *   In this case we point the Head.next to the Tail and the Tail.prev to
-     *   the Head.
-     */
-    var next = callbackConfig.next;
-    var prev = callbackConfig.prev;
-    callbackConfig.next = null;
-    callbackConfig.prev = null;
-    if (next !== null) {
-      // we have a next
-
-      if (prev !== null) {
-        // we have a prev
-
-        // callbackConfig is somewhere in the middle of a list of 3 or more nodes.
-        prev.next = next;
-        next.prev = prev;
-        return;
-      } else {
-        // there is a next but not a previous one;
-        // callbackConfig is the head of a list of 2 or more other nodes.
-        next.prev = null;
-        headOfPendingCallbacksLinkedList = next;
-        return;
-      }
-    } else {
-      // there is no next callback config; this must the tail of the list
-
-      if (prev !== null) {
-        // we have a prev
-
-        // callbackConfig is the tail of a list of 2 or more other nodes.
-        prev.next = null;
-        tailOfPendingCallbacksLinkedList = prev;
-        return;
-      } else {
-        // there is no previous callback config;
-        // callbackConfig is the only thing in the linked list,
-        // so both head and tail point to it.
-        headOfPendingCallbacksLinkedList = null;
-        tailOfPendingCallbacksLinkedList = null;
-        return;
-      }
-    }
+  cancelScheduledWork = function (callbackId) {
+    delete registeredCallbackIds[callbackId];
   };
 }
 
@@ -8094,7 +7983,7 @@ function setInitialProperties$1(domElement, tag, rawProps, rootContainerElement)
       // TODO: Make sure we check if this is still unmounted or do any clean
       // up necessary since we never stop tracking anymore.
       track(domElement);
-      postMountWrapper(domElement, rawProps, false);
+      postMountWrapper(domElement, rawProps);
       break;
     case 'textarea':
       // TODO: Make sure we check if this is still unmounted or do any clean
@@ -8549,7 +8438,7 @@ function diffHydratedProperties$1(domElement, tag, rawProps, parentNamespace, ro
       // TODO: Make sure we check if this is still unmounted or do any clean
       // up necessary since we never stop tracking anymore.
       track(domElement);
-      postMountWrapper(domElement, rawProps, true);
+      postMountWrapper(domElement, rawProps);
       break;
     case 'textarea':
       // TODO: Make sure we check if this is still unmounted or do any clean
@@ -9355,6 +9244,9 @@ var warnAboutLegacyContextAPI = false;
 // Gather advanced timing metrics for Profiler subtrees.
 var enableProfilerTimer = true;
 
+// Fires getDerivedStateFromProps for state *or* props changes
+var fireGetDerivedStateFromPropsOnStateUpdates = true;
+
 // Only used in www builds.
 
 // Prefix measurements so that it's possible to filter them.
@@ -10156,8 +10048,6 @@ function FiberNode(tag, pendingProps, key, mode) {
   this.alternate = null;
 
   if (enableProfilerTimer) {
-    this.actualDuration = 0;
-    this.actualStartTime = 0;
     this.selfBaseTime = 0;
     this.treeBaseTime = 0;
   }
@@ -10228,15 +10118,6 @@ function createWorkInProgress(current, pendingProps, expirationTime) {
     workInProgress.nextEffect = null;
     workInProgress.firstEffect = null;
     workInProgress.lastEffect = null;
-
-    if (enableProfilerTimer) {
-      // We intentionally reset, rather than copy, actualDuration & actualStartTime.
-      // This prevents time from endlessly accumulating in new commits.
-      // This has the downside of resetting values for different priority renders,
-      // But works for yielding (the common case) and should support resuming.
-      workInProgress.actualDuration = 0;
-      workInProgress.actualStartTime = 0;
-    }
   }
 
   workInProgress.expirationTime = expirationTime;
@@ -10362,6 +10243,13 @@ function createFiberFromProfiler(pendingProps, mode, expirationTime, key) {
   var fiber = createFiber(Profiler, pendingProps, key, mode | ProfileMode);
   fiber.type = REACT_PROFILER_TYPE;
   fiber.expirationTime = expirationTime;
+  if (enableProfilerTimer) {
+    fiber.stateNode = {
+      elapsedPauseTimeAtStart: 0,
+      duration: 0,
+      startTime: 0
+    };
+  }
 
   return fiber;
 }
@@ -10425,8 +10313,6 @@ function assignFiberPropertiesInDEV(target, source) {
   target.expirationTime = source.expirationTime;
   target.alternate = source.alternate;
   if (enableProfilerTimer) {
-    target.actualDuration = source.actualDuration;
-    target.actualStartTime = source.actualStartTime;
     target.selfBaseTime = source.selfBaseTime;
     target.treeBaseTime = source.treeBaseTime;
   }
@@ -11696,9 +11582,9 @@ function markActualRenderTimeStarted(fiber) {
   {
     fiberStack$1.push(fiber);
   }
-
-  fiber.actualDuration = now() - fiber.actualDuration - totalElapsedPauseTime;
-  fiber.actualStartTime = now();
+  var stateNode = fiber.stateNode;
+  stateNode.elapsedPauseTimeAtStart = totalElapsedPauseTime;
+  stateNode.startTime = now();
 }
 
 function pauseActualRenderTimerIfRunning() {
@@ -11715,10 +11601,10 @@ function recordElapsedActualRenderTime(fiber) {
     return;
   }
   {
-    !(fiber === fiberStack$1.pop()) ? warning_1(false, 'Unexpected Fiber (%s) popped.', getComponentName(fiber)) : void 0;
+    !(fiber === fiberStack$1.pop()) ? warning_1(false, 'Unexpected Fiber popped.') : void 0;
   }
-
-  fiber.actualDuration = now() - totalElapsedPauseTime - fiber.actualDuration;
+  var stateNode = fiber.stateNode;
+  stateNode.duration += now() - (totalElapsedPauseTime - stateNode.elapsedPauseTimeAtStart) - stateNode.startTime;
 }
 
 function resetActualRenderTimer() {
@@ -12325,8 +12211,10 @@ function updateClassInstance(current, workInProgress, renderExpirationTime) {
   }
 
   if (typeof getDerivedStateFromProps === 'function') {
-    applyDerivedStateFromProps(workInProgress, getDerivedStateFromProps, newProps);
-    newState = workInProgress.memoizedState;
+    if (fireGetDerivedStateFromPropsOnStateUpdates || oldProps !== newProps) {
+      applyDerivedStateFromProps(workInProgress, getDerivedStateFromProps, newProps);
+      newState = workInProgress.memoizedState;
+    }
   }
 
   var shouldUpdate = checkHasForceUpdateAfterProcessing() || checkShouldComponentUpdate(workInProgress, oldProps, newProps, oldState, newState, newContext);
@@ -13208,8 +13096,7 @@ function ChildReconciler(shouldTrackSideEffects) {
     // Handle top level unkeyed fragments as if they were arrays.
     // This leads to an ambiguity between <>{[...]}</> and <>...</>.
     // We treat the ambiguous cases above the same.
-    var isUnkeyedTopLevelFragment = typeof newChild === 'object' && newChild !== null && newChild.type === REACT_FRAGMENT_TYPE && newChild.key === null;
-    if (isUnkeyedTopLevelFragment) {
+    if (typeof newChild === 'object' && newChild !== null && newChild.type === REACT_FRAGMENT_TYPE && newChild.key === null) {
       newChild = newChild.props.children;
     }
 
@@ -13246,7 +13133,7 @@ function ChildReconciler(shouldTrackSideEffects) {
         warnOnFunctionType();
       }
     }
-    if (typeof newChild === 'undefined' && !isUnkeyedTopLevelFragment) {
+    if (typeof newChild === 'undefined') {
       // If the new child is undefined, and the return fiber is a composite
       // component, throw an error. If Fiber return types are disabled,
       // we already threw above.
@@ -13658,6 +13545,11 @@ function updateMode(current, workInProgress) {
 function updateProfiler(current, workInProgress) {
   var nextProps = workInProgress.pendingProps;
   if (enableProfilerTimer) {
+    // Start render timer here and push start time onto queue
+    markActualRenderTimeStarted(workInProgress);
+
+    // Let the "complete" phase know to stop the timer,
+    // And the scheduler to record the measured time.
     workInProgress.effectTag |= Update;
   }
   if (workInProgress.memoizedProps === nextProps) {
@@ -14365,6 +14257,11 @@ function bailoutOnLowPriority(current, workInProgress) {
     case ContextProvider:
       pushProvider(workInProgress);
       break;
+    case Profiler:
+      if (enableProfilerTimer) {
+        markActualRenderTimeStarted(workInProgress);
+      }
+      break;
   }
   // TODO: What if this is currently in progress?
   // How can that happen? How is this not being cloned?
@@ -14383,12 +14280,6 @@ function memoizeState(workInProgress, nextState) {
 }
 
 function beginWork(current, workInProgress, renderExpirationTime) {
-  if (enableProfilerTimer) {
-    if (workInProgress.mode & ProfileMode) {
-      markActualRenderTimeStarted(workInProgress);
-    }
-  }
-
   if (workInProgress.expirationTime === NoWork || workInProgress.expirationTime > renderExpirationTime) {
     return bailoutOnLowPriority(current, workInProgress);
   }
@@ -14593,13 +14484,6 @@ if (supportsMutation) {
 
 function completeWork(current, workInProgress, renderExpirationTime) {
   var newProps = workInProgress.pendingProps;
-
-  if (enableProfilerTimer) {
-    if (workInProgress.mode & ProfileMode) {
-      recordElapsedActualRenderTime(workInProgress);
-    }
-  }
-
   switch (workInProgress.tag) {
     case FunctionalComponent:
       return null;
@@ -14732,6 +14616,9 @@ function completeWork(current, workInProgress, renderExpirationTime) {
     case Mode:
       return null;
     case Profiler:
+      if (enableProfilerTimer) {
+        recordElapsedActualRenderTime(workInProgress);
+      }
       return null;
     case HostPortal:
       popHostContainer(workInProgress);
@@ -15461,7 +15348,11 @@ function commitWork(current, finishedWork) {
       {
         if (enableProfilerTimer) {
           var onRender = finishedWork.memoizedProps.onRender;
-          onRender(finishedWork.memoizedProps.id, current === null ? 'mount' : 'update', finishedWork.actualDuration, finishedWork.treeBaseTime, finishedWork.actualStartTime, getCommitTime());
+          onRender(finishedWork.memoizedProps.id, current === null ? 'mount' : 'update', finishedWork.stateNode.duration, finishedWork.treeBaseTime, finishedWork.stateNode.startTime, getCommitTime());
+
+          // Reset actualTime after successful commit.
+          // By default, we append to this time to account for errors and pauses.
+          finishedWork.stateNode.duration = 0;
         }
         return;
       }
@@ -15668,12 +15559,6 @@ function throwException(root, returnFiber, sourceFiber, value, renderIsExpired, 
 }
 
 function unwindWork(workInProgress, renderIsExpired, renderExpirationTime) {
-  if (enableProfilerTimer) {
-    if (workInProgress.mode & ProfileMode) {
-      recordElapsedActualRenderTime(workInProgress);
-    }
-  }
-
   switch (workInProgress.tag) {
     case ClassComponent:
       {
@@ -15722,14 +15607,6 @@ function unwindWork(workInProgress, renderIsExpired, renderExpirationTime) {
 }
 
 function unwindInterruptedWork(interruptedWork) {
-  if (enableProfilerTimer) {
-    if (interruptedWork.mode & ProfileMode) {
-      // Resume in case we're picking up on work that was paused.
-      resumeActualRenderTimerIfPaused();
-      recordElapsedActualRenderTime(interruptedWork);
-    }
-  }
-
   switch (interruptedWork.tag) {
     case ClassComponent:
       {
@@ -15752,6 +15629,13 @@ function unwindInterruptedWork(interruptedWork) {
       break;
     case ContextProvider:
       popProvider(interruptedWork);
+      break;
+    case Profiler:
+      if (enableProfilerTimer) {
+        // Resume in case we're picking up on work that was paused.
+        resumeActualRenderTimerIfPaused();
+        recordElapsedActualRenderTime(interruptedWork);
+      }
       break;
     default:
       break;
@@ -15892,10 +15776,6 @@ if (true && replayFailedUnitOfWorkWithInvokeGuardedCallback) {
       clearCaughtError();
 
       if (enableProfilerTimer) {
-        if (failedUnitOfWork.mode & ProfileMode) {
-          recordElapsedActualRenderTime(failedUnitOfWork);
-        }
-
         // Stop "base" render timer again (after the re-thrown error).
         stopBaseRenderTimerIfRunning();
       }
@@ -16129,8 +16009,6 @@ function commitRoot(finishedWork) {
   stopCommitSnapshotEffectsTimer();
 
   if (enableProfilerTimer) {
-    // Mark the current commit time to be shared by all Profilers in this batch.
-    // This enables them to be grouped later.
     recordCommitTime();
   }
 
@@ -16659,7 +16537,7 @@ function captureCommitPhaseError(fiber, error) {
 function computeAsyncExpiration(currentTime) {
   // Given the current clock time, returns an expiration time. We use rounding
   // to batch like updates together.
-  // Should complete within ~5000ms. 5250ms max.
+  // Should complete within ~1000ms. 1200ms max.
   var expirationMs = 5000;
   var bucketSizeMs = 250;
   return computeExpirationBucket(currentTime, expirationMs, bucketSizeMs);
@@ -16846,7 +16724,7 @@ var firstScheduledRoot = null;
 var lastScheduledRoot = null;
 
 var callbackExpirationTime = NoWork;
-var callbackID = void 0;
+var callbackID = -1;
 var isRendering = false;
 var nextFlushedRoot = null;
 var nextFlushedExpirationTime = NoWork;
@@ -16875,11 +16753,9 @@ function scheduleCallbackWithExpiration(expirationTime) {
       // Existing callback has sufficient timeout. Exit.
       return;
     } else {
-      if (callbackID !== null) {
-        // Existing callback has insufficient timeout. Cancel and schedule a
-        // new one.
-        cancelDeferredCallback(callbackID);
-      }
+      // Existing callback has insufficient timeout. Cancel and schedule a
+      // new one.
+      cancelDeferredCallback(callbackID);
     }
     // The request callback timer is already running. Don't start a new one.
   } else {
@@ -17068,7 +16944,7 @@ function performWork(minExpirationTime, isAsync, dl) {
   // If we're inside a callback, set this to false since we just completed it.
   if (deadline !== null) {
     callbackExpirationTime = NoWork;
-    callbackID = null;
+    callbackID = -1;
   }
   // If there's work left over, schedule a new callback.
   if (nextFlushedExpirationTime !== NoWork) {
@@ -17135,6 +17011,7 @@ function performWorkOnRoot(root, expirationTime, isAsync) {
       // This root is already complete. We can commit it.
       completeRoot(root, finishedWork, expirationTime);
     } else {
+      root.finishedWork = null;
       finishedWork = renderRoot(root, expirationTime, false);
       if (finishedWork !== null) {
         // We've completed the root. Commit it.
@@ -17148,6 +17025,7 @@ function performWorkOnRoot(root, expirationTime, isAsync) {
       // This root is already complete. We can commit it.
       completeRoot(root, _finishedWork, expirationTime);
     } else {
+      root.finishedWork = null;
       _finishedWork = renderRoot(root, expirationTime, true);
       if (_finishedWork !== null) {
         // We've completed the root. Check the deadline one more time
@@ -17502,7 +17380,7 @@ implementation) {
 
 // TODO: this is special because it gets imported during build.
 
-var ReactVersion = '16.4.1';
+var ReactVersion = '16.4.0';
 
 // TODO: This type is shared between the reconciler and ReactDOM, but will
 // eventually be lifted out to the renderer.
@@ -17947,8 +17825,6 @@ var ReactDOM = {
   unstable_batchedUpdates: batchedUpdates$1,
 
   unstable_deferredUpdates: deferredUpdates,
-
-  unstable_interactiveUpdates: interactiveUpdates$1,
 
   flushSync: flushSync,
 

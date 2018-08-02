@@ -54,7 +54,7 @@
   ###
   module.exports = mixin = (klass, mixinKlassName, mixinKlass) ->
     unless mixinKlass && mixinKlassName
-      console.trace()
+      # console.trace()
       throw "Dev: Mixin class or classname undefined. Make sure you are correctly requiring file."
 
     if klass == window || klass == document
@@ -91,4 +91,3 @@
 
       else
         klass.prototype[key] = val
-
