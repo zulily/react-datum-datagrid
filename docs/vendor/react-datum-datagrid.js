@@ -6862,7 +6862,6 @@ module.exports = is;
   module.exports = mixin = function mixin(klass, mixinKlassName, mixinKlass) {
     var base, base1, base2, key, oMethod, oMethodKey, ref, results, val, wrapperDef, wrapperName;
     if (!(mixinKlass && mixinKlassName)) {
-      console.trace();
       throw "Dev: Mixin class or classname undefined. Make sure you are correctly requiring file.";
     }
     if (klass === window || klass === document) {
@@ -8161,10 +8160,8 @@ module.exports = is;
       attr = (ref = rowEvt.attribute) != null ? ref : rowEvt.cellKey;
       oldValue = this.getValueAt(rowEvt.cellKey, rowEvt.rowIndex);
       newValue = ((ref1 = rowEvt.updated) != null ? ref1.toString().trim() : void 0) !== '' ? rowEvt.updated : null;
-      if (!(oldValue || newValue)) {
-        return;
-      }
-      if (JSON.stringify(oldValue) === JSON.stringify(newValue)) {
+      isDirty = _.isFunction(model.isDirty) ? model.isDirty() : true;
+      if (!isDirty) {
         return;
       }
       this.clearCellErrors(model, rowEvt, options);
@@ -8189,7 +8186,6 @@ module.exports = is;
         });
         this.logUndoDebounced.apply(this, arguments);
       }
-      isDirty = _.isFunction(model.isDirty) ? model.isDirty() : true;
       if (this.props.saveOnUpdate !== false && isDirty) {
         this.setSaving(model, rowEvt, true, options);
         return (model.patch || model.save)({}, saveOptions);
@@ -8594,7 +8590,7 @@ module.exports = is;
           case 13:
           case 9:
             evt.preventDefault();
-            cellPosition = this._getRelativeCellPosition(keyCode);
+            cellPosition = this._getRelativeCellPosition(evt);
             this.saveEditingCell();
             if (cellPosition != null) {
               this.setSelectedCellAt(cellPosition);
@@ -8624,11 +8620,11 @@ module.exports = is;
             evt.preventDefault();
             if (evt.shiftKey) {
               if (((ref2 = this.state.selectedCells) != null ? ref2.length : void 0) > 0) {
-                return this.selectCellsBetween(this.getSelectedCell(), this._getRelativeCellPosition(keyCode));
+                return this.selectCellsBetween(this.getSelectedCell(), this._getRelativeCellPosition(evt));
               }
             } else if (((ref3 = this.state.selectedCells) != null ? ref3.length : void 0) > 0) {
               this.startSelPosition = null;
-              cellPosition = this._getRelativeCellPosition(keyCode);
+              cellPosition = this._getRelativeCellPosition(evt);
               if (cellPosition != null) {
                 return this.setSelectedCellAt(cellPosition);
               }
@@ -8637,48 +8633,27 @@ module.exports = is;
       }
     };
 
-    GridSelect.prototype._getRelativeCellPosition = function (keyCode) {
-      var adjacentCell, lastSelectedCellPosition, ref;
+    GridSelect.prototype._getRelativeCellPosition = function (evt) {
+      var lastSelectedCellPosition, ref;
       lastSelectedCellPosition = (ref = this.getLastSelectedCellPosition()) != null ? ref : this.getEditingCell();
       if (lastSelectedCellPosition == null) {
         return null;
       }
-      adjacentCell = function () {
-        switch (keyCode) {
-          case 37:
-            if (lastSelectedCellPosition.columnIndex > 0) {
-              return _.extend({}, lastSelectedCellPosition, {
-                columnIndex: lastSelectedCellPosition.columnIndex - 1,
-                colKey: this.props.columns[lastSelectedCellPosition.columnIndex - 1].key
-              });
-            }
-            break;
-          case 38:
-            if (lastSelectedCellPosition.rowIndex > 0) {
-              return _.extend({}, lastSelectedCellPosition, {
-                rowIndex: lastSelectedCellPosition.rowIndex - 1
-              });
-            }
-            break;
-          case 39:
-          case 9:
-            if (lastSelectedCellPosition.columnIndex < this.props.columns.length - 1) {
-              return _.extend({}, lastSelectedCellPosition, {
-                columnIndex: lastSelectedCellPosition.columnIndex + 1,
-                colKey: this.props.columns[lastSelectedCellPosition.columnIndex + 1].key
-              });
-            }
-            break;
-          case 40:
-          case 13:
-            if (lastSelectedCellPosition.rowIndex < this.getRowCount() - 1) {
-              return _.extend({}, lastSelectedCellPosition, {
-                rowIndex: lastSelectedCellPosition.rowIndex + 1
-              });
-            }
+      if (!evt.shiftKey && evt.keyCode === 9) {
+        if (lastSelectedCellPosition.columnIndex < this.props.columns.length - 1) {
+          return _.extend({}, lastSelectedCellPosition, {
+            columnIndex: lastSelectedCellPosition.columnIndex + 1,
+            colKey: this.props.columns[lastSelectedCellPosition.columnIndex + 1].key
+          });
         }
-      }.call(this);
-      return adjacentCell;
+      } else if (evt.shiftKey && evt.keyCode === 9) {
+        if (lastSelectedCellPosition.columnIndex > 0) {
+          return _.extend({}, lastSelectedCellPosition, {
+            columnIndex: lastSelectedCellPosition.columnIndex - 1,
+            colKey: this.props.columns[lastSelectedCellPosition.columnIndex - 1].key
+          });
+        }
+      }
     };
 
     GridSelect.prototype._getCellsBetween = function (startRow, startCol, endRow, endCol) {
@@ -8852,7 +8827,6 @@ module.exports = is;
 
     GridSelect.prototype.onSelectedCellsChange = function () {
       var base, ref;
-      console.log("onSelectedCellsChange: selectedCells=", JSON.stringify(this.state.selectedCells));
       return typeof (base = this.props).onSelectedCellsChange === "function" ? base.onSelectedCellsChange(((ref = this.state.selectedCells) != null ? ref : []).slice(0)) : void 0;
     };
 
