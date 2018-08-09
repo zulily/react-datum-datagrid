@@ -343,13 +343,6 @@ module.exports = class GridEdit
     else
       null
 
-    unless @props.setOnUpdate == false || options.setOnUpdate == false
-      # returns false if validations fail
-      # model must be set first in order to determine value of isDirty
-      return unless @setValueOnModel(model, attr, newValue, saveOptions) 
-
-    isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
-    return unless isDirty
     # return unless oldValue || newValue 
     # return if JSON.stringify(oldValue) == JSON.stringify(newValue) 
 
@@ -360,6 +353,10 @@ module.exports = class GridEdit
     saveOptions = @getModelSaveOptions()
     saveOptions.__datagrid_rowEvt = rowEvt
     saveOptions.silent = options.silent
+
+    unless @props.setOnUpdate == false || options.setOnUpdate == false
+      # returns false if validations fail
+      return unless @setValueOnModel(model, attr, newValue, saveOptions) 
 
     revPatch = model.getReversePatchObject?()
     
@@ -373,6 +370,7 @@ module.exports = class GridEdit
       }
       @logUndoDebounced.apply @, arguments
     
+    isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
     if @props.saveOnUpdate != false && isDirty
       @setSaving(model, rowEvt, true, options)
       (model.patch || model.save)({}, saveOptions)      
