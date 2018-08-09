@@ -125,8 +125,3 @@ module.exports = class HeaderCell extends React.Component
   
   _onColumnNameClick: (evt) =>
     @props.onSelectColumn?(evt, @props.columnIndex)
-    
-    
-  
-  
-  

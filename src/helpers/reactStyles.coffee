@@ -52,4 +52,3 @@ module.exports = class ReactStyles
 
   set: (deepAttr, value) ->
     DeepSet(@styles, deepAttr, value)
-

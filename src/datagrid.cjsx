@@ -21,6 +21,7 @@ HeaderCell = require './headerCell'
 
 Grid = require('react-virtualized/dist/commonjs/Grid/Grid')['default']
 AutoSizer = require('react-virtualized/dist/commonjs/AutoSizer/AutoSizer')['default']
+MultiGrid = require('react-virtualized/dist/commonjs/MultiGrid/MultiGrid')['default']
 
 require('./helpers/closestPolyfill')
 require('./helpers/matchesPolyfill')
@@ -165,7 +166,7 @@ module.exports = class Datagrid extends React.Component
           width: "calc(100% - #{@_sumLockedColumnWidths()}px"
         else
           height: "calc(100% - #{@_sumLockedColumnHeights()}px"
-      overflow: 'hidden'
+      overflow: 'visible'
 
     fixedHeaderCells:
       includes: ->
@@ -236,6 +237,12 @@ module.exports = class Datagrid extends React.Component
     if prevProps.collection != @props.collection
       @_unbindCollectionEvents(prevProps.collection)
       @_bindCollectionEvents()
+      @_resetAfterDataTransition()
+
+    if prevProps.columns != @props.columns
+      @_resetAfterDataTransition()
+      # @render()
+
 
 
   componentWillUnmount: ->
@@ -263,7 +270,7 @@ module.exports = class Datagrid extends React.Component
       freeGridProps.scrollToColumn = lastSelectedCellPosition.columnIndex - lockedColumns.length
       lockedGridProps.scrollToRow = freeGridProps.scrollToRow = lastSelectedCellPosition.rowIndex
 
-    <div style={@style('container')} className='react-datum-datagrid'>
+    <div style={@style('container')} className='react-datum-datagrid beta'>
       <div style={@style('headers')} className='rdd-headers'>
         <div style={@style('fixedHeaderCells')} className='rdd-fixed-header-cells'>
           {@_renderHeaderCells(0, lockedColumns)}
@@ -288,18 +295,18 @@ module.exports = class Datagrid extends React.Component
           </AutoSizer>
         </div>
         <div style={@style('freeGrid')} className='rdd-free-grid'>
-          <AutoSizer>
-            { ({height, width}) =>
-              <Grid
-                cellRenderer={@freeCellRenderer}
-                columnWidth={@getFreeColumnWidth}
-                columnCount={freeColumns.length}
-                height={height}
-                width={width}
-                {... freeGridProps}
-              />
-            }
-          </AutoSizer>
+            <AutoSizer>
+              { ({height, width}) =>
+                <Grid
+                  cellRenderer={@freeCellRenderer}
+                  columnWidth={@getFreeColumnWidth}
+                  columnCount={freeColumns.length}
+                  height={height}
+                  width={width}
+                  {... freeGridProps}
+                />
+              }
+            </AutoSizer>
         </div>
       </div>
     </div>
@@ -332,13 +339,11 @@ module.exports = class Datagrid extends React.Component
 
   getLockedColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getLockedColumns())
-    # console.log('getLockedColumnWidth', index, width)
     return width
 
 
   getFreeColumnWidth: ({index}) =>
     width = @getColumnWidth(index, @_getFreeColumns())
-    # console.log('getFreeColumnWidth', index, width)
     return width
 
 
@@ -378,7 +383,7 @@ module.exports = class Datagrid extends React.Component
     isSelectingThisColumn = @state.selectingColumnIndex == columnIndex
 
     HeaderCellComponent = columnDef.headerComponent ? columnDef.header ? @props.defaultHeaderComponent
-
+    width = columnDef.width ? @props.defaultColumnDef.width
     <HeaderCellComponent
       key={columnIndex}
       column={columnDef}
@@ -392,7 +397,7 @@ module.exports = class Datagrid extends React.Component
       onSelectColumn={(evt,columnIndex) => @onSelectColumn(evt,columnIndex)}
       onSort={(columnIndex, columnDef, direction) => @onSortColumn(columnIndex, columnDef, direction)}
 
-      width={@props.headerWidth}
+      width={width}
       height={@props.headerHeight}
     />
     # @onSelectColumn is in helpers/gridSelect
@@ -506,13 +511,20 @@ module.exports = class Datagrid extends React.Component
         width = columnDef.width ? @props.defaultColumnDef.width
       else
         height = columnDef.height ? @props.defaultColumnDef.height
-        width = @props.headerWidth
+        width = columnDef.width ? @props.defaultColumnDef.width
 
     cellStyle =
       height: height
       width: width
 
     return cellStyle
+
+
+  _resetAfterDataTransition: ->
+    if @isDatagridEditing()
+      @cancelEditing()
+      # @saveEditingCell()
+    @resetSelectedCells()
 
 
   _bindDocumentEvents: =>

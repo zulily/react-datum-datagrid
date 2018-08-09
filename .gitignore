@@ -11,5 +11,5 @@ tags
 coverage/
 node_modules/
 
-/lib/
+# /lib/
 /docs/

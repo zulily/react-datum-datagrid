@@ -342,9 +342,11 @@ module.exports = class GridEdit
       rowEvt.updated
     else
       null
-    
-    return unless oldValue || newValue 
-    return if JSON.stringify(oldValue) == JSON.stringify(newValue) 
+
+    isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
+    return unless isDirty
+    # return unless oldValue || newValue 
+    # return if JSON.stringify(oldValue) == JSON.stringify(newValue) 
 
     # optimistically clear errors on the cell while saving new value, prevents the error
     # icon from very briefly showing again after the spinner stops
@@ -370,7 +372,6 @@ module.exports = class GridEdit
       }
       @logUndoDebounced.apply @, arguments
     
-    isDirty = if _.isFunction(model.isDirty) then model.isDirty() else true
     if @props.saveOnUpdate != false && isDirty
       @setSaving(model, rowEvt, true, options)
       (model.patch || model.save)({}, saveOptions)      
@@ -469,6 +470,3 @@ module.exports = class GridEdit
     # if we've silenced backbone events and state changes, 
     # they need to be applied at some time
     @_debouncedForceUpdate() if options.silent
-      
-
-

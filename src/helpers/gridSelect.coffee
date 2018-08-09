@@ -43,7 +43,7 @@ module.exports = class GridSelect
   onCollectionReset: =>
     @resetSelectedCells()
     @originalMethod?()
-
+    
 
   onCellMouseDown: (evt, cell) =>
     # DONT preventDefault - instead use styling {user-select: none} to block text selection.
@@ -159,7 +159,7 @@ module.exports = class GridSelect
       switch keyCode
         when 13, 9             # enter and tab save current edits and go to next row or cell to right
           evt.preventDefault()
-          cellPosition = @_getRelativeCellPosition(keyCode)
+          cellPosition = @_getRelativeCellPosition(evt)
           @saveEditingCell()
           if cellPosition?
             @setSelectedCellAt(cellPosition)
@@ -182,39 +182,28 @@ module.exports = class GridSelect
           evt.preventDefault()
           if evt.shiftKey
             if @state.selectedCells?.length > 0
-              @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(keyCode))
+              @selectCellsBetween(@getSelectedCell(), @_getRelativeCellPosition(evt))
           else if @state.selectedCells?.length > 0
             @startSelPosition = null
-            cellPosition = @_getRelativeCellPosition(keyCode)
+            cellPosition = @_getRelativeCellPosition(evt)
             @setSelectedCellAt(cellPosition) if cellPosition?
 
 
-  # returns the cell adjacent to the last selected cell or editing cell by keycode
-  _getRelativeCellPosition: (keyCode) ->
+  # returns the cell adjacent to the last selected cell or editing cell by evt.keyCode
+  _getRelativeCellPosition: (evt) ->
     lastSelectedCellPosition = @getLastSelectedCellPosition() ? @getEditingCell()
     return null unless lastSelectedCellPosition?
 
-    adjacentCell = switch keyCode
-      when 37    # left
-        if lastSelectedCellPosition.columnIndex > 0
-          _.extend {}, lastSelectedCellPosition,
-            columnIndex: lastSelectedCellPosition.columnIndex - 1
-            colKey: @props.columns[lastSelectedCellPosition.columnIndex - 1].key
-      when 38    # up
-        if lastSelectedCellPosition.rowIndex > 0
-          _.extend {}, lastSelectedCellPosition,
-            rowIndex: lastSelectedCellPosition.rowIndex - 1
-      when 39, 9    # right or tab
-        if lastSelectedCellPosition.columnIndex < @props.columns.length - 1
-          _.extend {}, lastSelectedCellPosition,
-            columnIndex: lastSelectedCellPosition.columnIndex + 1
-            colKey: @props.columns[lastSelectedCellPosition.columnIndex + 1].key
-      when 40, 13    # down or enter
-        if lastSelectedCellPosition.rowIndex < @getRowCount() - 1
-          _.extend {}, lastSelectedCellPosition,
-            rowIndex: lastSelectedCellPosition.rowIndex + 1
-
-    return adjacentCell
+    if !evt.shiftKey && evt.keyCode == 9    # tab -> move edit to right
+      if lastSelectedCellPosition.columnIndex < @props.columns.length - 1
+        return _.extend {}, lastSelectedCellPosition,
+          columnIndex: lastSelectedCellPosition.columnIndex + 1
+          colKey: @props.columns[lastSelectedCellPosition.columnIndex + 1].key
+    else if evt.shiftKey && evt.keyCode == 9   # shift + tab -> move edit to left
+      if lastSelectedCellPosition.columnIndex > 0
+        return _.extend {}, lastSelectedCellPosition,
+          columnIndex: lastSelectedCellPosition.columnIndex - 1
+          colKey: @props.columns[lastSelectedCellPosition.columnIndex - 1].key
 
 
   _getCellsBetween: (startRow, startCol, endRow, endCol) ->
@@ -337,7 +326,6 @@ module.exports = class GridSelect
 
 
   onSelectedCellsChange: () ->
-    # console.log "onSelectedCellsChange: selectedCells=", JSON.stringify(@state.selectedCells)
     @props.onSelectedCellsChange?((@state.selectedCells ? []).slice(0))
 
 
@@ -365,5 +353,3 @@ module.exports = class GridSelect
 
   __isInOurDatagrid: (element) ->
     return ReactDOM.findDOMNode(@).contains(element)
-
-
