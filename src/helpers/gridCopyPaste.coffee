@@ -9,7 +9,7 @@ module.exports = class GridCopyPaste
 
 
   GridCopyPaste_onDocumentCopy: (e) =>
-    return # No Copy Paste for Edit Pilot
+    # return # No Copy Paste for Edit Pilot
     # don't handle copy paste events inside of editing grid cells let the input handle it
     return if e.target.closest('.rdd-cell-editing')?
 
@@ -37,7 +37,7 @@ module.exports = class GridCopyPaste
 
 
   GridCopyPaste_onDocumentPaste: (e) =>
-    return # No Copy Paste for Edit Pilot
+    # return # No Copy Paste for Edit Pilot
     paste = @copyPasteHelper.processPaste(e)
     activeEl = document.activeElement
     # don't handle copy paste events inside of editing grid cells let the input handle it
