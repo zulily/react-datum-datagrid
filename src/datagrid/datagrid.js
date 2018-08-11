@@ -11,12 +11,16 @@ import GridScroll from './helpers/gridScroll'
 import GridCopyPaste from './helpers/gridCopyPaste'
 import GridExport from './helpers/gridExport'
 import GridSort from './helpers/gridSort'
+
 import Cell from './cell'
 import HeaderCell from './headerCell'
+
 import Grid from 'react-virtualized/dist/es/Grid/Grid'
 
 import './helpers/closestPolyfill'
 import './helpers/matchesPolyfill'
+
+import './datagrid.css'
 
 class Datagrid extends Component {
 

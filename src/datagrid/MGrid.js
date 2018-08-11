@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import MultiGrid from 'react-virtualized/dist/commonjs/MultiGrid'
+import MultiGrid from 'react-virtualized/dist/es/MultiGrid'
 import './MGrid.css'
 
 class MGrid extends Component {

@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
 
-import ProductPrepFilterHeader from './ProductPrepFilterHeader'
-import Paginator from './Paginator'
-// import Datagrid from './MGrid'
-
-import './datagrid/datagrid.css'
+import Paginator from './paginator/Paginator'
+// import Datagrid from './datagrid/MGrid'
 import Datagrid from './datagrid/datagrid'
 
 // Bundle datums in new datagrid
@@ -79,23 +76,21 @@ class App extends Component {
     }
     return (
       <div className="App" style={{height: window.innerHeight, width: window.innerWidth}}>
-        <ProductPrepFilterHeader>
-          <Paginator 
-              pageSize={this.state.pageSize}
-              offset={this.state.data.offset}
-              total={this.state.data.total} 
-              onPageClick={this.handlePageClick.bind(this)}
-          >
-            <Datagrid 
-              columns={this.state.columns}
-              collection={this.state.data.styles}
-              height={this.state.height}
-              width={this.state.width}
-              headerHeight={60}
-              rowHeight={60}
-            />
-          </Paginator>
-        </ProductPrepFilterHeader>
+        <Paginator 
+            pageSize={this.state.pageSize}
+            offset={this.state.data.offset}
+            total={this.state.data.total} 
+            onPageClick={this.handlePageClick.bind(this)}
+        >
+          <Datagrid 
+            columns={this.state.columns}
+            collection={this.state.data.styles}
+            height={this.state.height}
+            width={this.state.width}
+            headerHeight={60}
+            rowHeight={60}
+          />
+        </Paginator>
       </div>
     )
   }
