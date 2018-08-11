@@ -6,9 +6,7 @@
 .npmrc
 
 watch.pid
-tags
 
 coverage/
 node_modules/
 
-/src/

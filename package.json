@@ -9,6 +9,14 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "files": [
+    "./src/datagrid",
+    "./src/datums",
+    "./src/paginator",
+    "./CHANGELOG.md",
+    "./CONTRIBUTING.md",
+    "./README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zulily/react-datum-datagrid.git"
