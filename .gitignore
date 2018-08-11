@@ -3,13 +3,12 @@
 .lastNpmInstall
 .zukeeperRoot
 .cache-loader
+.npmrc
 
 watch.pid
-coffee.log
 tags
 
 coverage/
 node_modules/
 
-# /lib/
-/docs/
+/lib/

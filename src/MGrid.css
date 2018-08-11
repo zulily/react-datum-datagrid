@@ -1,0 +1,21 @@
+
+.ReactVirtualized__Grid .cell {
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-right: 1px solid #ccc;
+}
+
+.ReactVirtualized__Grid .cell-header {
+  background-color: rgb(226, 226, 226);
+}
+
+.ReactVirtualized__Grid .cell-row-odd {
+  background-color: rgb(241, 241, 241);
+}
+
+/* .ReactVirtualized__Grid .cell-locked:not(.cell-header)  {
+  background-color: #fff;
+} */

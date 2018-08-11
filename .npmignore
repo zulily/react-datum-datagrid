@@ -3,9 +3,9 @@
 .lastNpmInstall
 .zukeeperRoot
 .cache-loader
+.npmrc
 
 watch.pid
-coffee.log
 tags
 
 coverage/
