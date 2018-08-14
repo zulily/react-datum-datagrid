@@ -26,6 +26,11 @@ class MGrid extends Component {
     } 
   }
   render() {
+    if (this.props.loading) {
+        return (<div>Loading...</div>)
+      } else if (!this.props.collection || !this.props.collection.length) {
+        return (<div>No Data</div>)
+      }
     return (
         <MultiGrid 
           columnCount={this.props.columns.length}

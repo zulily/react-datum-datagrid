@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Pagination } from 'react-bootstrap'
-import './Paginator.css'
+import './paginator.css'
 
 const propTypes = {
     pageSize: PropTypes.number,
@@ -25,6 +25,9 @@ class Paginator extends Component {
         let { pageSize, total, offset } = this.props
 
         let totalPages = Math.floor(Math.min(total, 10000)/pageSize) - 1
+        if (!totalPages) {
+            totalPages = 1
+        }
         let currentPageNum = Math.floor(offset/pageSize)
 
         let pages = []
@@ -32,8 +35,10 @@ class Paginator extends Component {
         for (i = 0; i < (totalPages > 5 ? 5 : totalPages); i++) {
             pages.push(<Pagination.Item key={i} onClick={this.handleClick.bind(this)} pagenum={i} active={i === currentPageNum}>{i+1}</Pagination.Item>)
         } 
-        pages.push(<Pagination.Ellipsis key={i+1} />)
-        pages.push(<Pagination.Item key={totalPages} onClick={this.handleClick.bind(this)} pagenum={totalPages} active={totalPages === currentPageNum}>{totalPages+1}</Pagination.Item>)
+        if (totalPages > 1) {
+            pages.push(<Pagination.Ellipsis key={i+1} />)
+            pages.push(<Pagination.Item key={totalPages} onClick={this.handleClick.bind(this)} pagenum={totalPages} active={totalPages === currentPageNum}>{totalPages+1}</Pagination.Item>)
+        }
         return pages
     }
     render() {

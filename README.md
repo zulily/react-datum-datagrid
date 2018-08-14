@@ -1,6 +1,8 @@
 react-datum-datagrid
 ====================
 
+TODO: update README
+
 A datagrid built on [react-virtualized](https://github.com/bvaughn/react-virtualized) that works with 
 [react-datum](https://github.com/zulily/react-datum) and [Backbone.js](http://backbonejs.org/)
 

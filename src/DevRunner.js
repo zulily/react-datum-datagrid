@@ -1,17 +1,14 @@
 import React, { Component } from 'react'
 
-import Paginator from './paginator/Paginator'
-// import Datagrid from './datagrid/MGrid'
-import Datagrid from './datagrid/datagrid'
+import Paginator from './paginator/paginator'
+import Datagrid from './datagrid/MGrid'
+// import Datagrid from './datagrid/datagrid'
 
-// Bundle datums in new datagrid
+// Merge mgrid with datagrid 
+// Bundle datums in new datagrid and convert data grid to use bundled datums
 // Demonstrate use of backbone models
 // Show alternative to backbone
 // Add select and copy from datagrid
-
-// Make in seprate repo styling to make it look like Jenn's designs
-
-// I work on the grid refactors and Justin/Jon work on the discontinue skus component
 
 class App extends Component {
   constructor(props) {
@@ -19,9 +16,11 @@ class App extends Component {
     this.state = {
       width: 0,
       height: 0,
-      data: {},
+      data: {
+        styles: []
+      },
       columns: [],
-      pageSize: 30,
+      pageSize: 100,
       loading: false
     }
   }
@@ -69,13 +68,8 @@ class App extends Component {
     }.bind(this))
   }
   render() {
-    if (this.state.loading) {
-      return (<div>Loading...</div>)
-    } else if (!this.state.data.styles || !this.state.data.styles.length) {
-      return (<div>No Data</div>)
-    }
     return (
-      <div className="App" style={{height: window.innerHeight, width: window.innerWidth}}>
+      <div className="App">
         <Paginator 
             pageSize={this.state.pageSize}
             offset={this.state.data.offset}
@@ -83,6 +77,7 @@ class App extends Component {
             onPageClick={this.handlePageClick.bind(this)}
         >
           <Datagrid 
+            loading={this.state.loading}
             columns={this.state.columns}
             collection={this.state.data.styles}
             height={this.state.height}

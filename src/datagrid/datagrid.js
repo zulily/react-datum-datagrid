@@ -11,7 +11,6 @@ import GridScroll from './helpers/gridScroll'
 import GridCopyPaste from './helpers/gridCopyPaste'
 import GridExport from './helpers/gridExport'
 import GridSort from './helpers/gridSort'
-
 import Cell from './cell'
 import HeaderCell from './headerCell'
 
@@ -23,172 +22,6 @@ import './helpers/matchesPolyfill'
 import './datagrid.css'
 
 class Datagrid extends Component {
-
-  displayName = "react-datum-datagrid"
-
-  static propTypes = {
-    collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
-    columns: PropTypes.array,
-    orientation: PropTypes.oneOf(['landscape', 'portrait']),
-    readOnly: PropTypes.bool,
-    headerWidth: PropTypes.number,
-    headerHeight: PropTypes.number,
-    defaultColumnDef: PropTypes.object,
-    defaultCellComponent: PropTypes.any,
-    defaultHeaderComponent: PropTypes.any,
-    disableUndo: PropTypes.bool,
-    sortColumnIndex: PropTypes.number,
-    sortDirection: PropTypes.oneOf(["ASC", "DESC"]),
-    onSelectedCellsChange: PropTypes.func,
-    onSort: PropTypes.func
-  }
-
-  static defaultProps = {
-    headerWidth: 150,
-    headerHeight: 60,
-    orientation: 'landscape',
-    defaultHeaderComponent: HeaderCell,
-    defaultCellComponent: Cell,
-    defaultColumnDef: {
-      width: 120
-    }
-  }
-
-  LOG_UNDO_DEBOUNCE = 1
-
-  undo = {}
-
-  undoIndex = 0
-
-  styles = new ReactStyles({
-    container: {
-      height: '100%',
-      width: '100%',
-      display: 'flex',
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            flexDirection: 'column'
-          }
-        } else {
-          return {
-            flexDirection: 'row'
-          }
-        }
-      }
-    },
-    headers: {
-      display: 'flex',
-      flexGrow: 0,
-      margin: 0,
-      overflow: 'hidden',
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            display: 'block',
-            width: '100%',
-            height: this.props.headerHeight
-          }
-        } else {
-          return {
-            display: 'inline-block',
-            width: this.props.headerWidth,
-            height: '100%'
-          }
-        }
-      }
-    },
-    gridsContainer: {
-      position: "relative",
-      display: "flex",
-      flexGrow: 1,
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            flexDirection: 'row'
-          }
-        } else {
-          return {
-            flexDirection: 'column'
-          }
-        }
-      }
-    },
-    lockedGrid: {
-      flexGrow: 0,
-      overflow: 'hidden',
-      margin: 0,
-      padding: 0,
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            width: this._sumLockedColumnWidths()
-          }
-        } else {
-          return {
-            height: this._sumLockedColumnHeights()
-          }
-        }
-      }
-    },
-    freeGrid: {
-      flexGrow: 1,
-      margin: 0,
-      padding: 0,
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            width: "calc(100% - " + (this._sumLockedColumnWidths()) + "px"
-          }
-        } else {
-          return {
-            height: "calc(100% - " + (this._sumLockedColumnHeights()) + "px"
-          }
-        }
-      },
-      overflow: 'visible'
-    },
-    fixedHeaderCells: {
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            display: 'inline-block',
-            width: this._sumLockedColumnWidths(),
-            height: this.props.headerHeight
-          }
-        } else {
-          return {
-            display: 'block',
-            width: this.props.headerWidth,
-            height: this._sumLockedColumnHeights()
-          }
-        }
-      },
-      verticalAlign: 'top'
-    },
-    scrollingHeaderCells: {
-      includes: function() {
-        if (this.props.orientation === 'landscape') {
-          return {
-            display: 'inline-block',
-            width: "calc(100% - " + (this._sumLockedColumnWidths()) + "px)",
-            height: this.props.headerHeight,
-            overflowY: 'scroll'
-          }
-        } else {
-          return {
-            display: 'block',
-            width: this.props.headerWidth,
-            height: "calc(100% - " + (this._sumLockedColumnHeights()) + "px)",
-            overflowX: 'scroll'
-          }
-        }
-      },
-      marginTop: 1,
-      verticalAlign: 'top',
-      whiteSpace: 'nowrap'
-    }
-  })
 
   constructor(props) {
     super(props)
@@ -205,22 +38,157 @@ class Datagrid extends Component {
     this.getLockedColumnWidth = this.getLockedColumnWidth.bind(this)
     this.freeCellRenderer = this.freeCellRenderer.bind(this)
     this.lockedCellRenderer = this.lockedCellRenderer.bind(this)
+
     this.state = {}
+    this.displayName = "react-datum-datagrid"
+    this.LOG_UNDO_DEBOUNCE = 1
+    this.undo = {}
+    this.undoIndex = 0
 
     this._debouncedForceUpdate = _.debounce(((function(_this) {
       return function() {
         return _this.forceUpdate()
       }
     })(this)), 50)
+
+    this.styles = new ReactStyles({
+      container: {
+        height: '100%',
+        width: '100%',
+        display: 'flex',
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              flexDirection: 'column'
+            }
+          } else {
+            return {
+              flexDirection: 'row'
+            }
+          }
+        }
+      },
+      headers: {
+        display: 'flex',
+        flexGrow: 0,
+        margin: 0,
+        overflow: 'hidden',
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              display: 'block',
+              width: '100%',
+              height: this.props.headerHeight
+            }
+          } else {
+            return {
+              display: 'inline-block',
+              width: this.props.headerWidth,
+              height: '100%'
+            }
+          }
+        }
+      },
+      gridsContainer: {
+        position: "relative",
+        display: "flex",
+        flexGrow: 1,
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              flexDirection: 'row'
+            }
+          } else {
+            return {
+              flexDirection: 'column'
+            }
+          }
+        }
+      },
+      lockedGrid: {
+        flexGrow: 0,
+        overflow: 'hidden',
+        margin: 0,
+        padding: 0,
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              width: this._sumLockedColumnWidths()
+            }
+          } else {
+            return {
+              height: this._sumLockedColumnHeights()
+            }
+          }
+        }
+      },
+      freeGrid: {
+        flexGrow: 1,
+        margin: 0,
+        padding: 0,
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              width: "calc(100% - " + (this._sumLockedColumnWidths()) + "px"
+            }
+          } else {
+            return {
+              height: "calc(100% - " + (this._sumLockedColumnHeights()) + "px"
+            }
+          }
+        },
+        overflow: 'visible'
+      },
+      fixedHeaderCells: {
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              display: 'inline-block',
+              width: this._sumLockedColumnWidths(),
+              height: this.props.headerHeight
+            }
+          } else {
+            return {
+              display: 'block',
+              width: this.props.headerWidth,
+              height: this._sumLockedColumnHeights()
+            }
+          }
+        },
+        verticalAlign: 'top'
+      },
+      scrollingHeaderCells: {
+        includes: function() {
+          if (this.props.orientation === 'landscape') {
+            return {
+              display: 'inline-block',
+              width: "calc(100% - " + (this._sumLockedColumnWidths()) + "px)",
+              height: this.props.headerHeight,
+              overflowY: 'scroll'
+            }
+          } else {
+            return {
+              display: 'block',
+              width: this.props.headerWidth,
+              height: "calc(100% - " + (this._sumLockedColumnHeights()) + "px)",
+              overflowX: 'scroll'
+            }
+          }
+        },
+        marginTop: 1,
+        verticalAlign: 'top',
+        whiteSpace: 'nowrap'
+      }
+    })
     
   }
 
-  style = function(name) {
+  style(name) {
     var ref
     return _.extend({}, this.styles.get(this, name), ((ref = this.props.styles) != null ? ref[name] : void 0) || {})
   }
 
-  static getDerivedStateFromProps = function(nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     var newState
     newState = {}
     if (nextProps.sortColumnIndex !== prevState._cachedSortColumnIndex) {
@@ -235,12 +203,12 @@ class Datagrid extends Component {
     return newState
   }
 
-  componentDidMount = function() {
+  componentDidMount() {
     this._bindDocumentEvents()
     return this._bindCollectionEvents()
   }
 
-  componentDidUpdate = function(prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.collection !== this.props.collection) {
       this._unbindCollectionEvents(prevProps.collection)
       this._bindCollectionEvents()
@@ -251,12 +219,12 @@ class Datagrid extends Component {
     }
   }
 
-  componentWillUnmount = function() {
+  componentWillUnmount() {
     this._unbindDocumentEvents()
     return this._unbindCollectionEvents()
   }
 
-  render = function() {
+  render() {
     let lockedColumns = this._getLockedColumns()
     let freeColumns = this._getFreeColumns()
     let lockedGridProps = {
@@ -315,29 +283,29 @@ class Datagrid extends Component {
     )
   }
 
-  lockedCellRenderer = function(arg) {
+  lockedCellRenderer(arg) {
     return this.cellRenderer(this._getLockedColumns(), 0, arg.columnIndex, arg.rowIndex, arg.key, arg.isVisible, arg.isScrolling, arg.style)
   }
 
-  freeCellRenderer = function(arg) {
+  freeCellRenderer(arg) {
     return this.cellRenderer(this._getFreeColumns(), this._getLockedColumns().length, arg.columnIndex, arg.rowIndex, arg.key, arg.isVisible, arg.isScrolling, arg.style)
   }
 
-  cellRenderer = function(columns, baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style) {
+  cellRenderer(columns, baseColumnIndex, columnIndex, rowIndex, key, isVisible, isScrolling, style) {
     let showPlaceholder = false
     let model = this.getModelAt(rowIndex)
     return this._renderDataCell(columns[columnIndex], model, columnIndex + baseColumnIndex, rowIndex, key, style, showPlaceholder)
   }
 
-  getLockedColumnWidth = function(arg) {
+  getLockedColumnWidth(arg) {
     return this.getColumnWidth(arg.index, this._getLockedColumns())
   }
 
-  getFreeColumnWidth = function(arg) {
+  getFreeColumnWidth(arg) {
     return this.getColumnWidth(arg.index, this._getFreeColumns())
   }
 
-  getColumnWidth = function(index, columns) {
+  getColumnWidth(index, columns) {
     var ref
     if (columns == null) {
       columns = this.props.columns
@@ -345,7 +313,7 @@ class Datagrid extends Component {
     return (ref = columns[index].width) != null ? ref : this.props.defaultColumnDef.width
   }
 
-  getRowCount = function() {
+  getRowCount() {
     if (this.props.collection == null) {
       return 0
     }
@@ -356,15 +324,15 @@ class Datagrid extends Component {
     }
   }
 
-  exportToCsv = function() {
+  exportToCsv() {
 
   }
 
-  getCollection = function() {
+  getCollection() {
     return this.props.collection
   }
 
-  _renderHeaderCells = function(baseIndex, columnDefs) {
+  _renderHeaderCells(baseIndex, columnDefs) {
     var cells, columnDef, index
     cells = (function() {
       var i, len, results
@@ -378,7 +346,7 @@ class Datagrid extends Component {
     return cells
   }
 
-  _renderHeaderCell = function(columnIndex, columnDef) {
+  _renderHeaderCell(columnIndex, columnDef) {
     var HeaderCellComponent, isSelectingThisColumn, isSortedByUs, isSortingByUs, ref, ref1, sortDirection
     if (columnDef == null) {
       return null
@@ -409,7 +377,7 @@ class Datagrid extends Component {
     )
   }
 
-  _renderDataCell = function(columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) {
+  _renderDataCell(columnDef, model, columnIndex, rowIndex, key, style, showPlaceholder) {
     var editingOurselves, props, savingOurselves, value
     style = this._getCellWrapperStyle(style)
     editingOurselves = this.isCellEditing(columnIndex, rowIndex)
@@ -467,19 +435,19 @@ class Datagrid extends Component {
     return React.createElement(CellWrapper, Object.assign({}, props))
   }
 
-  _getLockedColumns = function() {
+  _getLockedColumns() {
     return _.filter(this.props.columns, function(columnDef) {
       return columnDef.locked
     })
   }
 
-  _getFreeColumns = function() {
+  _getFreeColumns() {
     return _.filter(this.props.columns, function(columnDef) {
       return !columnDef.locked
     })
   }
 
-  _sumLockedColumnHeights = function() {
+  _sumLockedColumnHeights() {
     var col, heightOut, i, len, ref, ref1, ref2, ref3, ref4
     heightOut = 0
     ref = this._getLockedColumns()
@@ -493,7 +461,7 @@ class Datagrid extends Component {
     return heightOut
   }
 
-  _sumLockedColumnWidths = function() {
+  _sumLockedColumnWidths() {
     var col, i, len, ref, ref1, ref2, ref3, ref4, widthOut
     widthOut = 0
     ref = this._getLockedColumns()
@@ -507,15 +475,15 @@ class Datagrid extends Component {
     return widthOut
   }
 
-  _getFreeGridHeight = function() {
+  _getFreeGridHeight() {
     return 300
   }
 
-  _getFreeGridWidth = function() {
+  _getFreeGridWidth() {
     return 300
   }
 
-  _convertCssPx = function(value) {
+  _convertCssPx(value) {
     var numerals, ref
     if (value == null) {
       return null
@@ -530,14 +498,14 @@ class Datagrid extends Component {
     return value
   }
 
-  _getCellWrapperStyle = function(style) {
+  _getCellWrapperStyle(style) {
     return _.extend(style, {
       margin: 0,
       padding: 0
     })
   }
 
-  _getDefaultCellStyle = function(columnDef, isHeader) {
+  _getDefaultCellStyle(columnDef, isHeader) {
     var cellStyle, height, ref, ref1, ref2, width
     if (isHeader == null) {
       isHeader = false
@@ -558,55 +526,83 @@ class Datagrid extends Component {
     return cellStyle
   }
 
-  _resetAfterDataTransition = function() {
+  _resetAfterDataTransition() {
     if (this.isDatagridEditing()) {
       this.cancelEditing()
     }
     return this.resetSelectedCells()
   }
 
-  _bindDocumentEvents = function() {
+  _bindDocumentEvents() {
     document.addEventListener('copy', this._onDocumentCopy)
     document.addEventListener('paste', this._onDocumentPaste)
     return document.addEventListener('keydown', this._onDocumentKeyDown)
   }
 
-  _unbindDocumentEvents = function() {
+  _unbindDocumentEvents() {
     document.removeEventListener('copy', this._onDocumentCopy)
     document.removeEventListener('paste', this._onDocumentPaste)
     return document.removeEventListener('keydown', this._onDocumentKeyDown)
   }
 
-  _onDocumentCopy = function(evt) {
+  _onDocumentCopy(evt) {
     return this.GridCopyPaste_onDocumentCopy(evt)
   }
 
-  _onDocumentPaste = function(evt) {
+  _onDocumentPaste(evt) {
     return this.GridCopyPaste_onDocumentPaste(evt)
   }
 
-  _onDocumentKeyDown = function(evt) {
+  _onDocumentKeyDown(evt) {
     return this.GridSelect_onDocumentKeyDown(evt)
   }
 
-  _bindCollectionEvents = function(collection) {
+  _bindCollectionEvents(collection) {
     if (collection == null) {
       collection = this.props.collection
     }
     return collection != null ? typeof collection.on === "function" ? collection.on('reset add remove', this._onCollectionUpdate) : void 0 : void 0
   }
 
-  _unbindCollectionEvents = function(collection) {
+  _unbindCollectionEvents(collection) {
     if (collection == null) {
       collection = this.props.collection
     }
     return collection != null ? typeof collection.off === "function" ? collection.off('reset add remove', this._onCollectionUpdate) : void 0 : void 0
   }
 
-  _onCollectionUpdate = function() {
+  _onCollectionUpdate() {
     return this._debouncedForceUpdate()
   }
   
+}
+
+Datagrid.propTypes = {
+  collection: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  columns: PropTypes.array,
+  orientation: PropTypes.oneOf(['landscape', 'portrait']),
+  readOnly: PropTypes.bool,
+  headerWidth: PropTypes.number,
+  headerHeight: PropTypes.number,
+  defaultColumnDef: PropTypes.object,
+  defaultCellComponent: PropTypes.any,
+  defaultHeaderComponent: PropTypes.any,
+  disableUndo: PropTypes.bool,
+  sortColumnIndex: PropTypes.number,
+  sortDirection: PropTypes.oneOf(["ASC", "DESC"]),
+  onSelectedCellsChange: PropTypes.func,
+  onSort: PropTypes.func
+}
+
+Datagrid.defaultProps = {
+  headerWidth: 150,
+  headerHeight: 60,
+  orientation: 'landscape',
+  defaultHeaderComponent: HeaderCell,
+  defaultCellComponent: Cell,
+  defaultColumnDef: {
+    width: 120
+  }
 }
 
 Mixin(Datagrid, 'GridScroll', GridScroll)

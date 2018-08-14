@@ -5,11 +5,7 @@
     hasProp = {}.hasOwnProperty;
 
   React = require('react');
-
   PropTypes = require('prop-types');
-
-  Backbone = require('backbone');
-
   _ = require('underscore');
 
 

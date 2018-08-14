@@ -7,7 +7,6 @@
 
 watch.pid
 
+dist/
 coverage/
 node_modules/
-
-build

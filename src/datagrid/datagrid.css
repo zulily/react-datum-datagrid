@@ -1,64 +1,61 @@
-
-
-
-.react-datum-datagrid .rdd-headers {
+.react-datum-datagrid.rdd-headers {
   background-color: #eceff6;
   vertical-align: top;
 }
 
-.react-datum-datagrid .rdd-header-wrapper {
+.react-datum-datagrid.rdd-header-wrapper {
   word-break: break-word;
   white-space: pre-wrap;
   vertical-align: top;
 }
 
-.react-datum-datagrid .rdd-header-wrapper a {
+.react-datum-datagrid.rdd-header-wrapper a {
   color: black;
   cursor: pointer;
   margin: 5px;
 }
 
-.react-datum-datagrid .rdd-header-wrapper a:hover {
+.react-datum-datagrid.rdd-header-wrapper a:hover {
   text-decoration: underline;
 }
 
-.react-datum-datagrid .rdd-header-icons {
+.react-datum-datagrid.rdd-header-icons {
   float: right;
   margin-right: 5px;
 }
 
-.react-datum-datagrid .rdd-header-icon {
+.react-datum-datagrid.rdd-header-icon {
   height: 11px;
   width: 11px;
   cursor: pointer;
 }
 
-.react-datum-datagrid .rdd-sort-indicator {
+.react-datum-datagrid.rdd-sort-indicator {
   color: #999999;
   opacity: .4;
 }
 
-.react-datum-datagrid .rdd-sort-indicator-asc {
+.react-datum-datagrid.rdd-sort-indicator-asc {
   color: #0C0C0C;
   opacity: 1;
 }
 
-.react-datum-datagrid .rdd-sort-indicator-desc {
+.react-datum-datagrid.rdd-sort-indicator-desc {
   opacity: 1;
 }
 
-.react-datum-datagrid .rdd-cell-wrapper {
+.react-datum-datagrid.rdd-cell-wrapper {
   word-break: break-word;
   white-space: pre-wrap;
 }
 
 
-.react-datum-datagrid .rdd-cell-selected {
+.react-datum-datagrid.rdd-cell-selected {
   background-color: #91A4CC !important;
   color: whitesmoke;
 }
 
-.react-datum-datagrid .rdd-cell .datum-display-value {
+.react-datum-datagrid.rdd-cell .datum-display-value {
   /* when using a rdd in multi cell selection mode, user-select should probably be disabled */
   -webkit-touch-callout:  none; /* iOS Safari */
   -webkit-user-select:    none; /* Safari */
@@ -69,18 +66,18 @@
                                   supported by Chrome and Opera */  
 }
 
-.react-datum-datagrid .rdd-cell img {
+.react-datum-datagrid.rdd-cell img {
   max-height: 100%;
   max-width: 100%;
 }
 
-.react-datum-datagrid .rdd-cell-indicators {
+.react-datum-datagrid.rdd-cell-indicators {
   float: right;
   margin-right: 5px;
   margin-top: 5px;
 }
 
-.react-datum-datagrid .rdd-editable-indicator {
+.react-datum-datagrid.rdd-editable-indicator {
   background-color: #E0E0E0;
   background-color: rgba(224, 224, 224, 0.5);
   border-radius: 10px;
@@ -91,11 +88,11 @@
   height: 12px;
   width: 12px;
 }
-.react-datum-datagrid .rdd-editable-indicator svg {
+.react-datum-datagrid.rdd-editable-indicator svg {
   fill: currentColor;
 }
 
-.react-datum-datagrid .rdd-saving-indicator {
+.react-datum-datagrid.rdd-saving-indicator {
   color: #cccccc;
   cursor: none;
   display: inline-block;
@@ -107,17 +104,17 @@
   animation:rdd_spin 2s linear infinite;
 }
 
-.react-datum-datagrid .rdd-saving-indicator svg {
+.react-datum-datagrid.rdd-saving-indicator svg {
   fill: currentColor;
 }
 
-.react-datum-datagrid .rdd-was-saved {
+.react-datum-datagrid.rdd-was-saved {
   -webkit-animation: rdd_greenBackgroundFlash 5s linear;
   -moz-animation: rdd_greenBackgroundFlash 5s linear;
   animation: rdd_greenBackgroundFlash 5s linear;
 }
 
-.react-datum-datagrid .rdd-save-error {
+.react-datum-datagrid.rdd-save-error {
   -webkit-animation: rdd_redBackgroundFlash 5s linear infinite;
   -moz-animation: rdd_redBackgroundFlash 5s linear infinite;
   animation: rdd_redBackgroundFlash 5s linear infinite;
@@ -125,7 +122,7 @@
 
 /* TODO : lay this out using 'display: flex' */
 /*   Need input width to leave room for indicator icons in cells */
-.react-datum-datagrid .datum input {
+.react-datum-datagrid.datum input {
   display: inline-block;
   margin-bottom: 1px;
   max-width: calc(100% - 40px);
@@ -135,7 +132,7 @@
 
 
 
-.react-datum-datagrid .datum-invalid {
+.react-datum-datagrid.datum-invalid {
   color: #C70008;
   display: inline-block;
   vertical-align: top;
